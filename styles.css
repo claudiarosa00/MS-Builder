@@ -42,18 +42,18 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
 .cabecalho {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
   background-color: var(--cor-escuro);
   color: #ffffff;
-  padding: 18px 32px;
+  padding: 14px 32px;
   border-top: 4px solid var(--cor-destaque);
 }
 
 .logo-havas {
   display: block;
-  height: 56px;
-  width: 56px;
-  border-radius: 8px;
+  height: 110px;
+  width: 110px;
+  border-radius: 10px;
   flex-shrink: 0;
 }
 
