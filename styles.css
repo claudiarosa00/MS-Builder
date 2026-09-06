@@ -50,7 +50,53 @@ body {
 
 /*
 ============================================
-3. ÁREA DE ESTADO (mensagens de carregamento/erro)
+3. DADOS DA CAMPANHA (Cliente / Campanha)
+============================================
+*/
+.dados-campanha {
+  display: flex;
+  gap: 20px;
+  padding: 20px 32px 0 32px;
+  flex-wrap: wrap;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 240px;
+}
+
+.campo label {
+  font-size: 12px;
+  color: var(--cor-texto-suave);
+  text-transform: uppercase;
+}
+
+.campo input {
+  padding: 10px 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.campo input:focus {
+  outline: 2px solid var(--cor-destaque);
+  outline-offset: 1px;
+}
+
+.resumo-campanha {
+  padding: 8px 32px 0 32px;
+  margin: 0;
+  font-size: 14px;
+  color: var(--cor-destaque);
+  font-weight: bold;
+}
+
+/*
+============================================
+4. ÁREA DE ESTADO (mensagens de carregamento/erro)
 ============================================
 */
 .area-estado {
@@ -66,7 +112,7 @@ body {
 
 /*
 ============================================
-4. LISTA DE FORMATOS AGRUPADA POR PUBLISHER
+5. LISTA DE FORMATOS AGRUPADA POR PUBLISHER
 ============================================
 */
 .lista-formatos {

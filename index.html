@@ -20,7 +20,28 @@
 
   <!--
   ============================================
-  2. ÁREA DE ESTADO / MENSAGENS
+  2. DADOS DA CAMPANHA (Cliente / Campanha)
+  Estes dados vão identificar o pedido de materiais
+  que a app vai gerar mais à frente. Por agora só
+  são guardados e mostrados num resumo, para testar.
+  ============================================
+  -->
+  <section class="dados-campanha">
+    <div class="campo">
+      <label for="campoCliente">Cliente</label>
+      <input type="text" id="campoCliente" placeholder="Nome do cliente">
+    </div>
+    <div class="campo">
+      <label for="campoCampanha">Campanha</label>
+      <input type="text" id="campoCampanha" placeholder="Nome da campanha">
+    </div>
+  </section>
+
+  <p id="resumoCampanha" class="resumo-campanha"></p>
+
+  <!--
+  ============================================
+  3. ÁREA DE ESTADO / MENSAGENS
   Usada para mostrar "A carregar..." ou erros,
   para percebermos sempre o que se está a passar.
   ============================================
@@ -29,7 +50,7 @@
 
   <!--
   ============================================
-  3. LISTA DE FORMATOS (agrupada por publisher)
+  4. LISTA DE FORMATOS (agrupada por publisher)
   Esta é a única funcionalidade desta primeira etapa:
   provar que o formatos.json carrega e é mostrado no ecrã.
   Pesquisa, filtros e seleção vêm nas próximas etapas.

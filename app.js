@@ -5,10 +5,38 @@
 */
 const areaEstado = document.getElementById("areaEstado");
 const listaFormatos = document.getElementById("listaFormatos");
+const campoCliente = document.getElementById("campoCliente");
+const campoCampanha = document.getElementById("campoCampanha");
+const resumoCampanha = document.getElementById("resumoCampanha");
 
 /*
 ============================================
-2. CARREGAR A BASE DE FORMATOS (data/formatos.json)
+2. DADOS DA CAMPANHA (Cliente / Campanha)
+Cada vez que o utilizador escreve num dos campos,
+atualizamos uma frase de resumo, só para confirmarmos
+que os valores estão a ser lidos corretamente.
+Mais à frente, estes dados vão identificar o pedido
+de materiais gerado no fim do processo.
+============================================
+*/
+function atualizarResumoCampanha() {
+  const cliente = campoCliente.value.trim();
+  const campanha = campoCampanha.value.trim();
+
+  if (!cliente && !campanha) {
+    resumoCampanha.textContent = "";
+    return;
+  }
+  resumoCampanha.textContent =
+    `A preparar pedido de materiais para: ${cliente || "(cliente por preencher)"} — ${campanha || "(campanha por preencher)"}`;
+}
+
+campoCliente.addEventListener("input", atualizarResumoCampanha);
+campoCampanha.addEventListener("input", atualizarResumoCampanha);
+
+/*
+============================================
+3. CARREGAR A BASE DE FORMATOS (data/formatos.json)
 Esta é a única fonte de dados da aplicação nesta fase.
 Se um dia a base mudar (outro sistema, outra base de dados),
 só este pedaço de código precisa de mudar — o resto da app
@@ -39,7 +67,7 @@ function mostrarEstado(mensagem, ehErro = false) {
 
 /*
 ============================================
-3. AGRUPAR FORMATOS POR PUBLISHER
+4. AGRUPAR FORMATOS POR PUBLISHER
 Transforma a lista simples de formatos num objeto onde
 cada chave é o nome do publisher, e o valor é a lista dos
 seus formatos. Facilita depois desenhar a lista no ecrã.
@@ -59,7 +87,7 @@ function agruparPorPublisher(formatos) {
 
 /*
 ============================================
-4. DESENHAR OS FORMATOS NO ECRÃ
+5. DESENHAR OS FORMATOS NO ECRÃ
 Para cada publisher, cria um bloco com uma tabela dos
 seus formatos e respetivas especificações.
 ============================================
@@ -130,7 +158,7 @@ function criarLinhaFormato(formato) {
 
 /*
 ============================================
-5. ARRANQUE DA APLICAÇÃO
+6. ARRANQUE DA APLICAÇÃO
 ============================================
 */
 carregarFormatos();
