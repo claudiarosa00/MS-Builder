@@ -49,6 +49,31 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   border-top: 4px solid var(--cor-destaque);
 }
 
+.seletor-idioma {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+.seletor-idioma label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #b8b5b3;
+}
+
+.seletor-idioma select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-family: var(--fonte-base);
+  font-size: 13px;
+}
+
 .logo-havas {
   display: block;
   height: 110px;

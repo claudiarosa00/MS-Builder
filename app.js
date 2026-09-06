@@ -7,6 +7,7 @@ const areaEstado = document.getElementById("areaEstado");
 const listaFormatos = document.getElementById("listaFormatos");
 const listaSpecs = document.getElementById("listaSpecs");
 const indicePublishers = document.getElementById("indicePublishers");
+const campoIdioma = document.getElementById("campoIdioma");
 const campoCompanhia = document.getElementById("campoCompanhia");
 const campoCliente = document.getElementById("campoCliente");
 const campoCampanha = document.getElementById("campoCampanha");
@@ -28,10 +29,106 @@ let todosFormatos = [];
 const idsSelecionados = new Set();
 let tabAtiva = "construir";
 let categoriaFiltroAtiva = "todas";
+let idiomaAtual = "pt";
 
 /*
 ============================================
-2. TABS (Construir Pedido / Base de Specs)
+2. TRADUÇÕES (Português / English / Español / Français)
+Só traduzimos o texto da interface (menus, botões, mensagens)
+e os cabeçalhos do Excel exportado. Os DADOS em si — nomes de
+formatos, dimensões, publishers — nunca são traduzidos, porque
+vêm da base real e alterá-los seria falsificar informação técnica.
+
+t(chave) devolve o texto na língua atual. Para textos com partes
+variáveis (ex.: contagens, nomes), usa-se formatar(chave, valores),
+que substitui marcadores como {n} pelo valor indicado.
+============================================
+*/
+const TRADUCOES = {
+  subtitulo: { pt: "Construtor de Specs Criativas", en: "Creative Specs Builder", es: "Constructor de Specs Creativas", fr: "Générateur de Specs Créatives" },
+  labelIdioma: { pt: "Idioma", en: "Language", es: "Idioma", fr: "Langue" },
+  labelCompanhia: { pt: "Companhia", en: "Company", es: "Compañía", fr: "Société" },
+  labelCliente: { pt: "Cliente", en: "Client", es: "Cliente", fr: "Client" },
+  placeholderCliente: { pt: "Nome do cliente", en: "Client name", es: "Nombre del cliente", fr: "Nom du client" },
+  labelCampanha: { pt: "Campanha", en: "Campaign", es: "Campaña", fr: "Campagne" },
+  placeholderCampanha: { pt: "Nome da campanha", en: "Campaign name", es: "Nombre de la campaña", fr: "Nom de la campagne" },
+  tabConstruir: { pt: "Construir Pedido", en: "Build Request", es: "Crear Pedido", fr: "Créer la Demande" },
+  tabSpecs: { pt: "Base de Specs", en: "Specs Database", es: "Base de Specs", fr: "Base de Specs" },
+  placeholderPesquisa: { pt: "Pesquisar formato ou publisher...", en: "Search format or publisher...", es: "Buscar formato o publisher...", fr: "Rechercher un format ou un publisher..." },
+  filtroTodas: { pt: "Todas", en: "All", es: "Todas", fr: "Toutes" },
+  filtroSocialMedia: { pt: "Social Media", en: "Social Media", es: "Social Media", fr: "Social Media" },
+  filtroCompraDireta: { pt: "Compra Direta", en: "Direct Buy", es: "Compra Directa", fr: "Achat Direct" },
+  filtroGoogleSearch: { pt: "Google ou Search", en: "Google & Search", es: "Google o Búsqueda", fr: "Google ou Recherche" },
+  botaoExportar: { pt: "Exportar para Excel", en: "Export to Excel", es: "Exportar a Excel", fr: "Exporter vers Excel" },
+  semResultados: { pt: "Nenhum formato encontrado com estes filtros.", en: "No formats found with these filters.", es: "No se encontraron formatos con estos filtros.", fr: "Aucun format trouvé avec ces filtres." },
+  estadoCarregando: { pt: "A carregar formatos...", en: "Loading formats...", es: "Cargando formatos...", fr: "Chargement des formats..." },
+  estadoCarregado: { pt: "{n} formatos carregados.", en: "{n} formats loaded.", es: "{n} formatos cargados.", fr: "{n} formats chargés." },
+  estadoErro: { pt: "Erro ao carregar os formatos: {msg}", en: "Error loading formats: {msg}", es: "Error al cargar los formatos: {msg}", fr: "Erreur lors du chargement des formats : {msg}" },
+  resumoCampanhaTexto: { pt: "A preparar pedido para: {cliente} — {campanha}", en: "Preparing request for: {cliente} — {campanha}", es: "Preparando el pedido para: {cliente} — {campanha}", fr: "Préparation de la demande pour : {cliente} — {campanha}" },
+  clientePorPreencher: { pt: "(cliente por preencher)", en: "(client pending)", es: "(cliente por completar)", fr: "(client à renseigner)" },
+  campanhaPorPreencher: { pt: "(campanha por preencher)", en: "(campaign pending)", es: "(campaña por completar)", fr: "(campagne à renseigner)" },
+  contagemFormatos: { pt: " ({n} formatos)", en: " ({n} formats)", es: " ({n} formatos)", fr: " ({n} formats)" },
+  colFormato: { pt: "Formato", en: "Format", es: "Formato", fr: "Format" },
+  colGrupoDigital2020: { pt: "Grupo Digital2020", en: "Digital2020 Group", es: "Grupo Digital2020", fr: "Groupe Digital2020" },
+  colDimensao: { pt: "Dimensão", en: "Dimensions", es: "Dimensión", fr: "Dimensions" },
+  colPeso: { pt: "Peso", en: "File Size", es: "Peso", fr: "Poids" },
+  colTipoFicheiro: { pt: "Tipo de ficheiro", en: "File Type", es: "Tipo de archivo", fr: "Type de fichier" },
+  colFonte: { pt: "Fonte", en: "Source", es: "Fuente", fr: "Source" },
+  colCanal: { pt: "Canal", en: "Channel", es: "Canal", fr: "Canal" },
+  colDataEntrega: { pt: "Data de entrega", en: "Delivery Date", es: "Fecha de entrega", fr: "Date de livraison" },
+  naoEspecificado: { pt: "não especificado", en: "not specified", es: "no especificado", fr: "non spécifié" },
+  verSpecsLink: { pt: "Ver specs ↗", en: "View specs ↗", es: "Ver specs ↗", fr: "Voir specs ↗" },
+  resumoSelecaoTitulo: { pt: "Formatos selecionados ({n})", en: "Selected formats ({n})", es: "Formatos seleccionados ({n})", fr: "Formats sélectionnés ({n})" },
+  excelLabelCompanhia: { pt: "Companhia:", en: "Company:", es: "Compañía:", fr: "Société:" },
+  excelLabelCliente: { pt: "Cliente:", en: "Client:", es: "Cliente:", fr: "Client:" },
+  excelLabelCampanha: { pt: "Campanha:", en: "Campaign:", es: "Campaña:", fr: "Campagne:" },
+  excelLabelMeio: { pt: "Meio:", en: "Media:", es: "Medio:", fr: "Média:" },
+  excelNomeFolha: { pt: "Pedido de Specs", en: "Creative Specs Request", es: "Pedido de Specs", fr: "Demande de Specs" },
+  excelNomeFicheiroPrefixo: { pt: "Pedido_Specs", en: "Creative_Specs_Request", es: "Pedido_Specs", fr: "Demande_Specs" },
+  valorPreencher: { pt: "(preencher)", en: "(fill in)", es: "(completar)", fr: "(à renseigner)" },
+};
+
+function t(chave) {
+  return TRADUCOES[chave][idiomaAtual] || TRADUCOES[chave].pt;
+}
+
+function formatar(chave, valores) {
+  let texto = t(chave);
+  for (const [marcador, valor] of Object.entries(valores)) {
+    texto = texto.replace(`{${marcador}}`, valor);
+  }
+  return texto;
+}
+
+// Aplica as traduções a todo o texto estático da página (o que está
+// marcado no HTML com data-i18n / data-i18n-placeholder). O texto
+// gerado dinamicamente (tabelas, mensagens) é tratado à parte, nas
+// funções que o constroem.
+function aplicarTraducoesEstaticas() {
+  document.querySelectorAll("[data-i18n]").forEach((elemento) => {
+    elemento.textContent = t(elemento.dataset.i18n);
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((elemento) => {
+    elemento.placeholder = t(elemento.dataset.i18nPlaceholder);
+  });
+}
+
+campoIdioma.addEventListener("change", () => {
+  idiomaAtual = campoIdioma.value;
+  aplicarTraducoesEstaticas();
+  atualizarResumoCampanha();
+  // Refazer as duas listas e o resumo da seleção, para os textos
+  // gerados em JavaScript (cabeçalhos de tabela, "não especificado",
+  // etc.) mudarem de língua também — sem voltar a carregar os dados.
+  mostrarFormatosAgrupados(listaFormatos, todosFormatos, { comCheckbox: true, comLink: false, simplificado: true, prefixoId: "construir" });
+  mostrarFormatosAgrupados(listaSpecs, todosFormatos, { comCheckbox: false, comLink: true, simplificado: false, prefixoId: "specs" });
+  aplicarFiltros();
+  atualizarResumoSelecao();
+});
+
+/*
+============================================
+3. TABS (Construir Pedido / Base de Specs)
 Trocar de tab é só mostrar/esconder o painel certo e
 voltar a construir o índice lateral, porque cada tab
 tem a sua própria lista de secções por publisher.
@@ -56,7 +153,7 @@ function mudarTab(nomeTab) {
 
 /*
 ============================================
-3. DADOS DA CAMPANHA (Cliente / Campanha)
+4. DADOS DA CAMPANHA (Cliente / Campanha)
 ============================================
 */
 function atualizarResumoCampanha() {
@@ -67,8 +164,10 @@ function atualizarResumoCampanha() {
     resumoCampanha.textContent = "";
     return;
   }
-  resumoCampanha.textContent =
-    `A preparar pedido de materiais para: ${cliente || "(cliente por preencher)"} — ${campanha || "(campanha por preencher)"}`;
+  resumoCampanha.textContent = formatar("resumoCampanhaTexto", {
+    cliente: cliente || t("clientePorPreencher"),
+    campanha: campanha || t("campanhaPorPreencher"),
+  });
 }
 
 campoCliente.addEventListener("input", atualizarResumoCampanha);
@@ -76,7 +175,7 @@ campoCampanha.addEventListener("input", atualizarResumoCampanha);
 
 /*
 ============================================
-4. CARREGAR A BASE DE FORMATOS (data/formatos.json)
+5. CARREGAR A BASE DE FORMATOS (data/formatos.json)
 Esta é a única fonte de dados da aplicação nesta fase.
 Se um dia a base mudar (outro sistema, outra base de dados),
 só este pedaço de código precisa de mudar — o resto da app
@@ -84,7 +183,7 @@ continua a trabalhar com a mesma lista de formatos.
 ============================================
 */
 async function carregarFormatos() {
-  mostrarEstado("A carregar formatos...");
+  mostrarEstado(t("estadoCarregando"));
 
   try {
     const resposta = await fetch("data/formatos.json");
@@ -98,12 +197,12 @@ async function carregarFormatos() {
     // checkboxes vão usar para dizer qual formato foi selecionado.
     todosFormatos = formatos.map((formato, indice) => ({ ...formato, id: indice }));
 
-    mostrarEstado(`${todosFormatos.length} formatos carregados.`);
+    mostrarEstado(formatar("estadoCarregado", { n: todosFormatos.length }));
     mostrarFormatosAgrupados(listaFormatos, todosFormatos, { comCheckbox: true, comLink: false, simplificado: true, prefixoId: "construir" });
     mostrarFormatosAgrupados(listaSpecs, todosFormatos, { comCheckbox: false, comLink: true, simplificado: false, prefixoId: "specs" });
     aplicarFiltros();
   } catch (erro) {
-    mostrarEstado(`Erro ao carregar os formatos: ${erro.message}`, true);
+    mostrarEstado(formatar("estadoErro", { msg: erro.message }), true);
     console.error(erro);
   }
 }
@@ -115,7 +214,7 @@ function mostrarEstado(mensagem, ehErro = false) {
 
 /*
 ============================================
-5. AGRUPAR FORMATOS POR PUBLISHER
+6. AGRUPAR FORMATOS POR PUBLISHER
 Transforma a lista simples de formatos num objeto onde
 cada chave é o nome do publisher, e o valor é a lista dos
 seus formatos. Facilita depois desenhar a lista no ecrã.
@@ -157,7 +256,7 @@ function categoriaDoPublisher(nomePublisher, formatosDoPublisher) {
 
 /*
 ============================================
-6. DESENHAR OS FORMATOS NO ECRÃ
+7. DESENHAR OS FORMATOS NO ECRÃ
 Serve tanto para a tab "Construir Pedido" (com checkboxes)
 como para a tab "Base de Specs" (sem checkboxes, com link).
 opcoes.prefixoId garante que os ids das secções não se
@@ -187,7 +286,7 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes) {
   titulo.textContent = nomePublisher;
   const contagem = document.createElement("span");
   contagem.className = "contagem";
-  contagem.textContent = ` (${formatosDoPublisher.length} formatos)`;
+  contagem.textContent = formatar("contagemFormatos", { n: formatosDoPublisher.length });
   titulo.appendChild(contagem);
   bloco.appendChild(titulo);
 
@@ -208,7 +307,7 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes) {
 function criarCabecalhoTabela(opcoes) {
   const cabecalho = document.createElement("thead");
   const colunaCheckbox = opcoes.comCheckbox ? "<th></th>" : "";
-  const colunaLink = opcoes.comLink ? "<th>Fonte</th>" : "";
+  const colunaLink = opcoes.comLink ? `<th>${t("colFonte")}</th>` : "";
 
   // Na tab "Construir Pedido" (simplificado) só mostramos o essencial para
   // escolher — nome do formato e o grupo Digital2020. As specs completas
@@ -218,8 +317,8 @@ function criarCabecalhoTabela(opcoes) {
     cabecalho.innerHTML = `
       <tr>
         ${colunaCheckbox}
-        <th>Formato</th>
-        <th>Grupo Digital2020</th>
+        <th>${t("colFormato")}</th>
+        <th>${t("colGrupoDigital2020")}</th>
       </tr>
     `;
     return cabecalho;
@@ -228,11 +327,11 @@ function criarCabecalhoTabela(opcoes) {
   cabecalho.innerHTML = `
     <tr>
       ${colunaCheckbox}
-      <th>Formato</th>
-      <th>Grupo Digital2020</th>
-      <th>Dimensão</th>
-      <th>Peso</th>
-      <th>Tipo de ficheiro</th>
+      <th>${t("colFormato")}</th>
+      <th>${t("colGrupoDigital2020")}</th>
+      <th>${t("colDimensao")}</th>
+      <th>${t("colPeso")}</th>
+      <th>${t("colTipoFicheiro")}</th>
       ${colunaLink}
     </tr>
   `;
@@ -255,15 +354,15 @@ function criarLinhaFormato(formato, opcoes) {
   }
 
   const colunaLink = opcoes.comLink
-    ? `<td>${formato.link ? `<a href="${formato.link}" target="_blank" rel="noopener">Ver specs ↗</a>` : "—"}</td>`
+    ? `<td>${formato.link ? `<a href="${formato.link}" target="_blank" rel="noopener">${t("verSpecsLink")}</a>` : "—"}</td>`
     : "";
   linha.innerHTML = `
     ${colunaCheckbox}
     <td>${formato.formato ?? ""}</td>
     <td><span class="etiqueta-dg2020">${formato.grupoDigital2020 ?? "—"}</span></td>
-    <td>${formato.dimensao ?? "não especificado"}</td>
-    <td>${formato.peso ?? "não especificado"}</td>
-    <td>${formato.tipoFicheiro ?? "não especificado"}</td>
+    <td>${formato.dimensao ?? t("naoEspecificado")}</td>
+    <td>${formato.peso ?? t("naoEspecificado")}</td>
+    <td>${formato.tipoFicheiro ?? t("naoEspecificado")}</td>
     ${colunaLink}
   `;
   return linha;
@@ -271,7 +370,7 @@ function criarLinhaFormato(formato, opcoes) {
 
 /*
 ============================================
-7. ÍNDICE LATERAL DE PUBLISHERS (agrupado por categoria)
+8. ÍNDICE LATERAL DE PUBLISHERS (agrupado por categoria)
 Constrói a lista de links a partir das secções que já
 estão desenhadas na tab ativa (lê o "data-publisher" e o
 "data-categoria" que cada bloco de publisher já tem).
@@ -314,7 +413,7 @@ function atualizarIndicePublishers() {
 
 /*
 ============================================
-8. FILTROS (pesquisa + categoria)
+9. FILTROS (pesquisa + categoria)
 Em vez de esconder e voltar a construir a lista toda,
 só ligamos/desligamos a visibilidade das linhas e dos
 blocos de publisher que já existem no ecrã — mais rápido,
@@ -362,7 +461,7 @@ function aplicarFiltros() {
 
 /*
 ============================================
-9. SELEÇÃO DE FORMATOS
+10. SELEÇÃO DE FORMATOS
 Em vez de pôr um "ouvinte" em cada checkbox (são centenas),
 ouvimos os cliques uma vez no contentor todo (listaFormatos)
 e verificamos se o clique foi numa checkbox. É mais eficiente
@@ -399,14 +498,14 @@ function atualizarResumoSelecao() {
     .join("");
 
   resumoSelecao.innerHTML = `
-    <h2>Formatos selecionados (${formatosSelecionados.length})</h2>
+    <h2>${formatar("resumoSelecaoTitulo", { n: formatosSelecionados.length })}</h2>
     <ul>${itens}</ul>
   `;
 }
 
 /*
 ============================================
-10. EXPORTAR PARA EXCEL (pedido de materiais)
+11. EXPORTAR PARA EXCEL (pedido de specs)
 Gera um ficheiro .xlsx, no estilo do template real da
 agência (cabeçalho colorido, bloco Companhia/Cliente/
 Campanha/Meio no topo), só com os formatos selecionados.
@@ -443,11 +542,11 @@ async function exportarSelecaoParaExcel() {
 
   const companhia = campoCompanhia.value;
   const config = CONFIGURACAO_COMPANHIA[companhia];
-  const cliente = campoCliente.value.trim() || "(preencher)";
-  const campanha = campoCampanha.value.trim() || "(preencher)";
+  const cliente = campoCliente.value.trim() || t("valorPreencher");
+  const campanha = campoCampanha.value.trim() || t("valorPreencher");
 
   const workbook = new ExcelJS.Workbook();
-  const folha = workbook.addWorksheet("Pedido de Materiais");
+  const folha = workbook.addWorksheet(t("excelNomeFolha"));
 
   // Sem gridlines — só a tabela em si vai ter linhas (mais abaixo),
   // para o Excel ficar limpo e não parecer uma grelha genérica.
@@ -470,22 +569,22 @@ async function exportarSelecaoParaExcel() {
 
   // --- Bloco Companhia / Cliente / Campanha / Meio, no topo ---
   const estiloRotulo = { font: { name: "Arial", size: 10, bold: true, color: { argb: "FF5B6678" } } };
-  folha.getCell("E3").value = "Companhia:";
+  folha.getCell("E3").value = t("excelLabelCompanhia");
   folha.getCell("E3").style = estiloRotulo;
   folha.getCell("F3").value = companhia;
-  folha.getCell("E4").value = "Cliente:";
+  folha.getCell("E4").value = t("excelLabelCliente");
   folha.getCell("E4").style = estiloRotulo;
   folha.getCell("F4").value = cliente;
-  folha.getCell("E5").value = "Campanha:";
+  folha.getCell("E5").value = t("excelLabelCampanha");
   folha.getCell("E5").style = estiloRotulo;
   folha.getCell("F5").value = campanha;
-  folha.getCell("E6").value = "Meio:";
+  folha.getCell("E6").value = t("excelLabelMeio");
   folha.getCell("E6").style = estiloRotulo;
   folha.getCell("F6").value = "Digital";
 
   // --- Cabeçalho da tabela ---
   const linhaCabecalho = 10;
-  const colunas = ["#", "Canal", "Formato", "Dimensão", "Peso", "Tipo de Ficheiro", "Data de entrega"];
+  const colunas = ["#", t("colCanal"), t("colFormato"), t("colDimensao"), t("colPeso"), t("colTipoFicheiro"), t("colDataEntrega")];
   colunas.forEach((titulo, indice) => {
     const celula = folha.getCell(linhaCabecalho, indice + 1);
     celula.value = titulo;
@@ -502,9 +601,9 @@ async function exportarSelecaoParaExcel() {
       indice + 1,
       formato.fornecedor,
       formato.formato,
-      formato.dimensao || "não especificado",
-      formato.peso || "não especificado",
-      formato.tipoFicheiro || "não especificado",
+      formato.dimensao || t("naoEspecificado"),
+      formato.peso || t("naoEspecificado"),
+      formato.tipoFicheiro || t("naoEspecificado"),
       "",
     ];
     linha.eachCell((celula) => {
@@ -517,7 +616,7 @@ async function exportarSelecaoParaExcel() {
   // --- Gerar o ficheiro e fazer o download no browser ---
   const buffer = await workbook.xlsx.writeBuffer();
   const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-  const nomeFicheiro = `Pedido_Materiais_${cliente}_${campanha}.xlsx`.replace(/[\\/:*?"<>|]/g, "-");
+  const nomeFicheiro = `${t("excelNomeFicheiroPrefixo")}_${cliente}_${campanha}.xlsx`.replace(/[\\/:*?"<>|]/g, "-");
 
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
@@ -528,8 +627,9 @@ async function exportarSelecaoParaExcel() {
 
 /*
 ============================================
-11. ARRANQUE DA APLICAÇÃO
+12. ARRANQUE DA APLICAÇÃO
 ============================================
 */
+aplicarTraducoesEstaticas();
 carregarFormatos();
 atualizarResumoSelecao();

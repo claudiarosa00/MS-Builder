@@ -17,7 +17,16 @@
     <img class="logo-havas" src="assets/havas-logo.png" alt="Havas Media Network">
     <div class="cabecalho-texto">
       <h1><span class="titulo-acento">CS</span>Builder</h1>
-      <p class="subtitulo">Creative Specs Builder</p>
+      <p class="subtitulo" data-i18n="subtitulo">Creative Specs Builder</p>
+    </div>
+    <div class="seletor-idioma">
+      <label for="campoIdioma" data-i18n="labelIdioma">Idioma</label>
+      <select id="campoIdioma">
+        <option value="pt">Português</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+      </select>
     </div>
   </header>
 
@@ -30,8 +39,8 @@
   ============================================
   -->
   <div class="barra-tabs" role="tablist">
-    <button type="button" class="tab-botao" data-tab="construir" aria-selected="true">Construir Pedido</button>
-    <button type="button" class="tab-botao" data-tab="specs" aria-selected="false">Base de Specs</button>
+    <button type="button" class="tab-botao" data-tab="construir" aria-selected="true" data-i18n="tabConstruir">Construir Pedido</button>
+    <button type="button" class="tab-botao" data-tab="specs" aria-selected="false" data-i18n="tabSpecs">Base de Specs</button>
   </div>
 
   <!--
@@ -57,12 +66,12 @@
       ============================================
       -->
       <div class="barra-filtros">
-        <input type="text" id="campoPesquisa" placeholder="Pesquisar formato ou publisher...">
+        <input type="text" id="campoPesquisa" data-i18n-placeholder="placeholderPesquisa" placeholder="Pesquisar formato ou publisher...">
         <div class="filtros-categoria">
-          <button type="button" class="filtro-categoria ativo" data-categoria="todas">Todas</button>
-          <button type="button" class="filtro-categoria" data-categoria="Social Media">Social Media</button>
-          <button type="button" class="filtro-categoria" data-categoria="Compra Direta">Compra Direta</button>
-          <button type="button" class="filtro-categoria" data-categoria="Google ou Search">Google ou Search</button>
+          <button type="button" class="filtro-categoria ativo" data-categoria="todas" data-i18n="filtroTodas">Todas</button>
+          <button type="button" class="filtro-categoria" data-categoria="Social Media" data-i18n="filtroSocialMedia">Social Media</button>
+          <button type="button" class="filtro-categoria" data-categoria="Compra Direta" data-i18n="filtroCompraDireta">Compra Direta</button>
+          <button type="button" class="filtro-categoria" data-categoria="Google ou Search" data-i18n="filtroGoogleSearch">Google ou Search</button>
         </div>
       </div>
 
@@ -75,19 +84,19 @@
 
         <section class="dados-campanha">
           <div class="campo">
-            <label for="campoCompanhia">Companhia</label>
+            <label for="campoCompanhia" data-i18n="labelCompanhia">Companhia</label>
             <select id="campoCompanhia">
               <option value="Havas Media">Havas Media</option>
               <option value="Arena Media">Arena Media</option>
             </select>
           </div>
           <div class="campo">
-            <label for="campoCliente">Cliente</label>
-            <input type="text" id="campoCliente" placeholder="Nome do cliente">
+            <label for="campoCliente" data-i18n="labelCliente">Cliente</label>
+            <input type="text" id="campoCliente" data-i18n-placeholder="placeholderCliente" placeholder="Nome do cliente">
           </div>
           <div class="campo">
-            <label for="campoCampanha">Campanha</label>
-            <input type="text" id="campoCampanha" placeholder="Nome da campanha">
+            <label for="campoCampanha" data-i18n="labelCampanha">Campanha</label>
+            <input type="text" id="campoCampanha" data-i18n-placeholder="placeholderCampanha" placeholder="Nome da campanha">
           </div>
         </section>
 
@@ -96,13 +105,13 @@
         <div class="barra-fixa">
           <aside id="resumoSelecao" class="resumo-selecao"></aside>
           <div id="areaExportar" class="area-exportar">
-            <button id="botaoExportar" type="button" disabled>Exportar para Excel</button>
+            <button id="botaoExportar" type="button" disabled data-i18n="botaoExportar">Exportar para Excel</button>
           </div>
         </div>
 
         <section id="areaEstado" class="area-estado"></section>
 
-        <p id="semResultadosConstruir" class="sem-resultados" hidden>Nenhum formato encontrado com estes filtros.</p>
+        <p id="semResultadosConstruir" class="sem-resultados" hidden data-i18n="semResultados">Nenhum formato encontrado com estes filtros.</p>
 
         <!-- Lista com checkboxes, para selecionar formatos para o pedido -->
         <main id="listaFormatos" class="lista-formatos"></main>
@@ -116,7 +125,7 @@
       ============================================
       -->
       <section id="tabSpecs" class="painel-tab" hidden>
-        <p id="semResultadosSpecs" class="sem-resultados" hidden>Nenhum formato encontrado com estes filtros.</p>
+        <p id="semResultadosSpecs" class="sem-resultados" hidden data-i18n="semResultados">Nenhum formato encontrado com estes filtros.</p>
         <main id="listaSpecs" class="lista-formatos"></main>
       </section>
 
