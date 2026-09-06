@@ -56,7 +56,7 @@ const TRADUCOES = {
   labelCampanha: { pt: "Campanha", en: "Campaign", es: "Campaña", fr: "Campagne" },
   placeholderCampanha: { pt: "Nome da campanha", en: "Campaign name", es: "Nombre de la campaña", fr: "Nom de la campagne" },
   tabConstruir: { pt: "Construir Pedido", en: "Build Request", es: "Crear Pedido", fr: "Créer la Demande" },
-  tabSpecs: { pt: "Base de Specs", en: "Specs Database", es: "Base de Specs", fr: "Base de Specs" },
+  tabSpecs: { pt: "Biblioteca de Formatos", en: "Format Library", es: "Biblioteca de Formatos", fr: "Bibliothèque de Formats" },
   placeholderPesquisa: { pt: "Pesquisar formato ou publisher...", en: "Search format or publisher...", es: "Buscar formato o publisher...", fr: "Rechercher un format ou un publisher..." },
   filtroTodas: { pt: "Todas", en: "All", es: "Todas", fr: "Toutes" },
   filtroSocialMedia: { pt: "Social Media", en: "Social Media", es: "Social Media", fr: "Social Media" },
@@ -133,7 +133,7 @@ campoIdioma.addEventListener("change", () => {
 
 /*
 ============================================
-3. TABS (Construir Pedido / Base de Specs)
+3. TABS (Construir Pedido / Biblioteca de Formatos)
 Trocar de tab é só mostrar/esconder o painel certo e
 voltar a construir o índice lateral, porque cada tab
 tem a sua própria lista de secções por publisher.
@@ -267,7 +267,7 @@ function categoriaDoPublisher(nomePublisher, formatosDoPublisher) {
 ============================================
 7. DESENHAR OS FORMATOS NO ECRÃ
 Serve tanto para a tab "Construir Pedido" (com checkboxes)
-como para a tab "Base de Specs" (sem checkboxes, com link).
+como para a tab "Biblioteca de Formatos" (sem checkboxes, com link).
 opcoes.prefixoId garante que os ids das secções não se
 repetem entre as duas tabs (têm de ser únicos na página).
 ============================================
@@ -354,7 +354,7 @@ function criarCabecalhoTabela(opcoes) {
 
   // Na tab "Construir Pedido" (simplificado) só mostramos o essencial para
   // escolher — nome do formato e o grupo Digital2020. As specs completas
-  // (dimensão, peso, tipo de ficheiro) ficam só na tab "Base de Specs",
+  // (dimensão, peso, tipo de ficheiro) ficam só na tab "Biblioteca de Formatos",
   // para a seleção não ficar cheia de informação que ainda não é precisa.
   if (opcoes.simplificado) {
     cabecalho.innerHTML = `
