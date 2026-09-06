@@ -20,15 +20,34 @@ const paineisTab = { construir: document.getElementById("tabConstruir"), specs: 
 const campoPesquisa = document.getElementById("campoPesquisa");
 const botoesFiltroCategoria = document.querySelectorAll(".filtro-categoria");
 const botaoLimparFiltros = document.getElementById("botaoLimparFiltros");
+const botoesObjetivo = document.querySelectorAll(".objetivo-botao");
 const mensagensSemResultados = {
   construir: document.getElementById("semResultadosConstruir"),
   specs: document.getElementById("semResultadosSpecs"),
 };
 
-// Lista completa de formatos carregados (com um "id" único acrescentado a cada um)
-// e o conjunto de ids que o utilizador foi selecionando através das checkboxes.
+// Lista completa de formatos carregados (com um "id" único acrescentado a cada um).
 let todosFormatos = [];
-const idsSelecionados = new Set();
+
+// O pedido divide-se por objetivo de campanha: o mesmo formato pode ser
+// pedido mais que uma vez (ex.: "Single Image" para Awareness E para
+// Conversion), porque agência e cliente tratam-nos como criatividades/copies
+// distintas mesmo quando as specs técnicas são iguais. Por isso a seleção
+// não é um único conjunto de ids — é um conjunto por objetivo, e o utilizador
+// vê/marca sempre o conjunto do objetivo ativo no momento.
+const OBJETIVOS = ["awareness", "consideration", "conversion"];
+const CHAVE_TRADUCAO_OBJETIVO = {
+  awareness: "objetivoAwareness",
+  consideration: "objetivoConsideration",
+  conversion: "objetivoConversion",
+};
+let objetivoAtivo = "awareness";
+const selecoesPorObjetivo = {
+  awareness: new Set(),
+  consideration: new Set(),
+  conversion: new Set(),
+};
+
 let tabAtiva = "construir";
 let categoriaFiltroAtiva = "todas";
 let idiomaAtual = "pt";
@@ -54,6 +73,10 @@ const TRADUCOES = {
   labelCliente: { pt: "Cliente", en: "Client", es: "Cliente", fr: "Client" },
   placeholderCliente: { pt: "Nome do cliente", en: "Client name", es: "Nombre del cliente", fr: "Nom du client" },
   labelCampanha: { pt: "Campanha", en: "Campaign", es: "Campaña", fr: "Campagne" },
+  labelObjetivo: { pt: "Objetivo", en: "Objective", es: "Objetivo", fr: "Objectif" },
+  objetivoAwareness: { pt: "Awareness", en: "Awareness", es: "Awareness", fr: "Awareness" },
+  objetivoConsideration: { pt: "Consideration", en: "Consideration", es: "Consideration", fr: "Consideration" },
+  objetivoConversion: { pt: "Conversion", en: "Conversion", es: "Conversion", fr: "Conversion" },
   placeholderCampanha: { pt: "Nome da campanha", en: "Campaign name", es: "Nombre de la campaña", fr: "Nom de la campagne" },
   tabConstruir: { pt: "Construir Pedido", en: "Create Request", es: "Crear Solicitud", fr: "Créer la Demande" },
   tabSpecs: { pt: "Biblioteca de Formatos", en: "Format Library", es: "Biblioteca de Formatos", fr: "Bibliothèque de Formats" },
@@ -358,7 +381,7 @@ function criarLinhaFormato(formato, opcoes) {
   // (importante para a lista continuar correta depois de trocar de idioma
   // ou de filtro, que voltam a desenhar as linhas do zero).
   const colunaCheckbox = opcoes.comCheckbox
-    ? `<td class="coluna-checkbox"><input type="checkbox" class="checkbox-formato" data-id="${formato.id}" ${idsSelecionados.has(formato.id) ? "checked" : ""}></td>`
+    ? `<td class="coluna-checkbox"><input type="checkbox" class="checkbox-formato" data-id="${formato.id}" ${selecoesPorObjetivo[objetivoAtivo].has(formato.id) ? "checked" : ""}></td>`
     : "";
 
   if (opcoes.simplificado) {
@@ -491,6 +514,10 @@ Em vez de pôr um "ouvinte" em cada checkbox (são centenas),
 ouvimos os cliques uma vez no contentor todo (listaFormatos)
 e verificamos se o clique foi numa checkbox. É mais eficiente
 e continua a funcionar mesmo depois de a lista ser filtrada.
+
+A seleção está dividida por objetivo (ver OBJETIVOS, mais acima):
+o que a checkbox marca/desmarca é sempre o conjunto do objetivo
+ativo no momento (selecoesPorObjetivo[objetivoAtivo]).
 ============================================
 */
 listaFormatos.addEventListener("change", (evento) => {
@@ -501,44 +528,84 @@ listaFormatos.addEventListener("change", (evento) => {
 
   const id = Number(checkbox.dataset.id);
   if (checkbox.checked) {
-    idsSelecionados.add(id);
+    selecoesPorObjetivo[objetivoAtivo].add(id);
   } else {
-    idsSelecionados.delete(id);
+    selecoesPorObjetivo[objetivoAtivo].delete(id);
   }
   atualizarResumoSelecao();
 });
 
-// Desmarca tudo (só na tab "Construir Pedido", que é a única com
-// checkboxes) e esvazia a seleção.
+// Troca o objetivo ativo: a lista de formatos mantém-se (não se re-filtra
+// nem se re-desenha), só o estado das checkboxes muda, para refletir a
+// seleção já feita nesse objetivo.
+botoesObjetivo.forEach((botao) => {
+  botao.addEventListener("click", () => {
+    objetivoAtivo = botao.dataset.objetivo;
+    botoesObjetivo.forEach((b) => b.classList.toggle("ativo", b === botao));
+    sincronizarCheckboxesComObjetivoAtivo();
+    atualizarResumoSelecao();
+  });
+});
+
+function sincronizarCheckboxesComObjetivoAtivo() {
+  const selecaoAtiva = selecoesPorObjetivo[objetivoAtivo];
+  listaFormatos.querySelectorAll(".checkbox-formato").forEach((checkbox) => {
+    checkbox.checked = selecaoAtiva.has(Number(checkbox.dataset.id));
+  });
+}
+
+// Esvazia a seleção dos TRÊS objetivos (é um "recomeçar o pedido do zero"),
+// não só a do objetivo ativo no momento.
 botaoLimparSelecao.addEventListener("click", () => {
   listaFormatos.querySelectorAll(".checkbox-formato:checked").forEach((checkbox) => {
     checkbox.checked = false;
   });
-  idsSelecionados.clear();
+  OBJETIVOS.forEach((objetivo) => selecoesPorObjetivo[objetivo].clear());
   atualizarResumoSelecao();
 });
 
+function totalFormatosSelecionados() {
+  return OBJETIVOS.reduce((total, objetivo) => total + selecoesPorObjetivo[objetivo].size, 0);
+}
+
+function atualizarContagensObjetivo() {
+  document.querySelectorAll(".objetivo-contagem").forEach((etiqueta) => {
+    const objetivo = etiqueta.dataset.contagem;
+    const n = selecoesPorObjetivo[objetivo].size;
+    etiqueta.textContent = n > 0 ? `(${n})` : "";
+  });
+}
+
 function atualizarResumoSelecao() {
+  atualizarContagensObjetivo();
+
+  const total = totalFormatosSelecionados();
+
   // A Companhia é obrigatória porque é ela que decide qual o template
   // (cor + logótipo) a usar no Excel — sem ela escolhida, não há como
   // saber qual gerar, por isso o botão de exportar fica bloqueado.
-  botaoExportar.disabled = idsSelecionados.size === 0 || campoCompanhia.value === "";
-  botaoLimparSelecao.disabled = idsSelecionados.size === 0;
+  botaoExportar.disabled = total === 0 || campoCompanhia.value === "";
+  botaoLimparSelecao.disabled = total === 0;
 
-  if (idsSelecionados.size === 0) {
+  if (total === 0) {
     resumoSelecao.innerHTML = "";
     return;
   }
 
-  const formatosSelecionados = todosFormatos.filter((f) => idsSelecionados.has(f.id));
-
-  const itens = formatosSelecionados
-    .map((f) => `<li>${f.fornecedor} — ${f.formato} <span class="etiqueta-dg2020">${f.grupoDigital2020 ?? "—"}</span></li>`)
+  const grupos = OBJETIVOS
+    .filter((objetivo) => selecoesPorObjetivo[objetivo].size > 0)
+    .map((objetivo) => {
+      const formatosDoObjetivo = todosFormatos.filter((f) => selecoesPorObjetivo[objetivo].has(f.id));
+      const itensObjetivo = formatosDoObjetivo
+        .map((f) => `<li>${f.fornecedor} — ${f.formato} <span class="etiqueta-dg2020">${f.grupoDigital2020 ?? "—"}</span></li>`)
+        .join("");
+      return `<li class="resumo-grupo-objetivo"><strong>${t(CHAVE_TRADUCAO_OBJETIVO[objetivo])}</strong><ul>${itensObjetivo}</ul></li>`;
+    })
     .join("");
 
   resumoSelecao.innerHTML = `
-    <h2>${formatar("resumoSelecaoTitulo", { n: formatosSelecionados.length })}</h2>
-    <ul>${itens}</ul>
+    <h2>${formatar("resumoSelecaoTitulo", { n: total })}</h2>
+    <ul class="resumo-grupos">${grupos}</ul>
   `;
 }
 
@@ -582,12 +649,65 @@ function canalExibicaoFormato(formato) {
   return formato.canal === "Paid Social" ? t("canalSocialMedia") : t("canalInternet");
 }
 
+// Escreve uma secção completa (título do objetivo + cabeçalho da tabela +
+// uma linha por formato) a partir da linha indicada, e devolve a próxima
+// linha livre (já com uma linha em branco a separar da secção seguinte).
+function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSeccao, config) {
+  let linha = linhaInicio;
+
+  folha.mergeCells(linha, 1, linha, 9);
+  const celulaTitulo = folha.getCell(linha, 1);
+  celulaTitulo.value = tituloSeccao;
+  celulaTitulo.font = { name: "Arial", size: 12, bold: true, color: { argb: "FFFFFFFF" } };
+  celulaTitulo.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF1A1A1A" } };
+  celulaTitulo.alignment = { vertical: "middle", horizontal: "left" };
+  linha += 1;
+
+  const colunas = ["#", t("colCanal"), t("colPlataforma"), t("colFormato"), t("colDimensao"), t("colPeso"), t("colTipoFicheiro"), t("colLink"), t("colDataEntrega")];
+  colunas.forEach((titulo, indice) => {
+    const celula = folha.getCell(linha, indice + 1);
+    celula.value = titulo;
+    celula.font = { name: "Arial", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
+    celula.fill = { type: "pattern", pattern: "solid", fgColor: { argb: config.corCabecalho } };
+    celula.alignment = { vertical: "middle", wrapText: true };
+    celula.border = ESTILO_BORDA_COMPLETA;
+  });
+  linha += 1;
+
+  formatosDaSeccao.forEach((formato, indice) => {
+    const linhaFormato = folha.getRow(linha + indice);
+    linhaFormato.values = [
+      indice + 1,
+      canalExibicaoFormato(formato),
+      formato.veiculo,
+      formato.formato,
+      formato.dimensao || t("naoEspecificado"),
+      formato.peso || t("naoEspecificado"),
+      formato.tipoFicheiro || t("naoEspecificado"),
+      formato.link ? { text: formato.link, hyperlink: formato.link } : t("naoEspecificado"),
+      "",
+    ];
+    linhaFormato.eachCell((celula) => {
+      celula.font = { name: "Arial", size: 10, color: { argb: "FF0F1724" } };
+      celula.alignment = { vertical: "top", wrapText: true };
+      celula.border = ESTILO_BORDA_COMPLETA;
+    });
+    // O texto do link fica na cor de destaque, sublinhado, para
+    // parecer clicável mesmo antes de o utilizador lhe tocar.
+    if (formato.link) {
+      linhaFormato.getCell(8).font = { name: "Arial", size: 10, color: { argb: "FF1155CC" }, underline: true };
+    }
+  });
+  linha += formatosDaSeccao.length;
+
+  return linha + 1; // uma linha em branco antes da secção seguinte
+}
+
 botaoExportar.addEventListener("click", exportarSelecaoParaExcel);
 
 async function exportarSelecaoParaExcel() {
-  const formatosSelecionados = todosFormatos.filter((f) => idsSelecionados.has(f.id));
   const companhia = campoCompanhia.value;
-  if (formatosSelecionados.length === 0 || !companhia) {
+  if (totalFormatosSelecionados() === 0 || !companhia) {
     return;
   }
 
@@ -635,42 +755,17 @@ async function exportarSelecaoParaExcel() {
   folha.getCell("E6").style = estiloRotulo;
   folha.getCell("F6").value = "Digital";
 
-  // --- Cabeçalho da tabela ---
-  const linhaCabecalho = 10;
-  const colunas = ["#", t("colCanal"), t("colPlataforma"), t("colFormato"), t("colDimensao"), t("colPeso"), t("colTipoFicheiro"), t("colLink"), t("colDataEntrega")];
-  colunas.forEach((titulo, indice) => {
-    const celula = folha.getCell(linhaCabecalho, indice + 1);
-    celula.value = titulo;
-    celula.font = { name: "Arial", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
-    celula.fill = { type: "pattern", pattern: "solid", fgColor: { argb: config.corCabecalho } };
-    celula.alignment = { vertical: "middle", wrapText: true };
-    celula.border = ESTILO_BORDA_COMPLETA;
-  });
-
-  // --- Uma linha por formato selecionado ---
-  formatosSelecionados.forEach((formato, indice) => {
-    const linha = folha.getRow(linhaCabecalho + 1 + indice);
-    linha.values = [
-      indice + 1,
-      canalExibicaoFormato(formato),
-      formato.veiculo,
-      formato.formato,
-      formato.dimensao || t("naoEspecificado"),
-      formato.peso || t("naoEspecificado"),
-      formato.tipoFicheiro || t("naoEspecificado"),
-      formato.link ? { text: formato.link, hyperlink: formato.link } : t("naoEspecificado"),
-      "",
-    ];
-    linha.eachCell((celula) => {
-      celula.font = { name: "Arial", size: 10, color: { argb: "FF0F1724" } };
-      celula.alignment = { vertical: "top", wrapText: true };
-      celula.border = ESTILO_BORDA_COMPLETA;
-    });
-    // O texto do link fica na cor de destaque, sublinhado, para
-    // parecer clicável mesmo antes de o utilizador lhe tocar.
-    if (formato.link) {
-      linha.getCell(8).font = { name: "Arial", size: 10, color: { argb: "FF1155CC" }, underline: true };
+  // --- Uma secção por objetivo (Awareness / Consideration / Conversion),
+  // cada uma com o seu próprio cabeçalho de tabela — o mesmo formato pode
+  // aparecer em mais que uma secção, porque foi pedido para objetivos
+  // diferentes. Objetivos sem nenhum formato selecionado não geram secção. ---
+  let linhaAtual = 10;
+  OBJETIVOS.forEach((objetivo) => {
+    const formatosDoObjetivo = todosFormatos.filter((f) => selecoesPorObjetivo[objetivo].has(f.id));
+    if (formatosDoObjetivo.length === 0) {
+      return;
     }
+    linhaAtual = escreverSeccaoObjetivo(folha, linhaAtual, t(CHAVE_TRADUCAO_OBJETIVO[objetivo]), formatosDoObjetivo, config);
   });
 
   // --- Gerar o ficheiro e fazer o download no browser ---

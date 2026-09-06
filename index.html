@@ -102,6 +102,31 @@
           </div>
         </section>
 
+        <!--
+        ============================================
+        3.1.1 SELETOR DE OBJETIVO (Awareness / Consideration / Conversion)
+        Cada objetivo tem a sua própria seleção de formatos: o mesmo
+        formato pode ser pedido em mais que um objetivo (ex.: Single
+        Image para Awareness E para Conversion), porque a agência trata
+        essas criatividades/copies como pedidos distintos mesmo quando
+        as specs técnicas são iguais.
+        ============================================
+        -->
+        <section class="seletor-objetivo">
+          <label data-i18n="labelObjetivo">Objetivo</label>
+          <div class="objetivos-botoes" role="tablist">
+            <button type="button" class="objetivo-botao ativo" data-objetivo="awareness">
+              <span data-i18n="objetivoAwareness">Awareness</span> <span class="objetivo-contagem" data-contagem="awareness"></span>
+            </button>
+            <button type="button" class="objetivo-botao" data-objetivo="consideration">
+              <span data-i18n="objetivoConsideration">Consideration</span> <span class="objetivo-contagem" data-contagem="consideration"></span>
+            </button>
+            <button type="button" class="objetivo-botao" data-objetivo="conversion">
+              <span data-i18n="objetivoConversion">Conversion</span> <span class="objetivo-contagem" data-contagem="conversion"></span>
+            </button>
+          </div>
+        </section>
+
         <p id="resumoCampanha" class="resumo-campanha"></p>
 
         <div class="barra-fixa">

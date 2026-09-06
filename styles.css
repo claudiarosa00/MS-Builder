@@ -343,6 +343,64 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
 
 /*
 ============================================
+6.1 SELETOR DE OBJETIVO (Awareness / Consideration / Conversion)
+Mais destacado que os filtros de categoria, porque não é um filtro —
+muda qual seleção de formatos está a ser editada.
+============================================
+*/
+.seletor-objetivo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 32px 0 32px;
+  flex-wrap: wrap;
+}
+
+.seletor-objetivo label {
+  font-size: 12px;
+  color: var(--cor-texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.objetivos-botoes {
+  display: flex;
+  gap: 6px;
+}
+
+.objetivo-botao {
+  background-color: var(--cor-fundo-cartao);
+  border: 1px solid var(--cor-borda);
+  color: var(--cor-texto);
+  font-family: var(--fonte-base);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.objetivo-botao:hover {
+  border-color: var(--cor-destaque);
+}
+
+.objetivo-botao.ativo {
+  background-color: var(--cor-escuro);
+  border-color: var(--cor-escuro);
+  color: #ffffff;
+}
+
+.objetivo-contagem {
+  font-weight: normal;
+  opacity: 0.7;
+}
+
+.objetivo-contagem:empty {
+  display: none;
+}
+
+/*
+============================================
 7. RESUMO DA SELEÇÃO (fica fixo no topo ao fazer scroll)
 A barra-fixa junta o resumo e o botão de exportar, para
 ficarem sempre visíveis juntos, sem ser preciso subir a
@@ -364,19 +422,41 @@ página depois de selecionar formatos mais abaixo na lista.
   font-size: 15px;
 }
 
-.resumo-selecao ul {
+.resumo-grupos {
   margin: 0;
   padding: 10px 32px;
   background-color: #2b2b2b;
   color: #ffffff;
   list-style: none;
-  max-height: 160px;
+  max-height: 220px;
   overflow-y: auto;
   font-size: 13px;
   box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.25);
 }
 
-.resumo-selecao li {
+/* Cada objetivo com formatos selecionados vira o seu próprio subgrupo,
+   para ficar claro que "Single Image" pode aparecer mais que uma vez —
+   uma por objetivo — sem parecer um erro de duplicação. */
+.resumo-grupo-objetivo {
+  padding: 6px 0;
+}
+
+.resumo-grupo-objetivo strong {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #b8b5b3;
+  margin-bottom: 2px;
+}
+
+.resumo-grupo-objetivo ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.resumo-grupo-objetivo li {
   padding: 3px 0;
 }
 
