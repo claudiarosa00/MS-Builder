@@ -14,12 +14,19 @@ const resumoSelecao = document.getElementById("resumoSelecao");
 const botaoExportar = document.getElementById("botaoExportar");
 const botoesTab = document.querySelectorAll(".tab-botao");
 const paineisTab = { construir: document.getElementById("tabConstruir"), specs: document.getElementById("tabSpecs") };
+const campoPesquisa = document.getElementById("campoPesquisa");
+const botoesFiltroCategoria = document.querySelectorAll(".filtro-categoria");
+const mensagensSemResultados = {
+  construir: document.getElementById("semResultadosConstruir"),
+  specs: document.getElementById("semResultadosSpecs"),
+};
 
 // Lista completa de formatos carregados (com um "id" único acrescentado a cada um)
 // e o conjunto de ids que o utilizador foi selecionando através das checkboxes.
 let todosFormatos = [];
 const idsSelecionados = new Set();
 let tabAtiva = "construir";
+let categoriaFiltroAtiva = "todas";
 
 /*
 ============================================
@@ -43,7 +50,7 @@ function mudarTab(nomeTab) {
     botao.classList.toggle("ativo", ativo);
     botao.setAttribute("aria-selected", ativo);
   });
-  atualizarIndicePublishers();
+  aplicarFiltros();
 }
 
 /*
@@ -93,7 +100,7 @@ async function carregarFormatos() {
     mostrarEstado(`${todosFormatos.length} formatos carregados.`);
     mostrarFormatosAgrupados(listaFormatos, todosFormatos, { comCheckbox: true, comLink: false, simplificado: true, prefixoId: "construir" });
     mostrarFormatosAgrupados(listaSpecs, todosFormatos, { comCheckbox: false, comLink: true, simplificado: false, prefixoId: "specs" });
-    atualizarIndicePublishers();
+    aplicarFiltros();
   } catch (erro) {
     mostrarEstado(`Erro ao carregar os formatos: ${erro.message}`, true);
     console.error(erro);
@@ -272,7 +279,11 @@ Clicar num link salta para essa secção com scroll suave.
 */
 function atualizarIndicePublishers() {
   const painelAtivo = paineisTab[tabAtiva];
-  const blocos = [...painelAtivo.querySelectorAll(".grupo-publisher")];
+  // Só entram no índice os publishers que ainda têm alguma linha visível
+  // (ou seja, que os filtros não escondam por completo).
+  const blocos = [...painelAtivo.querySelectorAll(".grupo-publisher")].filter(
+    (bloco) => bloco.style.display !== "none"
+  );
 
   indicePublishers.innerHTML = "";
 
@@ -302,7 +313,55 @@ function atualizarIndicePublishers() {
 
 /*
 ============================================
-8. SELEÇÃO DE FORMATOS
+8. FILTROS (pesquisa + categoria)
+Em vez de esconder e voltar a construir a lista toda,
+só ligamos/desligamos a visibilidade das linhas e dos
+blocos de publisher que já existem no ecrã — mais rápido,
+e mantém a seleção que já foi feita.
+============================================
+*/
+campoPesquisa.addEventListener("input", aplicarFiltros);
+botoesFiltroCategoria.forEach((botao) => {
+  botao.addEventListener("click", () => {
+    categoriaFiltroAtiva = botao.dataset.categoria;
+    botoesFiltroCategoria.forEach((b) => b.classList.toggle("ativo", b === botao));
+    aplicarFiltros();
+  });
+});
+
+function aplicarFiltros() {
+  const painelAtivo = paineisTab[tabAtiva];
+  const texto = campoPesquisa.value.trim().toLowerCase();
+  const blocos = painelAtivo.querySelectorAll(".grupo-publisher");
+  let algumVisivel = false;
+
+  blocos.forEach((bloco) => {
+    const categoriaCombina = categoriaFiltroAtiva === "todas" || bloco.dataset.categoria === categoriaFiltroAtiva;
+
+    let linhasVisiveisNoBloco = 0;
+    bloco.querySelectorAll("tbody tr").forEach((linha) => {
+      const combinaTexto = !texto || linha.textContent.toLowerCase().includes(texto);
+      const visivel = categoriaCombina && combinaTexto;
+      linha.style.display = visivel ? "" : "none";
+      if (visivel) {
+        linhasVisiveisNoBloco++;
+      }
+    });
+
+    const blocoVisivel = linhasVisiveisNoBloco > 0;
+    bloco.style.display = blocoVisivel ? "" : "none";
+    if (blocoVisivel) {
+      algumVisivel = true;
+    }
+  });
+
+  mensagensSemResultados[tabAtiva].hidden = algumVisivel;
+  atualizarIndicePublishers();
+}
+
+/*
+============================================
+9. SELEÇÃO DE FORMATOS
 Em vez de pôr um "ouvinte" em cada checkbox (são centenas),
 ouvimos os cliques uma vez no contentor todo (listaFormatos)
 e verificamos se o clique foi numa checkbox. É mais eficiente
@@ -346,7 +405,7 @@ function atualizarResumoSelecao() {
 
 /*
 ============================================
-9. EXPORTAR PARA EXCEL (pedido de materiais)
+10. EXPORTAR PARA EXCEL (pedido de materiais)
 Gera um ficheiro .xlsx, no estilo do template real da
 agência (cabeçalho azul, bloco Cliente/Campanha/Meio no
 topo), só com os formatos que o utilizador selecionou.
@@ -429,7 +488,7 @@ async function exportarSelecaoParaExcel() {
 
 /*
 ============================================
-10. ARRANQUE DA APLICAÇÃO
+11. ARRANQUE DA APLICAÇÃO
 ============================================
 */
 carregarFormatos();

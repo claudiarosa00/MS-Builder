@@ -47,6 +47,24 @@
 
       <!--
       ============================================
+      3.0 BARRA DE FILTROS
+      Partilhada pelas duas tabs: filtra sempre a que
+      estiver aberta no momento (pesquisa por nome +
+      filtro por categoria).
+      ============================================
+      -->
+      <div class="barra-filtros">
+        <input type="text" id="campoPesquisa" placeholder="Pesquisar formato ou publisher...">
+        <div class="filtros-categoria">
+          <button type="button" class="filtro-categoria ativo" data-categoria="todas">Todas</button>
+          <button type="button" class="filtro-categoria" data-categoria="Social Media">Social Media</button>
+          <button type="button" class="filtro-categoria" data-categoria="Compra Direta">Compra Direta</button>
+          <button type="button" class="filtro-categoria" data-categoria="Google ou Search">Google ou Search</button>
+        </div>
+      </div>
+
+      <!--
+      ============================================
       3.1 TAB "CONSTRUIR PEDIDO"
       ============================================
       -->
@@ -74,6 +92,8 @@
 
         <section id="areaEstado" class="area-estado"></section>
 
+        <p id="semResultadosConstruir" class="sem-resultados" hidden>Nenhum formato encontrado com estes filtros.</p>
+
         <!-- Lista com checkboxes, para selecionar formatos para o pedido -->
         <main id="listaFormatos" class="lista-formatos"></main>
       </section>
@@ -86,6 +106,7 @@
       ============================================
       -->
       <section id="tabSpecs" class="painel-tab" hidden>
+        <p id="semResultadosSpecs" class="sem-resultados" hidden>Nenhum formato encontrado com estes filtros.</p>
         <main id="listaSpecs" class="lista-formatos"></main>
       </section>
 
