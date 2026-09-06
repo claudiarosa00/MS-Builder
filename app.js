@@ -14,10 +14,12 @@ const campoCampanha = document.getElementById("campoCampanha");
 const resumoCampanha = document.getElementById("resumoCampanha");
 const resumoSelecao = document.getElementById("resumoSelecao");
 const botaoExportar = document.getElementById("botaoExportar");
+const botaoLimparSelecao = document.getElementById("botaoLimparSelecao");
 const botoesTab = document.querySelectorAll(".tab-botao");
 const paineisTab = { construir: document.getElementById("tabConstruir"), specs: document.getElementById("tabSpecs") };
 const campoPesquisa = document.getElementById("campoPesquisa");
 const botoesFiltroCategoria = document.querySelectorAll(".filtro-categoria");
+const botaoLimparFiltros = document.getElementById("botaoLimparFiltros");
 const mensagensSemResultados = {
   construir: document.getElementById("semResultadosConstruir"),
   specs: document.getElementById("semResultadosSpecs"),
@@ -59,6 +61,8 @@ const TRADUCOES = {
   filtroSocialMedia: { pt: "Social Media", en: "Social Media", es: "Social Media", fr: "Social Media" },
   filtroCompraDireta: { pt: "Compra Direta", en: "Direct Buy", es: "Compra Directa", fr: "Achat Direct" },
   filtroGoogleSearch: { pt: "Google ou Search", en: "Google & Search", es: "Google o Búsqueda", fr: "Google ou Recherche" },
+  botaoLimparFiltros: { pt: "Limpar filtros", en: "Clear filters", es: "Limpiar filtros", fr: "Effacer les filtres" },
+  botaoLimparSelecao: { pt: "Limpar seleção", en: "Clear selection", es: "Limpiar selección", fr: "Effacer la sélection" },
   botaoExportar: { pt: "Exportar para Excel", en: "Export to Excel", es: "Exportar a Excel", fr: "Exporter vers Excel" },
   semResultados: { pt: "Nenhum formato encontrado com estes filtros.", en: "No formats found with these filters.", es: "No se encontraron formatos con estos filtros.", fr: "Aucun format trouvé avec ces filtres." },
   estadoCarregando: { pt: "A carregar formatos...", en: "Loading formats...", es: "Cargando formatos...", fr: "Chargement des formats..." },
@@ -340,8 +344,11 @@ function criarCabecalhoTabela(opcoes) {
 
 function criarLinhaFormato(formato, opcoes) {
   const linha = document.createElement("tr");
+  // Marca a checkbox logo na criação se este formato já estiver selecionado
+  // (importante para a lista continuar correta depois de trocar de idioma
+  // ou de filtro, que voltam a desenhar as linhas do zero).
   const colunaCheckbox = opcoes.comCheckbox
-    ? `<td><input type="checkbox" class="checkbox-formato" data-id="${formato.id}"></td>`
+    ? `<td><input type="checkbox" class="checkbox-formato" data-id="${formato.id}" ${idsSelecionados.has(formato.id) ? "checked" : ""}></td>`
     : "";
 
   if (opcoes.simplificado) {
@@ -459,6 +466,14 @@ function aplicarFiltros() {
   atualizarIndicePublishers();
 }
 
+// Repõe a pesquisa e a categoria em "Todas", sem mexer na seleção.
+botaoLimparFiltros.addEventListener("click", () => {
+  campoPesquisa.value = "";
+  categoriaFiltroAtiva = "todas";
+  botoesFiltroCategoria.forEach((botao) => botao.classList.toggle("ativo", botao.dataset.categoria === "todas"));
+  aplicarFiltros();
+});
+
 /*
 ============================================
 10. SELEÇÃO DE FORMATOS
@@ -483,8 +498,19 @@ listaFormatos.addEventListener("change", (evento) => {
   atualizarResumoSelecao();
 });
 
+// Desmarca tudo (só na tab "Construir Pedido", que é a única com
+// checkboxes) e esvazia a seleção.
+botaoLimparSelecao.addEventListener("click", () => {
+  listaFormatos.querySelectorAll(".checkbox-formato:checked").forEach((checkbox) => {
+    checkbox.checked = false;
+  });
+  idsSelecionados.clear();
+  atualizarResumoSelecao();
+});
+
 function atualizarResumoSelecao() {
   botaoExportar.disabled = idsSelecionados.size === 0;
+  botaoLimparSelecao.disabled = idsSelecionados.size === 0;
 
   if (idsSelecionados.size === 0) {
     resumoSelecao.innerHTML = "";

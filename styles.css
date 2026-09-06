@@ -253,6 +253,29 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   font-weight: 600;
 }
 
+/* Botão discreto para "Limpar filtros" / "Limpar seleção" — nunca deve
+   competir visualmente com as ações principais (filtrar, exportar). */
+.botao-limpar {
+  background: none;
+  border: none;
+  color: var(--cor-texto-suave);
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 8px 4px;
+}
+
+.botao-limpar:hover {
+  color: var(--cor-destaque);
+}
+
+.botao-limpar:disabled {
+  color: #c9c4c1;
+  text-decoration: none;
+  cursor: not-allowed;
+}
+
 .sem-resultados {
   margin: 24px 32px 0 32px;
   padding: 16px 20px;
@@ -360,9 +383,12 @@ página depois de selecionar formatos mais abaixo na lista.
 */
 .area-exportar {
   padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
-.area-exportar button {
+#botaoExportar {
   background-color: var(--cor-destaque);
   color: #ffffff;
   border: none;
@@ -374,11 +400,11 @@ página depois de selecionar formatos mais abaixo na lista.
   cursor: pointer;
 }
 
-.area-exportar button:hover {
+#botaoExportar:hover {
   background-color: var(--cor-destaque-escuro);
 }
 
-.area-exportar button:disabled {
+#botaoExportar:disabled {
   background-color: #c9c4c1;
   cursor: not-allowed;
 }
