@@ -302,12 +302,27 @@ repetem entre as duas tabs (têm de ser únicos na página).
 */
 function mostrarFormatosAgrupados(contentor, formatos, opcoes) {
   const grupos = agruparPorPublisher(formatos);
-  const nomesPublishers = Object.keys(grupos).sort();
+
+  // Ordem de aparecimento: primeiro por canal, pela ordem fixa definida em
+  // ORDEM_CATEGORIAS (Social Media, Compra Direta, Google ou Search); dentro
+  // de cada canal, os publishers ficam por ordem alfabética.
+  const nomesPublishers = Object.keys(grupos).sort((a, b) => {
+    const posicaoA = ORDEM_CATEGORIAS.indexOf(categoriaDoPublisher(a, grupos[a]));
+    const posicaoB = ORDEM_CATEGORIAS.indexOf(categoriaDoPublisher(b, grupos[b]));
+    if (posicaoA !== posicaoB) {
+      return posicaoA - posicaoB;
+    }
+    return a.localeCompare(b, "pt");
+  });
 
   contentor.innerHTML = "";
 
   for (const nomePublisher of nomesPublishers) {
-    const formatosDoPublisher = grupos[nomePublisher];
+    // Dentro do publisher, os próprios formatos também ficam por ordem
+    // alfabética (em vez da ordem em que vieram da base).
+    const formatosDoPublisher = [...grupos[nomePublisher]].sort((a, b) =>
+      (a.formato || "").localeCompare(b.formato || "", "pt")
+    );
     contentor.appendChild(criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes));
   }
 }
