@@ -91,8 +91,8 @@ async function carregarFormatos() {
     todosFormatos = formatos.map((formato, indice) => ({ ...formato, id: indice }));
 
     mostrarEstado(`${todosFormatos.length} formatos carregados.`);
-    mostrarFormatosAgrupados(listaFormatos, todosFormatos, { comCheckbox: true, comLink: false, prefixoId: "construir" });
-    mostrarFormatosAgrupados(listaSpecs, todosFormatos, { comCheckbox: false, comLink: true, prefixoId: "specs" });
+    mostrarFormatosAgrupados(listaFormatos, todosFormatos, { comCheckbox: true, comLink: false, simplificado: true, prefixoId: "construir" });
+    mostrarFormatosAgrupados(listaSpecs, todosFormatos, { comCheckbox: false, comLink: true, simplificado: false, prefixoId: "specs" });
     atualizarIndicePublishers();
   } catch (erro) {
     mostrarEstado(`Erro ao carregar os formatos: ${erro.message}`, true);
@@ -134,6 +134,19 @@ function paraIdHtml(texto) {
     .replace(/(^-|-$)/g, "");
 }
 
+// A que categoria do índice pertence um publisher, a partir dos seus
+// próprios formatos: o Google fica à parte (é comprado de forma diferente
+// dos publishers "tradicionais"); os restantes seguem o campo "canal"
+// que já vem da base (Paid Social vs. Internet/Compra Direta).
+const ORDEM_CATEGORIAS = ["Social Media", "Compra Direta", "Google ou Search"];
+
+function categoriaDoPublisher(nomePublisher, formatosDoPublisher) {
+  if (nomePublisher === "Google") {
+    return "Google ou Search";
+  }
+  return formatosDoPublisher[0].canal === "Paid Social" ? "Social Media" : "Compra Direta";
+}
+
 /*
 ============================================
 6. DESENHAR OS FORMATOS NO ECRÃ
@@ -160,6 +173,7 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes) {
   bloco.className = "grupo-publisher";
   bloco.id = `${opcoes.prefixoId}-pub-${paraIdHtml(nomePublisher)}`;
   bloco.dataset.publisher = nomePublisher;
+  bloco.dataset.categoria = categoriaDoPublisher(nomePublisher, formatosDoPublisher);
 
   const titulo = document.createElement("h2");
   titulo.textContent = nomePublisher;
@@ -187,6 +201,22 @@ function criarCabecalhoTabela(opcoes) {
   const cabecalho = document.createElement("thead");
   const colunaCheckbox = opcoes.comCheckbox ? "<th></th>" : "";
   const colunaLink = opcoes.comLink ? "<th>Fonte</th>" : "";
+
+  // Na tab "Construir Pedido" (simplificado) só mostramos o essencial para
+  // escolher — nome do formato e o grupo Digital2020. As specs completas
+  // (dimensão, peso, tipo de ficheiro) ficam só na tab "Base de Specs",
+  // para a seleção não ficar cheia de informação que ainda não é precisa.
+  if (opcoes.simplificado) {
+    cabecalho.innerHTML = `
+      <tr>
+        ${colunaCheckbox}
+        <th>Formato</th>
+        <th>Grupo Digital2020</th>
+      </tr>
+    `;
+    return cabecalho;
+  }
+
   cabecalho.innerHTML = `
     <tr>
       ${colunaCheckbox}
@@ -206,6 +236,16 @@ function criarLinhaFormato(formato, opcoes) {
   const colunaCheckbox = opcoes.comCheckbox
     ? `<td><input type="checkbox" class="checkbox-formato" data-id="${formato.id}"></td>`
     : "";
+
+  if (opcoes.simplificado) {
+    linha.innerHTML = `
+      ${colunaCheckbox}
+      <td>${formato.formato ?? ""}</td>
+      <td><span class="etiqueta-dg2020">${formato.grupoDigital2020 ?? "—"}</span></td>
+    `;
+    return linha;
+  }
+
   const colunaLink = opcoes.comLink
     ? `<td>${formato.link ? `<a href="${formato.link}" target="_blank" rel="noopener">Ver specs ↗</a>` : "—"}</td>`
     : "";
@@ -223,28 +263,41 @@ function criarLinhaFormato(formato, opcoes) {
 
 /*
 ============================================
-7. ÍNDICE LATERAL DE PUBLISHERS
+7. ÍNDICE LATERAL DE PUBLISHERS (agrupado por categoria)
 Constrói a lista de links a partir das secções que já
-estão desenhadas na tab ativa (lê o "data-publisher" que
-cada bloco de publisher já tem). Clicar num link salta
-para essa secção com scroll suave.
+estão desenhadas na tab ativa (lê o "data-publisher" e o
+"data-categoria" que cada bloco de publisher já tem).
+Clicar num link salta para essa secção com scroll suave.
 ============================================
 */
 function atualizarIndicePublishers() {
   const painelAtivo = paineisTab[tabAtiva];
-  const blocos = painelAtivo.querySelectorAll(".grupo-publisher");
+  const blocos = [...painelAtivo.querySelectorAll(".grupo-publisher")];
 
   indicePublishers.innerHTML = "";
-  blocos.forEach((bloco) => {
-    const link = document.createElement("a");
-    link.href = `#${bloco.id}`;
-    link.textContent = bloco.dataset.publisher;
-    link.addEventListener("click", (evento) => {
-      evento.preventDefault();
-      bloco.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  for (const categoria of ORDEM_CATEGORIAS) {
+    const blocosDaCategoria = blocos.filter((bloco) => bloco.dataset.categoria === categoria);
+    if (blocosDaCategoria.length === 0) {
+      continue;
+    }
+
+    const titulo = document.createElement("h3");
+    titulo.className = "indice-categoria";
+    titulo.textContent = categoria;
+    indicePublishers.appendChild(titulo);
+
+    blocosDaCategoria.forEach((bloco) => {
+      const link = document.createElement("a");
+      link.href = `#${bloco.id}`;
+      link.textContent = bloco.dataset.publisher;
+      link.addEventListener("click", (evento) => {
+        evento.preventDefault();
+        bloco.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      indicePublishers.appendChild(link);
     });
-    indicePublishers.appendChild(link);
-  });
+  }
 }
 
 /*

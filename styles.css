@@ -106,6 +106,20 @@ body {
   background-color: var(--cor-fundo-cartao);
 }
 
+.indice-categoria {
+  margin: 14px 0 2px 0;
+  padding: 0 10px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--cor-destaque);
+}
+
+.indice-categoria:first-child {
+  margin-top: 0;
+}
+
 .indice-publishers a {
   color: var(--cor-texto-suave);
   text-decoration: none;
