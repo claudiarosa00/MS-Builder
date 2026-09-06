@@ -12,13 +12,13 @@ geral sem procurar por todo o ficheiro.
   --cor-fundo: #f7f5f4;
   --cor-texto: #1a1a1a;
   --cor-texto-suave: #6b6560;
-  --cor-destaque: #d32d1f;       /* vermelho Havas (amostrado do logótipo real) */
-  --cor-destaque-escuro: #972016;
-  --cor-destaque-suave: #f9e5e4;  /* vermelho muito claro, para fundos/badges */
-  --cor-escuro: #1a1a1a;          /* cabeçalho, tabs, barra de seleção */
+  --cor-destaque: #e60000;       /* vermelho Havas oficial (amostrado do logótipo) */
+  --cor-destaque-escuro: #af0000;
+  --cor-destaque-suave: #fbe0e0;  /* vermelho muito claro, para fundos/badges */
+  --cor-escuro: #000000;          /* preto puro — igual ao fundo do logótipo */
   --cor-borda: #e6e2df;
   --cor-fundo-cartao: #ffffff;
-  --fonte-base: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fonte-base: "Arial Nova", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 * {
@@ -50,30 +50,30 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
 }
 
 .logo-havas {
-  background-color: #ffffff;
-  border-radius: 6px;
-  padding: 6px 10px;
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.logo-havas img {
   display: block;
-  height: 26px;
-  width: auto;
+  height: 56px;
+  width: 56px;
+  border-radius: 8px;
+  flex-shrink: 0;
 }
 
 .cabecalho h1 {
   margin: 0;
-  font-size: 24px;
-  letter-spacing: -0.01em;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.titulo-acento {
+  color: var(--cor-destaque);
 }
 
 .subtitulo {
-  margin: 4px 0 0 0;
+  margin: 2px 0 0 0;
   font-size: 14px;
   color: #b8b5b3;
+  letter-spacing: 0.02em;
 }
 
 /*
