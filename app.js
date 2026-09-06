@@ -5,25 +5,50 @@
 */
 const areaEstado = document.getElementById("areaEstado");
 const listaFormatos = document.getElementById("listaFormatos");
+const listaSpecs = document.getElementById("listaSpecs");
+const indicePublishers = document.getElementById("indicePublishers");
 const campoCliente = document.getElementById("campoCliente");
 const campoCampanha = document.getElementById("campoCampanha");
 const resumoCampanha = document.getElementById("resumoCampanha");
 const resumoSelecao = document.getElementById("resumoSelecao");
 const botaoExportar = document.getElementById("botaoExportar");
+const botoesTab = document.querySelectorAll(".tab-botao");
+const paineisTab = { construir: document.getElementById("tabConstruir"), specs: document.getElementById("tabSpecs") };
 
 // Lista completa de formatos carregados (com um "id" único acrescentado a cada um)
 // e o conjunto de ids que o utilizador foi selecionando através das checkboxes.
 let todosFormatos = [];
 const idsSelecionados = new Set();
+let tabAtiva = "construir";
 
 /*
 ============================================
-2. DADOS DA CAMPANHA (Cliente / Campanha)
-Cada vez que o utilizador escreve num dos campos,
-atualizamos uma frase de resumo, só para confirmarmos
-que os valores estão a ser lidos corretamente.
-Mais à frente, estes dados vão identificar o pedido
-de materiais gerado no fim do processo.
+2. TABS (Construir Pedido / Base de Specs)
+Trocar de tab é só mostrar/esconder o painel certo e
+voltar a construir o índice lateral, porque cada tab
+tem a sua própria lista de secções por publisher.
+============================================
+*/
+botoesTab.forEach((botao) => {
+  botao.addEventListener("click", () => mudarTab(botao.dataset.tab));
+});
+
+function mudarTab(nomeTab) {
+  tabAtiva = nomeTab;
+  for (const [nome, painel] of Object.entries(paineisTab)) {
+    painel.hidden = nome !== nomeTab;
+  }
+  botoesTab.forEach((botao) => {
+    const ativo = botao.dataset.tab === nomeTab;
+    botao.classList.toggle("ativo", ativo);
+    botao.setAttribute("aria-selected", ativo);
+  });
+  atualizarIndicePublishers();
+}
+
+/*
+============================================
+3. DADOS DA CAMPANHA (Cliente / Campanha)
 ============================================
 */
 function atualizarResumoCampanha() {
@@ -43,7 +68,7 @@ campoCampanha.addEventListener("input", atualizarResumoCampanha);
 
 /*
 ============================================
-3. CARREGAR A BASE DE FORMATOS (data/formatos.json)
+4. CARREGAR A BASE DE FORMATOS (data/formatos.json)
 Esta é a única fonte de dados da aplicação nesta fase.
 Se um dia a base mudar (outro sistema, outra base de dados),
 só este pedaço de código precisa de mudar — o resto da app
@@ -66,7 +91,9 @@ async function carregarFormatos() {
     todosFormatos = formatos.map((formato, indice) => ({ ...formato, id: indice }));
 
     mostrarEstado(`${todosFormatos.length} formatos carregados.`);
-    mostrarFormatosAgrupados(todosFormatos);
+    mostrarFormatosAgrupados(listaFormatos, todosFormatos, { comCheckbox: true, comLink: false, prefixoId: "construir" });
+    mostrarFormatosAgrupados(listaSpecs, todosFormatos, { comCheckbox: false, comLink: true, prefixoId: "specs" });
+    atualizarIndicePublishers();
   } catch (erro) {
     mostrarEstado(`Erro ao carregar os formatos: ${erro.message}`, true);
     console.error(erro);
@@ -80,7 +107,7 @@ function mostrarEstado(mensagem, ehErro = false) {
 
 /*
 ============================================
-4. AGRUPAR FORMATOS POR PUBLISHER
+5. AGRUPAR FORMATOS POR PUBLISHER
 Transforma a lista simples de formatos num objeto onde
 cada chave é o nome do publisher, e o valor é a lista dos
 seus formatos. Facilita depois desenhar a lista no ecrã.
@@ -98,28 +125,41 @@ function agruparPorPublisher(formatos) {
   return grupos;
 }
 
+// Transforma "Media Capital" em "media-capital", para usar em ids de HTML.
+function paraIdHtml(texto) {
+  return texto
+    .toLowerCase()
+    .normalize("NFD").replace(/[̀-ͯ]/g, "") // remove acentos
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
 /*
 ============================================
-5. DESENHAR OS FORMATOS NO ECRÃ
-Para cada publisher, cria um bloco com uma tabela dos
-seus formatos e respetivas especificações.
+6. DESENHAR OS FORMATOS NO ECRÃ
+Serve tanto para a tab "Construir Pedido" (com checkboxes)
+como para a tab "Base de Specs" (sem checkboxes, com link).
+opcoes.prefixoId garante que os ids das secções não se
+repetem entre as duas tabs (têm de ser únicos na página).
 ============================================
 */
-function mostrarFormatosAgrupados(formatos) {
+function mostrarFormatosAgrupados(contentor, formatos, opcoes) {
   const grupos = agruparPorPublisher(formatos);
   const nomesPublishers = Object.keys(grupos).sort();
 
-  listaFormatos.innerHTML = "";
+  contentor.innerHTML = "";
 
   for (const nomePublisher of nomesPublishers) {
     const formatosDoPublisher = grupos[nomePublisher];
-    listaFormatos.appendChild(criarBlocoPublisher(nomePublisher, formatosDoPublisher));
+    contentor.appendChild(criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes));
   }
 }
 
-function criarBlocoPublisher(nomePublisher, formatosDoPublisher) {
+function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes) {
   const bloco = document.createElement("section");
   bloco.className = "grupo-publisher";
+  bloco.id = `${opcoes.prefixoId}-pub-${paraIdHtml(nomePublisher)}`;
+  bloco.dataset.publisher = nomePublisher;
 
   const titulo = document.createElement("h2");
   titulo.textContent = nomePublisher;
@@ -131,11 +171,11 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher) {
 
   const tabela = document.createElement("table");
   tabela.className = "tabela-formatos";
-  tabela.appendChild(criarCabecalhoTabela());
+  tabela.appendChild(criarCabecalhoTabela(opcoes));
 
   const corpo = document.createElement("tbody");
   for (const formato of formatosDoPublisher) {
-    corpo.appendChild(criarLinhaFormato(formato));
+    corpo.appendChild(criarLinhaFormato(formato, opcoes));
   }
   tabela.appendChild(corpo);
 
@@ -143,37 +183,73 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher) {
   return bloco;
 }
 
-function criarCabecalhoTabela() {
+function criarCabecalhoTabela(opcoes) {
   const cabecalho = document.createElement("thead");
+  const colunaCheckbox = opcoes.comCheckbox ? "<th></th>" : "";
+  const colunaLink = opcoes.comLink ? "<th>Fonte</th>" : "";
   cabecalho.innerHTML = `
     <tr>
-      <th></th>
+      ${colunaCheckbox}
       <th>Formato</th>
       <th>Grupo Digital2020</th>
       <th>Dimensão</th>
       <th>Peso</th>
       <th>Tipo de ficheiro</th>
+      ${colunaLink}
     </tr>
   `;
   return cabecalho;
 }
 
-function criarLinhaFormato(formato) {
+function criarLinhaFormato(formato, opcoes) {
   const linha = document.createElement("tr");
+  const colunaCheckbox = opcoes.comCheckbox
+    ? `<td><input type="checkbox" class="checkbox-formato" data-id="${formato.id}"></td>`
+    : "";
+  const colunaLink = opcoes.comLink
+    ? `<td>${formato.link ? `<a href="${formato.link}" target="_blank" rel="noopener">Ver specs ↗</a>` : "—"}</td>`
+    : "";
   linha.innerHTML = `
-    <td><input type="checkbox" class="checkbox-formato" data-id="${formato.id}"></td>
+    ${colunaCheckbox}
     <td>${formato.formato ?? ""}</td>
     <td><span class="etiqueta-dg2020">${formato.grupoDigital2020 ?? "—"}</span></td>
     <td>${formato.dimensao ?? "não especificado"}</td>
     <td>${formato.peso ?? "não especificado"}</td>
     <td>${formato.tipoFicheiro ?? "não especificado"}</td>
+    ${colunaLink}
   `;
   return linha;
 }
 
 /*
 ============================================
-6. SELEÇÃO DE FORMATOS
+7. ÍNDICE LATERAL DE PUBLISHERS
+Constrói a lista de links a partir das secções que já
+estão desenhadas na tab ativa (lê o "data-publisher" que
+cada bloco de publisher já tem). Clicar num link salta
+para essa secção com scroll suave.
+============================================
+*/
+function atualizarIndicePublishers() {
+  const painelAtivo = paineisTab[tabAtiva];
+  const blocos = painelAtivo.querySelectorAll(".grupo-publisher");
+
+  indicePublishers.innerHTML = "";
+  blocos.forEach((bloco) => {
+    const link = document.createElement("a");
+    link.href = `#${bloco.id}`;
+    link.textContent = bloco.dataset.publisher;
+    link.addEventListener("click", (evento) => {
+      evento.preventDefault();
+      bloco.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    indicePublishers.appendChild(link);
+  });
+}
+
+/*
+============================================
+8. SELEÇÃO DE FORMATOS
 Em vez de pôr um "ouvinte" em cada checkbox (são centenas),
 ouvimos os cliques uma vez no contentor todo (listaFormatos)
 e verificamos se o clique foi numa checkbox. É mais eficiente
@@ -217,7 +293,7 @@ function atualizarResumoSelecao() {
 
 /*
 ============================================
-7. EXPORTAR PARA EXCEL (pedido de materiais)
+9. EXPORTAR PARA EXCEL (pedido de materiais)
 Gera um ficheiro .xlsx, no estilo do template real da
 agência (cabeçalho azul, bloco Cliente/Campanha/Meio no
 topo), só com os formatos que o utilizador selecionou.
@@ -300,7 +376,7 @@ async function exportarSelecaoParaExcel() {
 
 /*
 ============================================
-8. ARRANQUE DA APLICAÇÃO
+10. ARRANQUE DA APLICAÇÃO
 ============================================
 */
 carregarFormatos();

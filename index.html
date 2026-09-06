@@ -20,60 +20,77 @@
 
   <!--
   ============================================
-  2. DADOS DA CAMPANHA (Cliente / Campanha)
-  Estes dados vão identificar o pedido de materiais
-  que a app vai gerar mais à frente. Por agora só
-  são guardados e mostrados num resumo, para testar.
+  2. TABS (Construir Pedido / Base de Specs)
+  As duas "vistas" da app: uma para montar o pedido de
+  materiais (com seleção e exportação), outra só para
+  consultar todos os formatos e specs, sem selecionar nada.
   ============================================
   -->
-  <section class="dados-campanha">
-    <div class="campo">
-      <label for="campoCliente">Cliente</label>
-      <input type="text" id="campoCliente" placeholder="Nome do cliente">
-    </div>
-    <div class="campo">
-      <label for="campoCampanha">Campanha</label>
-      <input type="text" id="campoCampanha" placeholder="Nome da campanha">
-    </div>
-  </section>
-
-  <p id="resumoCampanha" class="resumo-campanha"></p>
-
-  <!--
-  ============================================
-  3. RESUMO DA SELEÇÃO
-  Mostra, sempre atualizado, quais os formatos que o
-  utilizador já marcou nas checkboxes da lista abaixo.
-  Fica fixo no topo (position: sticky) para não ser preciso
-  voltar a subir a página depois de selecionar formatos
-  mais abaixo na lista.
-  ============================================
-  -->
-  <div class="barra-fixa">
-    <aside id="resumoSelecao" class="resumo-selecao"></aside>
-    <div id="areaExportar" class="area-exportar">
-      <button id="botaoExportar" type="button" disabled>Exportar para Excel</button>
-    </div>
+  <div class="barra-tabs" role="tablist">
+    <button type="button" class="tab-botao" data-tab="construir" aria-selected="true">Construir Pedido</button>
+    <button type="button" class="tab-botao" data-tab="specs" aria-selected="false">Base de Specs</button>
   </div>
 
   <!--
   ============================================
-  4. ÁREA DE ESTADO / MENSAGENS
-  Usada para mostrar "A carregar..." ou erros,
-  para percebermos sempre o que se está a passar.
+  3. LAYOUT PRINCIPAL (índice lateral + conteúdo)
+  O índice lateral lista os publishers da tab que está
+  aberta no momento — clicar salta direto para essa secção,
+  em vez de ser preciso percorrer a lista toda a scroll.
   ============================================
   -->
-  <section id="areaEstado" class="area-estado"></section>
+  <div class="layout-app">
 
-  <!--
-  ============================================
-  5. LISTA DE FORMATOS (agrupada por publisher)
-  Cada formato tem uma checkbox — selecionar/desselecionar
-  atualiza automaticamente o "Resumo da seleção" acima.
-  Pesquisa e filtros vêm numa próxima etapa.
-  ============================================
-  -->
-  <main id="listaFormatos" class="lista-formatos"></main>
+    <nav id="indicePublishers" class="indice-publishers" aria-label="Índice de publishers"></nav>
+
+    <div class="conteudo-principal">
+
+      <!--
+      ============================================
+      3.1 TAB "CONSTRUIR PEDIDO"
+      ============================================
+      -->
+      <section id="tabConstruir" class="painel-tab">
+
+        <section class="dados-campanha">
+          <div class="campo">
+            <label for="campoCliente">Cliente</label>
+            <input type="text" id="campoCliente" placeholder="Nome do cliente">
+          </div>
+          <div class="campo">
+            <label for="campoCampanha">Campanha</label>
+            <input type="text" id="campoCampanha" placeholder="Nome da campanha">
+          </div>
+        </section>
+
+        <p id="resumoCampanha" class="resumo-campanha"></p>
+
+        <div class="barra-fixa">
+          <aside id="resumoSelecao" class="resumo-selecao"></aside>
+          <div id="areaExportar" class="area-exportar">
+            <button id="botaoExportar" type="button" disabled>Exportar para Excel</button>
+          </div>
+        </div>
+
+        <section id="areaEstado" class="area-estado"></section>
+
+        <!-- Lista com checkboxes, para selecionar formatos para o pedido -->
+        <main id="listaFormatos" class="lista-formatos"></main>
+      </section>
+
+      <!--
+      ============================================
+      3.2 TAB "BASE DE SPECS"
+      Só consulta: todos os formatos, sem checkboxes,
+      com o link para a fonte oficial visível.
+      ============================================
+      -->
+      <section id="tabSpecs" class="painel-tab" hidden>
+        <main id="listaSpecs" class="lista-formatos"></main>
+      </section>
+
+    </div>
+  </div>
 
   <!-- Biblioteca ExcelJS (ficheiro local, não precisa de internet) -->
   <script src="lib/exceljs.min.js"></script>
