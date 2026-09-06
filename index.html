@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MSBuilder — Materials Specs Builder</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!--
+  ============================================
+  1. CABEÇALHO
+  ============================================
+  -->
+  <header class="cabecalho">
+    <h1>MSBuilder</h1>
+    <p class="subtitulo">Materials Specs Builder</p>
+  </header>
+
+  <!--
+  ============================================
+  2. ÁREA DE ESTADO / MENSAGENS
+  Usada para mostrar "A carregar..." ou erros,
+  para percebermos sempre o que se está a passar.
+  ============================================
+  -->
+  <section id="areaEstado" class="area-estado"></section>
+
+  <!--
+  ============================================
+  3. LISTA DE FORMATOS (agrupada por publisher)
+  Esta é a única funcionalidade desta primeira etapa:
+  provar que o formatos.json carrega e é mostrado no ecrã.
+  Pesquisa, filtros e seleção vêm nas próximas etapas.
+  ============================================
+  -->
+  <main id="listaFormatos" class="lista-formatos"></main>
+
+  <script src="app.js"></script>
+</body>
+</html>

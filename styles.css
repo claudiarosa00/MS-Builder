@@ -1,0 +1,127 @@
+/*
+============================================
+1. CONFIGURAÇÃO GERAL
+Cores e fontes usadas em toda a aplicação.
+Manter tudo aqui em cima facilita alterar o
+aspeto geral sem procurar por todo o ficheiro.
+============================================
+*/
+:root {
+  --cor-fundo: #f4f5f7;
+  --cor-texto: #1f2933;
+  --cor-texto-suave: #616e7c;
+  --cor-destaque: #2f5496;
+  --cor-borda: #d9dee4;
+  --cor-fundo-cartao: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+}
+
+/*
+============================================
+2. CABEÇALHO
+============================================
+*/
+.cabecalho {
+  background-color: var(--cor-destaque);
+  color: #ffffff;
+  padding: 24px 32px;
+}
+
+.cabecalho h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.subtitulo {
+  margin: 4px 0 0 0;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+/*
+============================================
+3. ÁREA DE ESTADO (mensagens de carregamento/erro)
+============================================
+*/
+.area-estado {
+  padding: 12px 32px 0 32px;
+  font-size: 14px;
+  color: var(--cor-texto-suave);
+}
+
+.area-estado.erro {
+  color: #b42318;
+  font-weight: bold;
+}
+
+/*
+============================================
+4. LISTA DE FORMATOS AGRUPADA POR PUBLISHER
+============================================
+*/
+.lista-formatos {
+  padding: 24px 32px 48px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.grupo-publisher {
+  background-color: var(--cor-fundo-cartao);
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  padding: 16px 20px;
+}
+
+.grupo-publisher h2 {
+  margin: 0 0 12px 0;
+  font-size: 18px;
+  color: var(--cor-destaque);
+}
+
+.grupo-publisher .contagem {
+  font-weight: normal;
+  color: var(--cor-texto-suave);
+  font-size: 14px;
+}
+
+.tabela-formatos {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tabela-formatos th,
+.tabela-formatos td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--cor-borda);
+  vertical-align: top;
+}
+
+.tabela-formatos th {
+  color: var(--cor-texto-suave);
+  font-weight: normal;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.etiqueta-dg2020 {
+  display: inline-block;
+  background-color: #e8f0fe;
+  color: var(--cor-destaque);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 12px;
+  white-space: nowrap;
+}
