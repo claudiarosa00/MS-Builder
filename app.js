@@ -8,6 +8,12 @@ const listaFormatos = document.getElementById("listaFormatos");
 const campoCliente = document.getElementById("campoCliente");
 const campoCampanha = document.getElementById("campoCampanha");
 const resumoCampanha = document.getElementById("resumoCampanha");
+const resumoSelecao = document.getElementById("resumoSelecao");
+
+// Lista completa de formatos carregados (com um "id" único acrescentado a cada um)
+// e o conjunto de ids que o utilizador foi selecionando através das checkboxes.
+let todosFormatos = [];
+const idsSelecionados = new Set();
 
 /*
 ============================================
@@ -52,8 +58,14 @@ async function carregarFormatos() {
       throw new Error(`Não foi possível ler formatos.json (status ${resposta.status})`);
     }
     const formatos = await resposta.json();
-    mostrarEstado(`${formatos.length} formatos carregados.`);
-    mostrarFormatosAgrupados(formatos);
+
+    // Acrescenta um "id" único a cada formato (a posição na lista chega,
+    // porque a lista não muda depois de carregada). É este id que as
+    // checkboxes vão usar para dizer qual formato foi selecionado.
+    todosFormatos = formatos.map((formato, indice) => ({ ...formato, id: indice }));
+
+    mostrarEstado(`${todosFormatos.length} formatos carregados.`);
+    mostrarFormatosAgrupados(todosFormatos);
   } catch (erro) {
     mostrarEstado(`Erro ao carregar os formatos: ${erro.message}`, true);
     console.error(erro);
@@ -134,6 +146,7 @@ function criarCabecalhoTabela() {
   const cabecalho = document.createElement("thead");
   cabecalho.innerHTML = `
     <tr>
+      <th></th>
       <th>Formato</th>
       <th>Grupo Digital2020</th>
       <th>Dimensão</th>
@@ -147,6 +160,7 @@ function criarCabecalhoTabela() {
 function criarLinhaFormato(formato) {
   const linha = document.createElement("tr");
   linha.innerHTML = `
+    <td><input type="checkbox" class="checkbox-formato" data-id="${formato.id}"></td>
     <td>${formato.formato ?? ""}</td>
     <td><span class="etiqueta-dg2020">${formato.grupoDigital2020 ?? "—"}</span></td>
     <td>${formato.dimensao ?? "não especificado"}</td>
@@ -158,7 +172,49 @@ function criarLinhaFormato(formato) {
 
 /*
 ============================================
-6. ARRANQUE DA APLICAÇÃO
+6. SELEÇÃO DE FORMATOS
+Em vez de pôr um "ouvinte" em cada checkbox (são centenas),
+ouvimos os cliques uma vez no contentor todo (listaFormatos)
+e verificamos se o clique foi numa checkbox. É mais eficiente
+e continua a funcionar mesmo depois de a lista ser filtrada.
+============================================
+*/
+listaFormatos.addEventListener("change", (evento) => {
+  const checkbox = evento.target;
+  if (!checkbox.classList.contains("checkbox-formato")) {
+    return;
+  }
+
+  const id = Number(checkbox.dataset.id);
+  if (checkbox.checked) {
+    idsSelecionados.add(id);
+  } else {
+    idsSelecionados.delete(id);
+  }
+  atualizarResumoSelecao();
+});
+
+function atualizarResumoSelecao() {
+  if (idsSelecionados.size === 0) {
+    resumoSelecao.innerHTML = "";
+    return;
+  }
+
+  const formatosSelecionados = todosFormatos.filter((f) => idsSelecionados.has(f.id));
+
+  const itens = formatosSelecionados
+    .map((f) => `<li>${f.fornecedor} — ${f.formato} <span class="etiqueta-dg2020">${f.grupoDigital2020 ?? "—"}</span></li>`)
+    .join("");
+
+  resumoSelecao.innerHTML = `
+    <h2>Formatos selecionados (${formatosSelecionados.length})</h2>
+    <ul>${itens}</ul>
+  `;
+}
+
+/*
+============================================
+7. ARRANQUE DA APLICAÇÃO
 ============================================
 */
 carregarFormatos();

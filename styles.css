@@ -96,7 +96,45 @@ body {
 
 /*
 ============================================
-4. ÁREA DE ESTADO (mensagens de carregamento/erro)
+4. RESUMO DA SELEÇÃO (fica fixo no topo ao fazer scroll)
+============================================
+*/
+.resumo-selecao {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.resumo-selecao:empty {
+  display: none;
+}
+
+.resumo-selecao h2 {
+  margin: 0;
+  padding: 12px 32px;
+  background-color: #1f2933;
+  color: #ffffff;
+  font-size: 15px;
+}
+
+.resumo-selecao ul {
+  margin: 0;
+  padding: 10px 32px;
+  background-color: #2f3a44;
+  color: #ffffff;
+  list-style: none;
+  max-height: 160px;
+  overflow-y: auto;
+  font-size: 13px;
+}
+
+.resumo-selecao li {
+  padding: 3px 0;
+}
+
+/*
+============================================
+5. ÁREA DE ESTADO (mensagens de carregamento/erro)
 ============================================
 */
 .area-estado {
@@ -112,7 +150,7 @@ body {
 
 /*
 ============================================
-5. LISTA DE FORMATOS AGRUPADA POR PUBLISHER
+6. LISTA DE FORMATOS AGRUPADA POR PUBLISHER
 ============================================
 */
 .lista-formatos {
@@ -160,6 +198,18 @@ body {
   font-weight: normal;
   font-size: 12px;
   text-transform: uppercase;
+}
+
+.tabela-formatos td:first-child,
+.tabela-formatos th:first-child {
+  width: 28px;
+  padding-right: 0;
+}
+
+.checkbox-formato {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
 }
 
 .etiqueta-dg2020 {

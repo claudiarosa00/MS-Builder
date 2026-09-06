@@ -41,7 +41,19 @@
 
   <!--
   ============================================
-  3. ÁREA DE ESTADO / MENSAGENS
+  3. RESUMO DA SELEÇÃO
+  Mostra, sempre atualizado, quais os formatos que o
+  utilizador já marcou nas checkboxes da lista abaixo.
+  Fica fixo no topo (position: sticky) para não ser preciso
+  voltar a subir a página depois de selecionar formatos
+  mais abaixo na lista.
+  ============================================
+  -->
+  <aside id="resumoSelecao" class="resumo-selecao"></aside>
+
+  <!--
+  ============================================
+  4. ÁREA DE ESTADO / MENSAGENS
   Usada para mostrar "A carregar..." ou erros,
   para percebermos sempre o que se está a passar.
   ============================================
@@ -50,10 +62,10 @@
 
   <!--
   ============================================
-  4. LISTA DE FORMATOS (agrupada por publisher)
-  Esta é a única funcionalidade desta primeira etapa:
-  provar que o formatos.json carrega e é mostrado no ecrã.
-  Pesquisa, filtros e seleção vêm nas próximas etapas.
+  5. LISTA DE FORMATOS (agrupada por publisher)
+  Cada formato tem uma checkbox — selecionar/desselecionar
+  atualiza automaticamente o "Resumo da seleção" acima.
+  Pesquisa e filtros vêm numa próxima etapa.
   ============================================
   -->
   <main id="listaFormatos" class="lista-formatos"></main>
