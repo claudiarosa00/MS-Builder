@@ -67,6 +67,8 @@ que substitui marcadores como {n} pelo valor indicado.
 */
 const TRADUCOES = {
   subtitulo: { pt: "Construtor de Specs Criativas", en: "Creative Specs Builder", es: "Generador de Especificaciones Creativas", fr: "Générateur de Spécifications Créatives" },
+  indiceAriaLabel: { pt: "Índice de publishers", en: "Publisher index", es: "Índice de editores", fr: "Index des éditeurs" },
+  excelValorMeioDigital: { pt: "Digital", en: "Digital", es: "Digital", fr: "Numérique" },
   labelIdioma: { pt: "Idioma", en: "Language", es: "Idioma", fr: "Langue" },
   labelCompanhia: { pt: "Companhia", en: "Company", es: "Compañía", fr: "Société" },
   opcaoSelecionar: { pt: "— Selecionar —", en: "— Select —", es: "— Seleccionar —", fr: "— Sélectionner —" },
@@ -144,6 +146,15 @@ function aplicarTraducoesEstaticas() {
   document.querySelectorAll("[data-i18n-placeholder]").forEach((elemento) => {
     elemento.placeholder = t(elemento.dataset.i18nPlaceholder);
   });
+  document.querySelectorAll("[data-i18n-aria-label]").forEach((elemento) => {
+    elemento.setAttribute("aria-label", t(elemento.dataset.i18nAriaLabel));
+  });
+
+  // O título "CSBuilder" nunca se traduz (é o nome do produto) — só a
+  // parte descritiva a seguir ao travessão, tanto no separador do browser
+  // como no atributo "lang" da página (importante para leitores de ecrã).
+  document.title = `CSBuilder — ${t("subtitulo")}`;
+  document.documentElement.lang = idiomaAtual;
 }
 
 campoIdioma.addEventListener("change", () => {
@@ -283,6 +294,11 @@ function paraIdHtml(texto) {
 // dos publishers "tradicionais"); os restantes seguem o campo "canal"
 // que já vem da base (Paid Social vs. Internet/Compra Direta).
 const ORDEM_CATEGORIAS = ["Social Media", "Compra Direta", "Google ou Search"];
+const CHAVE_TRADUCAO_CATEGORIA = {
+  "Social Media": "filtroSocialMedia",
+  "Compra Direta": "filtroCompraDireta",
+  "Google ou Search": "filtroGoogleSearch",
+};
 
 function categoriaDoPublisher(nomePublisher, formatosDoPublisher) {
   if (nomePublisher === "Google") {
@@ -450,7 +466,7 @@ function atualizarIndicePublishers() {
 
     const titulo = document.createElement("h3");
     titulo.className = "indice-categoria";
-    titulo.textContent = categoria;
+    titulo.textContent = t(CHAVE_TRADUCAO_CATEGORIA[categoria]);
     indicePublishers.appendChild(titulo);
 
     blocosDaCategoria.forEach((bloco) => {
@@ -768,7 +784,7 @@ async function exportarSelecaoParaExcel() {
   folha.getCell("F5").value = campanha;
   folha.getCell("E6").value = t("excelLabelMeio");
   folha.getCell("E6").style = estiloRotulo;
-  folha.getCell("F6").value = "Digital";
+  folha.getCell("F6").value = t("excelValorMeioDigital");
 
   // --- Uma secção por objetivo (Awareness / Consideration / Conversion),
   // cada uma com o seu próprio cabeçalho de tabela — o mesmo formato pode
