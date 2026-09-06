@@ -48,7 +48,7 @@ seus formatos. Facilita depois desenhar a lista no ecrã.
 function agruparPorPublisher(formatos) {
   const grupos = {};
   for (const formato of formatos) {
-    const nomePublisher = formato.publisher;
+    const nomePublisher = formato.fornecedor;
     if (!grupos[nomePublisher]) {
       grupos[nomePublisher] = [];
     }
@@ -107,10 +107,10 @@ function criarCabecalhoTabela() {
   cabecalho.innerHTML = `
     <tr>
       <th>Formato</th>
-      <th>Formato Digital2020</th>
-      <th>Dimensões</th>
-      <th>Peso máximo</th>
-      <th>Ficheiros a entregar</th>
+      <th>Grupo Digital2020</th>
+      <th>Dimensão</th>
+      <th>Peso</th>
+      <th>Tipo de ficheiro</th>
     </tr>
   `;
   return cabecalho;
@@ -120,10 +120,10 @@ function criarLinhaFormato(formato) {
   const linha = document.createElement("tr");
   linha.innerHTML = `
     <td>${formato.formato ?? ""}</td>
-    <td><span class="etiqueta-dg2020">${formato.formatoDigital2020 ?? "—"}</span></td>
-    <td>${formato.dimensoes ?? "não especificado"}</td>
-    <td>${formato.pesoMaximo ?? "não especificado"}</td>
-    <td>${formato.ficheirosAEntregar ?? "não especificado"}</td>
+    <td><span class="etiqueta-dg2020">${formato.grupoDigital2020 ?? "—"}</span></td>
+    <td>${formato.dimensao ?? "não especificado"}</td>
+    <td>${formato.peso ?? "não especificado"}</td>
+    <td>${formato.tipoFicheiro ?? "não especificado"}</td>
   `;
   return linha;
 }
