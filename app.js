@@ -92,7 +92,6 @@ const TRADUCOES = {
   botaoExportar: { pt: "Exportar para Excel", en: "Export to Excel", es: "Exportar a Excel", fr: "Exporter vers Excel" },
   semResultados: { pt: "Nenhum formato encontrado com estes filtros.", en: "No formats found with these filters.", es: "No se encontraron formatos con estos filtros.", fr: "Aucun format trouvé avec ces filtres." },
   estadoCarregando: { pt: "A carregar formatos...", en: "Loading formats...", es: "Cargando formatos...", fr: "Chargement des formats..." },
-  estadoCarregado: { pt: "{n} formatos carregados.", en: "{n} formats loaded.", es: "{n} formatos cargados.", fr: "{n} formats chargés." },
   estadoErro: { pt: "Erro ao carregar os formatos: {msg}", en: "Error loading formats: {msg}", es: "Error al cargar los formatos: {msg}", fr: "Erreur lors du chargement des formats : {msg}" },
   resumoCampanhaTexto: { pt: "A preparar pedido para: {cliente} — {campanha}", en: "Preparing request for: {cliente} — {campanha}", es: "Preparando la solicitud para: {cliente} — {campanha}", fr: "Préparation de la demande pour : {cliente} — {campanha}" },
   clientePorPreencher: { pt: "(cliente por preencher)", en: "(client pending)", es: "(cliente por completar)", fr: "(client à renseigner)" },
@@ -245,7 +244,10 @@ async function carregarFormatos() {
     // checkboxes vão usar para dizer qual formato foi selecionado.
     todosFormatos = formatos.map((formato, indice) => ({ ...formato, id: indice }));
 
-    mostrarEstado(formatar("estadoCarregado", { n: todosFormatos.length }));
+    // Depois de carregado com sucesso não há nada útil a dizer aqui — a
+    // própria lista de formatos a aparecer no ecrã já confirma que correu
+    // bem, por isso limpamos a mensagem de "A carregar..." sem a substituir.
+    mostrarEstado("");
     mostrarFormatosAgrupados(listaFormatos, todosFormatos, { comCheckbox: true, comLink: false, simplificado: true, prefixoId: "construir" });
     mostrarFormatosAgrupados(listaSpecs, todosFormatos, { comCheckbox: false, comLink: true, simplificado: false, prefixoId: "specs" });
     aplicarFiltros();
