@@ -7,6 +7,7 @@ const areaEstado = document.getElementById("areaEstado");
 const listaFormatos = document.getElementById("listaFormatos");
 const listaSpecs = document.getElementById("listaSpecs");
 const indicePublishers = document.getElementById("indicePublishers");
+const campoCompanhia = document.getElementById("campoCompanhia");
 const campoCliente = document.getElementById("campoCliente");
 const campoCampanha = document.getElementById("campoCampanha");
 const resumoCampanha = document.getElementById("resumoCampanha");
@@ -407,11 +408,31 @@ function atualizarResumoSelecao() {
 ============================================
 10. EXPORTAR PARA EXCEL (pedido de materiais)
 Gera um ficheiro .xlsx, no estilo do template real da
-agência (cabeçalho azul, bloco Cliente/Campanha/Meio no
-topo), só com os formatos que o utilizador selecionou.
+agência (cabeçalho colorido, bloco Companhia/Cliente/
+Campanha/Meio no topo), só com os formatos selecionados.
+A cor do cabeçalho e o logótipo mudam consoante a
+Companhia escolhida (Havas Media ou Arena Media).
 Usa a biblioteca ExcelJS (lib/exceljs.min.js).
 ============================================
 */
+const CONFIGURACAO_COMPANHIA = {
+  "Havas Media": {
+    corCabecalho: "FFE60000",
+    ficheiroLogo: "assets/logo-havas-media.png",
+    proporcaoLogo: 372 / 160,
+  },
+  "Arena Media": {
+    corCabecalho: "FF328CF5",
+    ficheiroLogo: "assets/logo-arena-media.png",
+    proporcaoLogo: 1557 / 368,
+  },
+};
+
+// Uma borda cinza-claro, para a tabela ficar bem definida sem
+// precisarmos das gridlines do Excel (que desligamos à parte).
+const BORDA_CLARA = { style: "thin", color: { argb: "FFDCDCDC" } };
+const ESTILO_BORDA_COMPLETA = { top: BORDA_CLARA, left: BORDA_CLARA, bottom: BORDA_CLARA, right: BORDA_CLARA };
+
 botaoExportar.addEventListener("click", exportarSelecaoParaExcel);
 
 async function exportarSelecaoParaExcel() {
@@ -420,11 +441,17 @@ async function exportarSelecaoParaExcel() {
     return;
   }
 
+  const companhia = campoCompanhia.value;
+  const config = CONFIGURACAO_COMPANHIA[companhia];
   const cliente = campoCliente.value.trim() || "(preencher)";
   const campanha = campoCampanha.value.trim() || "(preencher)";
 
   const workbook = new ExcelJS.Workbook();
   const folha = workbook.addWorksheet("Pedido de Materiais");
+
+  // Sem gridlines — só a tabela em si vai ter linhas (mais abaixo),
+  // para o Excel ficar limpo e não parecer uma grelha genérica.
+  folha.views = [{ showGridLines: false }];
 
   // --- Larguras de coluna. Têm de ser definidas ANTES de escrever
   // valores nas células, senão o ExcelJS troca-nos as voltas e perde
@@ -433,27 +460,39 @@ async function exportarSelecaoParaExcel() {
     { width: 5 }, { width: 20 }, { width: 28 }, { width: 45 }, { width: 16 }, { width: 22 }, { width: 20 },
   ];
 
-  // --- Bloco Cliente / Campanha / Meio, no topo (tal como no template da agência) ---
-  const estiloRotulo = { font: { name: "Arial", size: 10, bold: true, color: { argb: "FF5B6678" } } };
-  folha.getCell("E3").value = "Cliente:";
-  folha.getCell("E3").style = estiloRotulo;
-  folha.getCell("F3").value = cliente;
-  folha.getCell("E4").value = "Campanha:";
-  folha.getCell("E4").style = estiloRotulo;
-  folha.getCell("F4").value = campanha;
-  folha.getCell("E5").value = "Meio:";
-  folha.getCell("E5").style = estiloRotulo;
-  folha.getCell("F5").value = "Digital";
+  // --- Logótipo da companhia escolhida, no canto superior esquerdo ---
+  const respostaLogo = await fetch(config.ficheiroLogo);
+  const bufferLogo = await respostaLogo.arrayBuffer();
+  const idImagemLogo = workbook.addImage({ buffer: bufferLogo, extension: "png" });
+  const alturaLogo = 50;
+  const larguraLogo = Math.round(alturaLogo * config.proporcaoLogo);
+  folha.addImage(idImagemLogo, { tl: { col: 0, row: 0 }, ext: { width: larguraLogo, height: alturaLogo } });
 
-  // --- Cabeçalho da tabela (linha 9, tal como no template da agência) ---
-  const linhaCabecalho = 9;
+  // --- Bloco Companhia / Cliente / Campanha / Meio, no topo ---
+  const estiloRotulo = { font: { name: "Arial", size: 10, bold: true, color: { argb: "FF5B6678" } } };
+  folha.getCell("E3").value = "Companhia:";
+  folha.getCell("E3").style = estiloRotulo;
+  folha.getCell("F3").value = companhia;
+  folha.getCell("E4").value = "Cliente:";
+  folha.getCell("E4").style = estiloRotulo;
+  folha.getCell("F4").value = cliente;
+  folha.getCell("E5").value = "Campanha:";
+  folha.getCell("E5").style = estiloRotulo;
+  folha.getCell("F5").value = campanha;
+  folha.getCell("E6").value = "Meio:";
+  folha.getCell("E6").style = estiloRotulo;
+  folha.getCell("F6").value = "Digital";
+
+  // --- Cabeçalho da tabela ---
+  const linhaCabecalho = 10;
   const colunas = ["#", "Canal", "Formato", "Dimensão", "Peso", "Tipo de Ficheiro", "Data de entrega"];
   colunas.forEach((titulo, indice) => {
     const celula = folha.getCell(linhaCabecalho, indice + 1);
     celula.value = titulo;
     celula.font = { name: "Arial", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
-    celula.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF328CF5" } };
+    celula.fill = { type: "pattern", pattern: "solid", fgColor: { argb: config.corCabecalho } };
     celula.alignment = { vertical: "middle", wrapText: true };
+    celula.border = ESTILO_BORDA_COMPLETA;
   });
 
   // --- Uma linha por formato selecionado ---
@@ -471,6 +510,7 @@ async function exportarSelecaoParaExcel() {
     linha.eachCell((celula) => {
       celula.font = { name: "Arial", size: 10, color: { argb: "FF0F1724" } };
       celula.alignment = { vertical: "top", wrapText: true };
+      celula.border = ESTILO_BORDA_COMPLETA;
     });
   });
 

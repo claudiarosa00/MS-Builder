@@ -264,15 +264,19 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   letter-spacing: 0.03em;
 }
 
-.campo input {
+.campo input,
+.campo select {
   padding: 10px 12px;
   border: 1px solid var(--cor-borda);
   border-radius: 6px;
   font-size: 14px;
   font-family: var(--fonte-base);
+  background-color: #ffffff;
+  color: var(--cor-texto);
 }
 
-.campo input:focus {
+.campo input:focus,
+.campo select:focus {
   outline: 2px solid var(--cor-destaque);
   outline-offset: 1px;
 }
