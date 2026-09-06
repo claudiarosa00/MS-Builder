@@ -12,9 +12,9 @@ geral sem procurar por todo o ficheiro.
   --cor-fundo: #f7f5f4;
   --cor-texto: #1a1a1a;
   --cor-texto-suave: #6b6560;
-  --cor-destaque: #d01f39;       /* vermelho Havas */
-  --cor-destaque-escuro: #a4162c;
-  --cor-destaque-suave: #fbe9ec;  /* vermelho muito claro, para fundos/badges */
+  --cor-destaque: #d32d1f;       /* vermelho Havas (amostrado do logótipo real) */
+  --cor-destaque-escuro: #972016;
+  --cor-destaque-suave: #f9e5e4;  /* vermelho muito claro, para fundos/badges */
   --cor-escuro: #1a1a1a;          /* cabeçalho, tabs, barra de seleção */
   --cor-borda: #e6e2df;
   --cor-fundo-cartao: #ffffff;
@@ -40,15 +40,33 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
 ============================================
 */
 .cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 16px;
   background-color: var(--cor-escuro);
   color: #ffffff;
-  padding: 22px 32px;
+  padding: 18px 32px;
   border-top: 4px solid var(--cor-destaque);
+}
+
+.logo-havas {
+  background-color: #ffffff;
+  border-radius: 6px;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.logo-havas img {
+  display: block;
+  height: 26px;
+  width: auto;
 }
 
 .cabecalho h1 {
   margin: 0;
-  font-size: 26px;
+  font-size: 24px;
   letter-spacing: -0.01em;
 }
 
