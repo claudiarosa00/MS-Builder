@@ -49,7 +49,12 @@
   mais abaixo na lista.
   ============================================
   -->
-  <aside id="resumoSelecao" class="resumo-selecao"></aside>
+  <div class="barra-fixa">
+    <aside id="resumoSelecao" class="resumo-selecao"></aside>
+    <div id="areaExportar" class="area-exportar">
+      <button id="botaoExportar" type="button" disabled>Exportar para Excel</button>
+    </div>
+  </div>
 
   <!--
   ============================================
@@ -70,6 +75,8 @@
   -->
   <main id="listaFormatos" class="lista-formatos"></main>
 
+  <!-- Biblioteca ExcelJS (ficheiro local, não precisa de internet) -->
+  <script src="lib/exceljs.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

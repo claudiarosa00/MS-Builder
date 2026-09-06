@@ -97,16 +97,16 @@ body {
 /*
 ============================================
 4. RESUMO DA SELEÇÃO (fica fixo no topo ao fazer scroll)
+A barra-fixa junta o resumo e o botão de exportar, para
+ficarem sempre visíveis juntos, sem ser preciso subir a
+página depois de selecionar formatos mais abaixo na lista.
 ============================================
 */
-.resumo-selecao {
+.barra-fixa {
   position: sticky;
   top: 0;
   z-index: 10;
-}
-
-.resumo-selecao:empty {
-  display: none;
+  background-color: var(--cor-fundo);
 }
 
 .resumo-selecao h2 {
@@ -134,7 +134,36 @@ body {
 
 /*
 ============================================
-5. ÁREA DE ESTADO (mensagens de carregamento/erro)
+5. BOTÃO DE EXPORTAR PARA EXCEL
+============================================
+*/
+.area-exportar {
+  padding: 12px 32px;
+}
+
+.area-exportar button {
+  background-color: var(--cor-destaque);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
+}
+
+.area-exportar button:hover {
+  background-color: #24406f;
+}
+
+.area-exportar button:disabled {
+  background-color: #a9b3bd;
+  cursor: not-allowed;
+}
+
+/*
+============================================
+6. ÁREA DE ESTADO (mensagens de carregamento/erro)
 ============================================
 */
 .area-estado {
@@ -150,7 +179,7 @@ body {
 
 /*
 ============================================
-6. LISTA DE FORMATOS AGRUPADA POR PUBLISHER
+7. LISTA DE FORMATOS AGRUPADA POR PUBLISHER
 ============================================
 */
 .lista-formatos {
