@@ -491,10 +491,13 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   background-color: var(--cor-destaque-suave);
 }
 
-.tabela-formatos td:first-child,
-.tabela-formatos th:first-child {
+.coluna-checkbox {
   width: 28px;
   padding-right: 0;
+}
+
+.coluna-icone {
+  width: 48px;
 }
 
 .checkbox-formato {
@@ -518,4 +521,28 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   padding: 2px 8px;
   font-size: 12px;
   white-space: nowrap;
+}
+
+/* Pequeno retângulo proporcional à dimensão do formato, só para dar
+   uma ideia visual rápida da forma (a especificação real continua em
+   texto na coluna "Dimensão" ao lado) — só existe na tab "Base de Specs". */
+.icone-formato {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--cor-fundo);
+  border-radius: 4px;
+}
+
+.icone-formato span {
+  display: block;
+  background-color: var(--cor-texto-suave);
+  border-radius: 1px;
+}
+
+.icone-formato-vazio {
+  color: var(--cor-borda);
+  font-size: 14px;
 }

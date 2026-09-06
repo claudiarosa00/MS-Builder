@@ -126,7 +126,7 @@ campoIdioma.addEventListener("change", () => {
   // gerados em JavaScript (cabeçalhos de tabela, "não especificado",
   // etc.) mudarem de língua também — sem voltar a carregar os dados.
   mostrarFormatosAgrupados(listaFormatos, todosFormatos, { comCheckbox: true, comLink: false, simplificado: true, prefixoId: "construir" });
-  mostrarFormatosAgrupados(listaSpecs, todosFormatos, { comCheckbox: false, comLink: true, simplificado: false, prefixoId: "specs" });
+  mostrarFormatosAgrupados(listaSpecs, todosFormatos, { comCheckbox: false, comLink: true, comIcone: true, simplificado: false, prefixoId: "specs" });
   aplicarFiltros();
   atualizarResumoSelecao();
 });
@@ -208,7 +208,7 @@ async function carregarFormatos() {
 
     mostrarEstado(formatar("estadoCarregado", { n: todosFormatos.length }));
     mostrarFormatosAgrupados(listaFormatos, todosFormatos, { comCheckbox: true, comLink: false, simplificado: true, prefixoId: "construir" });
-    mostrarFormatosAgrupados(listaSpecs, todosFormatos, { comCheckbox: false, comLink: true, simplificado: false, prefixoId: "specs" });
+    mostrarFormatosAgrupados(listaSpecs, todosFormatos, { comCheckbox: false, comLink: true, comIcone: true, simplificado: false, prefixoId: "specs" });
     aplicarFiltros();
   } catch (erro) {
     mostrarEstado(formatar("estadoErro", { msg: erro.message }), true);
@@ -313,9 +313,43 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes) {
   return bloco;
 }
 
+// Tenta ler a primeira dimensão "LxA" que encontrar no texto (ex.: em
+// "1080×1920 (9:16) Stories/Reels; 1080×1350 (4:5) Feed" apanha 1080×1920).
+// Quando o texto não tem nenhum padrão assim (é só texto descritivo,
+// várias variantes sem número claro, etc.), devolve null — nesse caso
+// mostramos um ícone neutro em vez de inventar uma proporção.
+function extrairProporcao(dimensaoTexto) {
+  if (!dimensaoTexto) {
+    return null;
+  }
+  const resultado = dimensaoTexto.match(/(\d{2,5})\s*[x×]\s*(\d{2,5})/);
+  if (!resultado) {
+    return null;
+  }
+  const largura = Number(resultado[1]);
+  const altura = Number(resultado[2]);
+  return largura && altura ? { largura, altura } : null;
+}
+
+// Desenha um pequeno retângulo proporcional à dimensão do formato — só
+// para dar uma ideia visual rápida da forma (não é a especificação em
+// si, essa continua na coluna "Dimensão" ao lado).
+function criarIconeFormato(formato) {
+  const proporcao = extrairProporcao(formato.dimensao);
+  if (!proporcao) {
+    return `<div class="icone-formato icone-formato-vazio" title="${t("naoEspecificado")}">–</div>`;
+  }
+  const { largura, altura } = proporcao;
+  const ladoMaior = Math.max(largura, altura);
+  const larguraIcone = Math.max(4, Math.round((largura / ladoMaior) * 26));
+  const alturaIcone = Math.max(4, Math.round((altura / ladoMaior) * 26));
+  return `<div class="icone-formato" title="${largura}×${altura}"><span style="width:${larguraIcone}px;height:${alturaIcone}px;"></span></div>`;
+}
+
 function criarCabecalhoTabela(opcoes) {
   const cabecalho = document.createElement("thead");
-  const colunaCheckbox = opcoes.comCheckbox ? "<th></th>" : "";
+  const colunaCheckbox = opcoes.comCheckbox ? '<th class="coluna-checkbox"></th>' : "";
+  const colunaIcone = opcoes.comIcone ? '<th class="coluna-icone"></th>' : "";
   const colunaLink = opcoes.comLink ? `<th>${t("colFonte")}</th>` : "";
 
   // Na tab "Construir Pedido" (simplificado) só mostramos o essencial para
@@ -336,6 +370,7 @@ function criarCabecalhoTabela(opcoes) {
   cabecalho.innerHTML = `
     <tr>
       ${colunaCheckbox}
+      ${colunaIcone}
       <th>${t("colFormato")}</th>
       <th>${t("colGrupoDigital2020")}</th>
       <th>${t("colDimensao")}</th>
@@ -353,7 +388,7 @@ function criarLinhaFormato(formato, opcoes) {
   // (importante para a lista continuar correta depois de trocar de idioma
   // ou de filtro, que voltam a desenhar as linhas do zero).
   const colunaCheckbox = opcoes.comCheckbox
-    ? `<td><input type="checkbox" class="checkbox-formato" data-id="${formato.id}" ${idsSelecionados.has(formato.id) ? "checked" : ""}></td>`
+    ? `<td class="coluna-checkbox"><input type="checkbox" class="checkbox-formato" data-id="${formato.id}" ${idsSelecionados.has(formato.id) ? "checked" : ""}></td>`
     : "";
 
   if (opcoes.simplificado) {
@@ -368,8 +403,10 @@ function criarLinhaFormato(formato, opcoes) {
   const colunaLink = opcoes.comLink
     ? `<td>${formato.link ? `<a href="${formato.link}" target="_blank" rel="noopener">${t("verSpecsLink")}</a>` : "—"}</td>`
     : "";
+  const colunaIcone = opcoes.comIcone ? `<td class="coluna-icone">${criarIconeFormato(formato)}</td>` : "";
   linha.innerHTML = `
     ${colunaCheckbox}
+    ${colunaIcone}
     <td>${formato.formato ?? ""}</td>
     <td><span class="etiqueta-dg2020">${formato.grupoDigital2020 ?? "—"}</span></td>
     <td>${formato.dimensao ?? t("naoEspecificado")}</td>
