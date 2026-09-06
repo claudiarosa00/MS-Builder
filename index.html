@@ -85,8 +85,9 @@
 
         <section class="dados-campanha">
           <div class="campo">
-            <label for="campoCompanhia" data-i18n="labelCompanhia">Companhia</label>
-            <select id="campoCompanhia">
+            <label for="campoCompanhia"><span data-i18n="labelCompanhia">Companhia</span> <span class="marca-obrigatorio">*</span></label>
+            <select id="campoCompanhia" required>
+              <option value="" disabled selected data-i18n="opcaoSelecionar">— Selecionar —</option>
               <option value="Havas Media">Havas Media</option>
               <option value="Arena Media">Arena Media</option>
             </select>

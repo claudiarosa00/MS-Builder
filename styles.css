@@ -312,6 +312,10 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   letter-spacing: 0.03em;
 }
 
+.marca-obrigatorio {
+  color: var(--cor-destaque);
+}
+
 .campo input,
 .campo select {
   padding: 10px 12px;

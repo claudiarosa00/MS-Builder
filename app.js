@@ -50,6 +50,7 @@ const TRADUCOES = {
   subtitulo: { pt: "Construtor de Specs Criativas", en: "Creative Specs Builder", es: "Constructor de Specs Creativas", fr: "Générateur de Specs Créatives" },
   labelIdioma: { pt: "Idioma", en: "Language", es: "Idioma", fr: "Langue" },
   labelCompanhia: { pt: "Companhia", en: "Company", es: "Compañía", fr: "Société" },
+  opcaoSelecionar: { pt: "— Selecionar —", en: "— Select —", es: "— Seleccionar —", fr: "— Sélectionner —" },
   labelCliente: { pt: "Cliente", en: "Client", es: "Cliente", fr: "Client" },
   placeholderCliente: { pt: "Nome do cliente", en: "Client name", es: "Nombre del cliente", fr: "Nom du client" },
   labelCampanha: { pt: "Campanha", en: "Campaign", es: "Campaña", fr: "Campagne" },
@@ -176,6 +177,10 @@ function atualizarResumoCampanha() {
 
 campoCliente.addEventListener("input", atualizarResumoCampanha);
 campoCampanha.addEventListener("input", atualizarResumoCampanha);
+
+// A Companhia decide o template do Excel — sempre que muda, o botão de
+// exportar tem de ser reavaliado (só liga se também houver seleção).
+campoCompanhia.addEventListener("change", atualizarResumoSelecao);
 
 /*
 ============================================
@@ -509,7 +514,10 @@ botaoLimparSelecao.addEventListener("click", () => {
 });
 
 function atualizarResumoSelecao() {
-  botaoExportar.disabled = idsSelecionados.size === 0;
+  // A Companhia é obrigatória porque é ela que decide qual o template
+  // (cor + logótipo) a usar no Excel — sem ela escolhida, não há como
+  // saber qual gerar, por isso o botão de exportar fica bloqueado.
+  botaoExportar.disabled = idsSelecionados.size === 0 || campoCompanhia.value === "";
   botaoLimparSelecao.disabled = idsSelecionados.size === 0;
 
   if (idsSelecionados.size === 0) {
@@ -562,11 +570,11 @@ botaoExportar.addEventListener("click", exportarSelecaoParaExcel);
 
 async function exportarSelecaoParaExcel() {
   const formatosSelecionados = todosFormatos.filter((f) => idsSelecionados.has(f.id));
-  if (formatosSelecionados.length === 0) {
+  const companhia = campoCompanhia.value;
+  if (formatosSelecionados.length === 0 || !companhia) {
     return;
   }
 
-  const companhia = campoCompanhia.value;
   const config = CONFIGURACAO_COMPANHIA[companhia];
   const cliente = campoCliente.value.trim() || t("valorPreencher");
   const campanha = campoCampanha.value.trim() || t("valorPreencher");
@@ -591,7 +599,10 @@ async function exportarSelecaoParaExcel() {
   const idImagemLogo = workbook.addImage({ buffer: bufferLogo, extension: "png" });
   const alturaLogo = 50;
   const larguraLogo = Math.round(alturaLogo * config.proporcaoLogo);
-  folha.addImage(idImagemLogo, { tl: { col: 0, row: 0 }, ext: { width: larguraLogo, height: alturaLogo } });
+  // Âncora em B2 (col:1, row:1) em vez de A1 (col:0, row:0): a coluna A
+  // e a linha 1 ficam livres e funcionam como margem real à esquerda e
+  // por cima do logótipo, que assim já não fica colado ao canto da folha.
+  folha.addImage(idImagemLogo, { tl: { col: 1, row: 1 }, ext: { width: larguraLogo, height: alturaLogo } });
 
   // --- Bloco Companhia / Cliente / Campanha / Meio, no topo ---
   const estiloRotulo = { font: { name: "Arial", size: 10, bold: true, color: { argb: "FF5B6678" } } };
