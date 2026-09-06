@@ -47,7 +47,7 @@ que substitui marcadores como {n} pelo valor indicado.
 ============================================
 */
 const TRADUCOES = {
-  subtitulo: { pt: "Construtor de Specs Criativas", en: "Creative Specs Builder", es: "Constructor de Specs Creativas", fr: "Générateur de Specs Créatives" },
+  subtitulo: { pt: "Construtor de Specs Criativas", en: "Creative Specs Builder", es: "Generador de Especificaciones Creativas", fr: "Générateur de Spécifications Créatives" },
   labelIdioma: { pt: "Idioma", en: "Language", es: "Idioma", fr: "Langue" },
   labelCompanhia: { pt: "Companhia", en: "Company", es: "Compañía", fr: "Société" },
   opcaoSelecionar: { pt: "— Selecionar —", en: "— Select —", es: "— Seleccionar —", fr: "— Sélectionner —" },
@@ -55,9 +55,9 @@ const TRADUCOES = {
   placeholderCliente: { pt: "Nome do cliente", en: "Client name", es: "Nombre del cliente", fr: "Nom du client" },
   labelCampanha: { pt: "Campanha", en: "Campaign", es: "Campaña", fr: "Campagne" },
   placeholderCampanha: { pt: "Nome da campanha", en: "Campaign name", es: "Nombre de la campaña", fr: "Nom de la campagne" },
-  tabConstruir: { pt: "Construir Pedido", en: "Build Request", es: "Crear Pedido", fr: "Créer la Demande" },
+  tabConstruir: { pt: "Construir Pedido", en: "Create Request", es: "Crear Solicitud", fr: "Créer la Demande" },
   tabSpecs: { pt: "Biblioteca de Formatos", en: "Format Library", es: "Biblioteca de Formatos", fr: "Bibliothèque de Formats" },
-  placeholderPesquisa: { pt: "Pesquisar formato ou publisher...", en: "Search format or publisher...", es: "Buscar formato o publisher...", fr: "Rechercher un format ou un publisher..." },
+  placeholderPesquisa: { pt: "Pesquisar formato ou publisher...", en: "Search format or publisher...", es: "Buscar formato o editor...", fr: "Rechercher un format ou un éditeur..." },
   filtroTodas: { pt: "Todas", en: "All", es: "Todas", fr: "Toutes" },
   filtroSocialMedia: { pt: "Social Media", en: "Social Media", es: "Social Media", fr: "Social Media" },
   filtroCompraDireta: { pt: "Compra Direta", en: "Direct Buy", es: "Compra Directa", fr: "Achat Direct" },
@@ -69,7 +69,7 @@ const TRADUCOES = {
   estadoCarregando: { pt: "A carregar formatos...", en: "Loading formats...", es: "Cargando formatos...", fr: "Chargement des formats..." },
   estadoCarregado: { pt: "{n} formatos carregados.", en: "{n} formats loaded.", es: "{n} formatos cargados.", fr: "{n} formats chargés." },
   estadoErro: { pt: "Erro ao carregar os formatos: {msg}", en: "Error loading formats: {msg}", es: "Error al cargar los formatos: {msg}", fr: "Erreur lors du chargement des formats : {msg}" },
-  resumoCampanhaTexto: { pt: "A preparar pedido para: {cliente} — {campanha}", en: "Preparing request for: {cliente} — {campanha}", es: "Preparando el pedido para: {cliente} — {campanha}", fr: "Préparation de la demande pour : {cliente} — {campanha}" },
+  resumoCampanhaTexto: { pt: "A preparar pedido para: {cliente} — {campanha}", en: "Preparing request for: {cliente} — {campanha}", es: "Preparando la solicitud para: {cliente} — {campanha}", fr: "Préparation de la demande pour : {cliente} — {campanha}" },
   clientePorPreencher: { pt: "(cliente por preencher)", en: "(client pending)", es: "(cliente por completar)", fr: "(client à renseigner)" },
   campanhaPorPreencher: { pt: "(campanha por preencher)", en: "(campaign pending)", es: "(campaña por completar)", fr: "(campagne à renseigner)" },
   contagemFormatos: { pt: " ({n} formatos)", en: " ({n} formats)", es: " ({n} formatos)", fr: " ({n} formats)" },
@@ -82,14 +82,14 @@ const TRADUCOES = {
   colCanal: { pt: "Canal", en: "Channel", es: "Canal", fr: "Canal" },
   colDataEntrega: { pt: "Data de entrega", en: "Delivery Date", es: "Fecha de entrega", fr: "Date de livraison" },
   naoEspecificado: { pt: "não especificado", en: "not specified", es: "no especificado", fr: "non spécifié" },
-  verSpecsLink: { pt: "Ver specs ↗", en: "View specs ↗", es: "Ver specs ↗", fr: "Voir specs ↗" },
+  verSpecsLink: { pt: "Ver specs ↗", en: "View specs ↗", es: "Ver especificaciones ↗", fr: "Voir les spécifications ↗" },
   resumoSelecaoTitulo: { pt: "Formatos selecionados ({n})", en: "Selected formats ({n})", es: "Formatos seleccionados ({n})", fr: "Formats sélectionnés ({n})" },
   excelLabelCompanhia: { pt: "Companhia:", en: "Company:", es: "Compañía:", fr: "Société:" },
   excelLabelCliente: { pt: "Cliente:", en: "Client:", es: "Cliente:", fr: "Client:" },
   excelLabelCampanha: { pt: "Campanha:", en: "Campaign:", es: "Campaña:", fr: "Campagne:" },
   excelLabelMeio: { pt: "Meio:", en: "Media:", es: "Medio:", fr: "Média:" },
-  excelNomeFolha: { pt: "Pedido de Specs", en: "Creative Specs Request", es: "Pedido de Specs", fr: "Demande de Specs" },
-  excelNomeFicheiroPrefixo: { pt: "Pedido_Specs", en: "Creative_Specs_Request", es: "Pedido_Specs", fr: "Demande_Specs" },
+  excelNomeFolha: { pt: "Pedido de Specs", en: "Creative Specs Request", es: "Solicitud de Especificaciones", fr: "Demande de Spécifications" },
+  excelNomeFicheiroPrefixo: { pt: "Pedido_Specs", en: "Creative_Specs_Request", es: "Solicitud_Especificaciones", fr: "Demande_Specifications" },
   valorPreencher: { pt: "(preencher)", en: "(fill in)", es: "(completar)", fr: "(à renseigner)" },
 };
 
@@ -126,7 +126,7 @@ campoIdioma.addEventListener("change", () => {
   // gerados em JavaScript (cabeçalhos de tabela, "não especificado",
   // etc.) mudarem de língua também — sem voltar a carregar os dados.
   mostrarFormatosAgrupados(listaFormatos, todosFormatos, { comCheckbox: true, comLink: false, simplificado: true, prefixoId: "construir" });
-  mostrarFormatosAgrupados(listaSpecs, todosFormatos, { comCheckbox: false, comLink: true, comIcone: true, simplificado: false, prefixoId: "specs" });
+  mostrarFormatosAgrupados(listaSpecs, todosFormatos, { comCheckbox: false, comLink: true, simplificado: false, prefixoId: "specs" });
   aplicarFiltros();
   atualizarResumoSelecao();
 });
@@ -208,7 +208,7 @@ async function carregarFormatos() {
 
     mostrarEstado(formatar("estadoCarregado", { n: todosFormatos.length }));
     mostrarFormatosAgrupados(listaFormatos, todosFormatos, { comCheckbox: true, comLink: false, simplificado: true, prefixoId: "construir" });
-    mostrarFormatosAgrupados(listaSpecs, todosFormatos, { comCheckbox: false, comLink: true, comIcone: true, simplificado: false, prefixoId: "specs" });
+    mostrarFormatosAgrupados(listaSpecs, todosFormatos, { comCheckbox: false, comLink: true, simplificado: false, prefixoId: "specs" });
     aplicarFiltros();
   } catch (erro) {
     mostrarEstado(formatar("estadoErro", { msg: erro.message }), true);
@@ -313,43 +313,9 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes) {
   return bloco;
 }
 
-// Tenta ler a primeira dimensão "LxA" que encontrar no texto (ex.: em
-// "1080×1920 (9:16) Stories/Reels; 1080×1350 (4:5) Feed" apanha 1080×1920).
-// Quando o texto não tem nenhum padrão assim (é só texto descritivo,
-// várias variantes sem número claro, etc.), devolve null — nesse caso
-// mostramos um ícone neutro em vez de inventar uma proporção.
-function extrairProporcao(dimensaoTexto) {
-  if (!dimensaoTexto) {
-    return null;
-  }
-  const resultado = dimensaoTexto.match(/(\d{2,5})\s*[x×]\s*(\d{2,5})/);
-  if (!resultado) {
-    return null;
-  }
-  const largura = Number(resultado[1]);
-  const altura = Number(resultado[2]);
-  return largura && altura ? { largura, altura } : null;
-}
-
-// Desenha um pequeno retângulo proporcional à dimensão do formato — só
-// para dar uma ideia visual rápida da forma (não é a especificação em
-// si, essa continua na coluna "Dimensão" ao lado).
-function criarIconeFormato(formato) {
-  const proporcao = extrairProporcao(formato.dimensao);
-  if (!proporcao) {
-    return `<div class="icone-formato icone-formato-vazio" title="${t("naoEspecificado")}">–</div>`;
-  }
-  const { largura, altura } = proporcao;
-  const ladoMaior = Math.max(largura, altura);
-  const larguraIcone = Math.max(4, Math.round((largura / ladoMaior) * 26));
-  const alturaIcone = Math.max(4, Math.round((altura / ladoMaior) * 26));
-  return `<div class="icone-formato" title="${largura}×${altura}"><span style="width:${larguraIcone}px;height:${alturaIcone}px;"></span></div>`;
-}
-
 function criarCabecalhoTabela(opcoes) {
   const cabecalho = document.createElement("thead");
   const colunaCheckbox = opcoes.comCheckbox ? '<th class="coluna-checkbox"></th>' : "";
-  const colunaIcone = opcoes.comIcone ? '<th class="coluna-icone"></th>' : "";
   const colunaLink = opcoes.comLink ? `<th>${t("colFonte")}</th>` : "";
 
   // Na tab "Construir Pedido" (simplificado) só mostramos o essencial para
@@ -370,7 +336,6 @@ function criarCabecalhoTabela(opcoes) {
   cabecalho.innerHTML = `
     <tr>
       ${colunaCheckbox}
-      ${colunaIcone}
       <th>${t("colFormato")}</th>
       <th>${t("colGrupoDigital2020")}</th>
       <th>${t("colDimensao")}</th>
@@ -403,10 +368,8 @@ function criarLinhaFormato(formato, opcoes) {
   const colunaLink = opcoes.comLink
     ? `<td>${formato.link ? `<a href="${formato.link}" target="_blank" rel="noopener">${t("verSpecsLink")}</a>` : "—"}</td>`
     : "";
-  const colunaIcone = opcoes.comIcone ? `<td class="coluna-icone">${criarIconeFormato(formato)}</td>` : "";
   linha.innerHTML = `
     ${colunaCheckbox}
-    ${colunaIcone}
     <td>${formato.formato ?? ""}</td>
     <td><span class="etiqueta-dg2020">${formato.grupoDigital2020 ?? "—"}</span></td>
     <td>${formato.dimensao ?? t("naoEspecificado")}</td>
