@@ -80,6 +80,11 @@ const TRADUCOES = {
   colTipoFicheiro: { pt: "Tipo de ficheiro", en: "File Type", es: "Tipo de archivo", fr: "Type de fichier" },
   colFonte: { pt: "Fonte", en: "Source", es: "Fuente", fr: "Source" },
   colCanal: { pt: "Canal", en: "Channel", es: "Canal", fr: "Canal" },
+  colPlataforma: { pt: "Plataforma/Publisher", en: "Platform/Publisher", es: "Plataforma/Publisher", fr: "Plateforme/Éditeur" },
+  colLink: { pt: "Link", en: "Link", es: "Enlace", fr: "Lien" },
+  canalInternet: { pt: "Internet", en: "Internet", es: "Internet", fr: "Internet" },
+  canalSocialMedia: { pt: "Social Media", en: "Social Media", es: "Social Media", fr: "Social Media" },
+  canalGoogle: { pt: "Google", en: "Google", es: "Google", fr: "Google" },
   colDataEntrega: { pt: "Data de entrega", en: "Delivery Date", es: "Fecha de entrega", fr: "Date de livraison" },
   naoEspecificado: { pt: "não especificado", en: "not specified", es: "no especificado", fr: "non spécifié" },
   verSpecsLink: { pt: "Ver specs ↗", en: "View specs ↗", es: "Ver especificaciones ↗", fr: "Voir les spécifications ↗" },
@@ -566,6 +571,17 @@ const CONFIGURACAO_COMPANHIA = {
 const BORDA_CLARA = { style: "thin", color: { argb: "FFDCDCDC" } };
 const ESTILO_BORDA_COMPLETA = { top: BORDA_CLARA, left: BORDA_CLARA, bottom: BORDA_CLARA, right: BORDA_CLARA };
 
+// A coluna "Canal" no Excel mostra a categoria de compra (Internet /
+// Social Media / Google), não o publisher em si — o Google fica à
+// parte (é comprado de forma diferente dos publishers "tradicionais"),
+// tal como no índice lateral (ver categoriaDoPublisher, mais acima).
+function canalExibicaoFormato(formato) {
+  if (formato.fornecedor === "Google") {
+    return t("canalGoogle");
+  }
+  return formato.canal === "Paid Social" ? t("canalSocialMedia") : t("canalInternet");
+}
+
 botaoExportar.addEventListener("click", exportarSelecaoParaExcel);
 
 async function exportarSelecaoParaExcel() {
@@ -590,7 +606,7 @@ async function exportarSelecaoParaExcel() {
   // valores nas células, senão o ExcelJS troca-nos as voltas e perde
   // o conteúdo já escrito (foi um bug que apanhámos a testar). ---
   folha.columns = [
-    { width: 5 }, { width: 20 }, { width: 28 }, { width: 45 }, { width: 16 }, { width: 22 }, { width: 20 },
+    { width: 5 }, { width: 14 }, { width: 20 }, { width: 28 }, { width: 45 }, { width: 16 }, { width: 22 }, { width: 40 }, { width: 20 },
   ];
 
   // --- Logótipo da companhia escolhida, no canto superior esquerdo ---
@@ -621,7 +637,7 @@ async function exportarSelecaoParaExcel() {
 
   // --- Cabeçalho da tabela ---
   const linhaCabecalho = 10;
-  const colunas = ["#", t("colCanal"), t("colFormato"), t("colDimensao"), t("colPeso"), t("colTipoFicheiro"), t("colDataEntrega")];
+  const colunas = ["#", t("colCanal"), t("colPlataforma"), t("colFormato"), t("colDimensao"), t("colPeso"), t("colTipoFicheiro"), t("colLink"), t("colDataEntrega")];
   colunas.forEach((titulo, indice) => {
     const celula = folha.getCell(linhaCabecalho, indice + 1);
     celula.value = titulo;
@@ -636,11 +652,13 @@ async function exportarSelecaoParaExcel() {
     const linha = folha.getRow(linhaCabecalho + 1 + indice);
     linha.values = [
       indice + 1,
-      formato.fornecedor,
+      canalExibicaoFormato(formato),
+      formato.veiculo,
       formato.formato,
       formato.dimensao || t("naoEspecificado"),
       formato.peso || t("naoEspecificado"),
       formato.tipoFicheiro || t("naoEspecificado"),
+      formato.link ? { text: formato.link, hyperlink: formato.link } : t("naoEspecificado"),
       "",
     ];
     linha.eachCell((celula) => {
@@ -648,6 +666,11 @@ async function exportarSelecaoParaExcel() {
       celula.alignment = { vertical: "top", wrapText: true };
       celula.border = ESTILO_BORDA_COMPLETA;
     });
+    // O texto do link fica na cor de destaque, sublinhado, para
+    // parecer clicável mesmo antes de o utilizador lhe tocar.
+    if (formato.link) {
+      linha.getCell(8).font = { name: "Arial", size: 10, color: { argb: "FF1155CC" }, underline: true };
+    }
   });
 
   // --- Gerar o ficheiro e fazer o download no browser ---
