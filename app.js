@@ -29,6 +29,15 @@ const mensagensSemResultados = {
 // Lista completa de formatos carregados (com um "id" único acrescentado a cada um).
 let todosFormatos = [];
 
+// Traduções das specs (Dimensão, Aspect Ratio, Peso, Tipo de Ficheiro,
+// Copies) para EN/ES/FR — ficheiro à parte do Excel (ver secção 5), para a
+// empresa que mantém a base não ter de se preocupar com idiomas. Chave:
+// "<Fornecedor>|<Formato>" (o texto original em português, tal como vem da
+// base). Uma linha sem tradução, ou um formato novo que a base ainda não
+// tenha, mostra sempre o texto original em português — nunca inventamos
+// uma tradução em runtime.
+let TRADUCOES_SPECS = {};
+
 // O pedido divide-se por objetivo de campanha: o mesmo formato pode ser
 // pedido mais que uma vez (ex.: "Single Image" para Awareness E para
 // Conversion), porque agência e cliente tratam-nos como criatividades/copies
@@ -55,10 +64,13 @@ let idiomaAtual = "pt";
 /*
 ============================================
 2. TRADUÇÕES (Português / English / Español / Français)
-Só traduzimos o texto da interface (menus, botões, mensagens)
-e os cabeçalhos do Excel exportado. Os DADOS em si — nomes de
-formatos, dimensões, publishers — nunca são traduzidos, porque
-vêm da base real e alterá-los seria falsificar informação técnica.
+Traduzimos o texto da interface (menus, botões, mensagens), os
+cabeçalhos do Excel exportado, e também as specs de cada formato
+(Dimensão, Aspect Ratio, Peso, Tipo de Ficheiro, Copies, e por
+vezes o próprio nome do formato) — estas últimas através de
+TRADUCOES_SPECS (ver textoTraduzido, e a secção 5 mais abaixo),
+um ficheiro à parte do Excel. Nomes de publisher e de veículo
+nunca são traduzidos (são nomes próprios).
 
 t(chave) devolve o texto na língua atual. Para textos com partes
 variáveis (ex.: contagens, nomes), usa-se formatar(chave, valores),
@@ -136,6 +148,21 @@ function formatar(chave, valores) {
     texto = texto.replace(`{${marcador}}`, valor);
   }
   return texto;
+}
+
+// Devolve o valor de um campo de specs (dimensao, aspectRatio, peso,
+// tipoFicheiro, copies, ou o próprio nome do formato) na língua atual.
+// Em português devolve sempre o texto original da base. Nas outras línguas,
+// procura em TRADUCOES_SPECS pela chave "Fornecedor|Formato"; se não houver
+// tradução para essa linha ou esse campo (ex.: base atualizada mas
+// traduções ainda não), cai para o texto original em vez de mostrar vazio.
+function textoTraduzido(formato, campo) {
+  if (idiomaAtual === "pt") {
+    return formato[campo];
+  }
+  const traducao = TRADUCOES_SPECS[`${formato.fornecedor}|${formato.formato}`];
+  const valorTraduzido = traducao && traducao[idiomaAtual] && traducao[idiomaAtual][campo];
+  return valorTraduzido || formato[campo];
 }
 
 // Aplica as traduções a todo o texto estático da página (o que está
@@ -239,6 +266,11 @@ app continua a trabalhar com a mesma lista de formatos.
 */
 const FICHEIRO_BASE_FORMATOS = "data/base-formatos.xlsx";
 
+// Ficheiro à parte com as traduções EN/ES/FR das specs (ver TRADUCOES_SPECS,
+// mais acima) — não faz parte do Excel para a empresa que mantém a base não
+// ter de preencher colunas de tradução sempre que atualiza specs.
+const FICHEIRO_TRADUCOES_SPECS = "data/traducoes-specs.json";
+
 // Nome de cada coluna no Excel (linha 1) → nome do campo interno
 // correspondente. Ler pelo nome da coluna (em vez de pela posição)
 // significa que a empresa que mantém a base pode reordenar colunas
@@ -329,6 +361,16 @@ async function carregarFormatos() {
     // porque a lista não muda depois de carregada). É este id que as
     // checkboxes vão usar para dizer qual formato foi selecionado.
     todosFormatos = formatos.map((formato, indice) => ({ ...formato, id: indice }));
+
+    // Traduções das specs (EN/ES/FR): se o ficheiro não existir ou vier
+    // inválido, a app continua a funcionar normalmente — só mostra o texto
+    // original em português nas outras línguas (ver textoTraduzido).
+    try {
+      const respostaTraducoes = await fetch(FICHEIRO_TRADUCOES_SPECS);
+      TRADUCOES_SPECS = respostaTraducoes.ok ? await respostaTraducoes.json() : {};
+    } catch (erroTraducoes) {
+      TRADUCOES_SPECS = {};
+    }
 
     // Depois de carregado com sucesso não há nada útil a dizer aqui — a
     // própria lista de formatos a aparecer no ecrã já confirma que correu
@@ -519,7 +561,7 @@ function criarLinhaFormato(formato, opcoes) {
   if (opcoes.simplificado) {
     linha.innerHTML = `
       ${colunaCheckbox}
-      <td>${formato.formato ?? ""}</td>
+      <td>${textoTraduzido(formato, "formato") ?? ""}</td>
       <td><span class="etiqueta-dg2020">${formato.grupoDigital2020 ?? "—"}</span></td>
     `;
     return linha;
@@ -530,13 +572,13 @@ function criarLinhaFormato(formato, opcoes) {
     : "";
   linha.innerHTML = `
     ${colunaCheckbox}
-    <td>${formato.formato ?? ""}</td>
+    <td>${textoTraduzido(formato, "formato") ?? ""}</td>
     <td><span class="etiqueta-dg2020">${formato.grupoDigital2020 ?? "—"}</span></td>
-    <td>${formato.dimensao ?? t("naoEspecificado")}</td>
-    <td>${formato.aspectRatio || "—"}</td>
-    <td>${formato.peso ?? t("naoEspecificado")}</td>
-    <td>${formato.tipoFicheiro ?? t("naoEspecificado")}</td>
-    <td>${formato.copies || "—"}</td>
+    <td>${textoTraduzido(formato, "dimensao") ?? t("naoEspecificado")}</td>
+    <td>${textoTraduzido(formato, "aspectRatio") || "—"}</td>
+    <td>${textoTraduzido(formato, "peso") ?? t("naoEspecificado")}</td>
+    <td>${textoTraduzido(formato, "tipoFicheiro") ?? t("naoEspecificado")}</td>
+    <td>${textoTraduzido(formato, "copies") || "—"}</td>
     ${colunaLink}
   `;
   return linha;
@@ -731,7 +773,7 @@ function atualizarResumoSelecao() {
     .map((objetivo) => {
       const formatosDoObjetivo = todosFormatos.filter((f) => selecoesPorObjetivo[objetivo].has(f.id));
       const itensObjetivo = formatosDoObjetivo
-        .map((f) => `<li>${f.fornecedor} — ${f.formato} <span class="etiqueta-dg2020">${f.grupoDigital2020 ?? "—"}</span></li>`)
+        .map((f) => `<li>${f.fornecedor} — ${textoTraduzido(f, "formato")} <span class="etiqueta-dg2020">${f.grupoDigital2020 ?? "—"}</span></li>`)
         .join("");
       return `<li class="resumo-grupo-objetivo"><strong>${t(CHAVE_TRADUCAO_OBJETIVO[objetivo])}</strong><ul>${itensObjetivo}</ul></li>`;
     })
@@ -820,12 +862,12 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
       indice + 1,
       canalExibicaoFormato(formato),
       formato.veiculo,
-      formato.formato,
-      formato.dimensao || t("naoEspecificado"),
-      formato.aspectRatio || "—",
-      formato.peso || t("naoEspecificado"),
-      formato.tipoFicheiro || t("naoEspecificado"),
-      formato.copies || "—",
+      textoTraduzido(formato, "formato"),
+      textoTraduzido(formato, "dimensao") || t("naoEspecificado"),
+      textoTraduzido(formato, "aspectRatio") || "—",
+      textoTraduzido(formato, "peso") || t("naoEspecificado"),
+      textoTraduzido(formato, "tipoFicheiro") || t("naoEspecificado"),
+      textoTraduzido(formato, "copies") || "—",
       formato.link ? { text: formato.link, hyperlink: formato.link } : t("naoEspecificado"),
       "",
     ];
