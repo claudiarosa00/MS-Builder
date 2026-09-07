@@ -14,7 +14,7 @@ processo manual que antes era feito diretamente em Excel.
 - **Biblioteca de Formatos**: consulta livre de todos os formatos disponíveis
   (specs completas — dimensões, peso, tipo de ficheiro, link oficial), sem
   seleção, organizada por publisher e por canal (Social Media / Compra Direta
-  / Google).
+  / Google / Programático).
 - Suporta 4 idiomas (Português, Inglês, Espanhol, Francês) — só a interface e
   os cabeçalhos do Excel são traduzidos; os dados reais dos formatos nunca
   são alterados.
@@ -56,11 +56,17 @@ templates/                  Reservado para uso futuro (atualmente vazio)
 
 ## Base de dados de formatos
 
-Os 269 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
+Os 309 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
 mapeados a partir da base real de specs da agência (269 formatos de
-publisher → 40 categorias "Digital2020" canónicas). Colunas: **Meio**,
-**Canal**, **Fornecedor**, **Veículo**, **Grupo Digital2020**, **Formato**,
+publisher → 40 categorias "Digital2020" canónicas, mais 40 formatos
+Programmatic/DV360 adicionados depois). Colunas: **Meio**, **Canal**,
+**Fornecedor**, **Veículo**, **Grupo Digital2020**, **Formato**,
 **Dimensão**, **Peso**, **Tipo de Ficheiro**, **Link**.
+
+Os formatos Programmatic (`Fornecedor = "DV360"`, `Canal = "Programático"`)
+têm o Veículo específico quando o próprio nome do formato o indica (ex.:
+"Prog - YouTube Masthead" → Veículo "YouTube"; "Prog - Uber Journey Ad" →
+"Uber"); nos restantes, fica genérico "DV360".
 
 **Para atualizar a base** (ex.: uma empresa contratada entrega specs novas
 periodicamente): basta substituir `data/base-formatos.xlsx` por um ficheiro

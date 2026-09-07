@@ -87,6 +87,7 @@ const TRADUCOES = {
   filtroSocialMedia: { pt: "Social Media", en: "Social Media", es: "Social Media", fr: "Social Media" },
   filtroCompraDireta: { pt: "Compra Direta", en: "Direct Buy", es: "Compra Directa", fr: "Achat Direct" },
   filtroGoogleSearch: { pt: "Google ou Search", en: "Google & Search", es: "Google o Búsqueda", fr: "Google ou Recherche" },
+  filtroProgramatico: { pt: "Programático", en: "Programmatic", es: "Programática", fr: "Programmatique" },
   botaoLimparFiltros: { pt: "Limpar filtros", en: "Clear filters", es: "Limpiar filtros", fr: "Effacer les filtres" },
   botaoLimparSelecao: { pt: "Limpar seleção", en: "Clear selection", es: "Limpiar selección", fr: "Effacer la sélection" },
   botaoExportar: { pt: "Exportar para Excel", en: "Export to Excel", es: "Exportar a Excel", fr: "Exporter vers Excel" },
@@ -109,6 +110,7 @@ const TRADUCOES = {
   canalInternet: { pt: "Internet", en: "Internet", es: "Internet", fr: "Internet" },
   canalSocialMedia: { pt: "Social Media", en: "Social Media", es: "Social Media", fr: "Social Media" },
   canalGoogle: { pt: "Google", en: "Google", es: "Google", fr: "Google" },
+  canalProgramatico: { pt: "Programático", en: "Programmatic", es: "Programática", fr: "Programmatique" },
   colDataEntrega: { pt: "Data de entrega", en: "Delivery Date", es: "Fecha de entrega", fr: "Date de livraison" },
   naoEspecificado: { pt: "não especificado", en: "not specified", es: "no especificado", fr: "non spécifié" },
   verSpecsLink: { pt: "Ver specs ↗", en: "View specs ↗", es: "Ver especificaciones ↗", fr: "Voir les spécifications ↗" },
@@ -374,19 +376,27 @@ function paraIdHtml(texto) {
 // A que categoria do índice pertence um publisher, a partir dos seus
 // próprios formatos: o Google fica à parte (é comprado de forma diferente
 // dos publishers "tradicionais"); os restantes seguem o campo "canal"
-// que já vem da base (Paid Social vs. Internet/Compra Direta).
-const ORDEM_CATEGORIAS = ["Social Media", "Compra Direta", "Google ou Search"];
+// que já vem da base (Paid Social / Programático / Internet-Compra Direta).
+const ORDEM_CATEGORIAS = ["Social Media", "Compra Direta", "Google ou Search", "Programático"];
 const CHAVE_TRADUCAO_CATEGORIA = {
   "Social Media": "filtroSocialMedia",
   "Compra Direta": "filtroCompraDireta",
   "Google ou Search": "filtroGoogleSearch",
+  "Programático": "filtroProgramatico",
 };
 
 function categoriaDoPublisher(nomePublisher, formatosDoPublisher) {
   if (nomePublisher === "Google") {
     return "Google ou Search";
   }
-  return formatosDoPublisher[0].canal === "Paid Social" ? "Social Media" : "Compra Direta";
+  const canal = formatosDoPublisher[0].canal;
+  if (canal === "Paid Social") {
+    return "Social Media";
+  }
+  if (canal === "Programático") {
+    return "Programático";
+  }
+  return "Compra Direta";
 }
 
 /*
@@ -752,14 +762,20 @@ const BORDA_CLARA = { style: "thin", color: { argb: "FFDCDCDC" } };
 const ESTILO_BORDA_COMPLETA = { top: BORDA_CLARA, left: BORDA_CLARA, bottom: BORDA_CLARA, right: BORDA_CLARA };
 
 // A coluna "Canal" no Excel mostra a categoria de compra (Internet /
-// Social Media / Google), não o publisher em si — o Google fica à
-// parte (é comprado de forma diferente dos publishers "tradicionais"),
-// tal como no índice lateral (ver categoriaDoPublisher, mais acima).
+// Social Media / Google / Programático), não o publisher em si — o Google
+// fica à parte (é comprado de forma diferente dos publishers
+// "tradicionais"), tal como no índice lateral (ver categoriaDoPublisher).
 function canalExibicaoFormato(formato) {
   if (formato.fornecedor === "Google") {
     return t("canalGoogle");
   }
-  return formato.canal === "Paid Social" ? t("canalSocialMedia") : t("canalInternet");
+  if (formato.canal === "Paid Social") {
+    return t("canalSocialMedia");
+  }
+  if (formato.canal === "Programático") {
+    return t("canalProgramatico");
+  }
+  return t("canalInternet");
 }
 
 // Escreve uma secção completa (título do objetivo + cabeçalho da tabela +
