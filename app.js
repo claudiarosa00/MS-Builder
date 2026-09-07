@@ -388,7 +388,10 @@ const CHAVE_TRADUCAO_CATEGORIA = {
 };
 
 function categoriaDoPublisher(nomePublisher, formatosDoPublisher) {
-  if (nomePublisher === "Google") {
+  // Os vários tipos de campanha do Google (Display Network, Demand Gen, App
+  // Campaigns, Performance Max, Search, Vídeo) ficam cada um no seu próprio
+  // bloco de publisher, mas todos pertencem à mesma categoria "Google ou Search".
+  if (nomePublisher.startsWith("Google")) {
     return "Google ou Search";
   }
   const canal = formatosDoPublisher[0].canal;
@@ -770,7 +773,7 @@ const ESTILO_BORDA_COMPLETA = { top: BORDA_CLARA, left: BORDA_CLARA, bottom: BOR
 // fica à parte (é comprado de forma diferente dos publishers
 // "tradicionais"), tal como no índice lateral (ver categoriaDoPublisher).
 function canalExibicaoFormato(formato) {
-  if (formato.fornecedor === "Google") {
+  if (formato.fornecedor.startsWith("Google")) {
     return t("canalGoogle");
   }
   if (formato.canal === "Paid Social") {
