@@ -15,9 +15,11 @@ processo manual que antes era feito diretamente em Excel.
   (specs completas — dimensões, peso, tipo de ficheiro, link oficial), sem
   seleção, organizada por publisher e por canal (Social Media / Compra Direta
   / Google / Programático).
-- Suporta 4 idiomas (Português, Inglês, Espanhol, Francês) — só a interface e
-  os cabeçalhos do Excel são traduzidos; os dados reais dos formatos nunca
-  são alterados.
+- Suporta 4 idiomas (Português, Inglês, Espanhol, Francês) — interface,
+  cabeçalhos do Excel, e também as specs de cada formato (Dimensão, Aspect
+  Ratio, Peso, Tipo de Ficheiro, Copies) mudam de língua, através de um
+  ficheiro de traduções à parte (ver secção seguinte). Nomes de publisher e
+  de veículo nunca são traduzidos (são nomes próprios).
 
 ## Como correr localmente
 
@@ -46,6 +48,10 @@ data/base-formatos.xlsx     Base de formatos — fonte única de verdade da
                             app, lida diretamente pelo browser. Para
                             atualizar a base, basta substituir este ficheiro
                             (mantendo o nome e as colunas)
+data/traducoes-specs.json   Traduções EN/ES/FR das specs (ver secção
+                            "Traduções das specs" abaixo) — ficheiro à
+                            parte do Excel, opcional (a app funciona sem
+                            ele, só mostra tudo em português)
 lib/exceljs.min.js          Biblioteca ExcelJS (versão 4.4.0), usada tanto
                             para ler esta base como para gerar o .xlsx
                             exportado, ambos diretamente no browser
@@ -103,6 +109,41 @@ um palpite.
 Atualmente cobre apenas o meio **Internet** (Social Media, Compra Direta e
 Google/Search). Outros meios (TV, OOH, Cinema, Imprensa) ficam para uma fase
 futura, quando houver dados reais para os mapear da mesma forma.
+
+## Traduções das specs (EN/ES/FR)
+
+Além da interface, a app também traduz o conteúdo de cada formato —
+Dimensão, Aspect Ratio, Peso, Tipo de Ficheiro e Copies (e, nalguns casos
+raros, o próprio nome do formato, quando tinha uma palavra em português,
+ex.: "Vídeo" → "Video"). Estas traduções vivem num ficheiro à parte,
+`data/traducoes-specs.json`, e não no Excel, por decisão explícita: a
+empresa contratada que atualiza `data/base-formatos.xlsx` continua a
+trabalhar só em português, sem se preocupar com idiomas.
+
+Estrutura do ficheiro: um objeto indexado por `"Fornecedor|Formato"` (o
+texto exato como está na base), com uma chave por língua (`en`, `es`,
+`fr`), cada uma com os campos traduzidos que se aplicam.
+
+```json
+{
+  "Facebook|Single Image": {
+    "en": { "dimensao": "Feed: 1440x1800 (min. 600px width...)", "copies": "..." },
+    "es": { "dimensao": "Feed: 1440x1800 (mín. 600px ancho...)", "copies": "..." },
+    "fr": { "dimensao": "Feed : 1440x1800 (min. 600px largeur...)", "copies": "..." }
+  }
+}
+```
+
+**Comportamento de fallback**: se uma linha (ou um campo específico) não
+tiver tradução — porque é nova e ainda não foi traduzida, ou porque o
+ficheiro nem existe — a app mostra sempre o texto original em português,
+em vez de deixar o campo vazio. Nunca inventa uma tradução em runtime.
+
+**Como manter atualizado**: sempre que a base ganha formatos novos ou specs
+alteradas, as traduções desses formatos ficam em falta até serem geradas
+(por mim, ou por outra sessão) e adicionadas a este ficheiro — não é um
+processo automático nem faz parte da atualização normal do Excel pela
+empresa contratada.
 
 ## Exportação para Excel
 
