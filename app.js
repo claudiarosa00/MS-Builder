@@ -101,6 +101,7 @@ const TRADUCOES = {
   colFormato: { pt: "Formato", en: "Format", es: "Formato", fr: "Format" },
   colGrupoDigital2020: { pt: "Grupo Digital2020", en: "Digital2020 Group", es: "Grupo Digital2020", fr: "Groupe Digital2020" },
   colDimensao: { pt: "Dimensão", en: "Dimensions", es: "Dimensión", fr: "Dimensions" },
+  colAspectRatio: { pt: "Aspect Ratio", en: "Aspect Ratio", es: "Aspect Ratio", fr: "Aspect Ratio" },
   colPeso: { pt: "Peso", en: "File Size", es: "Peso", fr: "Poids" },
   colTipoFicheiro: { pt: "Tipo de ficheiro", en: "File Type", es: "Tipo de archivo", fr: "Type de fichier" },
   colFonte: { pt: "Fonte", en: "Source", es: "Fuente", fr: "Source" },
@@ -249,6 +250,7 @@ const CABECALHOS_BASE_EXCEL = {
   "Grupo Digital2020": "grupoDigital2020",
   "Formato": "formato",
   "Dimensão": "dimensao",
+  "Aspect Ratio": "aspectRatio",
   "Peso": "peso",
   "Tipo de Ficheiro": "tipoFicheiro",
   "Link": "link",
@@ -490,6 +492,7 @@ function criarCabecalhoTabela(opcoes) {
       <th>${t("colFormato")}</th>
       <th>${t("colGrupoDigital2020")}</th>
       <th>${t("colDimensao")}</th>
+      <th>${t("colAspectRatio")}</th>
       <th>${t("colPeso")}</th>
       <th>${t("colTipoFicheiro")}</th>
       ${colunaLink}
@@ -524,6 +527,7 @@ function criarLinhaFormato(formato, opcoes) {
     <td>${formato.formato ?? ""}</td>
     <td><span class="etiqueta-dg2020">${formato.grupoDigital2020 ?? "—"}</span></td>
     <td>${formato.dimensao ?? t("naoEspecificado")}</td>
+    <td>${formato.aspectRatio || "—"}</td>
     <td>${formato.peso ?? t("naoEspecificado")}</td>
     <td>${formato.tipoFicheiro ?? t("naoEspecificado")}</td>
     ${colunaLink}
@@ -784,7 +788,7 @@ function canalExibicaoFormato(formato) {
 function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSeccao, config) {
   let linha = linhaInicio;
 
-  folha.mergeCells(linha, 1, linha, 9);
+  folha.mergeCells(linha, 1, linha, 10);
   const celulaTitulo = folha.getCell(linha, 1);
   celulaTitulo.value = tituloSeccao;
   celulaTitulo.font = { name: "Arial", size: 12, bold: true, color: { argb: "FFFFFFFF" } };
@@ -792,7 +796,7 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
   celulaTitulo.alignment = { vertical: "middle", horizontal: "left" };
   linha += 1;
 
-  const colunas = ["#", t("colCanal"), t("colPlataforma"), t("colFormato"), t("colDimensao"), t("colPeso"), t("colTipoFicheiro"), t("colLink"), t("colDataEntrega")];
+  const colunas = ["#", t("colCanal"), t("colPlataforma"), t("colFormato"), t("colDimensao"), t("colAspectRatio"), t("colPeso"), t("colTipoFicheiro"), t("colLink"), t("colDataEntrega")];
   colunas.forEach((titulo, indice) => {
     const celula = folha.getCell(linha, indice + 1);
     celula.value = titulo;
@@ -811,6 +815,7 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
       formato.veiculo,
       formato.formato,
       formato.dimensao || t("naoEspecificado"),
+      formato.aspectRatio || "—",
       formato.peso || t("naoEspecificado"),
       formato.tipoFicheiro || t("naoEspecificado"),
       formato.link ? { text: formato.link, hyperlink: formato.link } : t("naoEspecificado"),
@@ -824,7 +829,7 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
     // O texto do link fica na cor de destaque, sublinhado, para
     // parecer clicável mesmo antes de o utilizador lhe tocar.
     if (formato.link) {
-      linhaFormato.getCell(8).font = { name: "Arial", size: 10, color: { argb: "FF1155CC" }, underline: true };
+      linhaFormato.getCell(9).font = { name: "Arial", size: 10, color: { argb: "FF1155CC" }, underline: true };
     }
   });
   linha += formatosDaSeccao.length;
@@ -855,7 +860,7 @@ async function exportarSelecaoParaExcel() {
   // valores nas células, senão o ExcelJS troca-nos as voltas e perde
   // o conteúdo já escrito (foi um bug que apanhámos a testar). ---
   folha.columns = [
-    { width: 5 }, { width: 14 }, { width: 20 }, { width: 28 }, { width: 45 }, { width: 16 }, { width: 22 }, { width: 40 }, { width: 20 },
+    { width: 5 }, { width: 14 }, { width: 20 }, { width: 28 }, { width: 45 }, { width: 14 }, { width: 16 }, { width: 22 }, { width: 40 }, { width: 20 },
   ];
 
   // --- Logótipo da companhia escolhida, no canto superior esquerdo ---

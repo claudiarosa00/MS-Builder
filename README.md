@@ -61,7 +61,14 @@ mapeados a partir da base real de specs da agência (269 formatos de
 publisher → 40 categorias "Digital2020" canónicas, mais 40 formatos
 Programmatic/DV360 adicionados depois). Colunas: **Meio**, **Canal**,
 **Fornecedor**, **Veículo**, **Grupo Digital2020**, **Formato**,
-**Dimensão**, **Peso**, **Tipo de Ficheiro**, **Link**.
+**Dimensão**, **Aspect Ratio**, **Peso**, **Tipo de Ficheiro**, **Link**.
+
+A coluna **Aspect Ratio** é calculada a partir da Dimensão, não escrita à
+mão: usa o rácio já indicado explicitamente no texto (ex.: "(1:1)") quando
+existe, ou calcula-o a partir dos pixels quando bate certo com um rácio
+"redondo" reconhecível (1:1, 4:5, 9:16, 16:9, 1.91:1, 4:3, etc., com margem
+de ~1,5% para arredondamentos); fica em branco quando a dimensão não
+corresponde a nenhum rácio reconhecível, em vez de forçar um valor.
 
 Os formatos Programmatic (`Fornecedor = "DV360"`, `Canal = "Programático"`)
 têm o Veículo específico quando o próprio nome do formato o indica (ex.:
