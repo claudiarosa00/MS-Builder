@@ -56,9 +56,9 @@ templates/                  Reservado para uso futuro (atualmente vazio)
 
 ## Base de dados de formatos
 
-Os 309 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
+Os 344 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
 mapeados a partir da base real de specs da agência (269 formatos de
-publisher → 40 categorias "Digital2020" canónicas, mais 40 formatos
+publisher → 40 categorias "Digital2020" canónicas, mais os formatos
 Programmatic/DV360 adicionados depois). Colunas: **Meio**, **Canal**,
 **Fornecedor**, **Veículo**, **Grupo Digital2020**, **Formato**,
 **Dimensão**, **Aspect Ratio**, **Peso**, **Tipo de Ficheiro**, **Link**.
@@ -74,6 +74,14 @@ Os formatos Programmatic (`Fornecedor = "DV360"`, `Canal = "Programático"`)
 têm o Veículo específico quando o próprio nome do formato o indica (ex.:
 "Prog - YouTube Masthead" → Veículo "YouTube"; "Prog - Uber Journey Ad" →
 "Uber"); nos restantes, fica genérico "DV360".
+
+Alguns formatos Programmatic (ex.: "Prog - Billboard") representam inventário
+que pode ser comprado em qualquer publisher de compra direta que tenha esse
+mesmo formato — nesses casos, a linha genérica foi substituída por uma linha
+por publisher (ex.: "Prog - Billboard (Impresa)", "Prog - Billboard (Sapo)"),
+cada uma com as specs reais copiadas diretamente da linha desse publisher
+(nunca inventadas). Quando um publisher tinha várias variantes do mesmo
+formato, só a variante mais standard entrou.
 
 **Para atualizar a base** (ex.: uma empresa contratada entrega specs novas
 periodicamente): basta substituir `data/base-formatos.xlsx` por um ficheiro
