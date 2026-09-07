@@ -24,8 +24,8 @@ processo manual que antes era feito diretamente em Excel.
 Esta aplicação não usa nenhum framework nem precisa de instalação — é HTML,
 CSS e JavaScript "puros". Mas **não chega abrir o `index.html` com
 duplo-clique**: o browser bloqueia por segurança que a página vá buscar
-sozinha o `data/formatos.json` quando aberta assim (`file://`). É preciso um
-mini-servidor local:
+sozinha o `data/base-formatos.xlsx` quando aberta assim (`file://`). É
+preciso um mini-servidor local:
 
 ```bash
 # a partir da pasta do projeto
@@ -37,25 +37,36 @@ Depois abre `http://localhost:8000` no browser.
 ## Estrutura do projeto
 
 ```
-index.html            Estrutura da página (as duas tabs, campos, etc.)
-styles.css             Estilos (tema visual da Havas)
-app.js                  Toda a lógica: traduções, filtros, seleção por
-                        objetivo, desenho das listas e exportação para Excel
-data/formatos.json      Base de formatos — fonte única de verdade da app.
-                        Qualquer atualização de specs deve ser feita aqui.
-lib/exceljs.min.js      Biblioteca ExcelJS (versão 4.4.0), usada para gerar
-                        o ficheiro .xlsx diretamente no browser
-assets/                 Logótipos (cabeçalho da app + os usados no Excel
-                        exportado, consoante a Companhia escolhida)
-templates/              Reservado para uso futuro (atualmente vazio)
+index.html                Estrutura da página (as duas tabs, campos, etc.)
+styles.css                 Estilos (tema visual da Havas)
+app.js                      Toda a lógica: traduções, filtros, seleção por
+                            objetivo, desenho das listas e exportação/leitura
+                            de Excel
+data/base-formatos.xlsx     Base de formatos — fonte única de verdade da
+                            app, lida diretamente pelo browser. Para
+                            atualizar a base, basta substituir este ficheiro
+                            (mantendo o nome e as colunas)
+lib/exceljs.min.js          Biblioteca ExcelJS (versão 4.4.0), usada tanto
+                            para ler esta base como para gerar o .xlsx
+                            exportado, ambos diretamente no browser
+assets/                     Logótipos (cabeçalho da app + os usados no Excel
+                            exportado, consoante a Companhia escolhida)
+templates/                  Reservado para uso futuro (atualmente vazio)
 ```
 
 ## Base de dados de formatos
 
-Os 269 formatos em `data/formatos.json` foram mapeados a partir da base real
-de specs da agência (269 formatos de publisher → 40 categorias "Digital2020"
-canónicas). Cada formato tem: `meio`, `canal`, `fornecedor`, `veiculo`,
-`grupoDigital2020`, `formato`, `dimensao`, `peso`, `tipoFicheiro`, `link`.
+Os 269 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
+mapeados a partir da base real de specs da agência (269 formatos de
+publisher → 40 categorias "Digital2020" canónicas). Colunas: **Meio**,
+**Canal**, **Fornecedor**, **Veículo**, **Grupo Digital2020**, **Formato**,
+**Dimensão**, **Peso**, **Tipo de Ficheiro**, **Link**.
+
+**Para atualizar a base** (ex.: uma empresa contratada entrega specs novas
+periodicamente): basta substituir `data/base-formatos.xlsx` por um ficheiro
+novo com a mesma folha e as mesmas colunas (a ordem das colunas pode mudar —
+a app lê pelo nome do cabeçalho, não pela posição). Não é preciso nenhuma
+conversão nem ferramenta extra: a app lê o Excel diretamente no browser.
 
 **Princípio importante**: os dados nunca são inventados — tudo o que está na
 base vem da informação real fornecida pela agência. Onde não havia

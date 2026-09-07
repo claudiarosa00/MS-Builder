@@ -222,22 +222,102 @@ campoCompanhia.addEventListener("change", atualizarResumoSelecao);
 
 /*
 ============================================
-5. CARREGAR A BASE DE FORMATOS (data/formatos.json)
-Esta é a única fonte de dados da aplicação nesta fase.
-Se um dia a base mudar (outro sistema, outra base de dados),
-só este pedaço de código precisa de mudar — o resto da app
-continua a trabalhar com a mesma lista de formatos.
+5. CARREGAR A BASE DE FORMATOS (data/base-formatos.xlsx)
+Esta é a única fonte de dados da aplicação nesta fase — lida
+diretamente do Excel, com o ExcelJS (a mesma biblioteca já usada
+para gerar o Excel exportado). Para atualizar a base, basta
+substituir este ficheiro no servidor, mantendo o mesmo nome e as
+mesmas colunas — não é preciso nenhuma conversão à parte.
+Se um dia a base mudar de sítio (outro sistema, outra base de
+dados), só este pedaço de código precisa de mudar — o resto da
+app continua a trabalhar com a mesma lista de formatos.
 ============================================
 */
+const FICHEIRO_BASE_FORMATOS = "data/base-formatos.xlsx";
+
+// Nome de cada coluna no Excel (linha 1) → nome do campo interno
+// correspondente. Ler pelo nome da coluna (em vez de pela posição)
+// significa que a empresa que mantém a base pode reordenar colunas
+// sem partir a leitura — só o nome do cabeçalho é que tem de bater certo.
+const CABECALHOS_BASE_EXCEL = {
+  "Meio": "meio",
+  "Canal": "canal",
+  "Fornecedor": "fornecedor",
+  "Veículo": "veiculo",
+  "Grupo Digital2020": "grupoDigital2020",
+  "Formato": "formato",
+  "Dimensão": "dimensao",
+  "Peso": "peso",
+  "Tipo de Ficheiro": "tipoFicheiro",
+  "Link": "link",
+};
+
+// O valor de uma célula do ExcelJS nem sempre é uma string simples — uma
+// célula com hyperlink, por exemplo, vem como { text, hyperlink }. Esta
+// função devolve sempre o texto "certo" independentemente do tipo de célula.
+function textoCelula(celula) {
+  const valor = celula.value;
+  if (valor === null || valor === undefined) {
+    return "";
+  }
+  if (typeof valor === "object") {
+    if (valor.hyperlink) {
+      return valor.hyperlink;
+    }
+    if (valor.richText) {
+      return valor.richText.map((parte) => parte.text).join("");
+    }
+    if (valor.text !== undefined) {
+      return String(valor.text);
+    }
+    if (valor.result !== undefined) {
+      return String(valor.result);
+    }
+    return String(valor);
+  }
+  return String(valor).trim();
+}
 async function carregarFormatos() {
   mostrarEstado(t("estadoCarregando"));
 
   try {
-    const resposta = await fetch("data/formatos.json");
+    const resposta = await fetch(FICHEIRO_BASE_FORMATOS);
     if (!resposta.ok) {
-      throw new Error(`Não foi possível ler formatos.json (status ${resposta.status})`);
+      throw new Error(`Não foi possível ler ${FICHEIRO_BASE_FORMATOS} (status ${resposta.status})`);
     }
-    const formatos = await resposta.json();
+    const bufferExcel = await resposta.arrayBuffer();
+
+    const workbook = new ExcelJS.Workbook();
+    await workbook.xlsx.load(bufferExcel);
+    const folha = workbook.worksheets[0];
+
+    // A linha 1 é o cabeçalho: descobre em que coluna está cada campo,
+    // pelo nome (ver CABECALHOS_BASE_EXCEL) — não pela posição.
+    const colunaPorIndice = {};
+    folha.getRow(1).eachCell((celula, indice) => {
+      const campo = CABECALHOS_BASE_EXCEL[textoCelula(celula)];
+      if (campo) {
+        colunaPorIndice[indice] = campo;
+      }
+    });
+
+    const formatos = [];
+    folha.eachRow((linha, numeroLinha) => {
+      if (numeroLinha === 1) {
+        return; // já foi lida como cabeçalho
+      }
+      const formato = {};
+      linha.eachCell({ includeEmpty: true }, (celula, indice) => {
+        const campo = colunaPorIndice[indice];
+        if (campo) {
+          formato[campo] = textoCelula(celula);
+        }
+      });
+      // Ignora linhas completamente vazias (ex.: espaço deixado no fim do Excel).
+      if (Object.values(formato).some((valor) => valor !== "")) {
+        formatos.push(formato);
+      }
+    });
 
     // Acrescenta um "id" único a cada formato (a posição na lista chega,
     // porque a lista não muda depois de carregada). É este id que as
