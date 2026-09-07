@@ -56,12 +56,18 @@ templates/                  Reservado para uso futuro (atualmente vazio)
 
 ## Base de dados de formatos
 
-Os 344 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
+Os 348 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
 mapeados a partir da base real de specs da agência (269 formatos de
 publisher → 40 categorias "Digital2020" canónicas, mais os formatos
 Programmatic/DV360 adicionados depois). Colunas: **Meio**, **Canal**,
 **Fornecedor**, **Veículo**, **Grupo Digital2020**, **Formato**,
-**Dimensão**, **Aspect Ratio**, **Peso**, **Tipo de Ficheiro**, **Link**.
+**Dimensão**, **Aspect Ratio**, **Peso**, **Tipo de Ficheiro**, **Copies**,
+**Link**.
+
+A coluna **Dimensão** deve conter só as dimensões/proporções/durações que
+é preciso entregar — não informação de texto. Os limites de copy (texto
+principal, título, descrição, CTA, hashtags, etc.) ficam na coluna
+**Copies**, separada, sobretudo relevante em Social Media e Google.
 
 A coluna **Aspect Ratio** é calculada a partir da Dimensão, não escrita à
 mão: usa o rácio já indicado explicitamente no texto (ex.: "(1:1)") quando
