@@ -655,10 +655,14 @@ function aplicarFiltros() {
 
   blocos.forEach((bloco) => {
     const categoriaCombina = categoriaFiltroAtiva === "todas" || bloco.dataset.categoria === categoriaFiltroAtiva;
+    // Pesquisar pelo nome do publisher tem de mostrar TODOS os formatos
+    // desse publisher — o texto da própria linha (Formato + Grupo Digital2020)
+    // nunca inclui o nome do publisher, que só existe no título da secção.
+    const publisherCombina = !texto || bloco.dataset.publisher.toLowerCase().includes(texto);
 
     let linhasVisiveisNoBloco = 0;
     bloco.querySelectorAll("tbody tr").forEach((linha) => {
-      const combinaTexto = !texto || linha.textContent.toLowerCase().includes(texto);
+      const combinaTexto = publisherCombina || linha.textContent.toLowerCase().includes(texto);
       const visivel = categoriaCombina && combinaTexto;
       linha.style.display = visivel ? "" : "none";
       if (visivel) {
