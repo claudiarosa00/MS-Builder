@@ -3493,79 +3493,94 @@
  },
  "Pinterest|Carousel Ad": {
   "en": {
-   "dimensao": "1:1 or 2:3; 1000x1000 / 1000x1500 recommended",
-   "aspectRatio": "1:1 or 2:3",
-   "peso": "20 MB per image",
-   "tipoFicheiro": "PNG, JPEG; 2–5 images (non-Sales)"
+   "dimensao": "Standard: 2 to 5 images, 1:1 or 2:3; Sales (catalog): 2 to 10 images/videos, dimensions inherited from the catalog.",
+   "aspectRatio": "1:1 or 2:3 (Standard); N/A for Sales (inherited from the catalog)",
+   "peso": "Standard: 20 MB per image; Sales: N/A (inherited from the catalog)",
+   "tipoFicheiro": "PNG or JPEG (Standard); image or video via catalog (Sales)",
+   "copies": "Headline: up to 100 characters (only the first 40 characters may show in feeds; 30 characters for Chinese/Japanese/Korean/Arabic); Description: up to 800 characters."
   },
   "es": {
-   "dimensao": "1:1 o 2:3; 1000x1000 / 1000x1500 recomendado",
-   "aspectRatio": "1:1 o 2:3",
-   "peso": "20 MB por imagen",
-   "tipoFicheiro": "PNG, JPEG; 2–5 imágenes (non-Sales)"
+   "dimensao": "Standard: 2 a 5 imágenes, 1:1 o 2:3; Sales (catálogo): 2 a 10 imágenes/vídeos, dimensiones heredadas del catálogo.",
+   "aspectRatio": "1:1 o 2:3 (Standard); N/A en Sales (heredado del catálogo)",
+   "peso": "Standard: 20 MB por imagen; Sales: N/A (heredado del catálogo)",
+   "tipoFicheiro": "PNG o JPEG (Standard); imagen o vídeo vía catálogo (Sales)",
+   "copies": "Título: hasta 100 caracteres (solo los primeros 40 caracteres pueden mostrarse en el feed; 30 caracteres para chino/japonés/coreano/árabe); Descripción: hasta 800 caracteres."
   },
   "fr": {
-   "dimensao": "1:1 ou 2:3 ; 1000x1000 / 1000x1500 recommandé",
-   "aspectRatio": "1:1 ou 2:3",
-   "peso": "20 MB par image",
-   "tipoFicheiro": "PNG, JPEG ; 2–5 images (non-Sales)"
+   "dimensao": "Standard : 2 à 5 images, 1:1 ou 2:3 ; Sales (catalogue) : 2 à 10 images/vidéos, dimensions héritées du catalogue.",
+   "aspectRatio": "1:1 ou 2:3 (Standard) ; N/A pour Sales (hérité du catalogue)",
+   "peso": "Standard : 20 Mo par image ; Sales : N/A (hérité du catalogue)",
+   "tipoFicheiro": "PNG ou JPEG (Standard) ; image ou vidéo via catalogue (Sales)",
+   "copies": "Titre : jusqu'à 100 caractères (seuls les 40 premiers caractères peuvent s'afficher dans le fil ; 30 caractères pour le chinois/japonais/coréen/arabe) ; Description : jusqu'à 800 caractères."
   }
  },
  "Pinterest|Collection": {
   "en": {
-   "dimensao": "Hero 1:1 or 2:3; secondary assets via catalog",
-   "peso": "Image 20 MB; video up to 2 GB",
-   "tipoFicheiro": "PNG, JPEG, MP4/MOV/M4V + catalog"
+   "dimensao": "Hero: 1:1 or 2:3 (may differ from the secondary creatives); Secondary: min. 3 recommended, max. 24, all sharing the same ratio (1:1 or 2:3); Video hero: duration min. 4s, max. 15min, ratio narrower than 1:2 and wider than 1.91:1 (recommended 1:1, 2:3 or 9:16).",
+   "aspectRatio": "Hero: 1:1 or 2:3; Secondary: 1:1 or 2:3 (recommended 1:1)",
+   "peso": "Image: 10 MB; Video: up to 2 GB",
+   "tipoFicheiro": "PNG or JPEG (image); MP4, MOV or M4V, H.264 or H.265 codec (video hero)",
+   "copies": "Headline: up to 100 characters (only the first 40 characters may show in feeds; 30 characters for Chinese/Japanese/Korean/Arabic); Description: only shows for organic Collection Pins viewed up close, not for promoted ads."
   },
   "es": {
-   "dimensao": "Hero 1:1 o 2:3; assets secundarios vía catálogo",
-   "peso": "Imagen 20 MB; vídeo hasta 2 GB",
-   "tipoFicheiro": "PNG, JPEG, MP4/MOV/M4V + catálogo"
+   "dimensao": "Hero: 1:1 o 2:3 (puede diferir de las creatividades secundarias); Secundarias: mín. 3 recomendado, máx. 24, todas con la misma proporción entre sí (1:1 o 2:3); Hero en vídeo: duración mín. 4s, máx. 15min, proporción más estrecha que 1:2 y más ancha que 1,91:1 (recomendado 1:1, 2:3 o 9:16).",
+   "aspectRatio": "Hero: 1:1 o 2:3; Secundarias: 1:1 o 2:3 (recomendado 1:1)",
+   "peso": "Imagen: 10 MB; Vídeo: hasta 2 GB",
+   "tipoFicheiro": "PNG o JPEG (imagen); MP4, MOV o M4V, códec H.264 o H.265 (vídeo hero)",
+   "copies": "Título: hasta 100 caracteres (solo los primeros 40 caracteres pueden mostrarse en el feed; 30 caracteres para chino/japonés/coreano/árabe); Descripción: solo aparece en Pines de Collection orgánicos vistos de cerca, no en anuncios promocionados."
   },
   "fr": {
-   "dimensao": "Hero 1:1 ou 2:3 ; assets secondaires via catalogue",
-   "peso": "Image 20 MB ; vidéo jusqu'à 2 GB",
-   "tipoFicheiro": "PNG, JPEG, MP4/MOV/M4V + catalogue"
+   "dimensao": "Hero : 1:1 ou 2:3 (peut différer des créations secondaires) ; Secondaires : min. 3 recommandé, max. 24, toutes avec le même ratio entre elles (1:1 ou 2:3) ; Hero vidéo : durée min. 4s, max. 15min, ratio plus étroit que 1:2 et plus large que 1,91:1 (recommandé 1:1, 2:3 ou 9:16).",
+   "aspectRatio": "Hero : 1:1 ou 2:3 ; Secondaires : 1:1 ou 2:3 (recommandé 1:1)",
+   "peso": "Image : 10 Mo ; Vidéo : jusqu'à 2 Go",
+   "tipoFicheiro": "PNG ou JPEG (image) ; MP4, MOV ou M4V, codec H.264 ou H.265 (vidéo hero)",
+   "copies": "Titre : jusqu'à 100 caractères (seuls les 40 premiers caractères peuvent s'afficher dans le fil ; 30 caractères pour le chinois/japonais/coréen/arabe) ; Description : n'apparaît que pour les épingles Collection organiques vues de près, pas pour les publicités sponsorisées."
   }
  },
  "Pinterest|Image Pin": {
   "en": {
-   "dimensao": "1000x1500 recommended (2:3)",
-   "aspectRatio": "2:3",
-   "peso": "20 MB",
-   "tipoFicheiro": "PNG, JPEG"
+   "dimensao": "Recommended 1000x1500 (2:3). Pins with a ratio greater than 2:3 may get cut off in the feed.",
+   "aspectRatio": "2:3 (recommended)",
+   "peso": "Desktop: 20 MB; In-app: 32 MB",
+   "tipoFicheiro": "PNG or JPEG",
+   "copies": "Headline: up to 100 characters (only the first 40 characters may show in feeds; 30 characters for Chinese/Japanese/Korean/Arabic); Description: up to 800 characters."
   },
   "es": {
-   "dimensao": "1000x1500 recomendado (2:3)",
-   "aspectRatio": "2:3",
-   "peso": "20 MB",
-   "tipoFicheiro": "PNG, JPEG"
+   "dimensao": "Recomendado 1000x1500 (2:3). Los Pines con una proporción superior a 2:3 pueden recortarse en el feed.",
+   "aspectRatio": "2:3 (recomendado)",
+   "peso": "Escritorio: 20 MB; En la app: 32 MB",
+   "tipoFicheiro": "PNG o JPEG",
+   "copies": "Título: hasta 100 caracteres (solo los primeros 40 caracteres pueden mostrarse en el feed; 30 caracteres para chino/japonés/coreano/árabe); Descripción: hasta 800 caracteres."
   },
   "fr": {
-   "dimensao": "1000x1500 recommandé (2:3)",
-   "aspectRatio": "2:3",
-   "peso": "20 MB",
-   "tipoFicheiro": "PNG, JPEG"
+   "dimensao": "Recommandé 1000x1500 (2:3). Les épingles avec un ratio supérieur à 2:3 peuvent être coupées dans le fil d'actualité.",
+   "aspectRatio": "2:3 (recommandé)",
+   "peso": "Ordinateur : 20 Mo ; Application : 32 Mo",
+   "tipoFicheiro": "PNG ou JPEG",
+   "copies": "Titre : jusqu'à 100 caractères (seuls les 40 premiers caractères peuvent s'afficher dans le fil ; 30 caractères pour le chinois/japonais/coréen/arabe) ; Description : jusqu'à 800 caractères."
   }
  },
  "Pinterest|Video Ad": {
   "en": {
-   "dimensao": "1000x1500 (2:3), 1080x1920 (9:16) or square depending on placement",
-   "aspectRatio": "2:3 or 9:16",
-   "peso": "2 GB",
-   "tipoFicheiro": "MP4, MOV, M4V"
+   "dimensao": "Duration: min. 4s, max. 15min (recommended 6-15s for ads). Ratio: narrower than 1:2, wider than 1.91:1; recommended square (1:1) or vertical (2:3, 4:5 or 9:16).",
+   "aspectRatio": "1:1, 2:3, 4:5 or 9:16 (recommended); accepted between 1:2 and 1.91:1",
+   "peso": "Up to 2 GB",
+   "tipoFicheiro": "MP4, MOV or M4V; H.264 or H.265 codec",
+   "copies": "Headline: up to 100 characters (only the first 40 characters may show in feeds; 30 characters for Chinese/Japanese/Korean/Arabic); Description: up to 800 characters."
   },
   "es": {
-   "dimensao": "1000x1500 (2:3), 1080x1920 (9:16) o square según el placement",
-   "aspectRatio": "2:3 o 9:16",
-   "peso": "2 GB",
-   "tipoFicheiro": "MP4, MOV, M4V"
+   "dimensao": "Duración: mín. 4s, máx. 15min (recomendado 6-15s para anuncios). Proporción: más estrecha que 1:2, más ancha que 1,91:1; recomendado cuadrado (1:1) o vertical (2:3, 4:5 o 9:16).",
+   "aspectRatio": "1:1, 2:3, 4:5 o 9:16 (recomendado); aceptado entre 1:2 y 1,91:1",
+   "peso": "Hasta 2 GB",
+   "tipoFicheiro": "MP4, MOV o M4V; códec H.264 o H.265",
+   "copies": "Título: hasta 100 caracteres (solo los primeros 40 caracteres pueden mostrarse en el feed; 30 caracteres para chino/japonés/coreano/árabe); Descripción: hasta 800 caracteres."
   },
   "fr": {
-   "dimensao": "1000x1500 (2:3), 1080x1920 (9:16) ou carré selon le placement",
-   "aspectRatio": "2:3 ou 9:16",
-   "peso": "2 GB",
-   "tipoFicheiro": "MP4, MOV, M4V"
+   "dimensao": "Durée : min. 4s, max. 15min (recommandé 6-15s pour les publicités). Ratio : plus étroit que 1:2, plus large que 1,91:1 ; recommandé carré (1:1) ou vertical (2:3, 4:5 ou 9:16).",
+   "aspectRatio": "1:1, 2:3, 4:5 ou 9:16 (recommandé) ; accepté entre 1:2 et 1,91:1",
+   "peso": "Jusqu'à 2 Go",
+   "tipoFicheiro": "MP4, MOV ou M4V ; codec H.264 ou H.265",
+   "copies": "Titre : jusqu'à 100 caractères (seuls les 40 premiers caractères peuvent s'afficher dans le fil ; 30 caractères pour le chinois/japonais/coréen/arabe) ; Description : jusqu'à 800 caractères."
   }
  },
  "Reddit|Carousel Ad": {
@@ -5979,6 +5994,75 @@
    "peso": "Image : 30 MB ; Vidéo : 4 GB",
    "tipoFicheiro": "JPG, PNG, MP4 ou MOV",
    "copies": "Feed : texte principal 125 caractères, titre 40 caractères, URL obligatoire ; Stories : texte principal 125 caractères, URL obligatoire."
+  }
+ },
+ "Pinterest|Idea Ad": {
+  "en": {
+   "dimensao": "Recommended 1080x1920 for full-bleed image/video. Video duration: max. 5min. Safe zones: top 270px, left 65px, right 195px, bottom 440px.",
+   "aspectRatio": "9:16 (recommended, no strict restriction)",
+   "peso": "Recommended 1 GB; Android/iOS: max. 2 GB; Web: max. 100 MB",
+   "tipoFicheiro": "Image: BMP, JPEG, PNG, TIFF, WEBP; Video (iOS/Android only): MP4, M4V, MOV, H.264 or H.265 codec",
+   "copies": "Headline: up to 100 characters; On-page text: up to 250 characters."
+  },
+  "es": {
+   "dimensao": "Recomendado 1080x1920 para imagen/vídeo a sangre. Duración del vídeo: máx. 5min. Zonas seguras: superior 270px, izquierda 65px, derecha 195px, inferior 440px.",
+   "aspectRatio": "9:16 (recomendado, sin restricción estricta)",
+   "peso": "Recomendado 1 GB; Android/iOS: máx. 2 GB; Web: máx. 100 MB",
+   "tipoFicheiro": "Imagen: BMP, JPEG, PNG, TIFF, WEBP; Vídeo (solo iOS/Android): MP4, M4V, MOV, códec H.264 o H.265",
+   "copies": "Título: hasta 100 caracteres; Texto en la página: hasta 250 caracteres."
+  },
+  "fr": {
+   "dimensao": "Recommandé 1080x1920 pour une image/vidéo plein cadre. Durée de la vidéo : max. 5min. Zones de sécurité : haut 270px, gauche 65px, droite 195px, bas 440px.",
+   "aspectRatio": "9:16 (recommandé, sans restriction stricte)",
+   "peso": "Recommandé 1 Go ; Android/iOS : max. 2 Go ; Web : max. 100 Mo",
+   "tipoFicheiro": "Image : BMP, JPEG, PNG, TIFF, WEBP ; Vidéo (iOS/Android uniquement) : MP4, M4V, MOV, codec H.264 ou H.265",
+   "copies": "Titre : jusqu'à 100 caractères ; Texte sur la page : jusqu'à 250 caractères."
+  }
+ },
+ "Pinterest|Showcase Ad": {
+  "en": {
+   "dimensao": "Recommended 1000x1500. Up to 4 cards in addition to the primary title Pin; 1 to 3 features per card. Safe zone: 342x430px; avoid text/logos in the bottom 80px of the card.",
+   "aspectRatio": "Title Pin: 2:3; Card: 2:3; Feature: 1:1 static",
+   "peso": "Up to 32 MB",
+   "tipoFicheiro": "Image: BMP, JPEG, PNG, TIFF, WEBP; Video (iOS/Android only): MP4, MOV or M4V, 3 to 60s",
+   "copies": "Text overlay: max. 10 words; Feature: up to 50 characters (title truncated after 50 characters)."
+  },
+  "es": {
+   "dimensao": "Recomendado 1000x1500. Hasta 4 tarjetas además del title Pin principal; 1 a 3 features por tarjeta. Zona segura: 342x430px; evitar texto/logos en los últimos 80px de la tarjeta.",
+   "aspectRatio": "Title Pin: 2:3; Tarjeta: 2:3; Feature: 1:1 estático",
+   "peso": "Hasta 32 MB",
+   "tipoFicheiro": "Imagen: BMP, JPEG, PNG, TIFF, WEBP; Vídeo (solo iOS/Android): MP4, MOV o M4V, 3 a 60s",
+   "copies": "Texto superpuesto: máx. 10 palabras; Feature: hasta 50 caracteres (título truncado a partir de los 50 caracteres)."
+  },
+  "fr": {
+   "dimensao": "Recommandé 1000x1500. Jusqu'à 4 cartes en plus de l'épingle titre principale ; 1 à 3 features par carte. Zone de sécurité : 342x430px ; éviter le texte/logos dans les 80 derniers px de la carte.",
+   "aspectRatio": "Épingle titre : 2:3 ; Carte : 2:3 ; Feature : 1:1 statique",
+   "peso": "Jusqu'à 32 Mo",
+   "tipoFicheiro": "Image : BMP, JPEG, PNG, TIFF, WEBP ; Vidéo (iOS/Android uniquement) : MP4, MOV ou M4V, 3 à 60s",
+   "copies": "Texte superposé : max. 10 mots ; Feature : jusqu'à 50 caractères (titre tronqué après 50 caractères)."
+  }
+ },
+ "Pinterest|Quiz Ad": {
+  "en": {
+   "dimensao": "Recommended 1000x1500. Up to 3 results Pins with 1 title Pin. Safe zone: 342x376px.",
+   "aspectRatio": "Title Pin: 2:3; Results Pin: 2:3",
+   "peso": "Up to 32 MB",
+   "tipoFicheiro": "Image: BMP, JPEG, PNG, TIFF, WEBP; Video (iOS/Android only): MP4, MOV or M4V, 3 to 60s",
+   "copies": "Headline: up to 100 characters; Text overlay: max. 10 words; Questions: up to 96 characters; Answers: up to 48 characters; Results: headline up to 100 characters, description up to 800 characters."
+  },
+  "es": {
+   "dimensao": "Recomendado 1000x1500. Hasta 3 results Pins con 1 title Pin. Zona segura: 342x376px.",
+   "aspectRatio": "Title Pin: 2:3; Results Pin: 2:3",
+   "peso": "Hasta 32 MB",
+   "tipoFicheiro": "Imagen: BMP, JPEG, PNG, TIFF, WEBP; Vídeo (solo iOS/Android): MP4, MOV o M4V, 3 a 60s",
+   "copies": "Título: hasta 100 caracteres; Texto superpuesto: máx. 10 palabras; Preguntas: hasta 96 caracteres; Respuestas: hasta 48 caracteres; Resultados: título hasta 100 caracteres, descripción hasta 800 caracteres."
+  },
+  "fr": {
+   "dimensao": "Recommandé 1000x1500. Jusqu'à 3 épingles résultats avec 1 épingle titre. Zone de sécurité : 342x376px.",
+   "aspectRatio": "Épingle titre : 2:3 ; Épingle résultats : 2:3",
+   "peso": "Jusqu'à 32 Mo",
+   "tipoFicheiro": "Image : BMP, JPEG, PNG, TIFF, WEBP ; Vidéo (iOS/Android uniquement) : MP4, MOV ou M4V, 3 à 60s",
+   "copies": "Titre : jusqu'à 100 caractères ; Texte superposé : max. 10 mots ; Questions : jusqu'à 96 caractères ; Réponses : jusqu'à 48 caractères ; Résultats : titre jusqu'à 100 caractères, description jusqu'à 800 caractères."
   }
  }
 }
