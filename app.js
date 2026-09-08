@@ -14,6 +14,7 @@ const campoCampanha = document.getElementById("campoCampanha");
 const resumoCampanha = document.getElementById("resumoCampanha");
 const resumoSelecao = document.getElementById("resumoSelecao");
 const botaoExportar = document.getElementById("botaoExportar");
+const botaoSelecionarTodos = document.getElementById("botaoSelecionarTodos");
 const botaoLimparSelecao = document.getElementById("botaoLimparSelecao");
 const botoesTab = document.querySelectorAll(".tab-botao");
 const paineisTab = { construir: document.getElementById("tabConstruir"), specs: document.getElementById("tabSpecs") };
@@ -102,6 +103,7 @@ const TRADUCOES = {
   filtroProgramatico: { pt: "Programático", en: "Programmatic", es: "Programática", fr: "Programmatique" },
   botaoLimparFiltros: { pt: "Limpar filtros", en: "Clear filters", es: "Limpiar filtros", fr: "Effacer les filtres" },
   botaoLimparSelecao: { pt: "Limpar seleção", en: "Clear selection", es: "Limpiar selección", fr: "Effacer la sélection" },
+  botaoSelecionarTodos: { pt: "Selecionar todos", en: "Select all", es: "Seleccionar todos", fr: "Tout sélectionner" },
   botaoExportar: { pt: "Exportar para Excel", en: "Export to Excel", es: "Exportar a Excel", fr: "Exporter vers Excel" },
   semResultados: { pt: "Nenhum formato encontrado com estes filtros.", en: "No formats found with these filters.", es: "No se encontraron formatos con estos filtros.", fr: "Aucun format trouvé avec ces filtres." },
   estadoCarregando: { pt: "A carregar formatos...", en: "Loading formats...", es: "Cargando formatos...", fr: "Chargement des formats..." },
@@ -729,6 +731,21 @@ function sincronizarCheckboxesComObjetivoAtivo() {
     checkbox.checked = selecaoAtiva.has(Number(checkbox.dataset.id));
   });
 }
+
+// Marca todas as checkboxes atualmente visíveis (respeita os filtros ativos
+// de pesquisa/categoria) — só afeta o objetivo ativo no momento, tal como
+// o clique individual numa checkbox.
+botaoSelecionarTodos.addEventListener("click", () => {
+  const selecaoAtiva = selecoesPorObjetivo[objetivoAtivo];
+  listaFormatos.querySelectorAll(".checkbox-formato").forEach((checkbox) => {
+    const linha = checkbox.closest("tr");
+    if (linha.style.display !== "none") {
+      checkbox.checked = true;
+      selecaoAtiva.add(Number(checkbox.dataset.id));
+    }
+  });
+  atualizarResumoSelecao();
+});
 
 // Esvazia a seleção dos TRÊS objetivos (é um "recomeçar o pedido do zero"),
 // não só a do objetivo ativo no momento.
