@@ -3695,26 +3695,6 @@
    "copies": "Titre : jusqu'à 300 caractères (recommandé ≤100 caractères, plus sûr ≤80 caractères) ; URL de destination : jusqu'à 268 caractères ; URL d'affichage : jusqu'à 100 caractères (doit correspondre au domaine de l'URL de destination) ; CTA : à choisir parmi les options."
   }
  },
- "Snapchat|Carousel": {
-  "en": {
-   "dimensao": "720x1280 per asset recommended",
-   "aspectRatio": "9:16",
-   "peso": "Varies by asset",
-   "tipoFicheiro": "JPG, PNG, MP4, MOV"
-  },
-  "es": {
-   "dimensao": "720x1280 recomendado por asset",
-   "aspectRatio": "9:16",
-   "peso": "Varía según el asset",
-   "tipoFicheiro": "JPG, PNG, MP4, MOV"
-  },
-  "fr": {
-   "dimensao": "720x1280 par asset recommandé",
-   "aspectRatio": "9:16",
-   "peso": "Varie selon l'asset",
-   "tipoFicheiro": "JPG, PNG, MP4, MOV"
-  }
- },
  "Snapchat|Collection": {
   "en": {
    "dimensao": "720x1280; video duration 3 to 180 sec.",
