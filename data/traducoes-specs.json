@@ -3695,23 +3695,6 @@
    "copies": "Titre : jusqu'à 300 caractères (recommandé ≤100 caractères, plus sûr ≤80 caractères) ; URL de destination : jusqu'à 268 caractères ; URL d'affichage : jusqu'à 100 caractères (doit correspondre au domaine de l'URL de destination) ; CTA : à choisir parmi les options."
   }
  },
- "Snapchat|AR Lenses Filters": {
-  "en": {
-   "dimensao": "Static filter 945x2048; animated 720x1560",
-   "peso": "Varies by AR asset",
-   "tipoFicheiro": "PNG (static filter), GIF (animated); Lens assets per Lens Studio"
-  },
-  "es": {
-   "dimensao": "Filtro estático 945x2048; animado 720x1560",
-   "peso": "Varía según el asset AR",
-   "tipoFicheiro": "PNG (filtro estático), GIF (animado); assets de Lens según Lens Studio"
-  },
-  "fr": {
-   "dimensao": "Filtre statique 945x2048 ; animé 720x1560",
-   "peso": "Varie selon l'asset AR",
-   "tipoFicheiro": "PNG (filtre statique), GIF (animé) ; assets Lens selon Lens Studio"
-  }
- },
  "Snapchat|Carousel": {
   "en": {
    "dimensao": "720x1280 per asset recommended",
@@ -3734,102 +3717,87 @@
  },
  "Snapchat|Collection": {
   "en": {
-   "dimensao": "720x1280",
-   "aspectRatio": "9:16",
-   "peso": "Varies by asset",
-   "tipoFicheiro": "JPG, PNG, MP4, MOV + catalog/products"
+   "dimensao": "720x1280; video duration 3 to 180 sec.",
+   "tipoFicheiro": "JPG, PNG, MP4, MOV + catalog/products",
+   "copies": "Brand: up to 25 characters with spaces; Headline: up to 34 characters with spaces."
   },
   "es": {
-   "dimensao": "720x1280",
-   "aspectRatio": "9:16",
-   "peso": "Varía según el asset",
-   "tipoFicheiro": "JPG, PNG, MP4, MOV + catálogo/productos"
+   "dimensao": "720x1280; duración de vídeo 3 a 180 seg.",
+   "tipoFicheiro": "JPG, PNG, MP4, MOV + catálogo/productos",
+   "copies": "Marca: hasta 25 caracteres con espacios; Título: hasta 34 caracteres con espacios."
   },
   "fr": {
-   "dimensao": "720x1280",
-   "aspectRatio": "9:16",
-   "peso": "Varie selon l'asset",
-   "tipoFicheiro": "JPG, PNG, MP4, MOV + catalogue/produits"
+   "dimensao": "720x1280 ; durée de la vidéo 3 à 180 sec.",
+   "tipoFicheiro": "JPG, PNG, MP4, MOV + catalogue/produits",
+   "copies": "Marque : jusqu'à 25 caractères avec espaces ; Titre : jusqu'à 34 caractères avec espaces."
   }
  },
  "Snapchat|Commercial Ad": {
   "en": {
-   "dimensao": "720x1280",
-   "aspectRatio": "9:16",
-   "peso": "Varies; verify in Ads Manager",
-   "tipoFicheiro": "MP4, MOV (H.264)"
+   "dimensao": "720x1280. Standard: 3 to 6 sec, non-skippable; Extended Play: 7 to 180 sec, only the first 6 sec are non-skippable.",
+   "tipoFicheiro": "MP4 or MOV (H.264)"
   },
   "es": {
-   "dimensao": "720x1280",
-   "aspectRatio": "9:16",
-   "peso": "Varía; validar en Ads Manager",
-   "tipoFicheiro": "MP4, MOV (H.264)"
+   "dimensao": "720x1280. Standard: 3 a 6 seg, no se puede saltar; Extended Play: 7 a 180 seg, solo los primeros 6 seg no se pueden saltar.",
+   "tipoFicheiro": "MP4 o MOV (H.264)"
   },
   "fr": {
-   "dimensao": "720x1280",
-   "aspectRatio": "9:16",
-   "peso": "Varie ; à valider dans l'Ads Manager",
-   "tipoFicheiro": "MP4, MOV (H.264)"
+   "dimensao": "720x1280. Standard : 3 à 6 sec, non désactivable ; Extended Play : 7 à 180 sec, seules les 6 premières sec sont non désactivables.",
+   "tipoFicheiro": "MP4 ou MOV (H.264)"
   }
  },
  "Snapchat|Single Image": {
   "en": {
-   "dimensao": "720x1280",
-   "aspectRatio": "9:16",
-   "peso": "Varies; verify in Ads Manager",
-   "tipoFicheiro": "JPG, PNG"
+   "peso": "Varies; validate in Ads Manager",
+   "tipoFicheiro": "JPG, PNG",
+   "copies": "Brand: up to 25 characters with spaces; Headline: up to 34 characters with spaces."
   },
   "es": {
-   "dimensao": "720x1280",
-   "aspectRatio": "9:16",
    "peso": "Varía; validar en Ads Manager",
-   "tipoFicheiro": "JPG, PNG"
+   "tipoFicheiro": "JPG, PNG",
+   "copies": "Marca: hasta 25 caracteres con espacios; Título: hasta 34 caracteres con espacios."
   },
   "fr": {
-   "dimensao": "720x1280",
-   "aspectRatio": "9:16",
-   "peso": "Varie ; à valider dans l'Ads Manager",
-   "tipoFicheiro": "JPG, PNG"
+   "peso": "Varie ; à valider dans Ads Manager",
+   "tipoFicheiro": "JPG, PNG",
+   "copies": "Marque : jusqu'à 25 caractères avec espaces ; Titre : jusqu'à 34 caractères avec espaces."
   }
  },
  "Snapchat|Single Video": {
   "en": {
-   "dimensao": "720x1280",
-   "aspectRatio": "9:16",
-   "peso": "Varies; verify in Ads Manager",
-   "tipoFicheiro": "MP4, MOV"
+   "dimensao": "720x1280; duration 3 to 180 sec.",
+   "peso": "Varies; validate in Ads Manager",
+   "tipoFicheiro": "MP4, MOV",
+   "copies": "Brand: up to 25 characters with spaces; Headline: up to 34 characters with spaces."
   },
   "es": {
-   "dimensao": "720x1280",
-   "aspectRatio": "9:16",
+   "dimensao": "720x1280; duración 3 a 180 seg.",
    "peso": "Varía; validar en Ads Manager",
-   "tipoFicheiro": "MP4, MOV"
+   "tipoFicheiro": "MP4, MOV",
+   "copies": "Marca: hasta 25 caracteres con espacios; Título: hasta 34 caracteres con espacios."
   },
   "fr": {
-   "dimensao": "720x1280",
-   "aspectRatio": "9:16",
-   "peso": "Varie ; à valider dans l'Ads Manager",
-   "tipoFicheiro": "MP4, MOV"
+   "dimensao": "720x1280 ; durée 3 à 180 sec.",
+   "peso": "Varie ; à valider dans Ads Manager",
+   "tipoFicheiro": "MP4, MOV",
+   "copies": "Marque : jusqu'à 25 caractères avec espaces ; Titre : jusqu'à 34 caractères avec espaces."
   }
  },
  "Snapchat|Story": {
   "en": {
-   "dimensao": "720x1280",
-   "aspectRatio": "9:16",
-   "peso": "Varies by asset",
-   "tipoFicheiro": "JPG, PNG, MP4, MOV"
+   "dimensao": "720x1280; video duration 3 to 180 sec.",
+   "tipoFicheiro": "JPG, PNG, MP4, MOV",
+   "copies": "Brand: up to 25 characters with spaces; Headline: up to 34 characters with spaces."
   },
   "es": {
-   "dimensao": "720x1280",
-   "aspectRatio": "9:16",
-   "peso": "Varía según el asset",
-   "tipoFicheiro": "JPG, PNG, MP4, MOV"
+   "dimensao": "720x1280; duración de vídeo 3 a 180 seg.",
+   "tipoFicheiro": "JPG, PNG, MP4, MOV",
+   "copies": "Marca: hasta 25 caracteres con espacios; Título: hasta 34 caracteres con espacios."
   },
   "fr": {
-   "dimensao": "720x1280",
-   "aspectRatio": "9:16",
-   "peso": "Varie selon l'asset",
-   "tipoFicheiro": "JPG, PNG, MP4, MOV"
+   "dimensao": "720x1280 ; durée de la vidéo 3 à 180 sec.",
+   "tipoFicheiro": "JPG, PNG, MP4, MOV",
+   "copies": "Marque : jusqu'à 25 caractères avec espaces ; Titre : jusqu'à 34 caractères avec espaces."
   }
  },
  "TikTok|Branded Effect": {
@@ -6114,6 +6082,63 @@
    "peso": "Jusqu'à 32 Mo",
    "tipoFicheiro": "Image : BMP, JPEG, PNG, TIFF, WEBP ; Vidéo (iOS/Android uniquement) : MP4, MOV ou M4V, 3 à 60s",
    "copies": "Titre : jusqu'à 100 caractères ; Texte superposé : max. 10 mots ; Questions : jusqu'à 96 caractères ; Réponses : jusqu'à 48 caractères ; Résultats : titre jusqu'à 100 caractères, description jusqu'à 800 caractères."
+  }
+ },
+ "Snapchat|AR Filters": {
+  "en": {
+   "dimensao": "Static: 945x2048; Animated: 720x1560, duration 1 to 3 sec.",
+   "peso": "Varies by asset",
+   "tipoFicheiro": "PNG (static), GIF (animated)"
+  },
+  "es": {
+   "dimensao": "Estático: 945x2048; Animado: 720x1560, duración 1 a 3 seg.",
+   "peso": "Varía según el asset",
+   "tipoFicheiro": "PNG (estático), GIF (animado)"
+  },
+  "fr": {
+   "dimensao": "Statique : 945x2048 ; Animé : 720x1560, durée 1 à 3 sec.",
+   "peso": "Varie selon l'asset",
+   "tipoFicheiro": "PNG (statique), GIF (animé)"
+  }
+ },
+ "Snapchat|AR Lenses": {
+  "en": {
+   "dimensao": "No fixed dimension — AR experience created via Lens Web Builder or Lens Studio.",
+   "peso": "Varies by AR asset",
+   "tipoFicheiro": "Lens assets per Lens Studio/Lens Web Builder",
+   "copies": "Visible logo or brand name required on Face and World Lenses, preferably top left or top right, outside the area covered by the UI/carousel; a 'SPONSORED' tag is automatically added by Snapchat (visible for 2 sec, doesn't show in the user's Snap)."
+  },
+  "es": {
+   "dimensao": "Sin dimensión fija — experiencia AR creada mediante Lens Web Builder o Lens Studio.",
+   "peso": "Varía según el asset AR",
+   "tipoFicheiro": "Assets de Lens según Lens Studio/Lens Web Builder",
+   "copies": "Logotipo o nombre de marca visible obligatorio en Face y World Lenses, preferiblemente en la esquina superior izquierda o derecha, fuera del área cubierta por la interfaz/carrusel; Snapchat añade automáticamente una etiqueta 'SPONSORED' (visible durante 2 seg, no aparece en el Snap del usuario)."
+  },
+  "fr": {
+   "dimensao": "Sans dimension fixe — expérience AR créée via Lens Web Builder ou Lens Studio.",
+   "peso": "Varie selon l'asset AR",
+   "tipoFicheiro": "Assets Lens selon Lens Studio/Lens Web Builder",
+   "copies": "Logo ou nom de marque visible obligatoire sur les Lenses Face et World, de préférence en haut à gauche ou en haut à droite, hors de la zone couverte par l'interface/le carrousel ; une mention « SPONSORED » est ajoutée automatiquement par Snapchat (visible pendant 2 sec, n'apparaît pas dans le Snap de l'utilisateur)."
+  }
+ },
+ "Snapchat|Sponsored Snap": {
+  "en": {
+   "dimensao": "720x1280; max. duration 180 sec. (recommended <10 sec). Optional Message Design elements (up to 3): custom Chat Background 1080x1920; Chat Message up to 500 characters; Auto-Response up to 500 characters (text or video).",
+   "peso": "Varies; validate in Ads Manager",
+   "tipoFicheiro": "MP4, MOV, JPG or PNG",
+   "copies": "Brand name: up to 25 characters with spaces (automatically pulled from the Public Profile); Headline: 25-28 characters recommended (34 max)."
+  },
+  "es": {
+   "dimensao": "720x1280; duración máx. 180 seg. (recomendado <10 seg). Elementos opcionales de Message Design (hasta 3): fondo de chat personalizado 1080x1920; mensaje de chat hasta 500 caracteres; respuesta automática hasta 500 caracteres (texto o vídeo).",
+   "peso": "Varía; validar en Ads Manager",
+   "tipoFicheiro": "MP4, MOV, JPG o PNG",
+   "copies": "Nombre de marca: hasta 25 caracteres con espacios (extraído automáticamente del Perfil Público); Título: 25-28 caracteres recomendado (máx. 34)."
+  },
+  "fr": {
+   "dimensao": "720x1280 ; durée max. 180 sec. (recommandé <10 sec). Éléments optionnels de Message Design (jusqu'à 3) : arrière-plan de chat personnalisé 1080x1920 ; message de chat jusqu'à 500 caractères ; réponse automatique jusqu'à 500 caractères (texte ou vidéo).",
+   "peso": "Varie ; à valider dans Ads Manager",
+   "tipoFicheiro": "MP4, MOV, JPG ou PNG",
+   "copies": "Nom de marque : jusqu'à 25 caractères avec espaces (extrait automatiquement du profil public) ; Titre : 25-28 caractères recommandé (34 max)."
   }
  }
 }

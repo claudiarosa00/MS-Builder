@@ -62,7 +62,7 @@ templates/                  Reservado para uso futuro (atualmente vazio)
 
 ## Base de dados de formatos
 
-Os 351 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
+Os 353 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
 mapeados a partir da base real de specs da agência (269 formatos de
 publisher → 40 categorias "Digital2020" canónicas, mais os formatos
 Programmatic/DV360 adicionados depois). Colunas: **Meio**, **Canal**,
