@@ -1753,19 +1753,19 @@
  },
  "Público|Parallax": {
   "en": {
-   "dimensao": "Landscape – 16:9 (1280x720px), Portrait – 9:16 (720x1280px)",
+   "dimensao": "Landscape: 1280x720px, Portrait: 720x1280px",
    "aspectRatio": "16:9 or 9:16",
    "peso": "120 KB",
    "tipoFicheiro": "JPG, PNG or GIF"
   },
   "es": {
-   "dimensao": "Horizontal – 16:9 (1280x720px), Vertical – 9:16 (720x1280px)",
+   "dimensao": "Horizontal: 1280x720px, Vertical: 720x1280px",
    "aspectRatio": "16:9 o 9:16",
    "peso": "120 KB",
    "tipoFicheiro": "JPG, PNG o GIF"
   },
   "fr": {
-   "dimensao": "Paysage – 16:9 (1280x720px), Portrait – 9:16 (720x1280px)",
+   "dimensao": "Paysage : 1280x720px, Portrait : 720x1280px",
    "aspectRatio": "16:9 ou 9:16",
    "peso": "120 KB",
    "tipoFicheiro": "JPG, PNG ou GIF"
@@ -1793,19 +1793,19 @@
  },
  "Público|Scratch": {
   "en": {
-   "dimensao": "1080x1080px (1:1) / 1920x1080px (16:9) / 1080x810px (4:3) / 819x1080px (3:4)",
+   "dimensao": "1080x1080px / 1920x1080px / 1080x810px / 819x1080px",
    "aspectRatio": "1:1 or 16:9 or 4:3 or 3:4",
    "peso": "120 KB",
    "tipoFicheiro": "JPG or PNG"
   },
   "es": {
-   "dimensao": "1080x1080px (1:1) / 1920x1080px (16:9) / 1080x810px (4:3) / 819x1080px (3:4)",
+   "dimensao": "1080x1080px / 1920x1080px / 1080x810px / 819x1080px",
    "aspectRatio": "1:1 o 16:9 o 4:3 o 3:4",
    "peso": "120 KB",
    "tipoFicheiro": "JPG o PNG"
   },
   "fr": {
-   "dimensao": "1080x1080px (1:1) / 1920x1080px (16:9) / 1080x810px (4:3) / 819x1080px (3:4)",
+   "dimensao": "1080x1080px / 1920x1080px / 1080x810px / 819x1080px",
    "aspectRatio": "1:1 ou 16:9 ou 4:3 ou 3:4",
    "peso": "120 KB",
    "tipoFicheiro": "JPG ou PNG"
@@ -1915,19 +1915,19 @@
  },
  "Público|Video Incontent": {
   "en": {
-   "dimensao": "640x360px with a 16:9 ratio",
+   "dimensao": "640x360px",
    "aspectRatio": "16:9",
    "peso": "10 MB",
    "tipoFicheiro": "MP4 or WEBM"
   },
   "es": {
-   "dimensao": "640x360px con relación de aspecto 16:9",
+   "dimensao": "640x360px",
    "aspectRatio": "16:9",
    "peso": "10 MB",
    "tipoFicheiro": "MP4 o WEBM"
   },
   "fr": {
-   "dimensao": "640x360px avec un ratio de 16:9",
+   "dimensao": "640x360px",
    "aspectRatio": "16:9",
    "peso": "10 MB",
    "tipoFicheiro": "MP4 ou WEBM"
@@ -1935,19 +1935,19 @@
  },
  "Público|Video Pre-Roll": {
   "en": {
-   "dimensao": "640x360px with a 16:9 ratio",
+   "dimensao": "640x360px",
    "aspectRatio": "16:9",
    "peso": "10 MB",
    "tipoFicheiro": "MP4 or WEBM"
   },
   "es": {
-   "dimensao": "640x360px con relación de aspecto 16:9",
+   "dimensao": "640x360px",
    "aspectRatio": "16:9",
    "peso": "10 MB",
    "tipoFicheiro": "MP4 o WEBM"
   },
   "fr": {
-   "dimensao": "640x360px avec un ratio de 16:9",
+   "dimensao": "640x360px",
    "aspectRatio": "16:9",
    "peso": "10 MB",
    "tipoFicheiro": "MP4 ou WEBM"
@@ -1972,19 +1972,19 @@
  },
  "Sapo|App Install Native (Outbrain)": {
   "en": {
-   "dimensao": "Up to 1200px, in a 1:1 ratio (display size is 300x300px), Logo: Minimum 40x40px, maximum 400x400px, 1:1 ratio",
+   "dimensao": "Up to 1200px (display size is 300x300px); Logo: minimum 40x40px, maximum 400x400px",
    "aspectRatio": "1:1",
    "peso": "2.5 MB",
    "tipoFicheiro": "JPG or PNG"
   },
   "es": {
-   "dimensao": "Hasta 1200px, en una proporción 1:1 (el tamaño de visualización es 300x300px), Logo: mínimo 40x40px, máximo 400x400px, proporción 1:1",
+   "dimensao": "Hasta 1200px (tamaño de visualización 300x300px); Logo: mínimo 40x40px, máximo 400x400px",
    "aspectRatio": "1:1",
    "peso": "2.5 MB",
    "tipoFicheiro": "JPG o PNG"
   },
   "fr": {
-   "dimensao": "Up to 1200px, in a 1:1 ratio (display size is 300x300px), Logo: Minimum 40x40px, maximum 400x400px, 1:1 ratio",
+   "dimensao": "Jusqu'à 1200px (taille d'affichage 300x300px) ; Logo : minimum 40x40px, maximum 400x400px",
    "aspectRatio": "1:1",
    "peso": "2.5 MB",
    "tipoFicheiro": "JPG ou PNG"
@@ -2163,19 +2163,22 @@
  },
  "Sapo|Carousel Native (Outbrain)": {
   "en": {
-   "dimensao": "1:1 ratio, min 300px, max 1200px",
+   "dimensao": "Min 300px, max 1200px",
    "peso": "Image up to 2.5 MB, gif/mp4 up to 30 MB",
-   "tipoFicheiro": "JPG or PNG"
+   "tipoFicheiro": "JPG or PNG",
+   "aspectRatio": "1:1"
   },
   "es": {
-   "dimensao": "Proporción 1:1, mín. 300px, máx. 1200px",
+   "dimensao": "Mín. 300px, máx. 1200px",
    "peso": "Imagen hasta 2.5 MB, gif/mp4 hasta 30 MB",
-   "tipoFicheiro": "JPG o PNG"
+   "tipoFicheiro": "JPG o PNG",
+   "aspectRatio": "1:1"
   },
   "fr": {
-   "dimensao": "1:1 ratio, min 300px, max 1200px",
+   "dimensao": "Min. 300px, max. 1200px",
    "peso": "Image up to 2.5 MB, gif/mp4 up to 30 MB",
-   "tipoFicheiro": "JPG ou PNG"
+   "tipoFicheiro": "JPG ou PNG",
+   "aspectRatio": "1:1"
   }
  },
  "Sapo|Carousel Performance": {
@@ -2828,16 +2831,16 @@
  },
  "Sapo|Single Video": {
   "en": {
-   "dimensao": "16:9",
-   "tipoFicheiro": "MP4"
+   "tipoFicheiro": "MP4",
+   "aspectRatio": "16:9"
   },
   "es": {
-   "dimensao": "16:9",
-   "tipoFicheiro": "MP4"
+   "tipoFicheiro": "MP4",
+   "aspectRatio": "16:9"
   },
   "fr": {
-   "dimensao": "16:9",
-   "tipoFicheiro": "MP4"
+   "tipoFicheiro": "MP4",
+   "aspectRatio": "16:9"
   }
  },
  "Sapo|Skin": {
@@ -3022,19 +3025,19 @@
  },
  "Sapo|Topscroll": {
   "en": {
-   "dimensao": "2560x1440 (16:9), 1080x1920",
+   "dimensao": "2560x1440, 1080x1920",
    "aspectRatio": "16:9",
    "peso": "200 KB",
    "tipoFicheiro": "JPG, PNG or WEBP"
   },
   "es": {
-   "dimensao": "2560x1440 (16:9), 1080x1920",
+   "dimensao": "2560x1440, 1080x1920",
    "aspectRatio": "16:9",
    "peso": "200 KB",
    "tipoFicheiro": "JPG, PNG o WEBP"
   },
   "fr": {
-   "dimensao": "2560x1440 (16:9), 1080x1920",
+   "dimensao": "2560x1440, 1080x1920",
    "aspectRatio": "16:9",
    "peso": "200 KB",
    "tipoFicheiro": "JPG, PNG ou WEBP"
@@ -3132,19 +3135,19 @@
  },
  "Sapo|Video In-Stream Mid-Roll": {
   "en": {
-   "dimensao": "640x360px (16:9)",
+   "dimensao": "640x360px",
    "aspectRatio": "16:9",
    "peso": "3.5 MB",
    "tipoFicheiro": "MP4"
   },
   "es": {
-   "dimensao": "640x360px (16:9)",
+   "dimensao": "640x360px",
    "aspectRatio": "16:9",
    "peso": "3.5 MB",
    "tipoFicheiro": "MP4"
   },
   "fr": {
-   "dimensao": "640x360px (16:9)",
+   "dimensao": "640x360px",
    "aspectRatio": "16:9",
    "peso": "3.5 MB",
    "tipoFicheiro": "MP4"
@@ -3152,19 +3155,19 @@
  },
  "Sapo|Video In-Stream Pre-Roll": {
   "en": {
-   "dimensao": "640x360px (16:9)",
+   "dimensao": "640x360px",
    "aspectRatio": "16:9",
    "peso": "3.5 MB",
    "tipoFicheiro": "MP4"
   },
   "es": {
-   "dimensao": "640x360px (16:9)",
+   "dimensao": "640x360px",
    "aspectRatio": "16:9",
    "peso": "3.5 MB",
    "tipoFicheiro": "MP4"
   },
   "fr": {
-   "dimensao": "640x360px (16:9)",
+   "dimensao": "640x360px",
    "aspectRatio": "16:9",
    "peso": "3.5 MB",
    "tipoFicheiro": "MP4"
@@ -3404,22 +3407,22 @@
  },
  "LinkedIn|Single Video": {
   "en": {
-   "dimensao": "Landscape: 1920x1080 recommended (min. 640x360, max. 1920x1080); Square: min. 360x360, max. 1920x1920; Vertical 4:5: min. 360x450, max. 1080x1350; Vertical 9:16: 720x1280 recommended (min. 360x640, max. 1080x1920). Duration: 3s to 30min (in-stream in streaming up to 90s).",
-   "aspectRatio": "16:9 or 1:1 or 4:5 or 9:16",
+   "dimensao": "Landscape: 1920x1080 recommended (min. 640x360, max. 1920x1080); Square: min. 360x360, max. 1920x1920; Vertical: min. 360x450, max. 1080x1350; Vertical: 720x1280 recommended (min. 360x640, max. 1080x1920). Duration: 3s to 30min (in-stream on streaming up to 90s).",
+   "aspectRatio": "Landscape: 16:9; Square: 1:1; Vertical: 4:5; Vertical: 9:16",
    "peso": "75 KB to 500 MB",
    "tipoFicheiro": "MP4, H.264 or VP8 codec, AAC or MPEG4 audio (<64 KHz), 30 fps recommended; optional thumbnail JPG/PNG max. 2 MB (same ratio as video)",
    "copies": "Ad name (optional): 255 characters; Headline: 70 characters (max. 200 characters); Primary text: 150 characters (max. 600 characters)."
   },
   "es": {
-   "dimensao": "Landscape: 1920x1080 recomendado (mín. 640x360, máx. 1920x1080); Square: mín. 360x360, máx. 1920x1920; Vertical 4:5: mín. 360x450, máx. 1080x1350; Vertical 9:16: 720x1280 recomendado (mín. 360x640, máx. 1080x1920). Duración: de 3s a 30min (in-stream en streaming hasta 90s).",
-   "aspectRatio": "16:9 o 1:1 o 4:5 o 9:16",
+   "dimensao": "Horizontal: 1920x1080 recomendado (mín. 640x360, máx. 1920x1080); Cuadrado: mín. 360x360, máx. 1920x1920; Vertical: mín. 360x450, máx. 1080x1350; Vertical: 720x1280 recomendado (mín. 360x640, máx. 1080x1920). Duración: 3s a 30min (in-stream en streaming hasta 90s).",
+   "aspectRatio": "Horizontal: 16:9; Cuadrado: 1:1; Vertical: 4:5; Vertical: 9:16",
    "peso": "75 KB a 500 MB",
    "tipoFicheiro": "MP4, códec H.264 o VP8, audio AAC o MPEG4 (<64 KHz), 30 fps recomendado; miniatura opcional JPG/PNG máx. 2 MB (misma proporción que el vídeo)",
    "copies": "Nombre del anuncio (opcional): 255 caracteres; Título: 70 caracteres (máx. 200 caracteres); Texto introductorio: 150 caracteres (máx. 600 caracteres)."
   },
   "fr": {
-   "dimensao": "Paysage : 1920x1080 recommandé (min. 640x360, max. 1920x1080) ; Carré : min. 360x360, max. 1920x1920 ; Vertical 4:5 : min. 360x450, max. 1080x1350 ; Vertical 9:16 : 720x1280 recommandé (min. 360x640, max. 1080x1920). Durée : 3s à 30min (in-stream en streaming jusqu'à 90s).",
-   "aspectRatio": "16:9 ou 1:1 ou 4:5 ou 9:16",
+   "dimensao": "Paysage : 1920x1080 recommandé (min. 640x360, max. 1920x1080) ; Carré : min. 360x360, max. 1920x1920 ; Vertical : min. 360x450, max. 1080x1350 ; Vertical : 720x1280 recommandé (min. 360x640, max. 1080x1920). Durée : 3s à 30min (in-stream en streaming jusqu'à 90s).",
+   "aspectRatio": "Paysage : 16:9 ; Carré : 1:1 ; Vertical : 4:5 ; Vertical : 9:16",
    "peso": "75 KB à 500 MB",
    "tipoFicheiro": "MP4, codec H.264 ou VP8, audio AAC ou MPEG4 (<64 KHz), 30 fps recommandé ; miniature facultative JPG/PNG max. 2 MB (ratio identique à la vidéo)",
    "copies": "Nom de l'annonce (facultatif) : 255 caractères ; Titre : 70 caractères (max. 200 caractères) ; Texte d'introduction : 150 caractères (max. 600 caractères)."
@@ -3493,21 +3496,21 @@
  },
  "Pinterest|Carousel Ad": {
   "en": {
-   "dimensao": "Standard: 2 to 5 images, 1:1 or 2:3; Sales (catalog): 2 to 10 images/videos, dimensions inherited from the catalog.",
+   "dimensao": "Standard: 2 to 5 images; Sales (catalog): 2 to 10 images/videos, dimensions inherited from the catalog.",
    "aspectRatio": "1:1 or 2:3 (Standard); N/A for Sales (inherited from the catalog)",
    "peso": "Standard: 20 MB per image; Sales: N/A (inherited from the catalog)",
    "tipoFicheiro": "PNG or JPEG (Standard); image or video via catalog (Sales)",
    "copies": "Headline: up to 100 characters (only the first 40 characters may show in feeds; 30 characters for Chinese/Japanese/Korean/Arabic); Description: up to 800 characters."
   },
   "es": {
-   "dimensao": "Standard: 2 a 5 imágenes, 1:1 o 2:3; Sales (catálogo): 2 a 10 imágenes/vídeos, dimensiones heredadas del catálogo.",
+   "dimensao": "Standard: 2 a 5 imágenes; Sales (catálogo): 2 a 10 imágenes/vídeos, dimensiones heredadas del catálogo.",
    "aspectRatio": "1:1 o 2:3 (Standard); N/A en Sales (heredado del catálogo)",
    "peso": "Standard: 20 MB por imagen; Sales: N/A (heredado del catálogo)",
    "tipoFicheiro": "PNG o JPEG (Standard); imagen o vídeo vía catálogo (Sales)",
    "copies": "Título: hasta 100 caracteres (solo los primeros 40 caracteres pueden mostrarse en el feed; 30 caracteres para chino/japonés/coreano/árabe); Descripción: hasta 800 caracteres."
   },
   "fr": {
-   "dimensao": "Standard : 2 à 5 images, 1:1 ou 2:3 ; Sales (catalogue) : 2 à 10 images/vidéos, dimensions héritées du catalogue.",
+   "dimensao": "Standard : 2 à 5 images ; Sales (catalogue) : 2 à 10 images/vidéos, dimensions héritées du catalogue.",
    "aspectRatio": "1:1 ou 2:3 (Standard) ; N/A pour Sales (hérité du catalogue)",
    "peso": "Standard : 20 Mo par image ; Sales : N/A (hérité du catalogue)",
    "tipoFicheiro": "PNG ou JPEG (Standard) ; image ou vidéo via catalogue (Sales)",
@@ -3516,22 +3519,22 @@
  },
  "Pinterest|Collection": {
   "en": {
-   "dimensao": "Hero: 1:1 or 2:3 (may differ from the secondary creatives); Secondary: min. 3 recommended, max. 24, all sharing the same ratio (1:1 or 2:3); Video hero: duration min. 4s, max. 15min, ratio narrower than 1:2 and wider than 1.91:1 (recommended 1:1, 2:3 or 9:16).",
-   "aspectRatio": "Hero: 1:1 or 2:3; Secondary: 1:1 or 2:3 (recommended 1:1)",
+   "dimensao": "Hero: may differ from the secondary images; Secondary: min. 3 recommended, max. 24, all with the same ratio as each other; Video hero: duration min. 4s, max. 15min.",
+   "aspectRatio": "Hero: 1:1 or 2:3; Video hero: recommended 1:1, 2:3 or 9:16 (accepted between 1:2 and 1.91:1); Secondary: 1:1 or 2:3 (recommended 1:1)",
    "peso": "Image: 10 MB; Video: up to 2 GB",
    "tipoFicheiro": "PNG or JPEG (image); MP4, MOV or M4V, H.264 or H.265 codec (video hero)",
    "copies": "Headline: up to 100 characters (only the first 40 characters may show in feeds; 30 characters for Chinese/Japanese/Korean/Arabic); Description: only shows for organic Collection Pins viewed up close, not for promoted ads."
   },
   "es": {
-   "dimensao": "Hero: 1:1 o 2:3 (puede diferir de las creatividades secundarias); Secundarias: mín. 3 recomendado, máx. 24, todas con la misma proporción entre sí (1:1 o 2:3); Hero en vídeo: duración mín. 4s, máx. 15min, proporción más estrecha que 1:2 y más ancha que 1,91:1 (recomendado 1:1, 2:3 o 9:16).",
-   "aspectRatio": "Hero: 1:1 o 2:3; Secundarias: 1:1 o 2:3 (recomendado 1:1)",
+   "dimensao": "Hero: puede diferir de los secundarios; Secundarios: mín. 3 recomendado, máx. 24, todos con la misma proporción entre sí; Hero en vídeo: duración mín. 4s, máx. 15min.",
+   "aspectRatio": "Hero: 1:1 o 2:3; Hero vídeo: recomendado 1:1, 2:3 o 9:16 (aceptado entre 1:2 y 1,91:1); Secundarios: 1:1 o 2:3 (recomendado 1:1)",
    "peso": "Imagen: 10 MB; Vídeo: hasta 2 GB",
    "tipoFicheiro": "PNG o JPEG (imagen); MP4, MOV o M4V, códec H.264 o H.265 (vídeo hero)",
    "copies": "Título: hasta 100 caracteres (solo los primeros 40 caracteres pueden mostrarse en el feed; 30 caracteres para chino/japonés/coreano/árabe); Descripción: solo aparece en Pines de Collection orgánicos vistos de cerca, no en anuncios promocionados."
   },
   "fr": {
-   "dimensao": "Hero : 1:1 ou 2:3 (peut différer des créations secondaires) ; Secondaires : min. 3 recommandé, max. 24, toutes avec le même ratio entre elles (1:1 ou 2:3) ; Hero vidéo : durée min. 4s, max. 15min, ratio plus étroit que 1:2 et plus large que 1,91:1 (recommandé 1:1, 2:3 ou 9:16).",
-   "aspectRatio": "Hero : 1:1 ou 2:3 ; Secondaires : 1:1 ou 2:3 (recommandé 1:1)",
+   "dimensao": "Hero : peut différer des secondaires ; Secondaires : min. 3 recommandé, max. 24, tous avec le même ratio entre eux ; Hero en vidéo : durée min. 4s, max. 15min.",
+   "aspectRatio": "Hero : 1:1 ou 2:3 ; Hero vidéo : recommandé 1:1, 2:3 ou 9:16 (accepté entre 1:2 et 1,91:1) ; Secondaires : 1:1 ou 2:3 (recommandé 1:1)",
    "peso": "Image : 10 Mo ; Vidéo : jusqu'à 2 Go",
    "tipoFicheiro": "PNG ou JPEG (image) ; MP4, MOV ou M4V, codec H.264 ou H.265 (vidéo hero)",
    "copies": "Titre : jusqu'à 100 caractères (seuls les 40 premiers caractères peuvent s'afficher dans le fil ; 30 caractères pour le chinois/japonais/coréen/arabe) ; Description : n'apparaît que pour les épingles Collection organiques vues de près, pas pour les publicités sponsorisées."
@@ -3539,21 +3542,21 @@
  },
  "Pinterest|Image Pin": {
   "en": {
-   "dimensao": "Recommended 1000x1500 (2:3). Pins with a ratio greater than 2:3 may get cut off in the feed.",
+   "dimensao": "Recommended 1000x1500. Pins with a ratio higher than recommended may get cropped in the feed.",
    "aspectRatio": "2:3 (recommended)",
    "peso": "Desktop: 20 MB; In-app: 32 MB",
    "tipoFicheiro": "PNG or JPEG",
    "copies": "Headline: up to 100 characters (only the first 40 characters may show in feeds; 30 characters for Chinese/Japanese/Korean/Arabic); Description: up to 800 characters."
   },
   "es": {
-   "dimensao": "Recomendado 1000x1500 (2:3). Los Pines con una proporción superior a 2:3 pueden recortarse en el feed.",
+   "dimensao": "Recomendado 1000x1500. Los pines con una proporción superior a la recomendada pueden aparecer recortados en el feed.",
    "aspectRatio": "2:3 (recomendado)",
    "peso": "Escritorio: 20 MB; En la app: 32 MB",
    "tipoFicheiro": "PNG o JPEG",
    "copies": "Título: hasta 100 caracteres (solo los primeros 40 caracteres pueden mostrarse en el feed; 30 caracteres para chino/japonés/coreano/árabe); Descripción: hasta 800 caracteres."
   },
   "fr": {
-   "dimensao": "Recommandé 1000x1500 (2:3). Les épingles avec un ratio supérieur à 2:3 peuvent être coupées dans le fil d'actualité.",
+   "dimensao": "Recommandé 1000x1500. Les Pins avec un ratio supérieur au ratio recommandé peuvent être coupés dans le fil d'actualité.",
    "aspectRatio": "2:3 (recommandé)",
    "peso": "Ordinateur : 20 Mo ; Application : 32 Mo",
    "tipoFicheiro": "PNG ou JPEG",
@@ -3562,21 +3565,21 @@
  },
  "Pinterest|Video Ad": {
   "en": {
-   "dimensao": "Duration: min. 4s, max. 15min (recommended 6-15s for ads). Ratio: narrower than 1:2, wider than 1.91:1; recommended square (1:1) or vertical (2:3, 4:5 or 9:16).",
+   "dimensao": "Duration: min. 4s, max. 15min (recommended 6-15s for ads).",
    "aspectRatio": "1:1, 2:3, 4:5 or 9:16 (recommended); accepted between 1:2 and 1.91:1",
    "peso": "Up to 2 GB",
    "tipoFicheiro": "MP4, MOV or M4V; H.264 or H.265 codec",
    "copies": "Headline: up to 100 characters (only the first 40 characters may show in feeds; 30 characters for Chinese/Japanese/Korean/Arabic); Description: up to 800 characters."
   },
   "es": {
-   "dimensao": "Duración: mín. 4s, máx. 15min (recomendado 6-15s para anuncios). Proporción: más estrecha que 1:2, más ancha que 1,91:1; recomendado cuadrado (1:1) o vertical (2:3, 4:5 o 9:16).",
+   "dimensao": "Duración: mín. 4s, máx. 15min (recomendado 6-15s para anuncios).",
    "aspectRatio": "1:1, 2:3, 4:5 o 9:16 (recomendado); aceptado entre 1:2 y 1,91:1",
    "peso": "Hasta 2 GB",
    "tipoFicheiro": "MP4, MOV o M4V; códec H.264 o H.265",
    "copies": "Título: hasta 100 caracteres (solo los primeros 40 caracteres pueden mostrarse en el feed; 30 caracteres para chino/japonés/coreano/árabe); Descripción: hasta 800 caracteres."
   },
   "fr": {
-   "dimensao": "Durée : min. 4s, max. 15min (recommandé 6-15s pour les publicités). Ratio : plus étroit que 1:2, plus large que 1,91:1 ; recommandé carré (1:1) ou vertical (2:3, 4:5 ou 9:16).",
+   "dimensao": "Durée : min. 4s, max. 15min (recommandé 6-15s pour les publicités).",
    "aspectRatio": "1:1, 2:3, 4:5 ou 9:16 (recommandé) ; accepté entre 1:2 et 1,91:1",
    "peso": "Jusqu'à 2 Go",
    "tipoFicheiro": "MP4, MOV ou M4V ; codec H.264 ou H.265",
@@ -3585,21 +3588,21 @@
  },
  "Reddit|Carousel Ad": {
   "en": {
-   "dimensao": "2 to 6 images (same ratio recommended for all). Cross-device recommended: 1200x1500 (4:5), 1440x1080 (4:3) or 1920x1080 (16:9). Mobile: 1200x1200 (1:1), 1080x1440 (3:4), 900x1200 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Desktop: 1200x1500 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Any ratio is accepted but may cause formatting discrepancies like letterboxing. GIF: recommended length 3-10s. Thumbnail (compact view, auto-generated from the 1st image or replaceable): recommended 400x300 (4:3); accepted 300x300 (1:1).",
+   "dimensao": "2 to 6 images (same ratio recommended across all). Cross-device recommended: 1200x1500, 1440x1080 or 1920x1080. Mobile: 1200x1200, 1080x1440, 900x1200, 1440x1080, 1920x1080. Desktop: 1200x1500, 1440x1080, 1920x1080. Any ratio is accepted but may cause letterboxing. GIF: recommended duration 3-10s. Thumbnail (compact view, auto-generated from the 1st image or replaceable): recommended 400x300; accepted 300x300.",
    "aspectRatio": "1:1, 3:4, 4:5, 4:3 or 16:9 (any ratio accepted; same ratio recommended across all images)",
    "peso": "GIF: 3 MB; Other file types: 20 MB; Thumbnail: 3 MB",
    "tipoFicheiro": "JPG, PNG or GIF",
    "copies": "Headline: up to 300 characters, 1 (recommended ≤100 characters, safer ≤80 characters); Destination URL: up to 268 characters, 1 per image; Caption: up to 50 characters, 1 per image; Display URL: up to 100 characters, 1 per image (must match the destination URL's domain); CTA: choose from options."
   },
   "es": {
-   "dimensao": "2 a 6 imágenes (misma proporción recomendada en todas). Cross-device recomendado: 1200x1500 (4:5), 1440x1080 (4:3) o 1920x1080 (16:9). Móvil: 1200x1200 (1:1), 1080x1440 (3:4), 900x1200 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Escritorio: 1200x1500 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Se acepta cualquier proporción, pero puede causar discrepancias de formato como letterboxing. GIF: duración recomendada 3-10s. Miniatura (vista compacta, generada automáticamente a partir de la 1.ª imagen o reemplazable): recomendado 400x300 (4:3); aceptado 300x300 (1:1).",
+   "dimensao": "2 a 6 imágenes (misma proporción recomendada en todas). Cross-device recomendado: 1200x1500, 1440x1080 o 1920x1080. Mobile: 1200x1200, 1080x1440, 900x1200, 1440x1080, 1920x1080. Desktop: 1200x1500, 1440x1080, 1920x1080. Se acepta cualquier proporción, pero puede causar letterboxing. GIF: duración recomendada 3-10s. Thumbnail (vista compacta, generado automáticamente a partir de la 1ª imagen o sustituible): recomendado 400x300; aceptado 300x300.",
    "aspectRatio": "1:1, 3:4, 4:5, 4:3 o 16:9 (se acepta cualquier proporción; misma proporción recomendada en todas las imágenes)",
    "peso": "GIF: 3 MB; Otros tipos de archivo: 20 MB; Miniatura: 3 MB",
    "tipoFicheiro": "JPG, PNG o GIF",
    "copies": "Título: hasta 300 caracteres, 1 (recomendado ≤100 caracteres, más seguro ≤80 caracteres); URL de destino: hasta 268 caracteres, 1 por imagen; Descripción: hasta 50 caracteres, 1 por imagen; URL de visualización: hasta 100 caracteres, 1 por imagen (debe coincidir con el dominio de la URL de destino); CTA: a elegir entre las opciones."
   },
   "fr": {
-   "dimensao": "2 à 6 images (même ratio recommandé pour toutes). Cross-device recommandé : 1200x1500 (4:5), 1440x1080 (4:3) ou 1920x1080 (16:9). Mobile : 1200x1200 (1:1), 1080x1440 (3:4), 900x1200 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Ordinateur : 1200x1500 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). N'importe quel ratio est accepté mais peut causer des problèmes de mise en forme comme le letterboxing. GIF : durée recommandée 3-10s. Miniature (vue compacte, générée automatiquement à partir de la 1ère image ou remplaçable) : recommandé 400x300 (4:3) ; accepté 300x300 (1:1).",
+   "dimensao": "2 à 6 images (même ratio recommandé pour toutes). Cross-device recommandé : 1200x1500, 1440x1080 ou 1920x1080. Mobile : 1200x1200, 1080x1440, 900x1200, 1440x1080, 1920x1080. Desktop : 1200x1500, 1440x1080, 1920x1080. N'importe quel ratio est accepté mais peut causer du letterboxing. GIF : durée recommandée 3-10s. Miniature (compact view, générée automatiquement à partir de la 1ère image ou remplaçable) : recommandé 400x300 ; accepté 300x300.",
    "aspectRatio": "1:1, 3:4, 4:5, 4:3 ou 16:9 (n'importe quel ratio accepté ; même ratio recommandé pour toutes les images)",
    "peso": "GIF : 3 Mo ; Autres types de fichiers : 20 Mo ; Miniature : 3 Mo",
    "tipoFicheiro": "JPG, PNG ou GIF",
@@ -3608,21 +3611,21 @@
  },
  "Reddit|Free-form Ad": {
   "en": {
-   "dimensao": "Image (optional): up to 20 files, recommended min. width 1000px; recommended resolutions 1200x1200 (1:1), 1440x1080 (4:3) or 1920x1080 (16:9). Video (optional): up to 5 files; recommended length 5-30s; recommended resolutions 1200x1200 (1:1), 1200x1500 (4:5), 1440x1080 (4:3) or 1920x1080 (16:9). Thumbnail (optional, NOT auto-generated — without a thumbnail no media shows in feeds): recommended 400x300 or 300x300 (1:1).",
+   "dimensao": "Image (optional): up to 20 files, min. recommended width 1000px; recommended resolutions 1200x1200, 1440x1080 or 1920x1080. Video (optional): up to 5 files; recommended duration 5-30s; recommended resolutions 1200x1200, 1200x1500, 1440x1080 or 1920x1080. Thumbnail (optional, NOT auto-generated — without a thumbnail no media appears in the feed): recommended 400x300 or 300x300.",
    "aspectRatio": "1:1, 4:5, 4:3 or 16:9 (any ratio accepted)",
    "peso": "Image: 10 MB; Video: up to 1 GB (recommended 50-100 MB); Thumbnail: 3 MB",
    "tipoFicheiro": "Image: JPG, PNG or GIF; Video: MP4 or MOV (ProRes not supported), max. frame rate 30 FPS; Thumbnail: JPG or PNG",
    "copies": "Headline: up to 300 characters, 1 (recommended ≤100 characters, safer ≤80 characters); Body: up to 40,000 characters, 1 (recommended 3-6 lines of plain text displayed in the feed); Caption: up to 50 characters, 1 per image/video."
   },
   "es": {
-   "dimensao": "Imagen (opcional): hasta 20 archivos, ancho mín. recomendado 1000px; resoluciones recomendadas 1200x1200 (1:1), 1440x1080 (4:3) o 1920x1080 (16:9). Vídeo (opcional): hasta 5 archivos; duración recomendada 5-30s; resoluciones recomendadas 1200x1200 (1:1), 1200x1500 (4:5), 1440x1080 (4:3) o 1920x1080 (16:9). Miniatura (opcional, NO generada automáticamente — sin miniatura no se muestra ningún contenido multimedia en el feed): recomendado 400x300 o 300x300 (1:1).",
+   "dimensao": "Imagen (opcional): hasta 20 archivos, ancho mín. recomendado 1000px; resoluciones recomendadas 1200x1200, 1440x1080 o 1920x1080. Vídeo (opcional): hasta 5 archivos; duración recomendada 5-30s; resoluciones recomendadas 1200x1200, 1200x1500, 1440x1080 o 1920x1080. Thumbnail (opcional, NO generado automáticamente — sin thumbnail no aparece contenido multimedia en el feed): recomendado 400x300 o 300x300.",
    "aspectRatio": "1:1, 4:5, 4:3 o 16:9 (se acepta cualquier proporción)",
    "peso": "Imagen: 10 MB; Vídeo: hasta 1 GB (recomendado 50-100 MB); Miniatura: 3 MB",
    "tipoFicheiro": "Imagen: JPG, PNG o GIF; Vídeo: MP4 o MOV (ProRes no compatible), frecuencia de fotogramas máx. 30 FPS; Miniatura: JPG o PNG",
    "copies": "Título: hasta 300 caracteres, 1 (recomendado ≤100 caracteres, más seguro ≤80 caracteres); Cuerpo: hasta 40.000 caracteres, 1 (recomendado 3-6 líneas de texto simple mostradas en el feed); Descripción: hasta 50 caracteres, 1 por imagen/vídeo."
   },
   "fr": {
-   "dimensao": "Image (facultatif) : jusqu'à 20 fichiers, largeur min. recommandée 1000px ; résolutions recommandées 1200x1200 (1:1), 1440x1080 (4:3) ou 1920x1080 (16:9). Vidéo (facultatif) : jusqu'à 5 fichiers ; durée recommandée 5-30s ; résolutions recommandées 1200x1200 (1:1), 1200x1500 (4:5), 1440x1080 (4:3) ou 1920x1080 (16:9). Miniature (facultatif, NON générée automatiquement — sans miniature, aucun média ne s'affiche dans le fil) : recommandé 400x300 ou 300x300 (1:1).",
+   "dimensao": "Image (facultatif) : jusqu'à 20 fichiers, largeur min. recommandée 1000px ; résolutions recommandées 1200x1200, 1440x1080 ou 1920x1080. Vidéo (facultatif) : jusqu'à 5 fichiers ; durée recommandée 5-30s ; résolutions recommandées 1200x1200, 1200x1500, 1440x1080 ou 1920x1080. Miniature (facultatif, PAS générée automatiquement — sans miniature, aucun média n'apparaît dans le fil) : recommandé 400x300 ou 300x300.",
    "aspectRatio": "1:1, 4:5, 4:3 ou 16:9 (n'importe quel ratio accepté)",
    "peso": "Image : 10 Mo ; Vidéo : jusqu'à 1 Go (recommandé 50-100 Mo) ; Miniature : 3 Mo",
    "tipoFicheiro": "Image : JPG, PNG ou GIF ; Vidéo : MP4 ou MOV (ProRes non pris en charge), fréquence d'images max. 30 FPS ; Miniature : JPG ou PNG",
@@ -3631,21 +3634,21 @@
  },
  "Reddit|Image Ad": {
   "en": {
-   "dimensao": "Image — Cross-device recommended: 1440x1080 (4:3). Mobile: 1080x1080 (1:1), 1080x1440 (3:4), 1080x1350 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Desktop: 1440x1080, 1920x1080 (16:9). Any ratio is accepted but may cause formatting discrepancies like letterboxing. Thumbnail (conversation/compact view only, auto-generated or replaceable): recommended 400x300 (4:3); accepted 300x300 (1:1) or 400x225 (16:9).",
-   "aspectRatio": "1:1, 3:4, 4:5, 4:3 or 16:9 (any ratio accepted; recommended 4:3 cross-device)",
+   "dimensao": "Image — Cross-device recommended: 1440x1080. Mobile: 1080x1080, 1080x1440, 1080x1350, 1440x1080, 1920x1080. Desktop: 1440x1080, 1920x1080. Any ratio is accepted but may cause letterboxing. Thumbnail (conversation/compact view only, auto-generated or replaceable): recommended 400x300; accepted 300x300 or 400x225.",
+   "aspectRatio": "1:1, 3:4, 4:5, 4:3 or 16:9 (any ratio accepted; 4:3 recommended cross-device)",
    "peso": "Image: 3 MB; Thumbnail: 3 MB",
    "tipoFicheiro": "JPG, PNG or GIF (thumbnail: GIF converted to a still image)",
    "copies": "Headline: up to 300 characters (recommended ≤100 characters, safer ≤80 characters); Destination URL: up to 268 characters; Display URL: up to 100 characters (must match the destination URL's domain); CTA: choose from options."
   },
   "es": {
-   "dimensao": "Imagen — Cross-device recomendado: 1440x1080 (4:3). Móvil: 1080x1080 (1:1), 1080x1440 (3:4), 1080x1350 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Escritorio: 1440x1080, 1920x1080 (16:9). Se acepta cualquier proporción, pero puede causar discrepancias de formato como letterboxing. Miniatura (solo vista de conversación/compacta, generada automáticamente o reemplazable): recomendado 400x300 (4:3); aceptado 300x300 (1:1) o 400x225 (16:9).",
+   "dimensao": "Imagen — Cross-device recomendado: 1440x1080. Mobile: 1080x1080, 1080x1440, 1080x1350, 1440x1080, 1920x1080. Desktop: 1440x1080, 1920x1080. Se acepta cualquier proporción, pero puede causar letterboxing. Thumbnail (solo vista conversación/compacta, generado automáticamente o sustituible): recomendado 400x300; aceptado 300x300 o 400x225.",
    "aspectRatio": "1:1, 3:4, 4:5, 4:3 o 16:9 (se acepta cualquier proporción; recomendado 4:3 cross-device)",
    "peso": "Imagen: 3 MB; Miniatura: 3 MB",
    "tipoFicheiro": "JPG, PNG o GIF (miniatura: GIF convertido a imagen estática)",
    "copies": "Título: hasta 300 caracteres (recomendado ≤100 caracteres, más seguro ≤80 caracteres); URL de destino: hasta 268 caracteres; URL de visualización: hasta 100 caracteres (debe coincidir con el dominio de la URL de destino); CTA: a elegir entre las opciones."
   },
   "fr": {
-   "dimensao": "Image — Cross-device recommandé : 1440x1080 (4:3). Mobile : 1080x1080 (1:1), 1080x1440 (3:4), 1080x1350 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Ordinateur : 1440x1080, 1920x1080 (16:9). N'importe quel ratio est accepté mais peut causer des problèmes de mise en forme comme le letterboxing. Miniature (vue conversation/compacte uniquement, générée automatiquement ou remplaçable) : recommandé 400x300 (4:3) ; accepté 300x300 (1:1) ou 400x225 (16:9).",
+   "dimensao": "Image — Cross-device recommandé : 1440x1080. Mobile : 1080x1080, 1080x1440, 1080x1350, 1440x1080, 1920x1080. Desktop : 1440x1080, 1920x1080. N'importe quel ratio est accepté mais peut causer du letterboxing. Miniature (uniquement conversation/compact view, générée automatiquement ou remplaçable) : recommandé 400x300 ; accepté 300x300 ou 400x225.",
    "aspectRatio": "1:1, 3:4, 4:5, 4:3 ou 16:9 (n'importe quel ratio accepté ; recommandé 4:3 cross-device)",
    "peso": "Image : 3 Mo ; Miniature : 3 Mo",
    "tipoFicheiro": "JPG, PNG ou GIF (miniature : GIF converti en image fixe)",
@@ -3671,21 +3674,21 @@
  },
  "Reddit|Video Ad": {
   "en": {
-   "dimensao": "Video — Cross-device recommended: 1440x1080 (4:3) or 1920x1080 (16:9). Mobile: 1200x1200 (1:1), 900x1200 (3:4), 1200x1500 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Desktop: 1440x1080 (4:3), 1920x1080 (16:9). Any ratio is accepted but may cause formatting discrepancies like letterboxing. Length: 2s to 15min (recommended 5-30s). Thumbnail: resolution should match the video's ratio (auto-generated or replaceable).",
+   "dimensao": "Video — Cross-device recommended: 1440x1080 or 1920x1080. Mobile: 1200x1200, 900x1200, 1200x1500, 1440x1080, 1920x1080. Desktop: 1440x1080, 1920x1080. Any ratio is accepted but may cause letterboxing. Duration: 2s to 15min (recommended 5-30s). Thumbnail: resolution to match the video's ratio (auto-generated or replaceable).",
    "aspectRatio": "1:1, 3:4, 4:5, 4:3 or 16:9 (any ratio accepted)",
    "peso": "Video: up to 1 GB; Thumbnail: 3 MB",
    "tipoFicheiro": "MP4 or MOV (ProRes not supported); max. frame rate 30 FPS; thumbnail: JPG, PNG or GIF",
    "copies": "Headline: up to 300 characters (recommended ≤100 characters, safer ≤80 characters); Destination URL: up to 268 characters; Display URL: up to 100 characters (must match the destination URL's domain); CTA: choose from options."
   },
   "es": {
-   "dimensao": "Vídeo — Cross-device recomendado: 1440x1080 (4:3) o 1920x1080 (16:9). Móvil: 1200x1200 (1:1), 900x1200 (3:4), 1200x1500 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Escritorio: 1440x1080 (4:3), 1920x1080 (16:9). Se acepta cualquier proporción, pero puede causar discrepancias de formato como letterboxing. Duración: 2s a 15min (recomendado 5-30s). Miniatura: la resolución debe coincidir con la proporción del vídeo (generada automáticamente o reemplazable).",
+   "dimensao": "Vídeo — Cross-device recomendado: 1440x1080 o 1920x1080. Mobile: 1200x1200, 900x1200, 1200x1500, 1440x1080, 1920x1080. Desktop: 1440x1080, 1920x1080. Se acepta cualquier proporción, pero puede causar letterboxing. Duración: 2s a 15min (recomendado 5-30s). Thumbnail: resolución acorde a la proporción del vídeo (generado automáticamente o sustituible).",
    "aspectRatio": "1:1, 3:4, 4:5, 4:3 o 16:9 (se acepta cualquier proporción)",
    "peso": "Vídeo: hasta 1 GB; Miniatura: 3 MB",
    "tipoFicheiro": "MP4 o MOV (ProRes no compatible); frecuencia de fotogramas máx. 30 FPS; miniatura: JPG, PNG o GIF",
    "copies": "Título: hasta 300 caracteres (recomendado ≤100 caracteres, más seguro ≤80 caracteres); URL de destino: hasta 268 caracteres; URL de visualización: hasta 100 caracteres (debe coincidir con el dominio de la URL de destino); CTA: a elegir entre las opciones."
   },
   "fr": {
-   "dimensao": "Vidéo — Cross-device recommandé : 1440x1080 (4:3) ou 1920x1080 (16:9). Mobile : 1200x1200 (1:1), 900x1200 (3:4), 1200x1500 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Ordinateur : 1440x1080 (4:3), 1920x1080 (16:9). N'importe quel ratio est accepté mais peut causer des problèmes de mise en forme comme le letterboxing. Durée : 2s à 15min (recommandé 5-30s). Miniature : la résolution doit correspondre au ratio de la vidéo (générée automatiquement ou remplaçable).",
+   "dimensao": "Vidéo — Cross-device recommandé : 1440x1080 ou 1920x1080. Mobile : 1200x1200, 900x1200, 1200x1500, 1440x1080, 1920x1080. Desktop : 1440x1080, 1920x1080. N'importe quel ratio est accepté mais peut causer du letterboxing. Durée : 2s à 15min (recommandé 5-30s). Miniature : résolution correspondant au ratio de la vidéo (générée automatiquement ou remplaçable).",
    "aspectRatio": "1:1, 3:4, 4:5, 4:3 ou 16:9 (n'importe quel ratio accepté)",
    "peso": "Vidéo : jusqu'à 1 Go ; Miniature : 3 Mo",
    "tipoFicheiro": "MP4 ou MOV (ProRes non pris en charge) ; fréquence d'images max. 30 FPS ; miniature : JPG, PNG ou GIF",
@@ -3711,19 +3714,19 @@
  },
  "Snapchat|Carousel": {
   "en": {
-   "dimensao": "720x1280 (9:16) per asset recommended",
+   "dimensao": "720x1280 per asset recommended",
    "aspectRatio": "9:16",
    "peso": "Varies by asset",
    "tipoFicheiro": "JPG, PNG, MP4, MOV"
   },
   "es": {
-   "dimensao": "720x1280 (9:16) por asset, recomendado",
+   "dimensao": "720x1280 recomendado por asset",
    "aspectRatio": "9:16",
    "peso": "Varía según el asset",
    "tipoFicheiro": "JPG, PNG, MP4, MOV"
   },
   "fr": {
-   "dimensao": "720x1280 (9:16) par asset recommandé",
+   "dimensao": "720x1280 par asset recommandé",
    "aspectRatio": "9:16",
    "peso": "Varie selon l'asset",
    "tipoFicheiro": "JPG, PNG, MP4, MOV"
@@ -3731,19 +3734,19 @@
  },
  "Snapchat|Collection": {
   "en": {
-   "dimensao": "720x1280 (9:16)",
+   "dimensao": "720x1280",
    "aspectRatio": "9:16",
    "peso": "Varies by asset",
    "tipoFicheiro": "JPG, PNG, MP4, MOV + catalog/products"
   },
   "es": {
-   "dimensao": "720x1280 (9:16)",
+   "dimensao": "720x1280",
    "aspectRatio": "9:16",
    "peso": "Varía según el asset",
    "tipoFicheiro": "JPG, PNG, MP4, MOV + catálogo/productos"
   },
   "fr": {
-   "dimensao": "720x1280 (9:16)",
+   "dimensao": "720x1280",
    "aspectRatio": "9:16",
    "peso": "Varie selon l'asset",
    "tipoFicheiro": "JPG, PNG, MP4, MOV + catalogue/produits"
@@ -3751,19 +3754,19 @@
  },
  "Snapchat|Commercial Ad": {
   "en": {
-   "dimensao": "720x1280 (9:16)",
+   "dimensao": "720x1280",
    "aspectRatio": "9:16",
    "peso": "Varies; verify in Ads Manager",
    "tipoFicheiro": "MP4, MOV (H.264)"
   },
   "es": {
-   "dimensao": "720x1280 (9:16)",
+   "dimensao": "720x1280",
    "aspectRatio": "9:16",
    "peso": "Varía; validar en Ads Manager",
    "tipoFicheiro": "MP4, MOV (H.264)"
   },
   "fr": {
-   "dimensao": "720x1280 (9:16)",
+   "dimensao": "720x1280",
    "aspectRatio": "9:16",
    "peso": "Varie ; à valider dans l'Ads Manager",
    "tipoFicheiro": "MP4, MOV (H.264)"
@@ -3771,19 +3774,19 @@
  },
  "Snapchat|Single Image": {
   "en": {
-   "dimensao": "720x1280 (9:16)",
+   "dimensao": "720x1280",
    "aspectRatio": "9:16",
    "peso": "Varies; verify in Ads Manager",
    "tipoFicheiro": "JPG, PNG"
   },
   "es": {
-   "dimensao": "720x1280 (9:16)",
+   "dimensao": "720x1280",
    "aspectRatio": "9:16",
    "peso": "Varía; validar en Ads Manager",
    "tipoFicheiro": "JPG, PNG"
   },
   "fr": {
-   "dimensao": "720x1280 (9:16)",
+   "dimensao": "720x1280",
    "aspectRatio": "9:16",
    "peso": "Varie ; à valider dans l'Ads Manager",
    "tipoFicheiro": "JPG, PNG"
@@ -3791,19 +3794,19 @@
  },
  "Snapchat|Single Video": {
   "en": {
-   "dimensao": "720x1280 (9:16)",
+   "dimensao": "720x1280",
    "aspectRatio": "9:16",
    "peso": "Varies; verify in Ads Manager",
    "tipoFicheiro": "MP4, MOV"
   },
   "es": {
-   "dimensao": "720x1280 (9:16)",
+   "dimensao": "720x1280",
    "aspectRatio": "9:16",
    "peso": "Varía; validar en Ads Manager",
    "tipoFicheiro": "MP4, MOV"
   },
   "fr": {
-   "dimensao": "720x1280 (9:16)",
+   "dimensao": "720x1280",
    "aspectRatio": "9:16",
    "peso": "Varie ; à valider dans l'Ads Manager",
    "tipoFicheiro": "MP4, MOV"
@@ -3811,19 +3814,19 @@
  },
  "Snapchat|Story": {
   "en": {
-   "dimensao": "720x1280 (9:16)",
+   "dimensao": "720x1280",
    "aspectRatio": "9:16",
    "peso": "Varies by asset",
    "tipoFicheiro": "JPG, PNG, MP4, MOV"
   },
   "es": {
-   "dimensao": "720x1280 (9:16)",
+   "dimensao": "720x1280",
    "aspectRatio": "9:16",
    "peso": "Varía según el asset",
    "tipoFicheiro": "JPG, PNG, MP4, MOV"
   },
   "fr": {
-   "dimensao": "720x1280 (9:16)",
+   "dimensao": "720x1280",
    "aspectRatio": "9:16",
    "peso": "Varie selon l'asset",
    "tipoFicheiro": "JPG, PNG, MP4, MOV"
@@ -3851,19 +3854,22 @@
  },
  "TikTok|Branded Mission": {
   "en": {
-   "dimensao": "Final creative follows In-Feed/Spark Ads (vertical 9:16 recommended)",
+   "dimensao": "Final creative follows In-Feed/Spark Ads",
    "peso": "Per In-Feed/Spark video",
-   "tipoFicheiro": "Eligible creator video / Spark Ads"
+   "tipoFicheiro": "Eligible creator video / Spark Ads",
+   "aspectRatio": "9:16"
   },
   "es": {
-   "dimensao": "El creativo final sigue las specs de In-Feed/Spark Ads (vertical 9:16 recomendado)",
+   "dimensao": "El creativo final sigue In-Feed/Spark Ads",
    "peso": "Según el vídeo In-Feed/Spark",
-   "tipoFicheiro": "Vídeo de creator elegible / Spark Ads"
+   "tipoFicheiro": "Vídeo de creator elegible / Spark Ads",
+   "aspectRatio": "9:16"
   },
   "fr": {
-   "dimensao": "Créatif final suit In-Feed/Spark Ads (vertical 9:16 recommandé)",
+   "dimensao": "Créatif final suit In-Feed/Spark Ads",
    "peso": "Selon vidéo In-Feed/Spark",
-   "tipoFicheiro": "Vidéo de créateur éligible / Spark Ads"
+   "tipoFicheiro": "Vidéo de créateur éligible / Spark Ads",
+   "aspectRatio": "9:16"
   }
  },
  "TikTok|Carousel Ads": {
@@ -3888,19 +3894,19 @@
  },
  "TikTok|In-Feed (Standard Feed)": {
   "en": {
-   "dimensao": "Vertical 9:16 recommended; ≥540x960 recommended",
+   "dimensao": "Vertical recommended; ≥540x960 recommended",
    "aspectRatio": "9:16",
    "peso": "Up to 500 MB (reservation); limits may vary in auction",
    "tipoFicheiro": "MP4, MOV, MPEG, 3GP"
   },
   "es": {
-   "dimensao": "Vertical 9:16 recomendado; ≥540x960 recomendado",
+   "dimensao": "Vertical recomendado; ≥540x960 recomendado",
    "aspectRatio": "9:16",
    "peso": "Hasta 500 MB (reservation); los límites pueden variar en auction",
    "tipoFicheiro": "MP4, MOV, MPEG, 3GP"
   },
   "fr": {
-   "dimensao": "Vertical 9:16 recommandé ; ≥540x960 recommandé",
+   "dimensao": "Vertical recommandé ; ≥540x960 recommandé",
    "aspectRatio": "9:16",
    "peso": "Jusqu'à 500 MB (reservation) ; les limites peuvent varier en auction",
    "tipoFicheiro": "MP4, MOV, MPEG, 3GP"
@@ -3925,19 +3931,19 @@
  },
  "TikTok|Spark Ads": {
   "en": {
-   "dimensao": "Uses organic video; for push, 9:16 ≥540x960 recommended",
+   "dimensao": "Uses organic video; for push, ≥540x960 recommended",
    "aspectRatio": "9:16",
    "peso": "Up to 500 MB for push",
    "tipoFicheiro": "Authorized organic video or MP4/MOV/MPEG/3GP"
   },
   "es": {
-   "dimensao": "Usa vídeo orgánico; para push, 9:16 ≥540x960 recomendado",
+   "dimensao": "Usa vídeo orgánico; para push, ≥540x960 recomendado",
    "aspectRatio": "9:16",
    "peso": "Hasta 500 MB para push",
    "tipoFicheiro": "Vídeo orgánico autorizado o MP4/MOV/MPEG/3GP"
   },
   "fr": {
-   "dimensao": "Utilise une vidéo organique ; pour le push, 9:16 ≥540x960 recommandé",
+   "dimensao": "Utilise la vidéo organique ; pour le push, ≥540x960 recommandé",
    "aspectRatio": "9:16",
    "peso": "Jusqu'à 500 MB pour le push",
    "tipoFicheiro": "Vidéo organique autorisée ou MP4/MOV/MPEG/3GP"
@@ -3945,36 +3951,39 @@
  },
  "TikTok|Top Feed": {
   "en": {
-   "dimensao": "Follows In-Feed creative; vertical 9:16 recommended",
+   "dimensao": "Follows In-Feed creative",
    "peso": "Per In-Feed",
-   "tipoFicheiro": "MP4, MOV / Spark Ads"
+   "tipoFicheiro": "MP4, MOV / Spark Ads",
+   "aspectRatio": "9:16"
   },
   "es": {
-   "dimensao": "Sigue el creativo de In-Feed; vertical 9:16 recomendado",
+   "dimensao": "Sigue el creativo de In-Feed",
    "peso": "Según In-Feed",
-   "tipoFicheiro": "MP4, MOV / Spark Ads"
+   "tipoFicheiro": "MP4, MOV / Spark Ads",
+   "aspectRatio": "9:16"
   },
   "fr": {
-   "dimensao": "Suit le créatif In-Feed ; vertical 9:16 recommandé",
+   "dimensao": "Suit le créatif In-Feed",
    "peso": "Selon In-Feed",
-   "tipoFicheiro": "MP4, MOV / Spark Ads"
+   "tipoFicheiro": "MP4, MOV / Spark Ads",
+   "aspectRatio": "9:16"
   }
  },
  "TikTok|TopView": {
   "en": {
-   "dimensao": "9:16; ≥540x960",
+   "dimensao": "≥540x960",
    "aspectRatio": "9:16",
    "peso": "500 MB",
    "tipoFicheiro": "MP4, MOV, MPEG, 3GP"
   },
   "es": {
-   "dimensao": "9:16; ≥540x960",
+   "dimensao": "≥540x960",
    "aspectRatio": "9:16",
    "peso": "500 MB",
    "tipoFicheiro": "MP4, MOV, MPEG, 3GP"
   },
   "fr": {
-   "dimensao": "9:16 ; ≥540x960",
+   "dimensao": "≥540x960",
    "aspectRatio": "9:16",
    "peso": "500 MB",
    "tipoFicheiro": "MP4, MOV, MPEG, 3GP"
@@ -3982,36 +3991,39 @@
  },
  "X|Amplify": {
   "en": {
-   "dimensao": "16:9 recommended; HD video",
+   "dimensao": "HD video",
    "peso": "1 GB recommended/limit depending on placement",
-   "tipoFicheiro": "MP4, MOV"
+   "tipoFicheiro": "MP4, MOV",
+   "aspectRatio": "16:9"
   },
   "es": {
-   "dimensao": "16:9 recomendado; vídeo HD",
+   "dimensao": "Vídeo HD",
    "peso": "1 GB recomendado/límite según el placement",
-   "tipoFicheiro": "MP4, MOV"
+   "tipoFicheiro": "MP4, MOV",
+   "aspectRatio": "16:9"
   },
   "fr": {
-   "dimensao": "16:9 recommandé ; vidéo HD",
+   "dimensao": "Vidéo HD",
    "peso": "1 GB recommandé/limite selon le placement",
-   "tipoFicheiro": "MP4, MOV"
+   "tipoFicheiro": "MP4, MOV",
+   "aspectRatio": "16:9"
   }
  },
  "X|Carousel Ad": {
   "en": {
-   "dimensao": "800x800 (1:1) or 800x418 (1.91:1) recommended",
+   "dimensao": "800x800 or 800x418 recommended",
    "aspectRatio": "1:1 or 1.91:1",
    "peso": "5 MB per image; video per specs",
    "tipoFicheiro": "JPG, PNG; MP4/MOV for video carousel"
   },
   "es": {
-   "dimensao": "800x800 (1:1) o 800x418 (1.91:1) recomendado",
+   "dimensao": "800x800 o 800x418 recomendado",
    "aspectRatio": "1:1 o 1.91:1",
    "peso": "5 MB por imagen; vídeo según specs",
    "tipoFicheiro": "JPG, PNG; MP4/MOV para el carousel de vídeo"
   },
   "fr": {
-   "dimensao": "800x800 (1:1) ou 800x418 (1.91:1) recommandé",
+   "dimensao": "800x800 ou 800x418 recommandé",
    "aspectRatio": "1:1 ou 1.91:1",
    "peso": "5 MB par image ; vidéo selon specs",
    "tipoFicheiro": "JPG, PNG ; MP4/MOV pour video carousel"
@@ -4019,19 +4031,19 @@
  },
  "X|Collection Ad": {
   "en": {
-   "dimensao": "Hero 800x800 (1:1) recommended + product thumbnails",
+   "dimensao": "Hero 800x800 recommended + product thumbnails",
    "aspectRatio": "1:1",
    "peso": "5 MB per image",
    "tipoFicheiro": "JPG, PNG + catalog"
   },
   "es": {
-   "dimensao": "Hero 800x800 (1:1) recomendado + miniaturas de productos",
+   "dimensao": "Hero 800x800 recomendado + thumbnails de productos",
    "aspectRatio": "1:1",
    "peso": "5 MB por imagen",
    "tipoFicheiro": "JPG, PNG + catálogo"
   },
   "fr": {
-   "dimensao": "Hero 800x800 (1:1) recommandé + miniatures de produits",
+   "dimensao": "Hero 800x800 recommandé + miniatures de produits",
    "aspectRatio": "1:1",
    "peso": "5 MB par image",
    "tipoFicheiro": "JPG, PNG + catalogue"
@@ -4039,36 +4051,39 @@
  },
  "X|Dynamic Product Ads": {
   "en": {
-   "dimensao": "Assets sourced from the catalog; 1:1 recommended",
+   "dimensao": "Assets sourced from the catalog",
    "peso": "Per catalog",
-   "tipoFicheiro": "Feed/catalog + JPG/PNG"
+   "tipoFicheiro": "Feed/catalog + JPG/PNG",
+   "aspectRatio": "1:1"
   },
   "es": {
-   "dimensao": "Assets procedentes del catálogo; 1:1 recomendado",
+   "dimensao": "Assets provenientes del catálogo",
    "peso": "Según el catálogo",
-   "tipoFicheiro": "Feed/catálogo + JPG/PNG"
+   "tipoFicheiro": "Feed/catálogo + JPG/PNG",
+   "aspectRatio": "1:1"
   },
   "fr": {
-   "dimensao": "Assets provenant du catalogue ; 1:1 recommandé",
+   "dimensao": "Assets provenant du catalogue",
    "peso": "Selon catalogue",
-   "tipoFicheiro": "Feed/catalogue + JPG/PNG"
+   "tipoFicheiro": "Feed/catalogue + JPG/PNG",
+   "aspectRatio": "1:1"
   }
  },
  "X|Image Ad": {
   "en": {
-   "dimensao": "1200x1200 (1:1) or 1200x628 (1.91:1) recommended",
+   "dimensao": "1200x1200 or 1200x628 recommended",
    "aspectRatio": "1:1 or 1.91:1",
    "peso": "5 MB",
    "tipoFicheiro": "JPG, PNG"
   },
   "es": {
-   "dimensao": "1200x1200 (1:1) o 1200x628 (1.91:1) recomendado",
+   "dimensao": "1200x1200 o 1200x628 recomendado",
    "aspectRatio": "1:1 o 1.91:1",
    "peso": "5 MB",
    "tipoFicheiro": "JPG, PNG"
   },
   "fr": {
-   "dimensao": "1200x1200 (1:1) ou 1200x628 (1.91:1) recommandé",
+   "dimensao": "1200x1200 ou 1200x628 recommandé",
    "aspectRatio": "1:1 ou 1.91:1",
    "peso": "5 MB",
    "tipoFicheiro": "JPG, PNG"
@@ -4110,19 +4125,19 @@
  },
  "X|Video Ad": {
   "en": {
-   "dimensao": "1200x1200 (1:1) or 1920x1080 (16:9) recommended",
+   "dimensao": "1200x1200 or 1920x1080 recommended",
    "aspectRatio": "1:1 or 16:9",
    "peso": "1 GB",
    "tipoFicheiro": "MP4, MOV"
   },
   "es": {
-   "dimensao": "1200x1200 (1:1) o 1920x1080 (16:9) recomendado",
+   "dimensao": "1200x1200 o 1920x1080 recomendado",
    "aspectRatio": "1:1 o 16:9",
    "peso": "1 GB",
    "tipoFicheiro": "MP4, MOV"
   },
   "fr": {
-   "dimensao": "1200x1200 (1:1) ou 1920x1080 (16:9) recommandé",
+   "dimensao": "1200x1200 ou 1920x1080 recommandé",
    "aspectRatio": "1:1 ou 16:9",
    "peso": "1 GB",
    "tipoFicheiro": "MP4, MOV"
@@ -4218,22 +4233,22 @@
  },
  "Google Display Network|Responsive Display Ads (imagem)": {
   "en": {
-   "dimensao": "Horizontal 1.91:1: 1200x628 (min. 600x314); Square 1:1: 600x600 (min. 300x300); Logo 1:1: 1200x1200 (min. 128x128, optional); Logo 4:1: 1200x300 (min. 512x128, optional). VIDEO (optional) — Horizontal 16:9, Square 1:1, Vertical 2:3; any duration (recommended 30s).",
-   "aspectRatio": "1.91:1 or 1:1 or 4:1",
+   "dimensao": "Horizontal: 1200x628 (min. 600x314); Square: 600x600 (min. 300x300); Square logo: 1200x1200 (min. 128x128, optional); Horizontal logo: 1200x300 (min. 512x128, optional). VIDEO (optional) — Horizontal, Square, Vertical; any duration (30s recommended).",
+   "aspectRatio": "Image — Horizontal: 1.91:1; Square: 1:1; Square logo: 1:1; Horizontal logo: 4:1. Video — Horizontal: 16:9; Square: 1:1; Vertical: 2:3.",
    "peso": "5 MB",
    "tipoFicheiro": "JPG, PNG",
    "formato": "Responsive Display Ads (image)"
   },
   "es": {
-   "dimensao": "Horizontal 1.91:1: 1200x628 (mín. 600x314); Square 1:1: 600x600 (mín. 300x300); Logo 1:1: 1200x1200 (mín. 128x128, opcional); Logo 4:1: 1200x300 (mín. 512x128, opcional). VÍDEO (opcional) — Horizontal 16:9, Square 1:1, Vertical 2:3; cualquier duración (recomendado 30s).",
-   "aspectRatio": "1.91:1 o 1:1 o 4:1",
+   "dimensao": "Horizontal: 1200x628 (mín. 600x314); Cuadrado: 600x600 (mín. 300x300); Logo cuadrado: 1200x1200 (mín. 128x128, opcional); Logo horizontal: 1200x300 (mín. 512x128, opcional). VÍDEO (opcional) — Horizontal, Cuadrado, Vertical; cualquier duración (recomendado 30s).",
+   "aspectRatio": "Imagen — Horizontal: 1.91:1; Cuadrado: 1:1; Logo cuadrado: 1:1; Logo horizontal: 4:1. Vídeo — Horizontal: 16:9; Cuadrado: 1:1; Vertical: 2:3.",
    "peso": "5 MB",
    "tipoFicheiro": "JPG, PNG",
    "formato": "Responsive Display Ads (imagen)"
   },
   "fr": {
-   "dimensao": "Horizontal 1.91:1 : 1200x628 (min. 600x314) ; Carré 1:1 : 600x600 (min. 300x300) ; Logo 1:1 : 1200x1200 (min. 128x128, facultatif) ; Logo 4:1 : 1200x300 (min. 512x128, facultatif). VIDÉO (facultatif) — Horizontal 16:9, Carré 1:1, Vertical 2:3 ; toute durée (recommandé 30s).",
-   "aspectRatio": "1.91:1 ou 1:1 ou 4:1",
+   "dimensao": "Horizontal : 1200x628 (min. 600x314) ; Carré : 600x600 (min. 300x300) ; Logo carré : 1200x1200 (min. 128x128, facultatif) ; Logo horizontal : 1200x300 (min. 512x128, facultatif). VIDÉO (facultatif) — Horizontal, Carré, Vertical ; n'importe quelle durée (recommandé 30s).",
+   "aspectRatio": "Image — Horizontal : 1.91:1 ; Carré : 1:1 ; Logo carré : 1:1 ; Logo horizontal : 4:1. Vidéo — Horizontal : 16:9 ; Carré : 1:1 ; Vertical : 2:3.",
    "peso": "5 MB",
    "tipoFicheiro": "JPG, PNG",
    "formato": "Responsive Display Ads (image)"
@@ -4261,98 +4276,101 @@
  },
  "Google Vídeo/YouTube|Skippable In-Stream": {
   "en": {
-   "dimensao": "16:9 or 9:16; recommended 1920x1080; skippable after 5s; no fixed maximum duration",
-   "aspectRatio": "16:9",
+   "dimensao": "Recommended 1920x1080; skippable after 5s; no fixed maximum duration",
+   "aspectRatio": "16:9 or 9:16",
    "peso": "Hosted on YouTube (no file size limit from Google Ads)",
    "tipoFicheiro": "MP4, MOV (uploaded via YouTube)"
   },
   "es": {
-   "dimensao": "16:9 o 9:16; recomendado 1920x1080; se puede saltar a partir de los 5s; sin duración máxima fija",
-   "aspectRatio": "16:9",
+   "dimensao": "Recomendado 1920x1080; se puede saltar a partir de los 5s; sin duración máxima fija",
+   "aspectRatio": "16:9 o 9:16",
    "peso": "Alojado en YouTube (sin límite de peso de Google Ads)",
    "tipoFicheiro": "MP4, MOV (subida vía YouTube)"
   },
   "fr": {
-   "dimensao": "16:9 ou 9:16 ; recommandé 1920x1080 ; ignorable à partir de 5s ; pas de durée maximale fixe",
-   "aspectRatio": "16:9",
+   "dimensao": "Recommandé 1920x1080 ; désactivable après 5s ; sans durée maximale fixe",
+   "aspectRatio": "16:9 ou 9:16",
    "peso": "Hébergé sur YouTube (sans limite de poids Google Ads)",
    "tipoFicheiro": "MP4, MOV (upload via YouTube)"
   }
  },
  "Google Vídeo/YouTube|Non-skippable In-Stream (standard)": {
   "en": {
-   "dimensao": "16:9 or 9:16; recommended 1920x1080; 7 to 15 seconds; not skippable",
-   "aspectRatio": "16:9",
+   "dimensao": "Recommended 1920x1080; 7 to 15 seconds; non-skippable",
+   "aspectRatio": "16:9 or 9:16",
    "peso": "Hosted on YouTube",
    "tipoFicheiro": "MP4, MOV"
   },
   "es": {
-   "dimensao": "16:9 o 9:16; recomendado 1920x1080; de 7 a 15 segundos; no se puede saltar",
-   "aspectRatio": "16:9",
+   "dimensao": "Recomendado 1920x1080; 7 a 15 segundos; no se puede saltar",
+   "aspectRatio": "16:9 o 9:16",
    "peso": "Alojado en YouTube",
    "tipoFicheiro": "MP4, MOV"
   },
   "fr": {
-   "dimensao": "16:9 ou 9:16 ; recommandé 1920x1080 ; 7 à 15 secondes ; non ignorable",
-   "aspectRatio": "16:9",
+   "dimensao": "Recommandé 1920x1080 ; 7 à 15 secondes ; non désactivable",
+   "aspectRatio": "16:9 ou 9:16",
    "peso": "Hébergé sur YouTube",
    "tipoFicheiro": "MP4, MOV"
   }
  },
  "Google Vídeo/YouTube|Bumper": {
   "en": {
-   "dimensao": "16:9 or 9:16; recommended 1920x1080, min. 640x360; up to 6 seconds; not skippable",
-   "aspectRatio": "16:9",
+   "dimensao": "Recommended 1920x1080, min. 640x360; up to 6 seconds; non-skippable",
+   "aspectRatio": "16:9 or 9:16",
    "peso": "Hosted on YouTube",
    "tipoFicheiro": "MP4, MOV"
   },
   "es": {
-   "dimensao": "16:9 o 9:16; recomendado 1920x1080, mín. 640x360; hasta 6 segundos; no se puede saltar",
-   "aspectRatio": "16:9",
+   "dimensao": "Recomendado 1920x1080, mín. 640x360; hasta 6 segundos; no se puede saltar",
+   "aspectRatio": "16:9 o 9:16",
    "peso": "Alojado en YouTube",
    "tipoFicheiro": "MP4, MOV"
   },
   "fr": {
-   "dimensao": "16:9 ou 9:16 ; recommandé 1920x1080, min. 640x360 ; jusqu'à 6 secondes ; non ignorable",
-   "aspectRatio": "16:9",
+   "dimensao": "Recommandé 1920x1080, min. 640x360 ; jusqu'à 6 secondes ; non désactivable",
+   "aspectRatio": "16:9 ou 9:16",
    "peso": "Hébergé sur YouTube",
    "tipoFicheiro": "MP4, MOV"
   }
  },
  "Google Vídeo/YouTube|Non-skippable 30s (Connected TV)": {
   "en": {
-   "dimensao": "16:9; 16 to 30 seconds; specific format for Connected TV",
+   "dimensao": "16 to 30 seconds; format specific to Connected TV",
    "peso": "Hosted on YouTube",
-   "tipoFicheiro": "MP4, MOV"
+   "tipoFicheiro": "MP4, MOV",
+   "aspectRatio": "16:9"
   },
   "es": {
-   "dimensao": "16:9; de 16 a 30 segundos; formato específico para Connected TV",
+   "dimensao": "16 a 30 segundos; formato específico para Connected TV",
    "peso": "Alojado en YouTube",
-   "tipoFicheiro": "MP4, MOV"
+   "tipoFicheiro": "MP4, MOV",
+   "aspectRatio": "16:9"
   },
   "fr": {
-   "dimensao": "16:9 ; 16 à 30 secondes ; format spécifique pour Connected TV",
+   "dimensao": "16 à 30 secondes ; format spécifique pour Connected TV",
    "peso": "Hébergé sur YouTube",
-   "tipoFicheiro": "MP4, MOV"
+   "tipoFicheiro": "MP4, MOV",
+   "aspectRatio": "16:9"
   }
  },
  "Google Vídeo/YouTube|In-Feed Video Ad (ex-Discovery)": {
   "en": {
-   "dimensao": "Horizontal 16:9: 1920x1080; Vertical 9:16: 1080x1920; Square 1:1: 1080x1080; 15 seconds recommended.",
+   "dimensao": "Horizontal: 1920x1080; Vertical: 1080x1920; Square: 1080x1080; 15 seconds recommended.",
    "aspectRatio": "16:9 or 9:16 or 1:1",
    "peso": "Hosted on YouTube",
    "tipoFicheiro": "MP4, MOV",
    "copies": "Headline: 2 lines, 40 characters each; Description: 2 lines, 35 characters each."
   },
   "es": {
-   "dimensao": "Horizontal 16:9: 1920x1080; Vertical 9:16: 1080x1920; Square 1:1: 1080x1080; 15 segundos recomendado.",
+   "dimensao": "Horizontal: 1920x1080; Vertical: 1080x1920; Cuadrado: 1080x1080; 15 segundos recomendado.",
    "aspectRatio": "16:9 o 9:16 o 1:1",
    "peso": "Alojado en YouTube",
    "tipoFicheiro": "MP4, MOV",
    "copies": "Título: 2 líneas, 40 caracteres cada una; Descripción: 2 líneas, 35 caracteres cada una."
   },
   "fr": {
-   "dimensao": "Horizontal 16:9 : 1920x1080 ; Vertical 9:16 : 1080x1920 ; Carré 1:1 : 1080x1080 ; 15 secondes recommandé.",
+   "dimensao": "Horizontal : 1920x1080 ; Vertical : 1080x1920 ; Carré : 1080x1080 ; 15 secondes recommandé.",
    "aspectRatio": "16:9 ou 9:16 ou 1:1",
    "peso": "Hébergé sur YouTube",
    "tipoFicheiro": "MP4, MOV",
@@ -4361,19 +4379,19 @@
  },
  "Google Vídeo/YouTube|YouTube Shorts Ads": {
   "en": {
-   "dimensao": "9:16 vertical: 1080x1920; 6 to 60 seconds",
+   "dimensao": "Vertical: 1080x1920; 6 to 60 seconds",
    "aspectRatio": "9:16",
    "peso": "Hosted on YouTube",
    "tipoFicheiro": "MP4, MOV"
   },
   "es": {
-   "dimensao": "9:16 vertical: 1080x1920; de 6 a 60 segundos",
+   "dimensao": "Vertical: 1080x1920; 6 a 60 segundos",
    "aspectRatio": "9:16",
    "peso": "Alojado en YouTube",
    "tipoFicheiro": "MP4, MOV"
   },
   "fr": {
-   "dimensao": "9:16 vertical : 1080x1920 ; 6 à 60 secondes",
+   "dimensao": "Vertical : 1080x1920 ; 6 à 60 secondes",
    "aspectRatio": "9:16",
    "peso": "Hébergé sur YouTube",
    "tipoFicheiro": "MP4, MOV"
@@ -4381,19 +4399,19 @@
  },
  "Google Vídeo/YouTube|Masthead": {
   "en": {
-   "dimensao": "16:9, recommended 1920x1080 or higher; autoplay without sound up to 30 seconds, then clickable thumbnail",
+   "dimensao": "Recommended 1920x1080 or higher; autoplay without sound for up to 30 seconds, then a clickable thumbnail",
    "aspectRatio": "16:9",
    "peso": "Hosted on YouTube",
    "tipoFicheiro": "MP4, MOV"
   },
   "es": {
-   "dimensao": "16:9, recomendado 1920x1080 o superior; autoplay sin sonido hasta 30 segundos, después miniatura clicable",
+   "dimensao": "Recomendado 1920x1080 o superior; reproducción automática sin sonido hasta 30 segundos, después miniatura en la que se puede hacer clic",
    "aspectRatio": "16:9",
    "peso": "Alojado en YouTube",
    "tipoFicheiro": "MP4, MOV"
   },
   "fr": {
-   "dimensao": "16:9, recommandé 1920x1080 ou supérieur ; lecture automatique sans son jusqu'à 30 secondes, puis miniature cliquable",
+   "dimensao": "Recommandé 1920x1080 ou supérieur ; lecture automatique sans son jusqu'à 30 secondes, puis miniature cliquable",
    "aspectRatio": "16:9",
    "peso": "Hébergé sur YouTube",
    "tipoFicheiro": "MP4, MOV"
@@ -4401,21 +4419,21 @@
  },
  "Google Demand Gen|Imagem": {
   "en": {
-   "dimensao": "Horizontal 1.91:1: 1200x628 (min. 600x314); Logo 1:1: 1200x1200 (min. 144x144); Square 1:1: 1200x1200 (min. 300x300); Vertical 4:5: 960x1200 (min. 480x600, optional)",
+   "dimensao": "Horizontal: 1200x628 (min. 600x314); Logo: 1200x1200 (min. 144x144); Square: 1200x1200 (min. 300x300); Vertical: 960x1200 (min. 480x600, optional)",
    "aspectRatio": "1.91:1 or 1:1 or 4:5",
    "peso": "5 MB",
    "tipoFicheiro": "JPG, PNG, GIF (non-animated)",
    "formato": "Image"
   },
   "es": {
-   "dimensao": "Horizontal 1.91:1: 1200x628 (mín. 600x314); Logo 1:1: 1200x1200 (mín. 144x144); Square 1:1: 1200x1200 (mín. 300x300); Vertical 4:5: 960x1200 (mín. 480x600, opcional)",
+   "dimensao": "Horizontal: 1200x628 (mín. 600x314); Logo: 1200x1200 (mín. 144x144); Cuadrado: 1200x1200 (mín. 300x300); Vertical: 960x1200 (mín. 480x600, opcional)",
    "aspectRatio": "1.91:1 o 1:1 o 4:5",
    "peso": "5 MB",
    "tipoFicheiro": "JPG, PNG, GIF (no animado)",
    "formato": "Imagen"
   },
   "fr": {
-   "dimensao": "Horizontal 1.91:1 : 1200x628 (min. 600x314) ; Logo 1:1 : 1200x1200 (min. 144x144) ; Carré 1:1 : 1200x1200 (min. 300x300) ; Vertical 4:5 : 960x1200 (min. 480x600, facultatif)",
+   "dimensao": "Horizontal : 1200x628 (min. 600x314) ; Logo : 1200x1200 (min. 144x144) ; Carré : 1200x1200 (min. 300x300) ; Vertical : 960x1200 (min. 480x600, facultatif)",
    "aspectRatio": "1.91:1 ou 1:1 ou 4:5",
    "peso": "5 MB",
    "tipoFicheiro": "JPG, PNG, GIF (non animé)",
@@ -4424,42 +4442,48 @@
  },
  "Google Demand Gen|Vídeo": {
   "en": {
-   "dimensao": "Horizontal 16:9, Vertical 9:16 or 4:5, Square 1:1; 10 to 60 seconds (optional)",
+   "dimensao": "Horizontal, Vertical, Square; 10 to 60 seconds (optional)",
    "peso": "Hosted on YouTube",
    "tipoFicheiro": "MP4, MOV",
-   "formato": "Video"
+   "formato": "Video",
+   "aspectRatio": "16:9 or 9:16 or 4:5 or 1:1"
   },
   "es": {
-   "dimensao": "Horizontal 16:9, Vertical 9:16 o 4:5, Square 1:1; de 10 a 60 segundos (opcional)",
+   "dimensao": "Horizontal, Vertical, Cuadrado; 10 a 60 segundos (opcional)",
    "peso": "Alojado en YouTube",
    "tipoFicheiro": "MP4, MOV",
-   "formato": "Video"
+   "formato": "Video",
+   "aspectRatio": "16:9 o 9:16 o 4:5 o 1:1"
   },
   "fr": {
-   "dimensao": "Horizontal 16:9, Vertical 9:16 ou 4:5, Carré 1:1 ; 10 à 60 secondes (facultatif)",
+   "dimensao": "Horizontal, Vertical, Carré ; 10 à 60 secondes (facultatif)",
    "peso": "Hébergé sur YouTube",
    "tipoFicheiro": "MP4, MOV",
-   "formato": "Vidéo"
+   "formato": "Vidéo",
+   "aspectRatio": "16:9 ou 9:16 ou 4:5 ou 1:1"
   }
  },
  "Google Demand Gen|Carousel": {
   "en": {
-   "dimensao": "2 to 10 cards, all with the same ratio (1:1 or 1.91:1)",
+   "dimensao": "2 to 10 cards, all with the same aspect ratio as each other",
    "peso": "5 MB per image",
    "tipoFicheiro": "JPG, PNG",
-   "copies": "Headline per card: up to 40 characters"
+   "copies": "Headline per card: up to 40 characters",
+   "aspectRatio": "1:1 or 1.91:1"
   },
   "es": {
-   "dimensao": "de 2 a 10 tarjetas, todas con la misma proporción (1:1 o 1.91:1)",
+   "dimensao": "2 a 10 tarjetas, todas con la misma proporción entre sí",
    "peso": "5 MB por imagen",
    "tipoFicheiro": "JPG, PNG",
-   "copies": "Título por tarjeta: hasta 40 caracteres"
+   "copies": "Título por tarjeta: hasta 40 caracteres",
+   "aspectRatio": "1:1 o 1.91:1"
   },
   "fr": {
-   "dimensao": "2 à 10 cartes, toutes avec la même proportion (1:1 ou 1.91:1)",
+   "dimensao": "2 à 10 cartes, toutes avec le même ratio entre elles",
    "peso": "5 MB par image",
    "tipoFicheiro": "JPG, PNG",
-   "copies": "Titre par carte : jusqu'à 40 caractères"
+   "copies": "Titre par carte : jusqu'à 40 caractères",
+   "aspectRatio": "1:1 ou 1.91:1"
   }
  },
  "DV360|Prog - App Install": {
@@ -4550,19 +4574,19 @@
  },
  "DV360|Prog - YouTube Masthead": {
   "en": {
-   "dimensao": "16:9, recommended 1920x1080 or higher; autoplay without sound up to 30 seconds, then clickable thumbnail",
+   "dimensao": "Recommended 1920x1080 or higher; autoplay without sound for up to 30 seconds, then a clickable thumbnail",
    "aspectRatio": "16:9",
    "peso": "Hosted on YouTube",
    "tipoFicheiro": "MP4, MOV"
   },
   "es": {
-   "dimensao": "16:9, recomendado 1920x1080 o superior; autoplay sin sonido hasta 30 segundos, después miniatura clicable",
+   "dimensao": "Recomendado 1920x1080 o superior; reproducción automática sin sonido hasta 30 segundos, después miniatura en la que se puede hacer clic",
    "aspectRatio": "16:9",
    "peso": "Alojado en YouTube",
    "tipoFicheiro": "MP4, MOV"
   },
   "fr": {
-   "dimensao": "16:9, recommandé 1920x1080 ou supérieur ; lecture automatique sans son jusqu'à 30 secondes, puis miniature cliquable",
+   "dimensao": "Recommandé 1920x1080 ou supérieur ; lecture automatique sans son jusqu'à 30 secondes, puis miniature cliquable",
    "aspectRatio": "16:9",
    "peso": "Hébergé sur YouTube",
    "tipoFicheiro": "MP4, MOV"
@@ -4581,22 +4605,22 @@
  },
  "DV360|Prog - Native Ad": {
   "en": {
-   "dimensao": "IMAGE — Logo: 100x100 to 2000x2000px (1:1); Image: 1200x627 to 2000x1047px (1.91:1); Square image (optional, required for Programmatic Guaranteed): 627x627 to 2000x2000px (1:1). VIDEO — Logo: 100x100 to 2000x2000px (1:1); Cover image: min height 627px, max 2000x1047px (1.91:1 recommended — for more inventory, create additional creatives with 16:9, 4:3 or 1:1); Video: source file with the highest quality available.",
-   "aspectRatio": "1:1 or 1.91:1",
+   "dimensao": "IMAGE — Logo: 100x100 to 2000x2000px; Image: 1200x627 to 2000x1047px; Square image (optional, required in Programmatic Guaranteed): 627x627 to 2000x2000px. VIDEO — Logo: 100x100 to 2000x2000px; Cover image: min height 627px, max 2000x1047px (recommended; for more inventory, create additional creatives with other ratios); Video: source file at the highest quality available.",
+   "aspectRatio": "Logo: 1:1; Image: 1.91:1; Square image: 1:1; Cover image: 1.91:1 (recommended), 16:9, 4:3 or 1:1 (additional, for more inventory)",
    "peso": "Logo, Image, Square image and Cover image: max 1200 KB each. File name: ASCII, max 50 characters.",
    "tipoFicheiro": "Logo/Image/Square image/Cover image: JPG, JPEG or PNG (RGB or CMYK). Video: video file (specs provided separately).",
    "copies": "Same for image and video — Advertiser name: max 25 characters; Headline: max 25 characters (or Long headline required if headline not used); Long headline: max 50 characters; Body text: max 90 characters (or Long body required if body not used); Long body text: max 150 characters; Landing page URL: max 1024 characters; Caption URL: max 30 characters; Call to action: max 15 characters."
   },
   "es": {
-   "dimensao": "IMAGEN — Logo: 100x100 a 2000x2000px (1:1); Imagen: 1200x627 a 2000x1047px (1.91:1); Imagen cuadrada (opcional, obligatoria en Programmatic Guaranteed): 627x627 a 2000x2000px (1:1). VÍDEO — Logo: 100x100 a 2000x2000px (1:1); Cover image: altura mín 627px, máx 2000x1047px (1.91:1 recomendado — para más inventario, crear creativos adicionales con 16:9, 4:3 o 1:1); Vídeo: archivo fuente con la mayor calidad disponible.",
-   "aspectRatio": "1:1 o 1.91:1",
+   "dimensao": "IMAGEN — Logo: 100x100 a 2000x2000px; Imagen: 1200x627 a 2000x1047px; Imagen cuadrada (opcional, obligatoria en Programmatic Guaranteed): 627x627 a 2000x2000px. VÍDEO — Logo: 100x100 a 2000x2000px; Cover image: altura mín 627px, máx 2000x1047px (recomendado; para más inventario, crear creatividades adicionales con otras proporciones); Vídeo: archivo fuente con la mayor calidad disponible.",
+   "aspectRatio": "Logo: 1:1; Imagen: 1.91:1; Imagen cuadrada: 1:1; Cover image: 1.91:1 (recomendado), 16:9, 4:3 o 1:1 (adicionales para más inventario)",
    "peso": "Logo, Imagen, Imagen cuadrada y Cover image: máx 1200 KB cada uno. Nombre del archivo: ASCII, máx 50 caracteres.",
    "tipoFicheiro": "Logo/Imagen/Imagen cuadrada/Cover image: JPG, JPEG o PNG (RGB o CMYK). Vídeo: archivo de vídeo (specs aparte).",
    "copies": "Igual para imagen y vídeo — Nombre del anunciante: máx 25 caracteres; Headline: máx 25 caracteres (o Long headline obligatorio si no se usa headline); Long headline: máx 50 caracteres; Body text: máx 90 caracteres (o Long body obligatorio si no se usa body); Long body text: máx 150 caracteres; URL de landing page: máx 1024 caracteres; Caption URL: máx 30 caracteres; Call to action: máx 15 caracteres."
   },
   "fr": {
-   "dimensao": "IMAGE — Logo : 100x100 à 2000x2000px (1:1) ; Image : 1200x627 à 2000x1047px (1.91:1) ; Image carrée (facultative, obligatoire en Programmatic Guaranteed) : 627x627 à 2000x2000px (1:1). VIDÉO — Logo : 100x100 à 2000x2000px (1:1) ; Cover image : hauteur min 627px, max 2000x1047px (1.91:1 recommandé — pour plus d'inventaire, créer des créatifs supplémentaires en 16:9, 4:3 ou 1:1) ; Vidéo : fichier source avec la meilleure qualité disponible.",
-   "aspectRatio": "1:1 ou 1.91:1",
+   "dimensao": "IMAGE — Logo : 100x100 à 2000x2000px ; Image : 1200x627 à 2000x1047px ; Image carrée (facultatif, obligatoire en Programmatic Guaranteed) : 627x627 à 2000x2000px. VIDÉO — Logo : 100x100 à 2000x2000px ; Cover image : hauteur min 627px, max 2000x1047px (recommandé ; pour davantage d'inventaire, créer des créations supplémentaires avec d'autres ratios) ; Vidéo : fichier source avec la meilleure qualité disponible.",
+   "aspectRatio": "Logo : 1:1 ; Image : 1.91:1 ; Image carrée : 1:1 ; Cover image : 1.91:1 (recommandé), 16:9, 4:3 ou 1:1 (supplémentaires pour davantage d'inventaire)",
    "peso": "Logo, Image, Image carrée et Cover image : max 1200 KB chacune. Nom du fichier : ASCII, max 50 caractères.",
    "tipoFicheiro": "Logo/Image/Image carrée/Cover image : JPG, JPEG ou PNG (RGB ou CMYK). Vidéo : fichier vidéo (specs à part).",
    "copies": "Identique pour image et vidéo — Nom de l'annonceur : max 25 caractères ; Headline : max 25 caractères (ou Long headline obligatoire si headline non utilisé) ; Long headline : max 50 caractères ; Body text : max 90 caractères (ou Long body obligatoire si body non utilisé) ; Long body text : max 150 caractères ; URL de la landing page : max 1024 caractères ; Caption URL : max 30 caractères ; Call to action : max 15 caractères."
@@ -4614,40 +4638,40 @@
  },
  "DV360|Prog - YouTube Select": {
   "en": {
-   "dimensao": "16:9 or 9:16; recommended 1920x1080; skippable after 5s; no fixed maximum duration",
-   "aspectRatio": "16:9",
+   "dimensao": "Recommended 1920x1080; skippable after 5s; no fixed maximum duration",
+   "aspectRatio": "16:9 or 9:16",
    "peso": "Hosted on YouTube (no file size limit from Google Ads)",
    "tipoFicheiro": "MP4, MOV (upload via YouTube)"
   },
   "es": {
-   "dimensao": "16:9 o 9:16; recomendado 1920x1080; se puede saltar a partir de los 5s; sin duración máxima fija",
-   "aspectRatio": "16:9",
+   "dimensao": "Recomendado 1920x1080; se puede saltar a partir de los 5s; sin duración máxima fija",
+   "aspectRatio": "16:9 o 9:16",
    "peso": "Alojado en YouTube (sin límite de peso de Google Ads)",
    "tipoFicheiro": "MP4, MOV (subida a través de YouTube)"
   },
   "fr": {
-   "dimensao": "16:9 ou 9:16 ; recommandé 1920x1080 ; skippable dès la 5e seconde ; sans durée maximale fixe",
-   "aspectRatio": "16:9",
+   "dimensao": "Recommandé 1920x1080 ; désactivable après 5s ; sans durée maximale fixe",
+   "aspectRatio": "16:9 ou 9:16",
    "peso": "Hébergé sur YouTube (sans limite de poids Google Ads)",
    "tipoFicheiro": "MP4, MOV (téléversement via YouTube)"
   }
  },
  "DV360|Prog - YouTube VRC Ad Sequence": {
   "en": {
-   "dimensao": "16:9 or 9:16; recommended 1920x1080; skippable after 5s; no fixed maximum duration",
-   "aspectRatio": "16:9",
+   "dimensao": "Recommended 1920x1080; skippable after 5s; no fixed maximum duration",
+   "aspectRatio": "16:9 or 9:16",
    "peso": "Hosted on YouTube (no file size limit from Google Ads)",
    "tipoFicheiro": "MP4, MOV (upload via YouTube)"
   },
   "es": {
-   "dimensao": "16:9 o 9:16; recomendado 1920x1080; se puede saltar a partir de los 5s; sin duración máxima fija",
-   "aspectRatio": "16:9",
+   "dimensao": "Recomendado 1920x1080; se puede saltar a partir de los 5s; sin duración máxima fija",
+   "aspectRatio": "16:9 o 9:16",
    "peso": "Alojado en YouTube (sin límite de peso de Google Ads)",
    "tipoFicheiro": "MP4, MOV (subida a través de YouTube)"
   },
   "fr": {
-   "dimensao": "16:9 ou 9:16 ; recommandé 1920x1080 ; skippable dès la 5e seconde ; sans durée maximale fixe",
-   "aspectRatio": "16:9",
+   "dimensao": "Recommandé 1920x1080 ; désactivable après 5s ; sans durée maximale fixe",
+   "aspectRatio": "16:9 ou 9:16",
    "peso": "Hébergé sur YouTube (sans limite de poids Google Ads)",
    "tipoFicheiro": "MP4, MOV (téléversement via YouTube)"
   }
@@ -4664,39 +4688,42 @@
  },
  "DV360|Prog - YouTube VRC Non-Skippable": {
   "en": {
-   "dimensao": "The team selects the most suitable format(s) from: BUMPER — 16:9 or 9:16; recommended 1920x1080, min. 640x360; up to 6 seconds; not skippable; NON-SKIPPABLE STANDARD — 16:9 or 9:16; recommended 1920x1080; 7 to 15 seconds; not skippable; NON-SKIPPABLE 30S — same technical specification as standard, but with a duration of 30 seconds.",
+   "dimensao": "The team chooses the most suitable format(s) from among: BUMPER — recommended 1920x1080, min. 640x360; up to 6 seconds; non-skippable; NON-SKIPPABLE STANDARD — recommended 1920x1080; 7 to 15 seconds; non-skippable; NON-SKIPPABLE 30S — same technical specification as standard, but with 30 seconds duration.",
    "peso": "Hosted on YouTube (no file size limit from Google Ads)",
-   "tipoFicheiro": "MP4, MOV"
+   "tipoFicheiro": "MP4, MOV",
+   "aspectRatio": "16:9 or 9:16"
   },
   "es": {
-   "dimensao": "El equipo elige el/los formato(s) más adecuado(s) entre: BUMPER — 16:9 o 9:16; recomendado 1920x1080, mín. 640x360; hasta 6 segundos; no se puede saltar; NON-SKIPPABLE STANDARD — 16:9 o 9:16; recomendado 1920x1080; 7 a 15 segundos; no se puede saltar; NON-SKIPPABLE 30S — misma especificación técnica que el standard, pero con 30 segundos de duración.",
+   "dimensao": "El equipo elige el/los formato(s) más adecuado(s) entre: BUMPER — recomendado 1920x1080, mín. 640x360; hasta 6 segundos; no se puede saltar; NON-SKIPPABLE STANDARD — recomendado 1920x1080; 7 a 15 segundos; no se puede saltar; NON-SKIPPABLE 30S — misma especificación técnica que el standard, pero con 30 segundos de duración.",
    "peso": "Alojado en YouTube (sin límite de peso de Google Ads)",
-   "tipoFicheiro": "MP4, MOV"
+   "tipoFicheiro": "MP4, MOV",
+   "aspectRatio": "16:9 o 9:16"
   },
   "fr": {
-   "dimensao": "L'équipe choisit le(s) format(s) le(s) plus adapté(s) parmi : BUMPER — 16:9 ou 9:16 ; recommandé 1920x1080, min. 640x360 ; jusqu'à 6 secondes ; non skippable ; NON-SKIPPABLE STANDARD — 16:9 ou 9:16 ; recommandé 1920x1080 ; 7 à 15 secondes ; non skippable ; NON-SKIPPABLE 30S — même spécification technique que le standard, mais avec une durée de 30 secondes.",
+   "dimensao": "L'équipe choisit le(s) format(s) le(s) plus adapté(s) parmi : BUMPER — recommandé 1920x1080, min. 640x360 ; jusqu'à 6 secondes ; non désactivable ; NON-SKIPPABLE STANDARD — recommandé 1920x1080 ; 7 à 15 secondes ; non désactivable ; NON-SKIPPABLE 30S — même spécification technique que le standard, mais avec 30 secondes de durée.",
    "peso": "Hébergé sur YouTube (sans limite de poids Google Ads)",
-   "tipoFicheiro": "MP4, MOV"
+   "tipoFicheiro": "MP4, MOV",
+   "aspectRatio": "16:9 ou 9:16"
   }
  },
  "DV360|Prog - Uber Journey Ad": {
   "en": {
-   "dimensao": "DISPLAY — Request: 975x861, min 1/max 5 images (all with logo and different); Waiting: 420x420 or 314x420, max 1 image; Trip: 1146x393, min 1/max 5 images (all with logo and different). VIDEO (MP4, 16:9, min height 486px, min width 864px) — Request: 3 to 6 sec; Waiting: 6 to 60 sec; Trip: 6 to 60 sec.",
-   "aspectRatio": "1:1 or 3:4",
+   "dimensao": "DISPLAY — Request: 975x861, min 1/max 5 images (all with logo and different from each other); Waiting: 420x420 or 314x420, max 1 image; Trip: 1146x393, min 1/max 5 images (all with logo and different from each other). VIDEO (MP4, min height 486px, min width 864px) — Request: 3 to 6 sec; Waiting: 6 to 60 sec; Trip: 6 to 60 sec.",
+   "aspectRatio": "1:1 or 3:4 or 16:9 (video)",
    "peso": "Display: max 1 MB (all stages). Video: max 1 MB (Request); max 3 MB (Waiting and Trip).",
    "tipoFicheiro": "Display: images. Video: MP4.",
    "copies": "DISPLAY — Request: headline max 25 characters, body max 52 characters; Waiting: headline max 25 characters, CTA max 15 characters; Trip: headline max 25 characters, body max 52 characters, CTA max 15 characters. VIDEO — Request: headline max 25 characters, body max 52 characters; Waiting: headline max 25 characters, CTA max 15 characters; Trip: headline max 25 characters, body max 52 characters, CTA max 15 characters. URL — Display: parameterized, non-parameterized or Click Tag (only available in the Waiting and Trip stages); Video: parameterized, non-parameterized or Click Tag (all stages)."
   },
   "es": {
-   "dimensao": "DISPLAY — Solicitud: 975x861, mín 1/máx 5 imágenes (todas con logo y diferentes); Espera: 420x420 o 314x420, máx 1 imagen; Viaje: 1146x393, mín 1/máx 5 imágenes (todas con logo y diferentes). VIDEO (MP4, 16:9, altura mín 486px, ancho mín 864px) — Solicitud: 3 a 6 seg; Espera: 6 a 60 seg; Viaje: 6 a 60 seg.",
-   "aspectRatio": "1:1 o 3:4",
+   "dimensao": "DISPLAY — Pedido: 975x861, mín 1/máx 5 imágenes (todas con logo y diferentes); Espera: 420x420 o 314x420, máx 1 imagen; Viaje: 1146x393, mín 1/máx 5 imágenes (todas con logo y diferentes). VIDEO (MP4, altura mín 486px, ancho mín 864px) — Pedido: 3 a 6 seg; Espera: 6 a 60 seg; Viaje: 6 a 60 seg.",
+   "aspectRatio": "1:1 o 3:4 o 16:9 (vídeo)",
    "peso": "Display: máx 1 MB (todas las fases). Video: máx 1 MB (Solicitud); máx 3 MB (Espera y Viaje).",
    "tipoFicheiro": "Display: imágenes. Video: MP4.",
    "copies": "DISPLAY — Solicitud: título máx 25 caracteres, cuerpo máx 52 caracteres; Espera: título máx 25 caracteres, CTA máx 15 caracteres; Viaje: título máx 25 caracteres, cuerpo máx 52 caracteres, CTA máx 15 caracteres. VIDEO — Solicitud: título máx 25 caracteres, cuerpo máx 52 caracteres; Espera: título máx 25 caracteres, CTA máx 15 caracteres; Viaje: título máx 25 caracteres, cuerpo máx 52 caracteres, CTA máx 15 caracteres. URL — Display: parametrizada, no parametrizada o Click Tag (solo disponible en las fases de Espera y Viaje); Video: parametrizada, no parametrizada o Click Tag (todas las fases)."
   },
   "fr": {
-   "dimensao": "DISPLAY — Demande : 975x861, min 1/max 5 images (toutes avec logo et différentes) ; Attente : 420x420 ou 314x420, max 1 image ; Trajet : 1146x393, min 1/max 5 images (toutes avec logo et différentes). VIDEO (MP4, 16:9, hauteur min 486px, largeur min 864px) — Demande : 3 à 6 sec ; Attente : 6 à 60 sec ; Trajet : 6 à 60 sec.",
-   "aspectRatio": "1:1 ou 3:4",
+   "dimensao": "DISPLAY — Commande : 975x861, min 1/max 5 images (toutes avec logo et différentes) ; Attente : 420x420 ou 314x420, max 1 image ; Trajet : 1146x393, min 1/max 5 images (toutes avec logo et différentes). VIDÉO (MP4, hauteur min 486px, largeur min 864px) — Commande : 3 à 6 sec ; Attente : 6 à 60 sec ; Trajet : 6 à 60 sec.",
+   "aspectRatio": "1:1 ou 3:4 ou 16:9 (vidéo)",
    "peso": "Display : max 1 MB (toutes les phases). Video : max 1 MB (Demande) ; max 3 MB (Attente et Trajet).",
    "tipoFicheiro": "Display : images. Video : MP4.",
    "copies": "DISPLAY — Demande : titre max 25 caractères, corps max 52 caractères ; Attente : titre max 25 caractères, CTA max 15 caractères ; Trajet : titre max 25 caractères, corps max 52 caractères, CTA max 15 caractères. VIDEO — Demande : titre max 25 caractères, corps max 52 caractères ; Attente : titre max 25 caractères, CTA max 15 caractères ; Trajet : titre max 25 caractères, corps max 52 caractères, CTA max 15 caractères. URL — Display : paramétrée, non paramétrée ou Click Tag (disponible uniquement aux phases Attente et Trajet) ; Video : paramétrée, non paramétrée ou Click Tag (toutes les phases)."
@@ -4714,56 +4741,62 @@
  },
  "DV360|Prog - YouTube VVC": {
   "en": {
-   "dimensao": "16:9 or 9:16; recommended 1920x1080; skippable after 5s; no fixed maximum duration",
-   "aspectRatio": "16:9",
+   "dimensao": "Recommended 1920x1080; skippable after 5s; no fixed maximum duration",
+   "aspectRatio": "16:9 or 9:16",
    "peso": "Hosted on YouTube (no file size limit from Google Ads)",
    "tipoFicheiro": "MP4, MOV (upload via YouTube)"
   },
   "es": {
-   "dimensao": "16:9 o 9:16; recomendado 1920x1080; se puede saltar a partir de los 5s; sin duración máxima fija",
-   "aspectRatio": "16:9",
+   "dimensao": "Recomendado 1920x1080; se puede saltar a partir de los 5s; sin duración máxima fija",
+   "aspectRatio": "16:9 o 9:16",
    "peso": "Alojado en YouTube (sin límite de peso de Google Ads)",
    "tipoFicheiro": "MP4, MOV (subida a través de YouTube)"
   },
   "fr": {
-   "dimensao": "16:9 ou 9:16 ; recommandé 1920x1080 ; skippable dès la 5e seconde ; sans durée maximale fixe",
-   "aspectRatio": "16:9",
+   "dimensao": "Recommandé 1920x1080 ; désactivable après 5s ; sans durée maximale fixe",
+   "aspectRatio": "16:9 ou 9:16",
    "peso": "Hébergé sur YouTube (sans limite de poids Google Ads)",
    "tipoFicheiro": "MP4, MOV (téléversement via YouTube)"
   }
  },
  "DV360|Prog - YouTube VRC Efficient Reach": {
   "en": {
-   "dimensao": "The team selects the most suitable format(s) from — Horizontal 16:9: 1920x1080 (15s for in-stream skippable/in-feed; 6s for bumper); Vertical 9:16: 1080x1920, 6 to 60 seconds (Shorts); Square 1:1: 1080x1080, 6 to 60 seconds.",
+   "dimensao": "The team chooses the most suitable format(s) from among — Horizontal: 1920x1080 (15s for in-stream skippable/in-feed; 6s for bumper); Vertical: 1080x1920, 6 to 60 seconds (Shorts); Square: 1080x1080, 6 to 60 seconds.",
    "peso": "Hosted on YouTube (no file size limit from Google Ads)",
-   "tipoFicheiro": "MP4, MOV"
+   "tipoFicheiro": "MP4, MOV",
+   "aspectRatio": "16:9 or 9:16 or 1:1"
   },
   "es": {
-   "dimensao": "El equipo elige el/los formato(s) más adecuado(s) entre — Horizontal 16:9: 1920x1080 (15s para in-stream skippable/in-feed; 6s para bumper); Vertical 9:16: 1080x1920, 6 a 60 segundos (Shorts); Square 1:1: 1080x1080, 6 a 60 segundos.",
+   "dimensao": "El equipo elige el/los formato(s) más adecuado(s) entre — Horizontal: 1920x1080 (15s para in-stream skippable/in-feed; 6s para bumper); Vertical: 1080x1920, 6 a 60 segundos (Shorts); Cuadrado: 1080x1080, 6 a 60 segundos.",
    "peso": "Alojado en YouTube (sin límite de peso de Google Ads)",
-   "tipoFicheiro": "MP4, MOV"
+   "tipoFicheiro": "MP4, MOV",
+   "aspectRatio": "16:9 o 9:16 o 1:1"
   },
   "fr": {
-   "dimensao": "L'équipe choisit le(s) format(s) le(s) plus adapté(s) parmi — Horizontal 16:9 : 1920x1080 (15s pour in-stream skippable/in-feed ; 6s pour bumper) ; Vertical 9:16 : 1080x1920, 6 à 60 secondes (Shorts) ; Square 1:1 : 1080x1080, 6 à 60 secondes.",
+   "dimensao": "L'équipe choisit le(s) format(s) le(s) plus adapté(s) parmi — Horizontal : 1920x1080 (15s pour in-stream désactivable/in-feed ; 6s pour bumper) ; Vertical : 1080x1920, 6 à 60 secondes (Shorts) ; Carré : 1080x1080, 6 à 60 secondes.",
    "peso": "Hébergé sur YouTube (sans limite de poids Google Ads)",
-   "tipoFicheiro": "MP4, MOV"
+   "tipoFicheiro": "MP4, MOV",
+   "aspectRatio": "16:9 ou 9:16 ou 1:1"
   }
  },
  "DV360|Prog - YouTube VRC Target Frequency": {
   "en": {
-   "dimensao": "The team selects the most suitable format(s) from — Horizontal 16:9: 1920x1080 (15s for in-stream skippable/in-feed; 6s for bumper); also uses non-skippable in-stream, in-feed and Shorts (specs as per each individual format).",
+   "dimensao": "The team chooses the most suitable format(s) from among — Horizontal: 1920x1080 (15s for in-stream skippable/in-feed; 6s for bumper); also uses non-skippable in-stream, in-feed and Shorts (specs as per each individual format).",
    "peso": "Hosted on YouTube (no file size limit from Google Ads)",
-   "tipoFicheiro": "MP4, MOV"
+   "tipoFicheiro": "MP4, MOV",
+   "aspectRatio": "16:9"
   },
   "es": {
-   "dimensao": "El equipo elige el/los formato(s) más adecuado(s) entre — Horizontal 16:9: 1920x1080 (15s para in-stream skippable/in-feed; 6s para bumper); también utiliza non-skippable in-stream, in-feed y Shorts (especificaciones según cada formato individual).",
+   "dimensao": "El equipo elige el/los formato(s) más adecuado(s) entre — Horizontal: 1920x1080 (15s para in-stream skippable/in-feed; 6s para bumper); también usa non-skippable in-stream, in-feed y Shorts (specs según cada formato individual).",
    "peso": "Alojado en YouTube (sin límite de peso de Google Ads)",
-   "tipoFicheiro": "MP4, MOV"
+   "tipoFicheiro": "MP4, MOV",
+   "aspectRatio": "16:9"
   },
   "fr": {
-   "dimensao": "L'équipe choisit le(s) format(s) le(s) plus adapté(s) parmi — Horizontal 16:9 : 1920x1080 (15s pour in-stream skippable/in-feed ; 6s pour bumper) ; utilise également non-skippable in-stream, in-feed et Shorts (spécifications selon chaque format individuel).",
+   "dimensao": "L'équipe choisit le(s) format(s) le(s) plus adapté(s) parmi — Horizontal : 1920x1080 (15s pour in-stream désactivable/in-feed ; 6s pour bumper) ; utilise également non-skippable in-stream, in-feed et Shorts (spécifications selon chaque format individuel).",
    "peso": "Hébergé sur YouTube (sans limite de poids Google Ads)",
-   "tipoFicheiro": "MP4, MOV"
+   "tipoFicheiro": "MP4, MOV",
+   "aspectRatio": "16:9"
   }
  },
  "DV360|Prog - Billboard (Impresa)": {
@@ -5336,19 +5369,19 @@
  },
  "DV360|Prog - Open Door (Google)": {
   "en": {
-   "dimensao": "16:9, recommended 1920x1080 or higher; autoplay without sound for up to 30 seconds, then clickable thumbnail",
+   "dimensao": "Recommended 1920x1080 or higher; autoplay without sound for up to 30 seconds, then a clickable thumbnail",
    "aspectRatio": "16:9",
    "peso": "Hosted on YouTube",
    "tipoFicheiro": "MP4, MOV"
   },
   "es": {
-   "dimensao": "16:9, recomendado 1920x1080 o superior; autoplay sin sonido hasta 30 segundos, después miniatura clicable",
+   "dimensao": "Recomendado 1920x1080 o superior; reproducción automática sin sonido hasta 30 segundos, después miniatura en la que se puede hacer clic",
    "aspectRatio": "16:9",
    "peso": "Alojado en YouTube",
    "tipoFicheiro": "MP4, MOV"
   },
   "fr": {
-   "dimensao": "16:9, recommandé 1920x1080 ou supérieur ; lecture automatique sans son jusqu'à 30 secondes, puis miniature cliquable",
+   "dimensao": "Recommandé 1920x1080 ou supérieur ; lecture automatique sans son jusqu'à 30 secondes, puis miniature cliquable",
    "aspectRatio": "16:9",
    "peso": "Hébergé sur YouTube",
    "tipoFicheiro": "MP4, MOV"
@@ -5356,19 +5389,19 @@
  },
  "DV360|Prog - Parallax (Público)": {
   "en": {
-   "dimensao": "Landscape – 16:9 (1280x720px), Portrait – 9:16 (720x1280px)",
+   "dimensao": "Landscape: 1280x720px, Portrait: 720x1280px",
    "aspectRatio": "16:9 or 9:16",
    "peso": "120 KB",
    "tipoFicheiro": "JPG, PNG or GIF"
   },
   "es": {
-   "dimensao": "Horizontal – 16:9 (1280x720px), Vertical – 9:16 (720x1280px)",
+   "dimensao": "Horizontal: 1280x720px, Vertical: 720x1280px",
    "aspectRatio": "16:9 o 9:16",
    "peso": "120 KB",
    "tipoFicheiro": "JPG, PNG o GIF"
   },
   "fr": {
-   "dimensao": "Paysage – 16:9 (1280x720px), Portrait – 9:16 (720x1280px)",
+   "dimensao": "Paysage : 1280x720px, Portrait : 720x1280px",
    "aspectRatio": "16:9 ou 9:16",
    "peso": "120 KB",
    "tipoFicheiro": "JPG, PNG ou GIF"
@@ -5487,19 +5520,19 @@
  },
  "DV360|Prog - Pre-Roll (Público)": {
   "en": {
-   "dimensao": "640x360px with a 16:9 ratio",
+   "dimensao": "640x360px",
    "aspectRatio": "16:9",
    "peso": "10 MB",
    "tipoFicheiro": "MP4 or WEBM"
   },
   "es": {
-   "dimensao": "640x360px con relación de 16:9",
+   "dimensao": "640x360px",
    "aspectRatio": "16:9",
    "peso": "10 MB",
    "tipoFicheiro": "MP4 o WEBM"
   },
   "fr": {
-   "dimensao": "640x360px avec un ratio de 16:9",
+   "dimensao": "640x360px",
    "aspectRatio": "16:9",
    "peso": "10 MB",
    "tipoFicheiro": "MP4 ou WEBM"
@@ -5507,19 +5540,19 @@
  },
  "DV360|Prog - Pre-Roll (Sapo)": {
   "en": {
-   "dimensao": "640x360px (16:9)",
+   "dimensao": "640x360px",
    "aspectRatio": "16:9",
    "peso": "3.5 MB",
    "tipoFicheiro": "MP4"
   },
   "es": {
-   "dimensao": "640x360px (16:9)",
+   "dimensao": "640x360px",
    "aspectRatio": "16:9",
    "peso": "3.5 MB",
    "tipoFicheiro": "MP4"
   },
   "fr": {
-   "dimensao": "640x360px (16:9)",
+   "dimensao": "640x360px",
    "aspectRatio": "16:9",
    "peso": "3.5 MB",
    "tipoFicheiro": "MP4"
@@ -5566,19 +5599,22 @@
  },
  "DV360|Prog - Connected TV (Google)": {
   "en": {
-   "dimensao": "16:9; 16 to 30 seconds; specific format for Connected TV",
+   "dimensao": "16 to 30 seconds; format specific to Connected TV",
    "peso": "Hosted on YouTube",
-   "tipoFicheiro": "MP4, MOV"
+   "tipoFicheiro": "MP4, MOV",
+   "aspectRatio": "16:9"
   },
   "es": {
-   "dimensao": "16:9; 16 a 30 segundos; formato específico para Connected TV",
+   "dimensao": "16 a 30 segundos; formato específico para Connected TV",
    "peso": "Alojado en YouTube",
-   "tipoFicheiro": "MP4, MOV"
+   "tipoFicheiro": "MP4, MOV",
+   "aspectRatio": "16:9"
   },
   "fr": {
-   "dimensao": "16:9 ; 16 à 30 secondes ; format spécifique pour Connected TV",
+   "dimensao": "16 à 30 secondes ; format spécifique pour Connected TV",
    "peso": "Hébergé sur YouTube",
-   "tipoFicheiro": "MP4, MOV"
+   "tipoFicheiro": "MP4, MOV",
+   "aspectRatio": "16:9"
   }
  },
  "DV360|Prog - CTV First Screen (Sapo)": {
@@ -5588,21 +5624,21 @@
  },
  "Google App Campaigns|Imagem": {
   "en": {
-   "dimensao": "Horizontal 1.91:1: 1200x628 (min. 600x314); Vertical 4:5: 1200x1500 (min. 320x400); Square 1:1: 1200x1200 (min. 200x200) — up to 20 images, optional but recommended",
+   "dimensao": "Horizontal: 1200x628 (min. 600x314); Vertical: 1200x1500 (min. 320x400); Square: 1200x1200 (min. 200x200) — up to 20 images, optional but recommended",
    "aspectRatio": "1.91:1 or 4:5 or 1:1",
    "peso": "5 MB",
    "tipoFicheiro": "JPG, PNG",
    "formato": "Image"
   },
   "es": {
-   "dimensao": "Horizontal 1.91:1: 1200x628 (mín. 600x314); Vertical 4:5: 1200x1500 (mín. 320x400); Square 1:1: 1200x1200 (mín. 200x200) — hasta 20 imágenes, opcionales pero recomendadas",
+   "dimensao": "Horizontal: 1200x628 (mín. 600x314); Vertical: 1200x1500 (mín. 320x400); Cuadrado: 1200x1200 (mín. 200x200) — hasta 20 imágenes, opcionales pero recomendadas",
    "aspectRatio": "1.91:1 o 4:5 o 1:1",
    "peso": "5 MB",
    "tipoFicheiro": "JPG, PNG",
    "formato": "Imagen"
   },
   "fr": {
-   "dimensao": "Horizontal 1.91:1 : 1200x628 (min. 600x314) ; Vertical 4:5 : 1200x1500 (min. 320x400) ; Square 1:1 : 1200x1200 (min. 200x200) — jusqu'à 20 images, facultatives mais recommandées",
+   "dimensao": "Horizontal : 1200x628 (min. 600x314) ; Vertical : 1200x1500 (min. 320x400) ; Carré : 1200x1200 (min. 200x200) — jusqu'à 20 images, facultatives mais recommandées",
    "aspectRatio": "1.91:1 ou 4:5 ou 1:1",
    "peso": "5 MB",
    "tipoFicheiro": "JPG, PNG",
@@ -5611,21 +5647,21 @@
  },
  "Google App Campaigns|Vídeo": {
   "en": {
-   "dimensao": "Horizontal 16:9, Vertical 9:16, Square 1:1; 10 to 60 seconds — up to 20 videos, optional but recommended",
+   "dimensao": "Horizontal, Vertical, Square; 10 to 60 seconds — up to 20 videos, optional but recommended",
    "aspectRatio": "16:9 or 9:16 or 1:1",
    "peso": "Hosted on YouTube",
    "tipoFicheiro": "MP4, MOV",
    "formato": "Video"
   },
   "es": {
-   "dimensao": "Horizontal 16:9, Vertical 9:16, Square 1:1; 10 a 60 segundos — hasta 20 videos, opcionales pero recomendados",
+   "dimensao": "Horizontal, Vertical, Cuadrado; 10 a 60 segundos — hasta 20 vídeos, opcionales pero recomendados",
    "aspectRatio": "16:9 o 9:16 o 1:1",
    "peso": "Alojado en YouTube",
    "tipoFicheiro": "MP4, MOV",
    "formato": "Video"
   },
   "fr": {
-   "dimensao": "Horizontal 16:9, Vertical 9:16, Square 1:1 ; 10 à 60 secondes — jusqu'à 20 vidéos, facultatives mais recommandées",
+   "dimensao": "Horizontal, Vertical, Carré ; 10 à 60 secondes — jusqu'à 20 vidéos, facultatives mais recommandées",
    "aspectRatio": "16:9 ou 9:16 ou 1:1",
    "peso": "Hébergé sur YouTube",
    "tipoFicheiro": "MP4, MOV",
@@ -5634,21 +5670,21 @@
  },
  "Google Performance Max|Imagem": {
   "en": {
-   "dimensao": "Horizontal 1.91:1: 1200x628 (min. 600x314); Square 1:1: 1200x1200 (min. 300x300); Vertical 4:5: 960x1200 (min. 480x600, optional) — min. 4 images of each required type, up to 20",
+   "dimensao": "Horizontal: 1200x628 (min. 600x314); Square: 1200x1200 (min. 300x300); Vertical: 960x1200 (min. 480x600, optional) — min. 4 images of each required type, up to 20",
    "aspectRatio": "1.91:1 or 1:1 or 4:5",
    "peso": "5120 KB",
    "tipoFicheiro": "JPG, PNG",
    "formato": "Image"
   },
   "es": {
-   "dimensao": "Horizontal 1.91:1: 1200x628 (mín. 600x314); Square 1:1: 1200x1200 (mín. 300x300); Vertical 4:5: 960x1200 (mín. 480x600, opcional) — mín. 4 imágenes de cada tipo obligatorio, hasta 20",
+   "dimensao": "Horizontal: 1200x628 (mín. 600x314); Cuadrado: 1200x1200 (mín. 300x300); Vertical: 960x1200 (mín. 480x600, opcional) — mín. 4 imágenes de cada tipo obligatorio, hasta 20",
    "aspectRatio": "1.91:1 o 1:1 o 4:5",
    "peso": "5120 KB",
    "tipoFicheiro": "JPG, PNG",
    "formato": "Imagen"
   },
   "fr": {
-   "dimensao": "Horizontal 1.91:1 : 1200x628 (min. 600x314) ; Square 1:1 : 1200x1200 (min. 300x300) ; Vertical 4:5 : 960x1200 (min. 480x600, facultatif) — min. 4 images de chaque type obligatoire, jusqu'à 20",
+   "dimensao": "Horizontal : 1200x628 (min. 600x314) ; Carré : 1200x1200 (min. 300x300) ; Vertical : 960x1200 (min. 480x600, facultatif) — min. 4 images de chaque type obligatoire, jusqu'à 20",
    "aspectRatio": "1.91:1 ou 1:1 ou 4:5",
    "peso": "5120 KB",
    "tipoFicheiro": "JPG, PNG",
@@ -5657,19 +5693,19 @@
  },
  "Google Performance Max|Logo": {
   "en": {
-   "dimensao": "Square logo 1:1: 1200x1200 (min. 128x128, required); Horizontal logo 4:1: 1200x300 (min. 512x128, optional) — up to 5 of each",
+   "dimensao": "Square logo: 1200x1200 (min. 128x128, required); Horizontal logo: 1200x300 (min. 512x128, optional) — up to 5 of each",
    "aspectRatio": "1:1 or 4:1",
    "peso": "5120 KB",
    "tipoFicheiro": "JPG, PNG"
   },
   "es": {
-   "dimensao": "Logo cuadrado 1:1: 1200x1200 (mín. 128x128, obligatorio); Logo horizontal 4:1: 1200x300 (mín. 512x128, opcional) — hasta 5 de cada",
+   "dimensao": "Logo cuadrado: 1200x1200 (mín. 128x128, obligatorio); Logo horizontal: 1200x300 (mín. 512x128, opcional) — hasta 5 de cada",
    "aspectRatio": "1:1 o 4:1",
    "peso": "5120 KB",
    "tipoFicheiro": "JPG, PNG"
   },
   "fr": {
-   "dimensao": "Logo carré 1:1 : 1200x1200 (min. 128x128, obligatoire) ; Logo horizontal 4:1 : 1200x300 (min. 512x128, facultatif) — jusqu'à 5 de chaque",
+   "dimensao": "Logo carré : 1200x1200 (min. 128x128, obligatoire) ; Logo horizontal : 1200x300 (min. 512x128, facultatif) — jusqu'à 5 de chaque",
    "aspectRatio": "1:1 ou 4:1",
    "peso": "5120 KB",
    "tipoFicheiro": "JPG, PNG"
@@ -5677,21 +5713,21 @@
  },
  "Google Performance Max|Vídeo": {
   "en": {
-   "dimensao": "Horizontal 16:9, Square 1:1, Vertical 9:16; min. 10 seconds — up to 15 videos of each, optional (automatically generated if not provided)",
+   "dimensao": "Horizontal, Square, Vertical; min. 10 seconds — up to 15 videos of each, optional (automatically generated if not provided)",
    "aspectRatio": "16:9 or 1:1 or 9:16",
    "peso": "Hosted on YouTube",
    "tipoFicheiro": "MP4, MOV",
    "formato": "Video"
   },
   "es": {
-   "dimensao": "Horizontal 16:9, Square 1:1, Vertical 9:16; mín. 10 segundos — hasta 15 videos de cada, opcional (generado automáticamente si no se proporciona)",
+   "dimensao": "Horizontal, Cuadrado, Vertical; mín. 10 segundos — hasta 15 vídeos de cada, opcional (generado automáticamente si no se proporciona)",
    "aspectRatio": "16:9 o 1:1 o 9:16",
    "peso": "Alojado en YouTube",
    "tipoFicheiro": "MP4, MOV",
    "formato": "Video"
   },
   "fr": {
-   "dimensao": "Horizontal 16:9, Square 1:1, Vertical 9:16 ; min. 10 secondes — jusqu'à 15 vidéos de chaque, facultatif (généré automatiquement si non fourni)",
+   "dimensao": "Horizontal, Carré, Vertical ; min. 10 secondes — jusqu'à 15 vidéos de chaque, facultatif (généré automatiquement si non fourni)",
    "aspectRatio": "16:9 ou 1:1 ou 9:16",
    "peso": "Hébergé sur YouTube",
    "tipoFicheiro": "MP4, MOV",
@@ -5700,19 +5736,19 @@
  },
  "Google Search|Business Information (Logo)": {
   "en": {
-   "dimensao": "Logo 1:1: 1200x1200 (min. 128x128)",
+   "dimensao": "Logo: 1200x1200 (min. 128x128)",
    "aspectRatio": "1:1",
    "peso": "not specified",
    "tipoFicheiro": "JPG, PNG"
   },
   "es": {
-   "dimensao": "Logo 1:1: 1200x1200 (mín. 128x128)",
+   "dimensao": "Logo: 1200x1200 (mín. 128x128)",
    "aspectRatio": "1:1",
    "peso": "no especificado",
    "tipoFicheiro": "JPG, PNG"
   },
   "fr": {
-   "dimensao": "Logo 1:1 : 1200x1200 (min. 128x128)",
+   "dimensao": "Logo : 1200x1200 (min. 128x128)",
    "aspectRatio": "1:1",
    "peso": "non spécifié",
    "tipoFicheiro": "JPG, PNG"
@@ -5720,21 +5756,21 @@
  },
  "Google Search|Ad Assets (Imagens)": {
   "en": {
-   "dimensao": "Square 1:1: 1200x1200 (min. 300x300), required; Horizontal 1.91:1: 1200x628 (min. 600x314), optional",
+   "dimensao": "Square: 1200x1200 (min. 300x300), required; Horizontal: 1200x628 (min. 600x314), optional",
    "aspectRatio": "1:1 or 1.91:1",
    "peso": "not specified",
    "tipoFicheiro": "JPG, PNG",
    "formato": "Ad Assets (Images)"
   },
   "es": {
-   "dimensao": "Square 1:1: 1200x1200 (mín. 300x300), obligatorio; Horizontal 1.91:1: 1200x628 (mín. 600x314), opcional",
+   "dimensao": "Cuadrado: 1200x1200 (mín. 300x300), obligatorio; Horizontal: 1200x628 (mín. 600x314), opcional",
    "aspectRatio": "1:1 o 1.91:1",
    "peso": "no especificado",
    "tipoFicheiro": "JPG, PNG",
    "formato": "Ad Assets (Imágenes)"
   },
   "fr": {
-   "dimensao": "Square 1:1 : 1200x1200 (min. 300x300), obligatoire ; Horizontal 1.91:1 : 1200x628 (min. 600x314), facultatif",
+   "dimensao": "Carré : 1200x1200 (min. 300x300), obligatoire ; Horizontal : 1200x628 (min. 600x314), facultatif",
    "aspectRatio": "1:1 ou 1.91:1",
    "peso": "non spécifié",
    "tipoFicheiro": "JPG, PNG",
@@ -5763,21 +5799,21 @@
  },
  "Google Vídeo/YouTube|Video Action Campaigns": {
   "en": {
-   "dimensao": "Horizontal 16:9: 1920x1080; Vertical 9:16: 1080x1920; Square 1:1: 1080x1080; min. 10 seconds.",
+   "dimensao": "Horizontal: 1920x1080; Vertical: 1080x1920; Square: 1080x1080; min. 10 seconds.",
    "aspectRatio": "16:9 or 9:16 or 1:1",
    "peso": "Hosted on YouTube",
    "tipoFicheiro": "MP4, MOV",
    "copies": "Headline: 30 characters; Long headline: 90 characters; Description: 90 characters; CTA: 10 characters."
   },
   "es": {
-   "dimensao": "Horizontal 16:9: 1920x1080; Vertical 9:16: 1080x1920; Square 1:1: 1080x1080; mín. 10 segundos.",
+   "dimensao": "Horizontal: 1920x1080; Vertical: 1080x1920; Cuadrado: 1080x1080; mín. 10 segundos.",
    "aspectRatio": "16:9 o 9:16 o 1:1",
    "peso": "Alojado en YouTube",
    "tipoFicheiro": "MP4, MOV",
    "copies": "Título: 30 caracteres; Título largo: 90 caracteres; Descripción: 90 caracteres; CTA: 10 caracteres."
   },
   "fr": {
-   "dimensao": "Horizontal 16:9 : 1920x1080 ; Vertical 9:16 : 1080x1920 ; Square 1:1 : 1080x1080 ; min. 10 secondes.",
+   "dimensao": "Horizontal : 1920x1080 ; Vertical : 1080x1920 ; Carré : 1080x1080 ; min. 10 secondes.",
    "aspectRatio": "16:9 ou 9:16 ou 1:1",
    "peso": "Hébergé sur YouTube",
    "tipoFicheiro": "MP4, MOV",
@@ -5786,21 +5822,21 @@
  },
  "Google Vídeo/YouTube|Thumbnail (vídeo)": {
   "en": {
-   "dimensao": "16:9: 1280x720 (min. 1280x640)",
+   "dimensao": "1280x720 (min. 1280x640)",
    "aspectRatio": "16:9",
    "peso": "< 2 MB (videos); < 10 MB (podcasts)",
    "tipoFicheiro": "JPG, GIF or PNG",
    "formato": "Thumbnail (video)"
   },
   "es": {
-   "dimensao": "16:9: 1280x720 (mín. 1280x640)",
+   "dimensao": "1280x720 (mín. 1280x640)",
    "aspectRatio": "16:9",
    "peso": "< 2 MB (videos); < 10 MB (podcasts)",
    "tipoFicheiro": "JPG, GIF o PNG",
    "formato": "Thumbnail (video)"
   },
   "fr": {
-   "dimensao": "16:9 : 1280x720 (min. 1280x640)",
+   "dimensao": "1280x720 (min. 1280x640)",
    "aspectRatio": "16:9",
    "peso": "< 2 MB (vidéos) ; < 10 MB (podcasts)",
    "tipoFicheiro": "JPG, GIF ou PNG",
@@ -5809,19 +5845,19 @@
  },
  "Google Vídeo/YouTube|Companion Banner": {
   "en": {
-   "dimensao": "5:1: 300x60 (desktop only)",
+   "dimensao": "300x60 (desktop only)",
    "aspectRatio": "5:1",
    "peso": "< 150 KB",
    "tipoFicheiro": "JPG, GIF or PNG"
   },
   "es": {
-   "dimensao": "5:1: 300x60 (solo en desktop)",
+   "dimensao": "300x60 (solo en desktop)",
    "aspectRatio": "5:1",
    "peso": "< 150 KB",
    "tipoFicheiro": "JPG, GIF o PNG"
   },
   "fr": {
-   "dimensao": "5:1 : 300x60 (uniquement sur desktop)",
+   "dimensao": "300x60 (uniquement sur desktop)",
    "aspectRatio": "5:1",
    "peso": "< 150 KB",
    "tipoFicheiro": "JPG, GIF ou PNG"
@@ -5990,21 +6026,21 @@
  },
  "Instagram|Collection": {
   "en": {
-   "dimensao": "Feed: 1080x1080 min. (min. 500x500), cover (image or video) + 3 product images, Instant Experience required; Stories: 1080x1080 min. (min. 500x500), cover + 2 product images, Instant Experience required; Reels: min. 500x888 (product image 1:1), cover + up to 3 product images, Instant Experience required.",
+   "dimensao": "Feed: 1080x1080 min. (min. 500x500), cover (image or video) + 3 product images, Instant Experience required; Stories: 1080x1080 min. (min. 500x500), cover + 2 product images, Instant Experience required; Reels: min. 500x888, cover + up to 3 product images (product image), Instant Experience required.",
    "aspectRatio": "Feed: 1.91:1 to 1:1; Stories: 1.91:1 to 1:1; Reels: 9:16 (product image: 1:1)",
    "peso": "Image: 30 MB; Video: 4 GB",
    "tipoFicheiro": "JPG, PNG, MP4 or MOV",
    "copies": "Feed: primary text 125 characters, headline 40 characters, URL required; Stories: primary text 125 characters, URL required."
   },
   "es": {
-   "dimensao": "Feed: 1080x1080 mín. (mín. 500x500), portada (imagen o video) + 3 imágenes de producto, Experiencia Instantánea obligatoria; Stories: 1080x1080 mín. (mín. 500x500), portada + 2 imágenes de producto, Experiencia Instantánea obligatoria; Reels: mín. 500x888 (imagen de producto 1:1), portada + hasta 3 imágenes de producto, Experiencia Instantánea obligatoria.",
+   "dimensao": "Feed: 1080x1080 mín. (mín. 500x500), portada (imagen o vídeo) + 3 imágenes de producto, Experiencia Instantánea obligatoria; Stories: 1080x1080 mín. (mín. 500x500), portada + 2 imágenes de producto, Experiencia Instantánea obligatoria; Reels: mín. 500x888, portada + hasta 3 imágenes de producto (imagen de producto), Experiencia Instantánea obligatoria.",
    "aspectRatio": "Feed: 1.91:1 hasta 1:1; Stories: 1.91:1 hasta 1:1; Reels: 9:16 (imagen de producto: 1:1)",
    "peso": "Imagen: 30 MB; Video: 4 GB",
    "tipoFicheiro": "JPG, PNG, MP4 o MOV",
    "copies": "Feed: texto principal 125 caracteres, título 40 caracteres, URL obligatoria; Stories: texto principal 125 caracteres, URL obligatoria."
   },
   "fr": {
-   "dimensao": "Feed : 1080x1080 min. (min. 500x500), couverture (image ou vidéo) + 3 images de produit, Expérience Instantanée obligatoire ; Stories : 1080x1080 min. (min. 500x500), couverture + 2 images de produit, Expérience Instantanée obligatoire ; Reels : min. 500x888 (image de produit 1:1), couverture + jusqu'à 3 images de produit, Expérience Instantanée obligatoire.",
+   "dimensao": "Feed : 1080x1080 min. (min. 500x500), couverture (image ou vidéo) + 3 images de produit, Expérience Instantanée obligatoire ; Stories : 1080x1080 min. (min. 500x500), couverture + 2 images de produit, Expérience Instantanée obligatoire ; Reels : min. 500x888, couverture + jusqu'à 3 images de produit (image de produit), Expérience Instantanée obligatoire.",
    "aspectRatio": "Feed : 1.91:1 à 1:1 ; Stories : 1.91:1 à 1:1 ; Reels : 9:16 (image de produit : 1:1)",
    "peso": "Image : 30 MB ; Vidéo : 4 GB",
    "tipoFicheiro": "JPG, PNG, MP4 ou MOV",
