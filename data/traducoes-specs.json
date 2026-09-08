@@ -3937,158 +3937,75 @@
    "tipoFicheiro": "MP4, MOV, MPEG, 3GP"
   }
  },
- "X|Amplify": {
-  "en": {
-   "dimensao": "HD video",
-   "peso": "1 GB recommended/limit depending on placement",
-   "tipoFicheiro": "MP4, MOV",
-   "aspectRatio": "16:9"
-  },
-  "es": {
-   "dimensao": "Vídeo HD",
-   "peso": "1 GB recomendado/límite según el placement",
-   "tipoFicheiro": "MP4, MOV",
-   "aspectRatio": "16:9"
-  },
-  "fr": {
-   "dimensao": "Vidéo HD",
-   "peso": "1 GB recommandé/limite selon le placement",
-   "tipoFicheiro": "MP4, MOV",
-   "aspectRatio": "16:9"
-  }
- },
  "X|Carousel Ad": {
   "en": {
-   "dimensao": "800x800 or 800x418 recommended",
-   "aspectRatio": "1:1 or 1.91:1",
-   "peso": "5 MB per image; video per specs",
-   "tipoFicheiro": "JPG, PNG; MP4/MOV for video carousel"
+   "dimensao": "2 to 6 slides (images or videos). Image Carousels: 800x800 recommended; Video Carousels: 800x450 recommended. A single ratio across all slides in the carousel; mixed media must keep the same ratio between the image and video assets.",
+   "aspectRatio": "1:1, 1.91:1, 4:5, 2:3, 16:9 or 9:16 (single ratio per carousel)",
+   "peso": "Image: up to 5 MB; Video: up to 1 GB (recommended <30 MB)",
+   "tipoFicheiro": "JPG, PNG (image carousel); MP4, MOV (video carousel)",
+   "copies": "1 destination (single-destination Carousel) or up to 6 unique destinations (multi-destination Carousel)."
   },
   "es": {
-   "dimensao": "800x800 o 800x418 recomendado",
-   "aspectRatio": "1:1 o 1.91:1",
-   "peso": "5 MB por imagen; vídeo según specs",
-   "tipoFicheiro": "JPG, PNG; MP4/MOV para el carousel de vídeo"
+   "dimensao": "2 a 6 diapositivas (imágenes o vídeos). Image Carousels: 800x800 recomendado; Video Carousels: 800x450 recomendado. Una única proporción en todas las diapositivas del carrusel; el contenido mixto debe mantener la misma proporción entre el asset de imagen y el de vídeo.",
+   "aspectRatio": "1:1, 1.91:1, 4:5, 2:3, 16:9 o 9:16 (una única proporción por carrusel)",
+   "peso": "Imagen: hasta 5 MB; Vídeo: hasta 1 GB (recomendado <30 MB)",
+   "tipoFicheiro": "JPG, PNG (carrusel de imágenes); MP4, MOV (carrusel de vídeo)",
+   "copies": "1 destino (Carousel de destino único) o hasta 6 destinos únicos (Carousel multidestino)."
   },
   "fr": {
-   "dimensao": "800x800 ou 800x418 recommandé",
-   "aspectRatio": "1:1 ou 1.91:1",
-   "peso": "5 MB par image ; vidéo selon specs",
-   "tipoFicheiro": "JPG, PNG ; MP4/MOV pour video carousel"
-  }
- },
- "X|Collection Ad": {
-  "en": {
-   "dimensao": "Hero 800x800 recommended + product thumbnails",
-   "aspectRatio": "1:1",
-   "peso": "5 MB per image",
-   "tipoFicheiro": "JPG, PNG + catalog"
-  },
-  "es": {
-   "dimensao": "Hero 800x800 recomendado + thumbnails de productos",
-   "aspectRatio": "1:1",
-   "peso": "5 MB por imagen",
-   "tipoFicheiro": "JPG, PNG + catálogo"
-  },
-  "fr": {
-   "dimensao": "Hero 800x800 recommandé + miniatures de produits",
-   "aspectRatio": "1:1",
-   "peso": "5 MB par image",
-   "tipoFicheiro": "JPG, PNG + catalogue"
-  }
- },
- "X|Dynamic Product Ads": {
-  "en": {
-   "dimensao": "Assets sourced from the catalog",
-   "peso": "Per catalog",
-   "tipoFicheiro": "Feed/catalog + JPG/PNG",
-   "aspectRatio": "1:1"
-  },
-  "es": {
-   "dimensao": "Assets provenientes del catálogo",
-   "peso": "Según el catálogo",
-   "tipoFicheiro": "Feed/catálogo + JPG/PNG",
-   "aspectRatio": "1:1"
-  },
-  "fr": {
-   "dimensao": "Assets provenant du catalogue",
-   "peso": "Selon catalogue",
-   "tipoFicheiro": "Feed/catalogue + JPG/PNG",
-   "aspectRatio": "1:1"
+   "dimensao": "2 à 6 diapositives (images ou vidéos). Image Carousels : 800x800 recommandé ; Video Carousels : 800x450 recommandé. Un seul ratio pour toutes les diapositives du carrousel ; le contenu mixte doit conserver le même ratio entre l'asset image et l'asset vidéo.",
+   "aspectRatio": "1:1, 1.91:1, 4:5, 2:3, 16:9 ou 9:16 (ratio unique par carrousel)",
+   "peso": "Image : jusqu'à 5 Mo ; Vidéo : jusqu'à 1 Go (recommandé <30 Mo)",
+   "tipoFicheiro": "JPG, PNG (carrousel d'images) ; MP4, MOV (carrousel vidéo)",
+   "copies": "1 destination (Carousel à destination unique) ou jusqu'à 6 destinations uniques (Carousel multi-destinations)."
   }
  },
  "X|Image Ad": {
   "en": {
-   "dimensao": "1200x1200 or 1200x628 recommended",
-   "aspectRatio": "1:1 or 1.91:1",
-   "peso": "5 MB",
-   "tipoFicheiro": "JPG, PNG"
+   "peso": "Max. 5 MB",
+   "tipoFicheiro": "PNG or JPEG recommended (BMP and TIFF not accepted; an uploaded GIF is converted to a static image)",
+   "copies": "Post copy: up to 280 characters (each link used reduces 280 characters by 23 characters, leaving effectively 257 characters)."
   },
   "es": {
-   "dimensao": "1200x1200 o 1200x628 recomendado",
-   "aspectRatio": "1:1 o 1.91:1",
-   "peso": "5 MB",
-   "tipoFicheiro": "JPG, PNG"
+   "peso": "Máx. 5 MB",
+   "tipoFicheiro": "Se recomienda PNG o JPEG (no se aceptan BMP ni TIFF; un GIF subido se convierte en imagen estática)",
+   "copies": "Texto del post: hasta 280 caracteres (cada enlace usado reduce 280 caracteres en 23 caracteres, quedando efectivamente 257 caracteres)."
   },
   "fr": {
-   "dimensao": "1200x1200 ou 1200x628 recommandé",
-   "aspectRatio": "1:1 ou 1.91:1",
-   "peso": "5 MB",
-   "tipoFicheiro": "JPG, PNG"
-  }
- },
- "X|Takeover": {
-  "en": {
-   "dimensao": "Depends on the product (Timeline/Trend Takeover); assets per X spec sheet",
-   "peso": "Per format",
-   "tipoFicheiro": "JPG, PNG, MP4/MOV depending on takeover"
-  },
-  "es": {
-   "dimensao": "Depende del producto (Timeline/Trend Takeover); assets según la ficha de X",
-   "peso": "Según el formato",
-   "tipoFicheiro": "JPG, PNG, MP4/MOV según el takeover"
-  },
-  "fr": {
-   "dimensao": "Dépend du produit (Timeline/Trend Takeover) ; assets selon fiche X",
-   "peso": "Selon le format",
-   "tipoFicheiro": "JPG, PNG, MP4/MOV selon le takeover"
+   "peso": "Max. 5 Mo",
+   "tipoFicheiro": "PNG ou JPEG recommandé (BMP et TIFF non acceptés ; un GIF téléchargé est converti en image statique)",
+   "copies": "Texte du post : jusqu'à 280 caractères (chaque lien utilisé réduit les 280 caractères de 23 caractères, laissant effectivement 257 caractères)."
   }
  },
  "X|Text Ad": {
   "en": {
-   "dimensao": "No required graphic asset",
-   "peso": "N/A",
-   "tipoFicheiro": "Text/post + optional URL"
+   "copies": "Post copy: up to 280 characters (each link used reduces 280 characters by 23 characters, leaving effectively 257 characters)."
   },
   "es": {
-   "dimensao": "Sin asset gráfico obligatorio",
-   "peso": "N/A",
-   "tipoFicheiro": "Texto/post + URL opcional"
+   "copies": "Texto del post: hasta 280 caracteres (cada enlace usado reduce 280 caracteres en 23 caracteres, quedando efectivamente 257 caracteres)."
   },
   "fr": {
-   "dimensao": "Pas d'asset graphique obligatoire",
-   "peso": "N/A",
-   "tipoFicheiro": "Texte/post + URL facultative"
+   "copies": "Texte du post : jusqu'à 280 caractères (chaque lien utilisé réduit les 280 caractères de 23 caractères, laissant effectivement 257 caractères)."
   }
  },
  "X|Video Ad": {
   "en": {
-   "dimensao": "1200x1200 or 1920x1080 recommended",
-   "aspectRatio": "1:1 or 16:9",
-   "peso": "1 GB",
-   "tipoFicheiro": "MP4, MOV"
+   "dimensao": "1200x1200 or 1920x1080 recommended. Recommended length ≤15s (up to 2:20 supported; select advertisers eligible for up to 10min, recommended not to exceed 9:55). Bitrate: 1080p 6,000-10,000k (recommended 6,000k); 720p 5,000-8,000k (recommended 5,000k). Frame rate: 29.97 or 30 FPS (up to 60 FPS accepted, don't upsample). Thumbnail: ratio matching the video, max. 5 MB. Automatic loop if duration <60s. Branding (logo) recommended persistent in the upper left corner; captions/closed captioning strongly recommended.",
+   "peso": "Max. 1 GB (recommended to keep under 30 MB for best performance)",
+   "tipoFicheiro": "MP4 or MOV; H.264 codec (Baseline, Main or High Profile, 4:2:0 color space); AAC LC audio; thumbnail PNG or JPEG",
+   "copies": "Post copy: up to 280 characters (each link used reduces 280 characters by 23 characters, leaving effectively 257 characters)."
   },
   "es": {
-   "dimensao": "1200x1200 o 1920x1080 recomendado",
-   "aspectRatio": "1:1 o 16:9",
-   "peso": "1 GB",
-   "tipoFicheiro": "MP4, MOV"
+   "dimensao": "1200x1200 o 1920x1080 recomendado. Duración recomendada ≤15s (hasta 2:20 compatible; algunos anunciantes elegibles para hasta 10min, recomendado no superar 9:55). Bitrate: 1080p 6.000-10.000k (recomendado 6.000k); 720p 5.000-8.000k (recomendado 5.000k). Frecuencia de fotogramas: 29,97 o 30 FPS (hasta 60 FPS aceptado, no hacer upsampling). Miniatura: proporción igual a la del vídeo, máx. 5 MB. Bucle automático si la duración es <60s. Branding (logo) recomendado de forma persistente en la esquina superior izquierda; subtítulos/closed captioning muy recomendado.",
+   "peso": "Máx. 1 GB (recomendado mantener por debajo de 30 MB para un mejor rendimiento)",
+   "tipoFicheiro": "MP4 o MOV; códec H.264 (Baseline, Main o High Profile, espacio de color 4:2:0); audio AAC LC; miniatura PNG o JPEG",
+   "copies": "Texto del post: hasta 280 caracteres (cada enlace usado reduce 280 caracteres en 23 caracteres, quedando efectivamente 257 caracteres)."
   },
   "fr": {
-   "dimensao": "1200x1200 ou 1920x1080 recommandé",
-   "aspectRatio": "1:1 ou 16:9",
-   "peso": "1 GB",
-   "tipoFicheiro": "MP4, MOV"
+   "dimensao": "1200x1200 ou 1920x1080 recommandé. Durée recommandée ≤15s (jusqu'à 2:20 pris en charge ; certains annonceurs éligibles jusqu'à 10min, recommandé de ne pas dépasser 9:55). Bitrate : 1080p 6 000-10 000k (recommandé 6 000k) ; 720p 5 000-8 000k (recommandé 5 000k). Fréquence d'images : 29,97 ou 30 FPS (jusqu'à 60 FPS accepté, ne pas suréchantillonner). Miniature : ratio identique à celui de la vidéo, max. 5 Mo. Boucle automatique si la durée est <60s. Branding (logo) recommandé de façon persistante en haut à gauche ; sous-titres/closed captioning fortement recommandés.",
+   "peso": "Max. 1 Go (recommandé de rester sous 30 Mo pour de meilleures performances)",
+   "tipoFicheiro": "MP4 ou MOV ; codec H.264 (Baseline, Main ou High Profile, espace colorimétrique 4:2:0) ; audio AAC LC ; miniature PNG ou JPEG",
+   "copies": "Texte du post : jusqu'à 280 caractères (chaque lien utilisé réduit les 280 caractères de 23 caractères, laissant effectivement 257 caractères)."
   }
  },
  "Google Display Network|Medium Rectangle": {
@@ -6119,6 +6036,23 @@
    "peso": "Varie ; à valider dans Ads Manager",
    "tipoFicheiro": "MP4, MOV, JPG ou PNG",
    "copies": "Nom de marque : jusqu'à 25 caractères avec espaces (extrait automatiquement du profil public) ; Titre : 25-28 caractères recommandé (34 max)."
+  }
+ },
+ "X|Vertical Video Ad": {
+  "en": {
+   "dimensao": "Recommended up to 1080x1920, min. 720x1280. Recommended length <15s (up to 2:20 supported). Max. frame rate 60 fps. Max. bitrate 25 Mbps (target 5-10 Mbps).",
+   "aspectRatio": "9:16 (recommended); also accepted 4:5, 2:3, 1:1, 1.91:1 or 16:9",
+   "tipoFicheiro": "H.264 video codec (Baseline, Main or High Profile, 4:2:0 color space); AAC LC audio"
+  },
+  "es": {
+   "dimensao": "Recomendado hasta 1080x1920, mín. 720x1280. Duración recomendada <15s (hasta 2:20 compatible). Frecuencia de fotogramas máx. 60 fps. Bitrate máx. 25 Mbps (objetivo 5-10 Mbps).",
+   "aspectRatio": "9:16 (recomendado); también aceptados 4:5, 2:3, 1:1, 1.91:1 o 16:9",
+   "tipoFicheiro": "Códec de vídeo H.264 (Baseline, Main o High Profile, espacio de color 4:2:0); audio AAC LC"
+  },
+  "fr": {
+   "dimensao": "Recommandé jusqu'à 1080x1920, min. 720x1280. Durée recommandée <15s (jusqu'à 2:20 pris en charge). Fréquence d'images max. 60 fps. Bitrate max. 25 Mbps (cible 5-10 Mbps).",
+   "aspectRatio": "9:16 (recommandé) ; également acceptés 4:5, 2:3, 1:1, 1.91:1 ou 16:9",
+   "tipoFicheiro": "Codec vidéo H.264 (Baseline, Main ou High Profile, espace colorimétrique 4:2:0) ; audio AAC LC"
   }
  }
 }
