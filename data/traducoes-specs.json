@@ -6054,5 +6054,147 @@
    "aspectRatio": "9:16 (recommandé) ; également acceptés 4:5, 2:3, 1:1, 1.91:1 ou 16:9",
    "tipoFicheiro": "Codec vidéo H.264 (Baseline, Main ou High Profile, espace colorimétrique 4:2:0) ; audio AAC LC"
   }
+ },
+ "X|Amplify Pre-roll": {
+  "en": {
+   "dimensao": "Recommended 1200x1200 (min. 600x600 for 1:1); if not 1:1, min. 640x360. Recommended length ≤15s (max. 2:20). Bitrate: 1080p 6,000-10,000k (recommended 6,000k); 720p 5,000-8,000k (recommended 5,000k). Frame rate: 29.97 or 30 FPS (higher accepted, don't upsample).",
+   "aspectRatio": "1:1 (recommended — always renders as square on desktop/mobile, timeline/profile) or 9:16 (vertical, takes up the same amount of space); the ad is automatically matched with publisher content of a similar ratio",
+   "peso": "Max. 1 GB",
+   "tipoFicheiro": "MP4 or MOV; H.264 codec (Baseline, Main or High Profile, 4:2:0 color space); AAC LC audio",
+   "copies": "URL (optional): must begin with http:// or https://. Branding and captions/closed captioning strongly recommended."
+  },
+  "es": {
+   "dimensao": "Recomendado 1200x1200 (mín. 600x600 para 1:1); si no es 1:1, mín. 640x360. Duración recomendada ≤15s (máx. 2:20). Bitrate: 1080p 6.000-10.000k (recomendado 6.000k); 720p 5.000-8.000k (recomendado 5.000k). Frecuencia de fotogramas: 29,97 o 30 FPS (superior aceptado, no hacer upsampling).",
+   "aspectRatio": "1:1 (recomendado — siempre se renderiza como cuadrado en escritorio/móvil, timeline/perfil) o 9:16 (vertical, ocupa el mismo espacio); el anuncio se combina automáticamente con contenido del publisher de proporción similar",
+   "peso": "Máx. 1 GB",
+   "tipoFicheiro": "MP4 o MOV; códec H.264 (Baseline, Main o High Profile, espacio de color 4:2:0); audio AAC LC",
+   "copies": "URL (opcional): debe empezar por http:// o https://. Branding y subtítulos/closed captioning muy recomendado."
+  },
+  "fr": {
+   "dimensao": "Recommandé 1200x1200 (min. 600x600 pour 1:1) ; si pas en 1:1, min. 640x360. Durée recommandée ≤15s (max. 2:20). Bitrate : 1080p 6 000-10 000k (recommandé 6 000k) ; 720p 5 000-8 000k (recommandé 5 000k). Fréquence d'images : 29,97 ou 30 FPS (supérieur accepté, ne pas suréchantillonner).",
+   "aspectRatio": "1:1 (recommandé — s'affiche toujours en carré sur ordinateur/mobile, timeline/profil) ou 9:16 (vertical, occupe le même espace) ; la publicité est automatiquement associée à du contenu du publisher au ratio similaire",
+   "peso": "Max. 1 Go",
+   "tipoFicheiro": "MP4 ou MOV ; codec H.264 (Baseline, Main ou High Profile, espace colorimétrique 4:2:0) ; audio AAC LC",
+   "copies": "URL (facultatif) : doit commencer par http:// ou https://. Branding et sous-titres/closed captioning fortement recommandés."
+  }
+ },
+ "X|X Live": {
+  "en": {
+   "dimensao": "Resolution: 1280x720 recommended, 1920x1080 maximum. Frame rate: 30 fps recommended, 60 fps maximum. Keyframe interval: OBS every 3s; Wirecast varies by frame rate (24fps→72 frames, 30fps→90, 50fps→150, 60fps→180).",
+   "peso": "Video bitrate: 9 Mbps recommended, 12 Mbps maximum. Audio bitrate: max. 128 bps.",
+   "tipoFicheiro": "RTMP protocol; H.264/AVC video codec; AAC-LC audio codec. Supported encoders: OBS, Wirecast, Restream, Golightstream, Socialive, Teradek, Elemental, Vmix, StreamYard, Streamlabs.",
+   "copies": "Event page description: up to 280 characters (can include external links). Event carousel: up to 5 videos (live, VOD, GIFs or photos — additional investment required). Timeline post: up to 5 specific terms (keywords, names)."
+  },
+  "es": {
+   "dimensao": "Resolución: 1280x720 recomendado, 1920x1080 máximo. Frecuencia de fotogramas: 30 fps recomendado, 60 fps máximo. Intervalo de fotogramas clave: OBS cada 3s; Wirecast varía según la frecuencia de fotogramas (24fps→72 fotogramas, 30fps→90, 50fps→150, 60fps→180).",
+   "peso": "Bitrate de vídeo: 9 Mbps recomendado, 12 Mbps máximo. Bitrate de audio: máx. 128 bps.",
+   "tipoFicheiro": "Protocolo RTMP; códec de vídeo H.264/AVC; códec de audio AAC-LC. Encoders compatibles: OBS, Wirecast, Restream, Golightstream, Socialive, Teradek, Elemental, Vmix, StreamYard, Streamlabs.",
+   "copies": "Descripción de la página del evento: hasta 280 caracteres (puede incluir enlaces externos). Carrusel del evento: hasta 5 vídeos (live, VOD, GIFs o fotos — requiere inversión adicional). Timeline post: hasta 5 términos específicos (palabras clave, nombres)."
+  },
+  "fr": {
+   "dimensao": "Résolution : 1280x720 recommandé, 1920x1080 maximum. Fréquence d'images : 30 fps recommandé, 60 fps maximum. Intervalle des images clés : OBS toutes les 3s ; Wirecast varie selon la fréquence d'images (24fps→72 images, 30fps→90, 50fps→150, 60fps→180).",
+   "peso": "Bitrate vidéo : 9 Mbps recommandé, 12 Mbps maximum. Bitrate audio : max. 128 bps.",
+   "tipoFicheiro": "Protocole RTMP ; codec vidéo H.264/AVC ; codec audio AAC-LC. Encodeurs pris en charge : OBS, Wirecast, Restream, Golightstream, Socialive, Teradek, Elemental, Vmix, StreamYard, Streamlabs.",
+   "copies": "Description de la page événement : jusqu'à 280 caractères (peut inclure des liens externes). Carrousel de l'événement : jusqu'à 5 vidéos (live, VOD, GIFs ou photos — investissement supplémentaire requis). Post timeline : jusqu'à 5 termes spécifiques (mots-clés, noms)."
+  }
+ },
+ "X|Timeline Takeover": {
+  "en": {
+   "dimensao": "No specs of its own — uses the specs of the underlying format chosen: Image Ads, Video Ads, Carousel Ads, X Live, Promoted Ads with Conversation Button/Polls, or Branded Notifications.",
+   "tipoFicheiro": "Depends on the underlying format chosen"
+  },
+  "es": {
+   "dimensao": "Sin especificaciones propias — usa las especificaciones del formato subyacente elegido: Image Ads, Video Ads, Carousel Ads, X Live, Promoted Ads con Conversation Button/Polls, o Branded Notifications.",
+   "tipoFicheiro": "Según el formato subyacente elegido"
+  },
+  "fr": {
+   "dimensao": "Pas de spécifications propres — utilise les spécifications du format sous-jacent choisi : Image Ads, Video Ads, Carousel Ads, X Live, Promoted Ads avec Conversation Button/Polls, ou Branded Notifications.",
+   "tipoFicheiro": "Selon le format sous-jacent choisi"
+  }
+ },
+ "X|Spotlight Takeover": {
+  "en": {
+   "dimensao": "Recommended 1280x720. Companion Promoted Ads: 3 to 6 required ads (image, video, GIF, etc.) to support the trend.",
+   "aspectRatio": "16:9",
+   "peso": "Image: max. 5 MB; GIF: max. 15 MB",
+   "tipoFicheiro": "MP4 video or static image (or GIF); delivered via darkpost, media only (card formats not accepted)",
+   "copies": "Trend name (required): max. 20 characters; Trend description (optional, highly recommended): max. 30 characters — avoid click-bait phrases like '50% off', 'buy one get one free'."
+  },
+  "es": {
+   "dimensao": "Recomendado 1280x720. Companion Promoted Ads: 3 a 6 anuncios obligatorios (imagen, vídeo, GIF, etc.) para apoyar el trend.",
+   "aspectRatio": "16:9",
+   "peso": "Imagen: máx. 5 MB; GIF: máx. 15 MB",
+   "tipoFicheiro": "Vídeo MP4 o imagen estática (o GIF); entrega mediante darkpost, solo media (no se aceptan formatos de tarjeta)",
+   "copies": "Nombre del trend (obligatorio): máx. 20 caracteres; Descripción del trend (opcional, muy recomendado): máx. 30 caracteres — evitar frases tipo clickbait como '50% de descuento', 'compra uno y llévate otro gratis'."
+  },
+  "fr": {
+   "dimensao": "Recommandé 1280x720. Companion Promoted Ads : 3 à 6 publicités obligatoires (image, vidéo, GIF, etc.) pour accompagner le trend.",
+   "aspectRatio": "16:9",
+   "peso": "Image : max. 5 Mo ; GIF : max. 15 Mo",
+   "tipoFicheiro": "Vidéo MP4 ou image statique (ou GIF) ; livré via darkpost, média uniquement (les formats carte ne sont pas acceptés)",
+   "copies": "Nom du trend (obligatoire) : max. 20 caractères ; Description du trend (facultatif, fortement recommandé) : max. 30 caractères — éviter les formulations racoleuses comme « 50 % de réduction », « un acheté, un offert »."
+  }
+ },
+ "X|Branded Notifications": {
+  "en": {
+   "dimensao": "Follows the standard specs of the supported formats: Standalone Image/Video Ads; Image/Video Ads with Web or App button; Image/Video Carousel Ads with Web or App button (single destination); Image/Video Ads with Conversation Button; Moment Ads.",
+   "tipoFicheiro": "Configured and launched via Arrow (third-party platform, IC Group + X Next)",
+   "copies": "3 campaign formats: Scheduled (opt-in post + 1 scheduled post); Subscription (opt-in post + multiple scheduled posts); Instant (1 instant post per opted-in person). Requires a public, verified X account, and X OAuth authorization to Arrow."
+  },
+  "es": {
+   "dimensao": "Sigue las especificaciones estándar de los formatos compatibles: Standalone Image/Video Ads; Image/Video Ads con botón Web o App; Image/Video Carousel Ads con botón Web o App (destino único); Image/Video Ads con Conversation Button; Moment Ads.",
+   "tipoFicheiro": "Configurado y lanzado mediante Arrow (plataforma de terceros, IC Group + X Next)",
+   "copies": "3 formatos de campaña: Scheduled (post de opt-in + 1 post programado); Subscription (post de opt-in + varios posts programados); Instant (1 post instantáneo por persona que hizo opt-in). Requiere una cuenta X pública y verificada, y autorización mediante X OAuth a Arrow."
+  },
+  "fr": {
+   "dimensao": "Suit les spécifications standard des formats pris en charge : Standalone Image/Video Ads ; Image/Video Ads avec bouton Web ou App ; Image/Video Carousel Ads avec bouton Web ou App (destination unique) ; Image/Video Ads avec Conversation Button ; Moment Ads.",
+   "tipoFicheiro": "Configuré et lancé via Arrow (plateforme tierce, IC Group + X Next)",
+   "copies": "3 formats de campagne : Scheduled (post d'opt-in + 1 post programmé) ; Subscription (post d'opt-in + plusieurs posts programmés) ; Instant (1 post instantané par personne ayant fait l'opt-in). Nécessite un compte X public et vérifié, et une autorisation X OAuth vers Arrow."
+  }
+ },
+ "X|Dynamic Product Ads": {
+  "en": {
+   "dimensao": "Creative dynamically generated from the product catalog (X Shopping Manager, up to 1M products or an 8GB feed, scheduled sync).",
+   "tipoFicheiro": "Requires X Pixel or Conversion API configured (events: Page View, Content View, Add to Cart, Purchase, with content parameters)"
+  },
+  "es": {
+   "dimensao": "Creatividad generada dinámicamente a partir del catálogo de productos (X Shopping Manager, hasta 1M de productos o un feed de 8GB, sincronización programada).",
+   "tipoFicheiro": "Requiere X Pixel o Conversion API configurado (eventos: Page View, Content View, Add to Cart, Purchase, con content parameters)"
+  },
+  "fr": {
+   "dimensao": "Création générée dynamiquement à partir du catalogue de produits (X Shopping Manager, jusqu'à 1M de produits ou un flux de 8 Go, synchronisation programmée).",
+   "tipoFicheiro": "Nécessite X Pixel ou Conversion API configuré (événements : Page View, Content View, Add to Cart, Purchase, avec content parameters)"
+  }
+ },
+ "X|Conversation Button": {
+  "en": {
+   "tipoFicheiro": "Feature added to Image Ads or Video Ads (must be paired with media)",
+   "copies": "Conversation Card (original post): copy up to 280 characters, hashtag up to 21 characters (including the # character). Pre-populated post (once the CTA is clicked): copy up to 256 characters, headline up to 23 characters. Thank You post: text up to 23 characters, optional URL up to 23 characters."
+  },
+  "es": {
+   "tipoFicheiro": "Función añadida a Image Ads o Video Ads (tiene que ir asociada a media)",
+   "copies": "Conversation Card (post original): texto hasta 280 caracteres, hashtag hasta 21 caracteres (incl. el carácter #). Post prerrellenado (tras hacer clic en el CTA): texto hasta 256 caracteres, título hasta 23 caracteres. Thank You post: texto hasta 23 caracteres, URL opcional hasta 23 caracteres."
+  },
+  "fr": {
+   "tipoFicheiro": "Fonctionnalité ajoutée aux Image Ads ou Video Ads (doit être associée à un média)",
+   "copies": "Conversation Card (post original) : texte jusqu'à 280 caractères, hashtag jusqu'à 21 caractères (caractère # inclus). Post pré-rempli (après clic sur le CTA) : texte jusqu'à 256 caractères, titre jusqu'à 23 caractères. Post Thank You : texte jusqu'à 23 caractères, URL facultative jusqu'à 23 caractères."
+  }
+ },
+ "X|Polls": {
+  "en": {
+   "dimensao": "Duration: min. 5 min, max. 7 days (counted from post creation, not from promotion). Can be created with or without media (image or video).",
+   "tipoFicheiro": "Feature added to a post, with or without media",
+   "copies": "Post copy: up to 280 characters; 2 to 4 answer options, up to 25 characters each (doesn't count against the post's 280 characters)."
+  },
+  "es": {
+   "dimensao": "Duración: mín. 5 min, máx. 7 días (se cuenta desde la creación del post, no desde la promoción). Se puede crear con o sin media (imagen o vídeo).",
+   "tipoFicheiro": "Función añadida a un post, con o sin media",
+   "copies": "Texto del post: hasta 280 caracteres; 2 a 4 opciones de respuesta, hasta 25 caracteres cada una (no cuenta para los 280 caracteres del post)."
+  },
+  "fr": {
+   "dimensao": "Durée : min. 5 min, max. 7 jours (comptée à partir de la création du post, pas de la promotion). Peut être créé avec ou sans média (image ou vidéo).",
+   "tipoFicheiro": "Fonctionnalité ajoutée à un post, avec ou sans média",
+   "copies": "Texte du post : jusqu'à 280 caractères ; 2 à 4 options de réponse, jusqu'à 25 caractères chacune (ne compte pas dans les 280 caractères du post)."
+  }
  }
 }
