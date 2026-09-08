@@ -3585,62 +3585,71 @@
  },
  "Reddit|Carousel Ad": {
   "en": {
-   "dimensao": "2–6 cards; 1080x1080 recommended",
-   "aspectRatio": "1:1",
-   "peso": "20 MB per image; GIF 3 MB",
-   "tipoFicheiro": "JPG, PNG, GIF"
+   "dimensao": "2 to 6 images (same ratio recommended for all). Cross-device recommended: 1200x1500 (4:5), 1440x1080 (4:3) or 1920x1080 (16:9). Mobile: 1200x1200 (1:1), 1080x1440 (3:4), 900x1200 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Desktop: 1200x1500 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Any ratio is accepted but may cause formatting discrepancies like letterboxing. GIF: recommended length 3-10s. Thumbnail (compact view, auto-generated from the 1st image or replaceable): recommended 400x300 (4:3); accepted 300x300 (1:1).",
+   "aspectRatio": "1:1, 3:4, 4:5, 4:3 or 16:9 (any ratio accepted; same ratio recommended across all images)",
+   "peso": "GIF: 3 MB; Other file types: 20 MB; Thumbnail: 3 MB",
+   "tipoFicheiro": "JPG, PNG or GIF",
+   "copies": "Headline: up to 300 characters, 1 (recommended ≤100 characters, safer ≤80 characters); Destination URL: up to 268 characters, 1 per image; Caption: up to 50 characters, 1 per image; Display URL: up to 100 characters, 1 per image (must match the destination URL's domain); CTA: choose from options."
   },
   "es": {
-   "dimensao": "2–6 tarjetas; 1080x1080 recomendado",
-   "aspectRatio": "1:1",
-   "peso": "20 MB por imagen; GIF 3 MB",
-   "tipoFicheiro": "JPG, PNG, GIF"
+   "dimensao": "2 a 6 imágenes (misma proporción recomendada en todas). Cross-device recomendado: 1200x1500 (4:5), 1440x1080 (4:3) o 1920x1080 (16:9). Móvil: 1200x1200 (1:1), 1080x1440 (3:4), 900x1200 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Escritorio: 1200x1500 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Se acepta cualquier proporción, pero puede causar discrepancias de formato como letterboxing. GIF: duración recomendada 3-10s. Miniatura (vista compacta, generada automáticamente a partir de la 1.ª imagen o reemplazable): recomendado 400x300 (4:3); aceptado 300x300 (1:1).",
+   "aspectRatio": "1:1, 3:4, 4:5, 4:3 o 16:9 (se acepta cualquier proporción; misma proporción recomendada en todas las imágenes)",
+   "peso": "GIF: 3 MB; Otros tipos de archivo: 20 MB; Miniatura: 3 MB",
+   "tipoFicheiro": "JPG, PNG o GIF",
+   "copies": "Título: hasta 300 caracteres, 1 (recomendado ≤100 caracteres, más seguro ≤80 caracteres); URL de destino: hasta 268 caracteres, 1 por imagen; Descripción: hasta 50 caracteres, 1 por imagen; URL de visualización: hasta 100 caracteres, 1 por imagen (debe coincidir con el dominio de la URL de destino); CTA: a elegir entre las opciones."
   },
   "fr": {
-   "dimensao": "2–6 cartes ; 1080x1080 recommandé",
-   "aspectRatio": "1:1",
-   "peso": "20 MB par image ; GIF 3 MB",
-   "tipoFicheiro": "JPG, PNG, GIF"
+   "dimensao": "2 à 6 images (même ratio recommandé pour toutes). Cross-device recommandé : 1200x1500 (4:5), 1440x1080 (4:3) ou 1920x1080 (16:9). Mobile : 1200x1200 (1:1), 1080x1440 (3:4), 900x1200 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Ordinateur : 1200x1500 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). N'importe quel ratio est accepté mais peut causer des problèmes de mise en forme comme le letterboxing. GIF : durée recommandée 3-10s. Miniature (vue compacte, générée automatiquement à partir de la 1ère image ou remplaçable) : recommandé 400x300 (4:3) ; accepté 300x300 (1:1).",
+   "aspectRatio": "1:1, 3:4, 4:5, 4:3 ou 16:9 (n'importe quel ratio accepté ; même ratio recommandé pour toutes les images)",
+   "peso": "GIF : 3 Mo ; Autres types de fichiers : 20 Mo ; Miniature : 3 Mo",
+   "tipoFicheiro": "JPG, PNG ou GIF",
+   "copies": "Titre : jusqu'à 300 caractères, 1 (recommandé ≤100 caractères, plus sûr ≤80 caractères) ; URL de destination : jusqu'à 268 caractères, 1 par image ; Légende : jusqu'à 50 caractères, 1 par image ; URL d'affichage : jusqu'à 100 caractères, 1 par image (doit correspondre au domaine de l'URL de destination) ; CTA : à choisir parmi les options."
   }
  },
  "Reddit|Free-form Ad": {
   "en": {
-   "dimensao": "Image: 1200x1200 (1:1) or 1920x1080/1440x1080; video depending on asset",
-   "aspectRatio": "1:1",
-   "peso": "Image ≤20 MB; video ≤1 GB",
-   "tipoFicheiro": "JPG, PNG, GIF, MP4, MOV + rich text"
+   "dimensao": "Image (optional): up to 20 files, recommended min. width 1000px; recommended resolutions 1200x1200 (1:1), 1440x1080 (4:3) or 1920x1080 (16:9). Video (optional): up to 5 files; recommended length 5-30s; recommended resolutions 1200x1200 (1:1), 1200x1500 (4:5), 1440x1080 (4:3) or 1920x1080 (16:9). Thumbnail (optional, NOT auto-generated — without a thumbnail no media shows in feeds): recommended 400x300 or 300x300 (1:1).",
+   "aspectRatio": "1:1, 4:5, 4:3 or 16:9 (any ratio accepted)",
+   "peso": "Image: 10 MB; Video: up to 1 GB (recommended 50-100 MB); Thumbnail: 3 MB",
+   "tipoFicheiro": "Image: JPG, PNG or GIF; Video: MP4 or MOV (ProRes not supported), max. frame rate 30 FPS; Thumbnail: JPG or PNG",
+   "copies": "Headline: up to 300 characters, 1 (recommended ≤100 characters, safer ≤80 characters); Body: up to 40,000 characters, 1 (recommended 3-6 lines of plain text displayed in the feed); Caption: up to 50 characters, 1 per image/video."
   },
   "es": {
-   "dimensao": "Imagen: 1200x1200 (1:1) o 1920x1080/1440x1080; vídeo según el asset",
-   "aspectRatio": "1:1",
-   "peso": "Imagen ≤20 MB; vídeo ≤1 GB",
-   "tipoFicheiro": "JPG, PNG, GIF, MP4, MOV + rich text"
+   "dimensao": "Imagen (opcional): hasta 20 archivos, ancho mín. recomendado 1000px; resoluciones recomendadas 1200x1200 (1:1), 1440x1080 (4:3) o 1920x1080 (16:9). Vídeo (opcional): hasta 5 archivos; duración recomendada 5-30s; resoluciones recomendadas 1200x1200 (1:1), 1200x1500 (4:5), 1440x1080 (4:3) o 1920x1080 (16:9). Miniatura (opcional, NO generada automáticamente — sin miniatura no se muestra ningún contenido multimedia en el feed): recomendado 400x300 o 300x300 (1:1).",
+   "aspectRatio": "1:1, 4:5, 4:3 o 16:9 (se acepta cualquier proporción)",
+   "peso": "Imagen: 10 MB; Vídeo: hasta 1 GB (recomendado 50-100 MB); Miniatura: 3 MB",
+   "tipoFicheiro": "Imagen: JPG, PNG o GIF; Vídeo: MP4 o MOV (ProRes no compatible), frecuencia de fotogramas máx. 30 FPS; Miniatura: JPG o PNG",
+   "copies": "Título: hasta 300 caracteres, 1 (recomendado ≤100 caracteres, más seguro ≤80 caracteres); Cuerpo: hasta 40.000 caracteres, 1 (recomendado 3-6 líneas de texto simple mostradas en el feed); Descripción: hasta 50 caracteres, 1 por imagen/vídeo."
   },
   "fr": {
-   "dimensao": "Image : 1200x1200 (1:1) ou 1920x1080/1440x1080 ; vidéo selon l'asset",
-   "aspectRatio": "1:1",
-   "peso": "Image ≤20 MB ; vidéo ≤1 GB",
-   "tipoFicheiro": "JPG, PNG, GIF, MP4, MOV + rich text"
+   "dimensao": "Image (facultatif) : jusqu'à 20 fichiers, largeur min. recommandée 1000px ; résolutions recommandées 1200x1200 (1:1), 1440x1080 (4:3) ou 1920x1080 (16:9). Vidéo (facultatif) : jusqu'à 5 fichiers ; durée recommandée 5-30s ; résolutions recommandées 1200x1200 (1:1), 1200x1500 (4:5), 1440x1080 (4:3) ou 1920x1080 (16:9). Miniature (facultatif, NON générée automatiquement — sans miniature, aucun média ne s'affiche dans le fil) : recommandé 400x300 ou 300x300 (1:1).",
+   "aspectRatio": "1:1, 4:5, 4:3 ou 16:9 (n'importe quel ratio accepté)",
+   "peso": "Image : 10 Mo ; Vidéo : jusqu'à 1 Go (recommandé 50-100 Mo) ; Miniature : 3 Mo",
+   "tipoFicheiro": "Image : JPG, PNG ou GIF ; Vidéo : MP4 ou MOV (ProRes non pris en charge), fréquence d'images max. 30 FPS ; Miniature : JPG ou PNG",
+   "copies": "Titre : jusqu'à 300 caractères, 1 (recommandé ≤100 caractères, plus sûr ≤80 caractères) ; Corps : jusqu'à 40 000 caractères, 1 (recommandé 3-6 lignes de texte brut affichées dans le fil) ; Légende : jusqu'à 50 caractères, 1 par image/vidéo."
   }
  },
  "Reddit|Image Ad": {
   "en": {
-   "dimensao": "1080x1080 (1:1); 1080x1350 (4:5); 1440x1080 (4:3); 1920x1080 (16:9)",
-   "aspectRatio": "1:1 or 4:5 or 4:3 or 16:9",
-   "peso": "3 MB",
-   "tipoFicheiro": "JPG, PNG, GIF (static)"
+   "dimensao": "Image — Cross-device recommended: 1440x1080 (4:3). Mobile: 1080x1080 (1:1), 1080x1440 (3:4), 1080x1350 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Desktop: 1440x1080, 1920x1080 (16:9). Any ratio is accepted but may cause formatting discrepancies like letterboxing. Thumbnail (conversation/compact view only, auto-generated or replaceable): recommended 400x300 (4:3); accepted 300x300 (1:1) or 400x225 (16:9).",
+   "aspectRatio": "1:1, 3:4, 4:5, 4:3 or 16:9 (any ratio accepted; recommended 4:3 cross-device)",
+   "peso": "Image: 3 MB; Thumbnail: 3 MB",
+   "tipoFicheiro": "JPG, PNG or GIF (thumbnail: GIF converted to a still image)",
+   "copies": "Headline: up to 300 characters (recommended ≤100 characters, safer ≤80 characters); Destination URL: up to 268 characters; Display URL: up to 100 characters (must match the destination URL's domain); CTA: choose from options."
   },
   "es": {
-   "dimensao": "1080x1080 (1:1); 1080x1350 (4:5); 1440x1080 (4:3); 1920x1080 (16:9)",
-   "aspectRatio": "1:1 o 4:5 o 4:3 o 16:9",
-   "peso": "3 MB",
-   "tipoFicheiro": "JPG, PNG, GIF (estático)"
+   "dimensao": "Imagen — Cross-device recomendado: 1440x1080 (4:3). Móvil: 1080x1080 (1:1), 1080x1440 (3:4), 1080x1350 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Escritorio: 1440x1080, 1920x1080 (16:9). Se acepta cualquier proporción, pero puede causar discrepancias de formato como letterboxing. Miniatura (solo vista de conversación/compacta, generada automáticamente o reemplazable): recomendado 400x300 (4:3); aceptado 300x300 (1:1) o 400x225 (16:9).",
+   "aspectRatio": "1:1, 3:4, 4:5, 4:3 o 16:9 (se acepta cualquier proporción; recomendado 4:3 cross-device)",
+   "peso": "Imagen: 3 MB; Miniatura: 3 MB",
+   "tipoFicheiro": "JPG, PNG o GIF (miniatura: GIF convertido a imagen estática)",
+   "copies": "Título: hasta 300 caracteres (recomendado ≤100 caracteres, más seguro ≤80 caracteres); URL de destino: hasta 268 caracteres; URL de visualización: hasta 100 caracteres (debe coincidir con el dominio de la URL de destino); CTA: a elegir entre las opciones."
   },
   "fr": {
-   "dimensao": "1080x1080 (1:1) ; 1080x1350 (4:5) ; 1440x1080 (4:3) ; 1920x1080 (16:9)",
-   "aspectRatio": "1:1 ou 4:5 ou 4:3 ou 16:9",
-   "peso": "3 MB",
-   "tipoFicheiro": "JPG, PNG, GIF (statique)"
+   "dimensao": "Image — Cross-device recommandé : 1440x1080 (4:3). Mobile : 1080x1080 (1:1), 1080x1440 (3:4), 1080x1350 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Ordinateur : 1440x1080, 1920x1080 (16:9). N'importe quel ratio est accepté mais peut causer des problèmes de mise en forme comme le letterboxing. Miniature (vue conversation/compacte uniquement, générée automatiquement ou remplaçable) : recommandé 400x300 (4:3) ; accepté 300x300 (1:1) ou 400x225 (16:9).",
+   "aspectRatio": "1:1, 3:4, 4:5, 4:3 ou 16:9 (n'importe quel ratio accepté ; recommandé 4:3 cross-device)",
+   "peso": "Image : 3 Mo ; Miniature : 3 Mo",
+   "tipoFicheiro": "JPG, PNG ou GIF (miniature : GIF converti en image fixe)",
+   "copies": "Titre : jusqu'à 300 caractères (recommandé ≤100 caractères, plus sûr ≤80 caractères) ; URL de destination : jusqu'à 268 caractères ; URL d'affichage : jusqu'à 100 caractères (doit correspondre au domaine de l'URL de destination) ; CTA : à choisir parmi les options."
   }
  },
  "Reddit|Product Ad": {
@@ -3662,19 +3671,25 @@
  },
  "Reddit|Video Ad": {
   "en": {
-   "dimensao": "1:1 / 4:5 / 16:9; 1080p recommended",
-   "peso": "1 GB",
-   "tipoFicheiro": "MP4, MOV"
+   "dimensao": "Video — Cross-device recommended: 1440x1080 (4:3) or 1920x1080 (16:9). Mobile: 1200x1200 (1:1), 900x1200 (3:4), 1200x1500 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Desktop: 1440x1080 (4:3), 1920x1080 (16:9). Any ratio is accepted but may cause formatting discrepancies like letterboxing. Length: 2s to 15min (recommended 5-30s). Thumbnail: resolution should match the video's ratio (auto-generated or replaceable).",
+   "aspectRatio": "1:1, 3:4, 4:5, 4:3 or 16:9 (any ratio accepted)",
+   "peso": "Video: up to 1 GB; Thumbnail: 3 MB",
+   "tipoFicheiro": "MP4 or MOV (ProRes not supported); max. frame rate 30 FPS; thumbnail: JPG, PNG or GIF",
+   "copies": "Headline: up to 300 characters (recommended ≤100 characters, safer ≤80 characters); Destination URL: up to 268 characters; Display URL: up to 100 characters (must match the destination URL's domain); CTA: choose from options."
   },
   "es": {
-   "dimensao": "1:1 / 4:5 / 16:9; 1080p recomendado",
-   "peso": "1 GB",
-   "tipoFicheiro": "MP4, MOV"
+   "dimensao": "Vídeo — Cross-device recomendado: 1440x1080 (4:3) o 1920x1080 (16:9). Móvil: 1200x1200 (1:1), 900x1200 (3:4), 1200x1500 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Escritorio: 1440x1080 (4:3), 1920x1080 (16:9). Se acepta cualquier proporción, pero puede causar discrepancias de formato como letterboxing. Duración: 2s a 15min (recomendado 5-30s). Miniatura: la resolución debe coincidir con la proporción del vídeo (generada automáticamente o reemplazable).",
+   "aspectRatio": "1:1, 3:4, 4:5, 4:3 o 16:9 (se acepta cualquier proporción)",
+   "peso": "Vídeo: hasta 1 GB; Miniatura: 3 MB",
+   "tipoFicheiro": "MP4 o MOV (ProRes no compatible); frecuencia de fotogramas máx. 30 FPS; miniatura: JPG, PNG o GIF",
+   "copies": "Título: hasta 300 caracteres (recomendado ≤100 caracteres, más seguro ≤80 caracteres); URL de destino: hasta 268 caracteres; URL de visualización: hasta 100 caracteres (debe coincidir con el dominio de la URL de destino); CTA: a elegir entre las opciones."
   },
   "fr": {
-   "dimensao": "1:1 / 4:5 / 16:9 ; 1080p recommandé",
-   "peso": "1 GB",
-   "tipoFicheiro": "MP4, MOV"
+   "dimensao": "Vidéo — Cross-device recommandé : 1440x1080 (4:3) ou 1920x1080 (16:9). Mobile : 1200x1200 (1:1), 900x1200 (3:4), 1200x1500 (4:5), 1440x1080 (4:3), 1920x1080 (16:9). Ordinateur : 1440x1080 (4:3), 1920x1080 (16:9). N'importe quel ratio est accepté mais peut causer des problèmes de mise en forme comme le letterboxing. Durée : 2s à 15min (recommandé 5-30s). Miniature : la résolution doit correspondre au ratio de la vidéo (générée automatiquement ou remplaçable).",
+   "aspectRatio": "1:1, 3:4, 4:5, 4:3 ou 16:9 (n'importe quel ratio accepté)",
+   "peso": "Vidéo : jusqu'à 1 Go ; Miniature : 3 Mo",
+   "tipoFicheiro": "MP4 ou MOV (ProRes non pris en charge) ; fréquence d'images max. 30 FPS ; miniature : JPG, PNG ou GIF",
+   "copies": "Titre : jusqu'à 300 caractères (recommandé ≤100 caractères, plus sûr ≤80 caractères) ; URL de destination : jusqu'à 268 caractères ; URL d'affichage : jusqu'à 100 caractères (doit correspondre au domaine de l'URL de destination) ; CTA : à choisir parmi les options."
   }
  },
  "Snapchat|AR Lenses Filters": {
