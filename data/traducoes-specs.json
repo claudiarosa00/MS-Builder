@@ -3919,22 +3919,22 @@
  },
  "TikTok|TopView": {
   "en": {
-   "dimensao": "≥540x960",
-   "aspectRatio": "9:16",
-   "peso": "500 MB",
-   "tipoFicheiro": "MP4, MOV, MPEG, 3GP"
+   "dimensao": "Spark Ads Pull: no minimum/maximum duration (uses the organic video as published). Non-Spark Ads and Spark Ads Push: vertical, ≥540x960px; duration 5-60s (recommended 9-15s).",
+   "peso": "Non-Spark Ads and Spark Ads Push: ≤500 MB, bitrate ≥2,500kbps. Spark Ads Pull: no own limit (uses the already published video).",
+   "tipoFicheiro": "Spark Ads Pull: .mp4 or .mov (typically). Non-Spark Ads and Spark Ads Push: .mp4, .mov, .mpeg, .3gp.",
+   "copies": "Profile photo: square, 98x98px, <50 KB, .jpg/.jpeg/.png (key element centered within a 66x66px area); on Spark Ads it uses the video account's profile photo. Account name: 1 line, max. 10 characters (CN/JP/KR) or 20 characters (other languages), no emojis or '{ }'. Ad caption: Spark Ads Pull up to 100 characters (pulled from the organic video, can be blank); Non-Spark/Spark Push up to 100 characters, max. 4 lines visible (recommended ≤50 characters CN/JP/KR or ≤100 characters other languages to avoid being covered by 'See more'), no '{ }', emojis only supported from version 11. Max. 20 ads per ad group."
   },
   "es": {
-   "dimensao": "≥540x960",
-   "aspectRatio": "9:16",
-   "peso": "500 MB",
-   "tipoFicheiro": "MP4, MOV, MPEG, 3GP"
+   "dimensao": "Spark Ads Pull: sin duración mínima/máxima (usa el vídeo orgánico tal como se publicó). Non-Spark Ads y Spark Ads Push: vertical, ≥540x960px; duración 5-60s (recomendado 9-15s).",
+   "peso": "Non-Spark Ads y Spark Ads Push: ≤500 MB, bitrate ≥2.500kbps. Spark Ads Pull: sin límite propio (usa el vídeo ya publicado).",
+   "tipoFicheiro": "Spark Ads Pull: .mp4 o .mov (normalmente). Non-Spark Ads y Spark Ads Push: .mp4, .mov, .mpeg, .3gp.",
+   "copies": "Foto de perfil: cuadrada, 98x98px, <50 KB, .jpg/.jpeg/.png (elemento clave centrado en un área de 66x66px); en Spark Ads usa la foto de perfil de la cuenta del vídeo. Nombre de la cuenta: 1 línea, máx. 10 caracteres (CN/JP/KR) o 20 caracteres (otros idiomas), sin emojis ni '{ }'. Título del anuncio: Spark Ads Pull hasta 100 caracteres (extraído del vídeo orgánico, puede estar en blanco); Non-Spark/Spark Push hasta 100 caracteres, máx. 4 líneas visibles (recomendado ≤50 caracteres CN/JP/KR o ≤100 caracteres otros idiomas para evitar ser cubierto por 'Ver más'), sin '{ }', emojis solo compatibles a partir de la versión 11. Máx. 20 anuncios por grupo de anuncios."
   },
   "fr": {
-   "dimensao": "≥540x960",
-   "aspectRatio": "9:16",
-   "peso": "500 MB",
-   "tipoFicheiro": "MP4, MOV, MPEG, 3GP"
+   "dimensao": "Spark Ads Pull : sans durée minimale/maximale (utilise la vidéo organique telle que publiée). Non-Spark Ads et Spark Ads Push : vertical, ≥540x960px ; durée 5-60s (recommandé 9-15s).",
+   "peso": "Non-Spark Ads et Spark Ads Push : ≤500 Mo, bitrate ≥2 500kbps. Spark Ads Pull : pas de limite propre (utilise la vidéo déjà publiée).",
+   "tipoFicheiro": "Spark Ads Pull : .mp4 ou .mov (généralement). Non-Spark Ads et Spark Ads Push : .mp4, .mov, .mpeg, .3gp.",
+   "copies": "Photo de profil : carrée, 98x98px, <50 Ko, .jpg/.jpeg/.png (élément clé centré dans une zone de 66x66px) ; sur Spark Ads, la photo de profil du compte de la vidéo est utilisée. Nom du compte : 1 ligne, max. 10 caractères (CN/JP/KR) ou 20 caractères (autres langues), sans emojis ni « { } ». Légende de l'annonce : Spark Ads Pull jusqu'à 100 caractères (extraite de la vidéo organique, peut être vide) ; Non-Spark/Spark Push jusqu'à 100 caractères, max. 4 lignes visibles (recommandé ≤50 caractères CN/JP/KR ou ≤100 caractères autres langues pour éviter d'être masqué par « Voir plus »), sans « { } », emojis pris en charge uniquement à partir de la version 11. Max. 20 publicités par groupe de publicités."
   }
  },
  "X|Carousel Ad": {
@@ -6195,6 +6195,23 @@
    "dimensao": "Durée : min. 5 min, max. 7 jours (comptée à partir de la création du post, pas de la promotion). Peut être créé avec ou sans média (image ou vidéo).",
    "tipoFicheiro": "Fonctionnalité ajoutée à un post, avec ou sans média",
    "copies": "Texte du post : jusqu'à 280 caractères ; 2 à 4 options de réponse, jusqu'à 25 caractères chacune (ne compte pas dans les 280 caractères du post)."
+  }
+ },
+ "TikTok|TopReach": {
+  "en": {
+   "dimensao": "Combines the TopView (first content seen when opening the app) and Top Feed (first in-feed ad in the For You feed) placements, for 1 day (24h). No dayparting. Frequency: 1 impression per user, per placement (guaranteed unique reach frequency of 1).",
+   "tipoFicheiro": "Supports Spark Ads and Non-Spark Ads (recommended 1-2 creatives per campaign); Duet/Stitch: Spark Ads follows the original video's toggles, Non-Spark Ads not supported.",
+   "copies": "Objective: Reach. Available targeting: age (18+) and location (country). Third-party tracking supported (impressions and clicks). Landing page: standard webview (HTTPS) or internal TikTok pages (Branded Hashtag Challenge, Effect, TikTok Shop) — doesn't support automatic redirect to an app store or linking from TopView to a LIVE stream. Music: same policy as standard reservation in-feed ads (Commercial Music Library or your own authorized tracks). Comments and video download can be disabled. Add-ons: only those available on both placements (TopView + Top Feed). Sound: always on. Watermark: you can request a watermark-free downloadable video."
+  },
+  "es": {
+   "dimensao": "Combina los placements TopView (primer contenido visto al abrir la app) y Top Feed (primer anuncio in-feed en el feed For You), durante 1 día (24h). Sin dayparting. Frecuencia: 1 impresión por usuario, por placement (alcance único garantizado de frecuencia 1).",
+   "tipoFicheiro": "Compatible con Spark Ads y Non-Spark Ads (recomendado 1-2 creatividades por campaña); Duet/Stitch: Spark Ads sigue la configuración del vídeo original, Non-Spark Ads no compatible.",
+   "copies": "Objetivo: Reach. Segmentación disponible: edad (18+) y ubicación (país). Seguimiento de terceros compatible (impresiones y clics). Landing page: webview estándar (HTTPS) o páginas internas de TikTok (Branded Hashtag Challenge, Effect, TikTok Shop) — no admite redirección automática a una tienda de apps ni enlace desde TopView a un LIVE. Música: misma política que los anuncios in-feed reservation estándar (Commercial Music Library o pistas propias autorizadas). Se pueden desactivar los comentarios y la descarga del vídeo. Add-ons: solo los disponibles en ambos placements (TopView + Top Feed). Sonido: siempre activado. Marca de agua: se puede solicitar un vídeo descargable sin marca de agua."
+  },
+  "fr": {
+   "dimensao": "Combine les emplacements TopView (premier contenu vu à l'ouverture de l'app) et Top Feed (première publicité in-feed dans le fil For You), pendant 1 jour (24h). Pas de dayparting. Fréquence : 1 impression par utilisateur, par emplacement (fréquence de portée unique garantie de 1).",
+   "tipoFicheiro": "Prend en charge Spark Ads et Non-Spark Ads (recommandé 1-2 créations par campagne) ; Duet/Stitch : Spark Ads suit les réglages de la vidéo originale, Non-Spark Ads non pris en charge.",
+   "copies": "Objectif : Reach. Ciblage disponible : âge (18+) et localisation (pays). Suivi tiers pris en charge (impressions et clics). Landing page : webview standard (HTTPS) ou pages internes TikTok (Branded Hashtag Challenge, Effect, TikTok Shop) — ne prend pas en charge la redirection automatique vers un app store ni un lien depuis TopView vers un LIVE. Musique : même politique que les publicités in-feed reservation standard (Commercial Music Library ou vos propres pistes autorisées). Les commentaires et le téléchargement de la vidéo peuvent être désactivés. Add-ons : seulement ceux disponibles sur les deux emplacements (TopView + Top Feed). Son : toujours activé. Filigrane : vous pouvez demander une vidéo téléchargeable sans filigrane."
   }
  }
 }
