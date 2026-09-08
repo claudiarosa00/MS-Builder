@@ -3802,22 +3802,25 @@
  },
  "TikTok|Branded Mission": {
   "en": {
-   "dimensao": "Final creative follows In-Feed/Spark Ads",
-   "peso": "Per In-Feed/Spark video",
-   "tipoFicheiro": "Eligible creator video / Spark Ads",
-   "aspectRatio": "9:16"
+   "dimensao": "MISSION ICON: 240x240px. EXAMPLE VIDEO (required, 1 to 10 videos): 9:16, ≥720x1280px, recommended length 12-15s. OFFICIAL MUSIC (optional): cover 300x300 (key elements centered within a 260px diameter), length 15s-1min (recommended 15s). BRAND LOGO (optional): main image + up to 4 secondary, min. 1000x1000px. QUICK EFFECT (optional): 1 to 10 images, 100x100 to 1000x1000px. BRAND SAFETY — competitor exclusion (up to 5 competitors) / negative content: brand/competitor logos.",
+   "aspectRatio": "9:16 (example video)",
+   "peso": "Icon: ≤500 KB. Example video: ≤100 MB, bitrate >2,500kbps. Music cover: ≤1 MB. Main/secondary logo: ≤10 MB each. Brand safety logos (competitors/brand): ≤1024 KB each.",
+   "tipoFicheiro": "Icon: PNG, JPG or JPEG. Example video: MP4, MPEG, 3GP, AVI, MOV. Music: MP3. Logos: JPG/JPEG/PNG (PNG recommended).",
+   "copies": "Advertiser name: up to 24 characters (no spaces/emojis/special characters, except '&'). Mission name: up to 70 characters (recommended ≤18 characters to fit on one line; no spaces/emojis/special characters like < > \" &). Mission description: up to 300 characters (recommended ≤150 characters). Example video caption: up to 150 characters (recommended 4-60 characters, no line breaks). Song name: up to 60 characters (recommended ≤12 characters); artist name unlimited (recommended ≤12 characters). Logo name: up to 20 characters. Competitor/brand name (brand safety): up to 20 characters each. Requirements: at least 1 required general requirement (official music, official hashtag, mention official account, use/trigger Branded Effect, or Duet); up to 3 optional specific requirements (dance, lip-sync, change outfits, show your face); optional brand requirements (reveal logo >1s, use Quick Effect)."
   },
   "es": {
-   "dimensao": "El creativo final sigue In-Feed/Spark Ads",
-   "peso": "Según el vídeo In-Feed/Spark",
-   "tipoFicheiro": "Vídeo de creator elegible / Spark Ads",
-   "aspectRatio": "9:16"
+   "dimensao": "ICONO DE LA MISSION: 240x240px. VÍDEO DE EJEMPLO (obligatorio, 1 a 10 vídeos): 9:16, ≥720x1280px, duración recomendada 12-15s. MÚSICA OFICIAL (opcional): portada 300x300 (elementos clave centrados en un diámetro de 260px), duración 15s-1min (recomendado 15s). LOGO DE LA MARCA (opcional): imagen principal + hasta 4 secundarias, mín. 1000x1000px. QUICK EFFECT (opcional): 1 a 10 imágenes, 100x100 a 1000x1000px. BRAND SAFETY — exclusión de competidores (hasta 5) / contenido negativo: logos de marca/competidores.",
+   "aspectRatio": "9:16 (vídeo de ejemplo)",
+   "peso": "Icono: ≤500 KB. Vídeo de ejemplo: ≤100 MB, bitrate >2.500kbps. Portada de música: ≤1 MB. Logo principal/secundario: ≤10 MB cada uno. Logos de brand safety (competidores/marca): ≤1024 KB cada uno.",
+   "tipoFicheiro": "Icono: PNG, JPG o JPEG. Vídeo de ejemplo: MP4, MPEG, 3GP, AVI, MOV. Música: MP3. Logos: JPG/JPEG/PNG (recomendado PNG).",
+   "copies": "Nombre del anunciante: hasta 24 caracteres (sin espacios/emojis/caracteres especiales, excepto '&'). Nombre de la Mission: hasta 70 caracteres (recomendado ≤18 caracteres para caber en una línea; sin espacios/emojis/caracteres especiales como < > \" &). Descripción de la Mission: hasta 300 caracteres (recomendado ≤150 caracteres). Título del vídeo de ejemplo: hasta 150 caracteres (recomendado 4-60 caracteres, sin saltos de línea). Nombre de la canción: hasta 60 caracteres (recomendado ≤12 caracteres); nombre del artista sin límite (recomendado ≤12 caracteres). Nombre del logo: hasta 20 caracteres. Nombre de competidor/marca (brand safety): hasta 20 caracteres cada uno. Requisitos: al menos 1 requisito general obligatorio (música oficial, hashtag oficial, mencionar cuenta oficial, usar/activar Branded Effect, o Duet); hasta 3 requisitos específicos opcionales (bailar, lip-sync, cambiar de ropa, mostrar la cara); requisitos de marca opcionales (revelar el logo >1s, usar Quick Effect)."
   },
   "fr": {
-   "dimensao": "Créatif final suit In-Feed/Spark Ads",
-   "peso": "Selon vidéo In-Feed/Spark",
-   "tipoFicheiro": "Vidéo de créateur éligible / Spark Ads",
-   "aspectRatio": "9:16"
+   "dimensao": "ICÔNE DE LA MISSION : 240x240px. VIDÉO D'EXEMPLE (obligatoire, 1 à 10 vidéos) : 9:16, ≥720x1280px, durée recommandée 12-15s. MUSIQUE OFFICIELLE (facultatif) : couverture 300x300 (éléments clés centrés dans un diamètre de 260px), durée 15s-1min (recommandé 15s). LOGO DE LA MARQUE (facultatif) : image principale + jusqu'à 4 secondaires, min. 1000x1000px. QUICK EFFECT (facultatif) : 1 à 10 images, 100x100 à 1000x1000px. BRAND SAFETY — exclusion de concurrents (jusqu'à 5) / contenu négatif : logos de marque/concurrents.",
+   "aspectRatio": "9:16 (vidéo d'exemple)",
+   "peso": "Icône : ≤500 Ko. Vidéo d'exemple : ≤100 Mo, bitrate >2 500kbps. Couverture musicale : ≤1 Mo. Logo principal/secondaire : ≤10 Mo chacun. Logos brand safety (concurrents/marque) : ≤1024 Ko chacun.",
+   "tipoFicheiro": "Icône : PNG, JPG ou JPEG. Vidéo d'exemple : MP4, MPEG, 3GP, AVI, MOV. Musique : MP3. Logos : JPG/JPEG/PNG (PNG recommandé).",
+   "copies": "Nom de l'annonceur : jusqu'à 24 caractères (sans espaces/emojis/caractères spéciaux, sauf « & »). Nom de la Mission : jusqu'à 70 caractères (recommandé ≤18 caractères pour tenir sur une ligne ; sans espaces/emojis/caractères spéciaux comme < > \" &). Description de la Mission : jusqu'à 300 caractères (recommandé ≤150 caractères). Légende de la vidéo d'exemple : jusqu'à 150 caractères (recommandé 4-60 caractères, sans sauts de ligne). Nom de la chanson : jusqu'à 60 caractères (recommandé ≤12 caractères) ; nom de l'artiste sans limite (recommandé ≤12 caractères). Nom du logo : jusqu'à 20 caractères. Nom du concurrent/marque (brand safety) : jusqu'à 20 caractères chacun. Exigences : au moins 1 exigence générale obligatoire (musique officielle, hashtag officiel, mentionner le compte officiel, utiliser/déclencher le Branded Effect, ou Duet) ; jusqu'à 3 exigences spécifiques facultatives (danser, playback, changer de tenue, montrer son visage) ; exigences de marque facultatives (révéler le logo >1s, utiliser Quick Effect)."
   }
  },
  "TikTok|Carousel Ads": {
@@ -3842,22 +3845,25 @@
  },
  "TikTok|In-Feed (Standard Feed)": {
   "en": {
-   "dimensao": "Vertical recommended; ≥540x960 recommended",
-   "aspectRatio": "9:16",
-   "peso": "Up to 500 MB (reservation); limits may vary in auction",
-   "tipoFicheiro": "MP4, MOV, MPEG, 3GP"
+   "dimensao": "Vertical (recommended): 9:16, ≥540x960px. Horizontal: 16:9, ≥960x540px. Square: 1:1, ≥640x640px. Length: up to 10min. Profile photo (optional): 98x98px, square (default photo used if left blank). Account name (App Ads): automatically pulled from the App Store/Google Play; used as the in-app browser landing page heading. Download Card (App Ads only): auto-generated, shown right after the CTA or background color.",
+   "aspectRatio": "9:16 (recommended), 16:9 or 1:1",
+   "peso": "≤500 MB; bitrate ≥516 kbps. Profile photo: <50 KB.",
+   "tipoFicheiro": "MP4, MOV, MPEG, 3GP, AVI. Profile photo: JPG, JPEG, PNG.",
+   "copies": "Caption: displayed in white, uniform font (not customizable); doesn't support clickable links, the '@' symbol, or hashtags. Account name: 1 line, max. 10 characters (CN/JP/KR) or 20 characters (other languages). Safe zones vary by orientation (vertical/horizontal/square), language (LTR/RTL) and anchor use — reference files available on TikTok Ads Help."
   },
   "es": {
-   "dimensao": "Vertical recomendado; ≥540x960 recomendado",
-   "aspectRatio": "9:16",
-   "peso": "Hasta 500 MB (reservation); los límites pueden variar en auction",
-   "tipoFicheiro": "MP4, MOV, MPEG, 3GP"
+   "dimensao": "Vertical (recomendado): 9:16, ≥540x960px. Horizontal: 16:9, ≥960x540px. Square: 1:1, ≥640x640px. Duración: hasta 10min. Foto de perfil (opcional): 98x98px, cuadrada (se usa una foto predeterminada si se deja en blanco). Nombre de la cuenta (App Ads): se extrae automáticamente de la App Store/Google Play; se usa como título de la landing page en el navegador in-app. Download Card (solo App Ads): generada automáticamente, aparece justo después del CTA o del color de fondo.",
+   "aspectRatio": "9:16 (recomendado), 16:9 o 1:1",
+   "peso": "≤500 MB; bitrate ≥516 kbps. Foto de perfil: <50 KB.",
+   "tipoFicheiro": "MP4, MOV, MPEG, 3GP, AVI. Foto de perfil: JPG, JPEG, PNG.",
+   "copies": "Título: se muestra en blanco, fuente uniforme (no personalizable); no admite enlaces clicables, el símbolo '@' ni hashtags. Nombre de la cuenta: 1 línea, máx. 10 caracteres (CN/JP/KR) o 20 caracteres (otros idiomas). Las zonas seguras varían según la orientación (vertical/horizontal/cuadrada), el idioma (LTR/RTL) y el uso de anchors — hay archivos de referencia disponibles en TikTok Ads Help."
   },
   "fr": {
-   "dimensao": "Vertical recommandé ; ≥540x960 recommandé",
-   "aspectRatio": "9:16",
-   "peso": "Jusqu'à 500 MB (reservation) ; les limites peuvent varier en auction",
-   "tipoFicheiro": "MP4, MOV, MPEG, 3GP"
+   "dimensao": "Vertical (recommandé) : 9:16, ≥540x960px. Horizontal : 16:9, ≥960x540px. Carré : 1:1, ≥640x640px. Durée : jusqu'à 10min. Photo de profil (facultatif) : 98x98px, carrée (une photo par défaut est utilisée si laissée vide). Nom du compte (App Ads) : extrait automatiquement de l'App Store/Google Play ; utilisé comme titre de la landing page dans le navigateur intégré. Download Card (App Ads uniquement) : générée automatiquement, apparaît juste après le CTA ou la couleur de fond.",
+   "aspectRatio": "9:16 (recommandé), 16:9 ou 1:1",
+   "peso": "≤500 Mo ; bitrate ≥516 kbps. Photo de profil : <50 Ko.",
+   "tipoFicheiro": "MP4, MOV, MPEG, 3GP, AVI. Photo de profil : JPG, JPEG, PNG.",
+   "copies": "Légende : affichée en blanc, police uniforme (non personnalisable) ; ne prend pas en charge les liens cliquables, le symbole « @ » ni les hashtags. Nom du compte : 1 ligne, max. 10 caractères (CN/JP/KR) ou 20 caractères (autres langues). Les zones de sécurité varient selon l'orientation (verticale/horizontale/carrée), la langue (LTR/RTL) et l'utilisation d'ancres — fichiers de référence disponibles sur TikTok Ads Help."
   }
  },
  "TikTok|Pulse": {
@@ -3879,22 +3885,22 @@
  },
  "TikTok|Spark Ads": {
   "en": {
-   "dimensao": "Uses organic video; for push, ≥540x960 recommended",
-   "aspectRatio": "9:16",
-   "peso": "Up to 500 MB for push",
-   "tipoFicheiro": "Authorized organic video or MP4/MOV/MPEG/3GP"
+   "dimensao": "Pull: uses the organic video as published, no length restriction; caption pulled directly from the video, up to 4 lines visible. Push: uploads a new video, ≥540x960px.",
+   "aspectRatio": "9:16 (recommended for Push); Pull uses the organic video's ratio",
+   "peso": "Push: up to 500 MB",
+   "tipoFicheiro": "Pull: .mp4 or .mov (from the organic video). Push: MP4, MOV, MPEG, 3GP."
   },
   "es": {
-   "dimensao": "Usa vídeo orgánico; para push, ≥540x960 recomendado",
-   "aspectRatio": "9:16",
-   "peso": "Hasta 500 MB para push",
-   "tipoFicheiro": "Vídeo orgánico autorizado o MP4/MOV/MPEG/3GP"
+   "dimensao": "Pull: usa el vídeo orgánico tal como se publicó, sin restricción de duración; el título se extrae directamente del vídeo, hasta 4 líneas visibles. Push: sube un vídeo nuevo, ≥540x960px.",
+   "aspectRatio": "9:16 (recomendado para Push); Pull usa la proporción del vídeo orgánico",
+   "peso": "Push: hasta 500 MB",
+   "tipoFicheiro": "Pull: .mp4 o .mov (del vídeo orgánico). Push: MP4, MOV, MPEG, 3GP."
   },
   "fr": {
-   "dimensao": "Utilise la vidéo organique ; pour le push, ≥540x960 recommandé",
-   "aspectRatio": "9:16",
-   "peso": "Jusqu'à 500 MB pour le push",
-   "tipoFicheiro": "Vidéo organique autorisée ou MP4/MOV/MPEG/3GP"
+   "dimensao": "Pull : utilise la vidéo organique telle que publiée, sans restriction de durée ; la légende est extraite directement de la vidéo, jusqu'à 4 lignes visibles. Push : télécharge une nouvelle vidéo, ≥540x960px.",
+   "aspectRatio": "9:16 (recommandé pour Push) ; Pull utilise le ratio de la vidéo organique",
+   "peso": "Push : jusqu'à 500 Mo",
+   "tipoFicheiro": "Pull : .mp4 ou .mov (de la vidéo organique). Push : MP4, MOV, MPEG, 3GP."
   }
  },
  "TikTok|Top Feed": {
