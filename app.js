@@ -861,7 +861,7 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
   folha.mergeCells(linha, 1, linha, 11);
   const celulaTitulo = folha.getCell(linha, 1);
   celulaTitulo.value = tituloSeccao;
-  celulaTitulo.font = { name: "Arial", size: 12, bold: true, color: { argb: "FFFFFFFF" } };
+  celulaTitulo.font = { name: "Arial Nova", size: 12, bold: true, color: { argb: "FFFFFFFF" } };
   celulaTitulo.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF1A1A1A" } };
   celulaTitulo.alignment = { vertical: "middle", horizontal: "left" };
   linha += 1;
@@ -870,7 +870,7 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
   colunas.forEach((titulo, indice) => {
     const celula = folha.getCell(linha, indice + 1);
     celula.value = titulo;
-    celula.font = { name: "Arial", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
+    celula.font = { name: "Arial Nova", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
     celula.fill = { type: "pattern", pattern: "solid", fgColor: { argb: config.corCabecalho } };
     celula.alignment = { vertical: "middle", wrapText: true };
     celula.border = ESTILO_BORDA_COMPLETA;
@@ -893,14 +893,14 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
       "",
     ];
     linhaFormato.eachCell((celula) => {
-      celula.font = { name: "Arial", size: 10, color: { argb: "FF0F1724" } };
+      celula.font = { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } };
       celula.alignment = { vertical: "top", wrapText: true };
       celula.border = ESTILO_BORDA_COMPLETA;
     });
     // O texto do link fica na cor de destaque, sublinhado, para
     // parecer clicável mesmo antes de o utilizador lhe tocar.
     if (formato.link) {
-      linhaFormato.getCell(10).font = { name: "Arial", size: 10, color: { argb: "FF1155CC" }, underline: true };
+      linhaFormato.getCell(10).font = { name: "Arial Nova", size: 10, color: { argb: "FF1155CC" }, underline: true };
     }
   });
   linha += formatosDaSeccao.length;
@@ -946,19 +946,24 @@ async function exportarSelecaoParaExcel() {
   folha.addImage(idImagemLogo, { tl: { col: 1, row: 1 }, ext: { width: larguraLogo, height: alturaLogo } });
 
   // --- Bloco Companhia / Cliente / Campanha / Meio, no topo ---
-  const estiloRotulo = { font: { name: "Arial", size: 10, bold: true, color: { argb: "FF5B6678" } } };
+  const estiloRotulo = { font: { name: "Arial Nova", size: 10, bold: true, color: { argb: "FF5B6678" } } };
+  const estiloValor = { font: { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } } };
   folha.getCell("E3").value = t("excelLabelCompanhia");
   folha.getCell("E3").style = estiloRotulo;
   folha.getCell("F3").value = companhia;
+  folha.getCell("F3").style = estiloValor;
   folha.getCell("E4").value = t("excelLabelCliente");
   folha.getCell("E4").style = estiloRotulo;
   folha.getCell("F4").value = cliente;
+  folha.getCell("F4").style = estiloValor;
   folha.getCell("E5").value = t("excelLabelCampanha");
   folha.getCell("E5").style = estiloRotulo;
   folha.getCell("F5").value = campanha;
+  folha.getCell("F5").style = estiloValor;
   folha.getCell("E6").value = t("excelLabelMeio");
   folha.getCell("E6").style = estiloRotulo;
   folha.getCell("F6").value = t("excelValorMeioDigital");
+  folha.getCell("F6").style = estiloValor;
 
   // --- Uma secção por objetivo (Awareness / Consideration / Conversion),
   // cada uma com o seu próprio cabeçalho de tabela — o mesmo formato pode
