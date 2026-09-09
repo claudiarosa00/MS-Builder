@@ -5322,5 +5322,39 @@
    "peso": "< 150 Ko",
    "tipoFicheiro": "JPG, GIF ou PNG"
   }
+ },
+ "DV360|Prog - Uber Journey Ad": {
+  "en": {
+   "dimensao": "DISPLAY — Request: 975x861, min 1/max 5 images (all with logo and different from each other); Waiting: 420x420 or 314x420, max 1 image; Trip: 1146x393, min 1/max 5 images (all with logo and different from each other). VIDEO (MP4, min height 486px, min width 864px) — Request: 3 to 6 sec; Waiting: 6 to 60 sec; Trip: 6 to 60 sec.",
+   "aspectRatio": "1:1 or 3:4 or 16:9 (video)",
+   "peso": "Display: max 1 MB (all stages). Video: max 1 MB (Request); max 3 MB (Waiting and Trip).",
+   "tipoFicheiro": "Display: images. Video: MP4.",
+   "copies": "DISPLAY — Request: headline max 25 characters, body max 52 characters; Waiting: headline max 25 characters, CTA max 15 characters; Trip: headline max 25 characters, body max 52 characters, CTA max 15 characters. VIDEO — Request: headline max 25 characters, body max 52 characters; Waiting: headline max 25 characters, CTA max 15 characters; Trip: headline max 25 characters, body max 52 characters, CTA max 15 characters. URL — Display: parameterized, non-parameterized or Click Tag (only available in the Waiting and Trip stages); Video: parameterized, non-parameterized or Click Tag (all stages)."
+  },
+  "es": {
+   "dimensao": "DISPLAY — Pedido: 975x861, mín 1/máx 5 imágenes (todas con logo y diferentes); Espera: 420x420 o 314x420, máx 1 imagen; Viaje: 1146x393, mín 1/máx 5 imágenes (todas con logo y diferentes). VIDEO (MP4, altura mín 486px, ancho mín 864px) — Pedido: 3 a 6 seg; Espera: 6 a 60 seg; Viaje: 6 a 60 seg.",
+   "aspectRatio": "1:1 o 3:4 o 16:9 (vídeo)",
+   "peso": "Display: máx 1 MB (todas las fases). Video: máx 1 MB (Solicitud); máx 3 MB (Espera y Viaje).",
+   "tipoFicheiro": "Display: imágenes. Video: MP4.",
+   "copies": "DISPLAY — Solicitud: título máx 25 caracteres, cuerpo máx 52 caracteres; Espera: título máx 25 caracteres, CTA máx 15 caracteres; Viaje: título máx 25 caracteres, cuerpo máx 52 caracteres, CTA máx 15 caracteres. VIDEO — Solicitud: título máx 25 caracteres, cuerpo máx 52 caracteres; Espera: título máx 25 caracteres, CTA máx 15 caracteres; Viaje: título máx 25 caracteres, cuerpo máx 52 caracteres, CTA máx 15 caracteres. URL — Display: parametrizada, no parametrizada o Click Tag (solo disponible en las fases de Espera y Viaje); Video: parametrizada, no parametrizada o Click Tag (todas las fases)."
+  },
+  "fr": {
+   "dimensao": "DISPLAY — Commande : 975x861, min 1/max 5 images (toutes avec logo et différentes) ; Attente : 420x420 ou 314x420, max 1 image ; Trajet : 1146x393, min 1/max 5 images (toutes avec logo et différentes). VIDÉO (MP4, hauteur min 486px, largeur min 864px) — Commande : 3 à 6 sec ; Attente : 6 à 60 sec ; Trajet : 6 à 60 sec.",
+   "aspectRatio": "1:1 ou 3:4 ou 16:9 (vidéo)",
+   "peso": "Display : max 1 MB (toutes les phases). Video : max 1 MB (Demande) ; max 3 MB (Attente et Trajet).",
+   "tipoFicheiro": "Display : images. Video : MP4.",
+   "copies": "DISPLAY — Demande : titre max 25 caractères, corps max 52 caractères ; Attente : titre max 25 caractères, CTA max 15 caractères ; Trajet : titre max 25 caractères, corps max 52 caractères, CTA max 15 caractères. VIDEO — Demande : titre max 25 caractères, corps max 52 caractères ; Attente : titre max 25 caractères, CTA max 15 caractères ; Trajet : titre max 25 caractères, corps max 52 caractères, CTA max 15 caractères. URL — Display : paramétrée, non paramétrée ou Click Tag (disponible uniquement aux phases Attente et Trajet) ; Video : paramétrée, non paramétrée ou Click Tag (toutes les phases)."
+  }
+ },
+ "DV360|Prog - Rich Media": {
+  "en": {
+   "dimensao": "Specs to be defined"
+  },
+  "es": {
+   "dimensao": "Especificaciones por definir"
+  },
+  "fr": {
+   "dimensao": "Spécifications à définir"
+  }
  }
 }
