@@ -4357,91 +4357,22 @@
    "aspectRatio": "1:1 ou 1.91:1"
   }
  },
- "DV360|Prog - App Install": {
-  "en": {},
-  "es": {},
-  "fr": {}
- },
  "DV360|Prog - Audio Ad": {
   "en": {
-   "dimensao": "n/a",
-   "peso": "1 MB",
-   "tipoFicheiro": "MP3"
+   "dimensao": "Maximum duration: 30''.",
+   "tipoFicheiro": "MP3; accepted alternative: WAV 16-bit 44.1kHz. Audio normalized to -14 dB LUFS integrated; MP3 ≥192kbps; peaks below -1 dB TP to avoid extra distortion when transcoding.",
+   "copies": "Advertiser name: max. 45 characters."
   },
   "es": {
-   "dimensao": "n/a",
-   "peso": "1 MB",
-   "tipoFicheiro": "MP3"
+   "dimensao": "Duración máxima: 30''.",
+   "tipoFicheiro": "MP3; alternativa aceptada: WAV 16-bit 44.1kHz. Audio normalizado a -14 dB LUFS integrado; MP3 ≥192kbps; picos por debajo de -1 dB TP para evitar distorsión adicional al transcodificar.",
+   "copies": "Nombre del anunciante: máx. 45 caracteres."
   },
   "fr": {
-   "dimensao": "n/a",
-   "peso": "1 MB",
-   "tipoFicheiro": "MP3"
+   "dimensao": "Durée maximale : 30''.",
+   "tipoFicheiro": "MP3 ; alternative acceptée : WAV 16 bits 44,1kHz. Audio normalisé à -14 dB LUFS intégré ; MP3 ≥192kbps ; crêtes sous -1 dB TP pour éviter une distorsion supplémentaire lors du transcodage.",
+   "copies": "Nom de l'annonceur : max. 45 caractères."
   }
- },
- "DV360|Prog - Audio Ingame": {
-  "en": {},
-  "es": {},
-  "fr": {}
- },
- "DV360|Prog - Banner": {
-  "en": {
-   "dimensao": "300x250, 300x600, 728x90, 320x50",
-   "peso": "200 KB",
-   "tipoFicheiro": "ZIP with HTML5 and folders of images, scripts... or JPEG/GIF. Always include a backup image within the creative's ZIP."
-  },
-  "es": {
-   "dimensao": "300x250, 300x600, 728x90, 320x50",
-   "peso": "200 KB",
-   "tipoFicheiro": "ZIP con HTML5 y carpetas de imágenes, scripts... o JPEG/GIF. Enviar siempre una imagen de backup incluida en el ZIP de la creatividad."
-  },
-  "fr": {
-   "dimensao": "300x250, 300x600, 728x90, 320x50",
-   "peso": "200 KB",
-   "tipoFicheiro": "ZIP avec HTML5 et dossiers d'images, scripts... ou JPEG/GIF. Toujours inclure une image de secours dans le ZIP du créatif."
-  }
- },
- "DV360|Prog - Banner Ingame": {
-  "en": {},
-  "es": {},
-  "fr": {}
- },
- "DV360|Prog - Banner Mobile": {
-  "en": {},
-  "es": {},
-  "fr": {}
- },
- "DV360|Prog - Conversational Display": {
-  "en": {},
-  "es": {},
-  "fr": {}
- },
- "DV360|Prog - Demand Gen": {
-  "en": {},
-  "es": {},
-  "fr": {}
- },
- "DV360|Prog - DOOH": {
-  "en": {},
-  "es": {},
-  "fr": {}
- },
- "DV360|Prog - Expositor": {
-  "en": {
-   "formato": "Prog - Showcase"
-  },
-  "es": {},
-  "fr": {}
- },
- "DV360|Prog - In Content": {
-  "en": {},
-  "es": {},
-  "fr": {}
- },
- "DV360|Prog - inRead Carousel": {
-  "en": {},
-  "es": {},
-  "fr": {}
  },
  "DV360|Prog - YouTube Masthead": {
   "en": {
@@ -4462,50 +4393,6 @@
    "peso": "Hébergé sur YouTube",
    "tipoFicheiro": "MP4, MOV"
   }
- },
- "DV360|Prog - M-Rec": {
-  "en": {
-   "dimensao": "300x250"
-  },
-  "es": {
-   "dimensao": "300x250"
-  },
-  "fr": {
-   "dimensao": "300x250"
-  }
- },
- "DV360|Prog - Native Ad": {
-  "en": {
-   "dimensao": "IMAGE — Logo: 100x100 to 2000x2000px; Image: 1200x627 to 2000x1047px; Square image (optional, required in Programmatic Guaranteed): 627x627 to 2000x2000px. VIDEO — Logo: 100x100 to 2000x2000px; Cover image: min height 627px, max 2000x1047px (recommended; for more inventory, create additional creatives with other ratios); Video: source file at the highest quality available.",
-   "aspectRatio": "Logo: 1:1; Image: 1.91:1; Square image: 1:1; Cover image: 1.91:1 (recommended), 16:9, 4:3 or 1:1 (additional, for more inventory)",
-   "peso": "Logo, Image, Square image and Cover image: max 1200 KB each. File name: ASCII, max 50 characters.",
-   "tipoFicheiro": "Logo/Image/Square image/Cover image: JPG, JPEG or PNG (RGB or CMYK). Video: video file (specs provided separately).",
-   "copies": "Same for image and video — Advertiser name: max 25 characters; Headline: max 25 characters (or Long headline required if headline not used); Long headline: max 50 characters; Body text: max 90 characters (or Long body required if body not used); Long body text: max 150 characters; Landing page URL: max 1024 characters; Caption URL: max 30 characters; Call to action: max 15 characters."
-  },
-  "es": {
-   "dimensao": "IMAGEN — Logo: 100x100 a 2000x2000px; Imagen: 1200x627 a 2000x1047px; Imagen cuadrada (opcional, obligatoria en Programmatic Guaranteed): 627x627 a 2000x2000px. VÍDEO — Logo: 100x100 a 2000x2000px; Cover image: altura mín 627px, máx 2000x1047px (recomendado; para más inventario, crear creatividades adicionales con otras proporciones); Vídeo: archivo fuente con la mayor calidad disponible.",
-   "aspectRatio": "Logo: 1:1; Imagen: 1.91:1; Imagen cuadrada: 1:1; Cover image: 1.91:1 (recomendado), 16:9, 4:3 o 1:1 (adicionales para más inventario)",
-   "peso": "Logo, Imagen, Imagen cuadrada y Cover image: máx 1200 KB cada uno. Nombre del archivo: ASCII, máx 50 caracteres.",
-   "tipoFicheiro": "Logo/Imagen/Imagen cuadrada/Cover image: JPG, JPEG o PNG (RGB o CMYK). Vídeo: archivo de vídeo (specs aparte).",
-   "copies": "Igual para imagen y vídeo — Nombre del anunciante: máx 25 caracteres; Headline: máx 25 caracteres (o Long headline obligatorio si no se usa headline); Long headline: máx 50 caracteres; Body text: máx 90 caracteres (o Long body obligatorio si no se usa body); Long body text: máx 150 caracteres; URL de landing page: máx 1024 caracteres; Caption URL: máx 30 caracteres; Call to action: máx 15 caracteres."
-  },
-  "fr": {
-   "dimensao": "IMAGE — Logo : 100x100 à 2000x2000px ; Image : 1200x627 à 2000x1047px ; Image carrée (facultatif, obligatoire en Programmatic Guaranteed) : 627x627 à 2000x2000px. VIDÉO — Logo : 100x100 à 2000x2000px ; Cover image : hauteur min 627px, max 2000x1047px (recommandé ; pour davantage d'inventaire, créer des créations supplémentaires avec d'autres ratios) ; Vidéo : fichier source avec la meilleure qualité disponible.",
-   "aspectRatio": "Logo : 1:1 ; Image : 1.91:1 ; Image carrée : 1:1 ; Cover image : 1.91:1 (recommandé), 16:9, 4:3 ou 1:1 (supplémentaires pour davantage d'inventaire)",
-   "peso": "Logo, Image, Image carrée et Cover image : max 1200 KB chacune. Nom du fichier : ASCII, max 50 caractères.",
-   "tipoFicheiro": "Logo/Image/Image carrée/Cover image : JPG, JPEG ou PNG (RGB ou CMYK). Vidéo : fichier vidéo (specs à part).",
-   "copies": "Identique pour image et vidéo — Nom de l'annonceur : max 25 caractères ; Headline : max 25 caractères (ou Long headline obligatoire si headline non utilisé) ; Long headline : max 50 caractères ; Body text : max 90 caractères (ou Long body obligatoire si body non utilisé) ; Long body text : max 150 caractères ; URL de la landing page : max 1024 caractères ; Caption URL : max 30 caractères ; Call to action : max 15 caractères."
-  }
- },
- "DV360|Prog - Rewarded Video": {
-  "en": {},
-  "es": {},
-  "fr": {}
- },
- "DV360|Prog - Rich Media": {
-  "en": {},
-  "es": {},
-  "fr": {}
  },
  "DV360|Prog - YouTube Select": {
   "en": {
@@ -4547,16 +4434,6 @@
    "tipoFicheiro": "MP4, MOV (téléversement via YouTube)"
   }
  },
- "DV360|Prog - Skyscraper": {
-  "en": {},
-  "es": {},
-  "fr": {}
- },
- "DV360|Prog - Social Display": {
-  "en": {},
-  "es": {},
-  "fr": {}
- },
  "DV360|Prog - YouTube VRC Non-Skippable": {
   "en": {
    "dimensao": "The team chooses the most suitable format(s) from among: BUMPER — recommended 1920x1080, min. 640x360; up to 6 seconds; non-skippable; NON-SKIPPABLE STANDARD — recommended 1920x1080; 7 to 15 seconds; non-skippable; NON-SKIPPABLE 30S — same technical specification as standard, but with 30 seconds duration.",
@@ -4576,39 +4453,6 @@
    "tipoFicheiro": "MP4, MOV",
    "aspectRatio": "16:9 ou 9:16"
   }
- },
- "DV360|Prog - Uber Journey Ad": {
-  "en": {
-   "dimensao": "DISPLAY — Request: 975x861, min 1/max 5 images (all with logo and different from each other); Waiting: 420x420 or 314x420, max 1 image; Trip: 1146x393, min 1/max 5 images (all with logo and different from each other). VIDEO (MP4, min height 486px, min width 864px) — Request: 3 to 6 sec; Waiting: 6 to 60 sec; Trip: 6 to 60 sec.",
-   "aspectRatio": "1:1 or 3:4 or 16:9 (video)",
-   "peso": "Display: max 1 MB (all stages). Video: max 1 MB (Request); max 3 MB (Waiting and Trip).",
-   "tipoFicheiro": "Display: images. Video: MP4.",
-   "copies": "DISPLAY — Request: headline max 25 characters, body max 52 characters; Waiting: headline max 25 characters, CTA max 15 characters; Trip: headline max 25 characters, body max 52 characters, CTA max 15 characters. VIDEO — Request: headline max 25 characters, body max 52 characters; Waiting: headline max 25 characters, CTA max 15 characters; Trip: headline max 25 characters, body max 52 characters, CTA max 15 characters. URL — Display: parameterized, non-parameterized or Click Tag (only available in the Waiting and Trip stages); Video: parameterized, non-parameterized or Click Tag (all stages)."
-  },
-  "es": {
-   "dimensao": "DISPLAY — Pedido: 975x861, mín 1/máx 5 imágenes (todas con logo y diferentes); Espera: 420x420 o 314x420, máx 1 imagen; Viaje: 1146x393, mín 1/máx 5 imágenes (todas con logo y diferentes). VIDEO (MP4, altura mín 486px, ancho mín 864px) — Pedido: 3 a 6 seg; Espera: 6 a 60 seg; Viaje: 6 a 60 seg.",
-   "aspectRatio": "1:1 o 3:4 o 16:9 (vídeo)",
-   "peso": "Display: máx 1 MB (todas las fases). Video: máx 1 MB (Solicitud); máx 3 MB (Espera y Viaje).",
-   "tipoFicheiro": "Display: imágenes. Video: MP4.",
-   "copies": "DISPLAY — Solicitud: título máx 25 caracteres, cuerpo máx 52 caracteres; Espera: título máx 25 caracteres, CTA máx 15 caracteres; Viaje: título máx 25 caracteres, cuerpo máx 52 caracteres, CTA máx 15 caracteres. VIDEO — Solicitud: título máx 25 caracteres, cuerpo máx 52 caracteres; Espera: título máx 25 caracteres, CTA máx 15 caracteres; Viaje: título máx 25 caracteres, cuerpo máx 52 caracteres, CTA máx 15 caracteres. URL — Display: parametrizada, no parametrizada o Click Tag (solo disponible en las fases de Espera y Viaje); Video: parametrizada, no parametrizada o Click Tag (todas las fases)."
-  },
-  "fr": {
-   "dimensao": "DISPLAY — Commande : 975x861, min 1/max 5 images (toutes avec logo et différentes) ; Attente : 420x420 ou 314x420, max 1 image ; Trajet : 1146x393, min 1/max 5 images (toutes avec logo et différentes). VIDÉO (MP4, hauteur min 486px, largeur min 864px) — Commande : 3 à 6 sec ; Attente : 6 à 60 sec ; Trajet : 6 à 60 sec.",
-   "aspectRatio": "1:1 ou 3:4 ou 16:9 (vidéo)",
-   "peso": "Display : max 1 MB (toutes les phases). Video : max 1 MB (Demande) ; max 3 MB (Attente et Trajet).",
-   "tipoFicheiro": "Display : images. Video : MP4.",
-   "copies": "DISPLAY — Demande : titre max 25 caractères, corps max 52 caractères ; Attente : titre max 25 caractères, CTA max 15 caractères ; Trajet : titre max 25 caractères, corps max 52 caractères, CTA max 15 caractères. VIDEO — Demande : titre max 25 caractères, corps max 52 caractères ; Attente : titre max 25 caractères, CTA max 15 caractères ; Trajet : titre max 25 caractères, corps max 52 caractères, CTA max 15 caractères. URL — Display : paramétrée, non paramétrée ou Click Tag (disponible uniquement aux phases Attente et Trajet) ; Video : paramétrée, non paramétrée ou Click Tag (toutes les phases)."
-  }
- },
- "DV360|Prog - Spotify Video Takeover": {
-  "en": {},
-  "es": {},
-  "fr": {}
- },
- "DV360|Prog - Wallpaper": {
-  "en": {},
-  "es": {},
-  "fr": {}
  },
  "DV360|Prog - YouTube VVC": {
   "en": {
@@ -4669,829 +4513,6 @@
    "tipoFicheiro": "MP4, MOV",
    "aspectRatio": "16:9"
   }
- },
- "DV360|Prog - Billboard (Impresa)": {
-  "en": {
-   "dimensao": "970x250, 320x10",
-   "peso": "200 KB",
-   "tipoFicheiro": "JPG or PNG"
-  },
-  "es": {
-   "dimensao": "970x250, 320x10",
-   "peso": "200 KB",
-   "tipoFicheiro": "JPG o PNG"
-  },
-  "fr": {
-   "dimensao": "970x250, 320x10",
-   "peso": "200 KB",
-   "tipoFicheiro": "JPG ou PNG"
-  }
- },
- "DV360|Prog - Billboard (Media Capital)": {
-  "en": {
-   "dimensao": "980x250 or 970x250",
-   "peso": "100 KB",
-   "tipoFicheiro": "JPG, GIF or PNG"
-  },
-  "es": {
-   "dimensao": "980x250 o 970x250",
-   "peso": "100 KB",
-   "tipoFicheiro": "JPG, GIF o PNG"
-  },
-  "fr": {
-   "dimensao": "980x250 ou 970x250",
-   "peso": "100 KB",
-   "tipoFicheiro": "JPG, GIF ou PNG"
-  }
- },
- "DV360|Prog - Billboard (Observador)": {
-  "en": {
-   "dimensao": "1200x220, 970x250",
-   "peso": "120 KB / 2 MB",
-   "tipoFicheiro": "JPG, PNG or GIF / HTML"
-  },
-  "es": {
-   "dimensao": "1200x220, 970x250",
-   "peso": "120 KB / 2 MB",
-   "tipoFicheiro": "JPG, PNG o GIF / HTML"
-  },
-  "fr": {
-   "dimensao": "1200x220, 970x250",
-   "peso": "120 KB / 2 MB",
-   "tipoFicheiro": "JPG, PNG ou GIF / HTML"
-  }
- },
- "DV360|Prog - Billboard (Público)": {
-  "en": {
-   "dimensao": "Desktop: 1140x220px | 970x250px | 728x90px, Tablet: 728x90px, Smartphone: 320x100px",
-   "peso": "120 KB",
-   "tipoFicheiro": "HTML, JPG, PNG or GIF / Video"
-  },
-  "es": {
-   "dimensao": "Desktop: 1140x220px | 970x250px | 728x90px, Tablet: 728x90px, Smartphone: 320x100px",
-   "peso": "120 KB",
-   "tipoFicheiro": "HTML, JPG, PNG o GIF / Video"
-  },
-  "fr": {
-   "dimensao": "Desktop : 1140x220px | 970x250px | 728x90px, Tablette : 728x90px, Smartphone : 320x100px",
-   "peso": "120 KB",
-   "tipoFicheiro": "HTML, JPG, PNG ou GIF / Vidéo"
-  }
- },
- "DV360|Prog - Billboard (Sapo)": {
-  "en": {
-   "dimensao": "970x250",
-   "peso": "200 KB"
-  },
-  "es": {
-   "dimensao": "970x250",
-   "peso": "200 KB"
-  },
-  "fr": {
-   "dimensao": "970x250",
-   "peso": "200 KB"
-  }
- },
- "DV360|Prog - Half-Page (Impresa)": {
-  "en": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "200 KB",
-   "tipoFicheiro": "HTML, JPG, PNG or GIF"
-  },
-  "es": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "200 KB",
-   "tipoFicheiro": "HTML, JPG, PNG o GIF"
-  },
-  "fr": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "200 KB",
-   "tipoFicheiro": "HTML, JPG, PNG ou GIF"
-  }
- },
- "DV360|Prog - Half-Page (Media Capital)": {
-  "en": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "150 KB",
-   "tipoFicheiro": "HTML + Images"
-  },
-  "es": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "150 KB",
-   "tipoFicheiro": "HTML + Imágenes"
-  },
-  "fr": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "150 KB",
-   "tipoFicheiro": "HTML + Images"
-  }
- },
- "DV360|Prog - Half-Page (Media Livre)": {
-  "en": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "80 KB / 2 MB",
-   "tipoFicheiro": "HTML, JPEG, PNG or GIF / MP4"
-  },
-  "es": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "80 KB / 2 MB",
-   "tipoFicheiro": "HTML, JPEG, PNG o GIF / MP4"
-  },
-  "fr": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "80 KB / 2 MB",
-   "tipoFicheiro": "HTML, JPEG, PNG ou GIF / MP4"
-  }
- },
- "DV360|Prog - Half-Page (Observador)": {
-  "en": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "100 KB / 2 MB",
-   "tipoFicheiro": "JPG, PNG or GIF / HTML"
-  },
-  "es": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "100 KB / 2 MB",
-   "tipoFicheiro": "JPG, PNG o GIF / HTML"
-  },
-  "fr": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "100 KB / 2 MB",
-   "tipoFicheiro": "JPG, PNG ou GIF / HTML"
-  }
- },
- "DV360|Prog - Half-Page (Público)": {
-  "en": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "80 KB",
-   "tipoFicheiro": "HTML, JPG, PNG or GIF / Video"
-  },
-  "es": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "80 KB",
-   "tipoFicheiro": "HTML, JPG, PNG o GIF / Video"
-  },
-  "fr": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "80 KB",
-   "tipoFicheiro": "HTML, JPG, PNG ou GIF / Vidéo"
-  }
- },
- "DV360|Prog - Half-Page (Sapo)": {
-  "en": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "200 KB / 3.5 MB",
-   "tipoFicheiro": "JPG, PNG or GIF / MP4 or WEBM"
-  },
-  "es": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "200 KB / 3.5 MB",
-   "tipoFicheiro": "JPG, PNG o GIF / MP4 o WEBM"
-  },
-  "fr": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "200 KB / 3.5 MB",
-   "tipoFicheiro": "JPG, PNG ou GIF / MP4 ou WEBM"
-  }
- },
- "DV360|Prog - Half-Page (Google)": {
-  "en": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "150 KB",
-   "tipoFicheiro": "JPG, PNG, GIF"
-  },
-  "es": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "150 KB",
-   "tipoFicheiro": "JPG, PNG, GIF"
-  },
-  "fr": {
-   "dimensao": "300x600",
-   "aspectRatio": "1:2",
-   "peso": "150 KB",
-   "tipoFicheiro": "JPG, PNG, GIF"
-  }
- },
- "DV360|Prog - Header XL (Impresa)": {
-  "en": {
-   "peso": "150 KB",
-   "tipoFicheiro": "JPG"
-  },
-  "es": {
-   "peso": "150 KB",
-   "tipoFicheiro": "JPG"
-  },
-  "fr": {
-   "peso": "150 KB",
-   "tipoFicheiro": "JPG"
-  }
- },
- "DV360|Prog - Header XL (Media Livre)": {
-  "en": {
-   "dimensao": "1240x220, 970x250, 1280x220 and 1280x600",
-   "peso": "150 KB",
-   "tipoFicheiro": "HTML, JPG, PNG or GIF"
-  },
-  "es": {
-   "dimensao": "1240x220, 970x250, 1280x220 y 1280x600",
-   "peso": "150 KB",
-   "tipoFicheiro": "HTML, JPG, PNG o GIF"
-  },
-  "fr": {
-   "dimensao": "1240x220, 970x250, 1280x220 et 1280x600",
-   "peso": "150 KB",
-   "tipoFicheiro": "HTML, JPG, PNG ou GIF"
-  }
- },
- "DV360|Prog - Header XL (Observador)": {
-  "en": {
-   "dimensao": "557x80, 273x80, 875x80, 1040x80, 1205x80, 1428x80, 1600x80, 400x239, 630x378x 950x286, 1112x334, 1280x383, 1500x462",
-   "peso": "500 KB",
-   "tipoFicheiro": "JPG, PNG or GIF"
-  },
-  "es": {
-   "dimensao": "557x80, 273x80, 875x80, 1040x80, 1205x80, 1428x80, 1600x80, 400x239, 630x378x 950x286, 1112x334, 1280x383, 1500x462",
-   "peso": "500 KB",
-   "tipoFicheiro": "JPG, PNG o GIF"
-  },
-  "fr": {
-   "dimensao": "557x80, 273x80, 875x80, 1040x80, 1205x80, 1428x80, 1600x80, 400x239, 630x378x 950x286, 1112x334, 1280x383, 1500x462",
-   "peso": "500 KB",
-   "tipoFicheiro": "JPG, PNG ou GIF"
-  }
- },
- "DV360|Prog - Header XL (Sapo)": {
-  "en": {},
-  "es": {},
-  "fr": {}
- },
- "DV360|Prog - Intro (Impresa)": {
-  "en": {
-   "dimensao": "600x400, 320x480",
-   "aspectRatio": "3:2 or 2:3",
-   "peso": "150 KB",
-   "tipoFicheiro": "JPG or PNG"
-  },
-  "es": {
-   "dimensao": "600x400, 320x480",
-   "aspectRatio": "3:2 o 2:3",
-   "peso": "150 KB",
-   "tipoFicheiro": "JPG o PNG"
-  },
-  "fr": {
-   "dimensao": "600x400, 320x480",
-   "aspectRatio": "3:2 ou 2:3",
-   "peso": "150 KB",
-   "tipoFicheiro": "JPG ou PNG"
-  }
- },
- "DV360|Prog - Intro (Media Capital)": {
-  "en": {
-   "dimensao": "800x600",
-   "aspectRatio": "4:3",
-   "peso": "150 KB",
-   "tipoFicheiro": "HTML + Images"
-  },
-  "es": {
-   "dimensao": "800x600",
-   "aspectRatio": "4:3",
-   "peso": "150 KB",
-   "tipoFicheiro": "HTML + Imágenes"
-  },
-  "fr": {
-   "dimensao": "800x600",
-   "aspectRatio": "4:3",
-   "peso": "150 KB",
-   "tipoFicheiro": "HTML + Images"
-  }
- },
- "DV360|Prog - Intro (Media Livre)": {
-  "en": {
-   "dimensao": "800x600, 768x1024",
-   "aspectRatio": "4:3 or 3:4",
-   "peso": "120 KB / 1 MB",
-   "tipoFicheiro": "JPEG, PNG or GIF / MP4 or WEBM"
-  },
-  "es": {
-   "dimensao": "800x600, 768x1024",
-   "aspectRatio": "4:3 o 3:4",
-   "peso": "120 KB / 1 MB",
-   "tipoFicheiro": "JPEG, PNG o GIF / MP4 o WEBM"
-  },
-  "fr": {
-   "dimensao": "800x600, 768x1024",
-   "aspectRatio": "4:3 ou 3:4",
-   "peso": "120 KB / 1 MB",
-   "tipoFicheiro": "JPEG, PNG ou GIF / MP4 ou WEBM"
-  }
- },
- "DV360|Prog - Intro (Observador)": {
-  "en": {
-   "dimensao": "990x600, 300x480",
-   "peso": "120 KB, 75 KB / 2 MB",
-   "tipoFicheiro": "JPG, PNG or GIF / HTML"
-  },
-  "es": {
-   "dimensao": "990x600, 300x480",
-   "peso": "120 KB, 75 KB / 2 MB",
-   "tipoFicheiro": "JPG, PNG o GIF / HTML"
-  },
-  "fr": {
-   "dimensao": "990x600, 300x480",
-   "peso": "120 KB, 75 KB / 2 MB",
-   "tipoFicheiro": "JPG, PNG ou GIF / HTML"
-  }
- },
- "DV360|Prog - Intro (Público)": {
-  "en": {
-   "dimensao": "800x600, 768x1024",
-   "aspectRatio": "4:3 or 3:4",
-   "peso": "120 KB",
-   "tipoFicheiro": "HTML, JPG, PNG or GIF / Video"
-  },
-  "es": {
-   "dimensao": "800x600, 768x1024",
-   "aspectRatio": "4:3 o 3:4",
-   "peso": "120 KB",
-   "tipoFicheiro": "HTML, JPG, PNG o GIF / Video"
-  },
-  "fr": {
-   "dimensao": "800x600, 768x1024",
-   "aspectRatio": "4:3 ou 3:4",
-   "peso": "120 KB",
-   "tipoFicheiro": "HTML, JPG, PNG ou GIF / Vidéo"
-  }
- },
- "DV360|Prog - Intro (Sapo)": {
-  "en": {
-   "dimensao": "800x600px (600x400px recommended)",
-   "aspectRatio": "4:3 or 3:2",
-   "peso": "200 KB",
-   "tipoFicheiro": "JPG, PNG or GIF"
-  },
-  "es": {
-   "dimensao": "800x600px (600x400px recomendado)",
-   "aspectRatio": "4:3 o 3:2",
-   "peso": "200 KB",
-   "tipoFicheiro": "JPG, PNG o GIF"
-  },
-  "fr": {
-   "dimensao": "800x600px (600x400px recommandé)",
-   "aspectRatio": "4:3 ou 3:2",
-   "peso": "200 KB",
-   "tipoFicheiro": "JPG, PNG ou GIF"
-  }
- },
- "DV360|Prog - Leaderboard (Media Capital)": {
-  "en": {
-   "dimensao": "728x90",
-   "peso": "150 KB",
-   "tipoFicheiro": "HTML + Images"
-  },
-  "es": {
-   "dimensao": "728x90",
-   "peso": "150 KB",
-   "tipoFicheiro": "HTML + Imágenes"
-  },
-  "fr": {
-   "dimensao": "728x90",
-   "peso": "150 KB",
-   "tipoFicheiro": "HTML + Images"
-  }
- },
- "DV360|Prog - Leaderboard (Media Livre)": {
-  "en": {
-   "dimensao": "728x90",
-   "peso": "80 KB",
-   "tipoFicheiro": "HTML, JPEG, PNG or GIF"
-  },
-  "es": {
-   "dimensao": "728x90",
-   "peso": "80 KB",
-   "tipoFicheiro": "HTML, JPEG, PNG o GIF"
-  },
-  "fr": {
-   "dimensao": "728x90",
-   "peso": "80 KB",
-   "tipoFicheiro": "HTML, JPEG, PNG ou GIF"
-  }
- },
- "DV360|Prog - Leaderboard (Público)": {
-  "en": {
-   "dimensao": "1140x50",
-   "peso": "200 KB",
-   "tipoFicheiro": "HTML, JPG, PNG or GIF"
-  },
-  "es": {
-   "dimensao": "1140x50",
-   "peso": "200 KB",
-   "tipoFicheiro": "HTML, JPG, PNG o GIF"
-  },
-  "fr": {
-   "dimensao": "1140x50",
-   "peso": "200 KB",
-   "tipoFicheiro": "HTML, JPG, PNG ou GIF"
-  }
- },
- "DV360|Prog - Leaderboard (Sapo)": {
-  "en": {
-   "dimensao": "728x90",
-   "peso": "200 KB",
-   "tipoFicheiro": "WEBP"
-  },
-  "es": {
-   "dimensao": "728x90",
-   "peso": "200 KB",
-   "tipoFicheiro": "WEBP"
-  },
-  "fr": {
-   "dimensao": "728x90",
-   "peso": "200 KB",
-   "tipoFicheiro": "WEBP"
-  }
- },
- "DV360|Prog - Leaderboard (Google)": {
-  "en": {
-   "dimensao": "728x90",
-   "peso": "150 KB",
-   "tipoFicheiro": "JPG, PNG, GIF"
-  },
-  "es": {
-   "dimensao": "728x90",
-   "peso": "150 KB",
-   "tipoFicheiro": "JPG, PNG, GIF"
-  },
-  "fr": {
-   "dimensao": "728x90",
-   "peso": "150 KB",
-   "tipoFicheiro": "JPG, PNG, GIF"
-  }
- },
- "DV360|Prog - Open Door (Impresa)": {
-  "en": {
-   "dimensao": "1920x1080, 680x1520",
-   "aspectRatio": "16:9",
-   "peso": "200 KB, 150 KB",
-   "tipoFicheiro": "JPG"
-  },
-  "es": {
-   "dimensao": "1920x1080, 680x1520",
-   "aspectRatio": "16:9",
-   "peso": "200 KB, 150 KB",
-   "tipoFicheiro": "JPG"
-  },
-  "fr": {
-   "dimensao": "1920x1080, 680x1520",
-   "aspectRatio": "16:9",
-   "peso": "200 KB, 150 KB",
-   "tipoFicheiro": "JPG"
-  }
- },
- "DV360|Prog - Open Door (Media Capital)": {
-  "en": {
-   "dimensao": "1920x1080, 680x1520",
-   "aspectRatio": "16:9",
-   "peso": "100 KB",
-   "tipoFicheiro": "JPG, GIF or PNG"
-  },
-  "es": {
-   "dimensao": "1920x1080, 680x1520",
-   "aspectRatio": "16:9",
-   "peso": "100 KB",
-   "tipoFicheiro": "JPG, GIF o PNG"
-  },
-  "fr": {
-   "dimensao": "1920x1080, 680x1520",
-   "aspectRatio": "16:9",
-   "peso": "100 KB",
-   "tipoFicheiro": "JPG, GIF ou PNG"
-  }
- },
- "DV360|Prog - Open Door (Media Livre)": {
-  "en": {
-   "dimensao": "950x700, 390x850 / 640x360",
-   "aspectRatio": "16:9",
-   "peso": "500 KB / 2 MB",
-   "tipoFicheiro": "JPG, GIF or PNG / MP4"
-  },
-  "es": {
-   "dimensao": "950x700, 390x850 / 640x360",
-   "aspectRatio": "16:9",
-   "peso": "500 KB / 2 MB",
-   "tipoFicheiro": "JPG, GIF o PNG / MP4"
-  },
-  "fr": {
-   "dimensao": "950x700, 390x850 / 640x360",
-   "aspectRatio": "16:9",
-   "peso": "500 KB / 2 MB",
-   "tipoFicheiro": "JPG, GIF ou PNG / MP4"
-  }
- },
- "DV360|Prog - Open Door (Observador)": {
-  "en": {
-   "peso": "Maximum resolution",
-   "tipoFicheiro": "JPG, PNG or GIF / MP4 or WEBM"
-  },
-  "es": {
-   "peso": "Máxima resolución",
-   "tipoFicheiro": "JPG, PNG o GIF / MP4 o WEBM"
-  },
-  "fr": {
-   "peso": "Résolution maximale",
-   "tipoFicheiro": "JPG, PNG ou GIF / MP4 ou WEBM"
-  }
- },
- "DV360|Prog - Open Door (Público)": {
-  "en": {
-   "dimensao": "800x900",
-   "peso": "200 KB",
-   "tipoFicheiro": "JPG / Video"
-  },
-  "es": {
-   "dimensao": "800x900",
-   "peso": "200 KB",
-   "tipoFicheiro": "JPG / Video"
-  },
-  "fr": {
-   "dimensao": "800x900",
-   "peso": "200 KB",
-   "tipoFicheiro": "JPG / Vidéo"
-  }
- },
- "DV360|Prog - Open Door (Google)": {
-  "en": {
-   "dimensao": "Recommended 1920x1080 or higher; autoplay without sound for up to 30 seconds, then a clickable thumbnail",
-   "aspectRatio": "16:9",
-   "peso": "Hosted on YouTube",
-   "tipoFicheiro": "MP4, MOV"
-  },
-  "es": {
-   "dimensao": "Recomendado 1920x1080 o superior; reproducción automática sin sonido hasta 30 segundos, después miniatura en la que se puede hacer clic",
-   "aspectRatio": "16:9",
-   "peso": "Alojado en YouTube",
-   "tipoFicheiro": "MP4, MOV"
-  },
-  "fr": {
-   "dimensao": "Recommandé 1920x1080 ou supérieur ; lecture automatique sans son jusqu'à 30 secondes, puis miniature cliquable",
-   "aspectRatio": "16:9",
-   "peso": "Hébergé sur YouTube",
-   "tipoFicheiro": "MP4, MOV"
-  }
- },
- "DV360|Prog - Parallax (Público)": {
-  "en": {
-   "dimensao": "Landscape: 1280x720px, Portrait: 720x1280px",
-   "aspectRatio": "16:9 or 9:16",
-   "peso": "120 KB",
-   "tipoFicheiro": "JPG, PNG or GIF"
-  },
-  "es": {
-   "dimensao": "Horizontal: 1280x720px, Vertical: 720x1280px",
-   "aspectRatio": "16:9 o 9:16",
-   "peso": "120 KB",
-   "tipoFicheiro": "JPG, PNG o GIF"
-  },
-  "fr": {
-   "dimensao": "Paysage : 1280x720px, Portrait : 720x1280px",
-   "aspectRatio": "16:9 ou 9:16",
-   "peso": "120 KB",
-   "tipoFicheiro": "JPG, PNG ou GIF"
-  }
- },
- "DV360|Prog - Peel off (Media Capital)": {
-  "en": {
-   "peso": "40 KB",
-   "tipoFicheiro": "Images"
-  },
-  "es": {
-   "peso": "40 KB",
-   "tipoFicheiro": "Imágenes"
-  },
-  "fr": {
-   "peso": "40 KB",
-   "tipoFicheiro": "Images"
-  }
- },
- "DV360|Prog - Peel off (Media Livre)": {
-  "en": {
-   "dimensao": "200x200, 850x650",
-   "aspectRatio": "1:1",
-   "peso": "260 KB"
-  },
-  "es": {
-   "dimensao": "200x200, 850x650",
-   "aspectRatio": "1:1",
-   "peso": "260 KB"
-  },
-  "fr": {
-   "dimensao": "200x200, 850x650",
-   "aspectRatio": "1:1",
-   "peso": "260 KB"
-  }
- },
- "DV360|Prog - Peel off (Observador)": {
-  "en": {
-   "dimensao": "200x200, 850x650px",
-   "aspectRatio": "1:1",
-   "peso": "120 KB / 2 MB",
-   "tipoFicheiro": "JPG, PNG or GIF"
-  },
-  "es": {
-   "dimensao": "200x200, 850x650px",
-   "aspectRatio": "1:1",
-   "peso": "120 KB / 2 MB",
-   "tipoFicheiro": "JPG, PNG o GIF"
-  },
-  "fr": {
-   "dimensao": "200x200, 850x650px",
-   "aspectRatio": "1:1",
-   "peso": "120 KB / 2 MB",
-   "tipoFicheiro": "JPG, PNG ou GIF"
-  }
- },
- "DV360|Prog - Pre-Roll (Media Capital)": {
-  "en": {
-   "dimensao": "1280x720",
-   "aspectRatio": "16:9",
-   "peso": "6 MB",
-   "tipoFicheiro": "MP4"
-  },
-  "es": {
-   "dimensao": "1280x720",
-   "aspectRatio": "16:9",
-   "peso": "6 MB",
-   "tipoFicheiro": "MP4"
-  },
-  "fr": {
-   "dimensao": "1280x720",
-   "aspectRatio": "16:9",
-   "peso": "6 MB",
-   "tipoFicheiro": "MP4"
-  }
- },
- "DV360|Prog - Pre-Roll (Media Livre)": {
-  "en": {
-   "dimensao": "640x360",
-   "aspectRatio": "16:9",
-   "peso": "15 MB",
-   "tipoFicheiro": "MP4 or FLV"
-  },
-  "es": {
-   "dimensao": "640x360",
-   "aspectRatio": "16:9",
-   "peso": "15 MB",
-   "tipoFicheiro": "MP4 o FLV"
-  },
-  "fr": {
-   "dimensao": "640x360",
-   "aspectRatio": "16:9",
-   "peso": "15 MB",
-   "tipoFicheiro": "MP4 ou FLV"
-  }
- },
- "DV360|Prog - Pre-Roll (Observador)": {
-  "en": {
-   "dimensao": "640x360",
-   "aspectRatio": "16:9",
-   "peso": "10 MB",
-   "tipoFicheiro": "MP4"
-  },
-  "es": {
-   "dimensao": "640x360",
-   "aspectRatio": "16:9",
-   "peso": "10 MB",
-   "tipoFicheiro": "MP4"
-  },
-  "fr": {
-   "dimensao": "640x360",
-   "aspectRatio": "16:9",
-   "peso": "10 MB",
-   "tipoFicheiro": "MP4"
-  }
- },
- "DV360|Prog - Pre-Roll (Público)": {
-  "en": {
-   "dimensao": "640x360px",
-   "aspectRatio": "16:9",
-   "peso": "10 MB",
-   "tipoFicheiro": "MP4 or WEBM"
-  },
-  "es": {
-   "dimensao": "640x360px",
-   "aspectRatio": "16:9",
-   "peso": "10 MB",
-   "tipoFicheiro": "MP4 o WEBM"
-  },
-  "fr": {
-   "dimensao": "640x360px",
-   "aspectRatio": "16:9",
-   "peso": "10 MB",
-   "tipoFicheiro": "MP4 ou WEBM"
-  }
- },
- "DV360|Prog - Pre-Roll (Sapo)": {
-  "en": {
-   "dimensao": "640x360px",
-   "aspectRatio": "16:9",
-   "peso": "3.5 MB",
-   "tipoFicheiro": "MP4"
-  },
-  "es": {
-   "dimensao": "640x360px",
-   "aspectRatio": "16:9",
-   "peso": "3.5 MB",
-   "tipoFicheiro": "MP4"
-  },
-  "fr": {
-   "dimensao": "640x360px",
-   "aspectRatio": "16:9",
-   "peso": "3.5 MB",
-   "tipoFicheiro": "MP4"
-  }
- },
- "DV360|Prog - Takeover (Media Capital)": {
-  "en": {
-   "dimensao": "650x350",
-   "peso": "150 KB",
-   "tipoFicheiro": "JPG, GIF or PNG"
-  },
-  "es": {
-   "dimensao": "650x350",
-   "peso": "150 KB",
-   "tipoFicheiro": "JPG, GIF o PNG"
-  },
-  "fr": {
-   "dimensao": "650x350",
-   "peso": "150 KB",
-   "tipoFicheiro": "JPG, GIF ou PNG"
-  }
- },
- "DV360|Prog - Takeover (Público)": {
-  "en": {
-   "dimensao": "630x80, 400x80, 950x80, 1112x80, 1500x80, 2300x80, 630x378, 400x240, 950x286, 1112x385, 1500x462, 2300x462",
-   "peso": "500 KB",
-   "tipoFicheiro": "JPG, PNG or GIF / Video for the expanded area"
-  },
-  "es": {
-   "dimensao": "630x80, 400x80, 950x80, 1112x80, 1500x80, 2300x80, 630x378, 400x240, 950x286, 1112x385, 1500x462, 2300x462",
-   "peso": "500 KB",
-   "tipoFicheiro": "JPG, PNG o GIF / Video para el área expandida"
-  },
-  "fr": {
-   "dimensao": "630x80, 400x80, 950x80, 1112x80, 1500x80, 2300x80, 630x378, 400x240, 950x286, 1112x385, 1500x462, 2300x462",
-   "peso": "500 KB",
-   "tipoFicheiro": "JPG, PNG ou GIF / Vidéo pour la zone étendue"
-  }
- },
- "DV360|Prog - Connected TV (Sapo)": {
-  "en": {},
-  "es": {},
-  "fr": {}
- },
- "DV360|Prog - Connected TV (Google)": {
-  "en": {
-   "dimensao": "16 to 30 seconds; format specific to Connected TV",
-   "peso": "Hosted on YouTube",
-   "tipoFicheiro": "MP4, MOV",
-   "aspectRatio": "16:9"
-  },
-  "es": {
-   "dimensao": "16 a 30 segundos; formato específico para Connected TV",
-   "peso": "Alojado en YouTube",
-   "tipoFicheiro": "MP4, MOV",
-   "aspectRatio": "16:9"
-  },
-  "fr": {
-   "dimensao": "16 à 30 secondes ; format spécifique pour Connected TV",
-   "peso": "Hébergé sur YouTube",
-   "tipoFicheiro": "MP4, MOV",
-   "aspectRatio": "16:9"
-  }
- },
- "DV360|Prog - CTV First Screen (Sapo)": {
-  "en": {},
-  "es": {},
-  "fr": {}
  },
  "Google App Campaigns|Imagem": {
   "en": {
@@ -6218,6 +5239,71 @@
    "dimensao": "Combine les emplacements TopView (premier contenu vu à l'ouverture de l'app) et Top Feed (première publicité in-feed dans le fil For You), pendant 1 jour (24h). Pas de dayparting. Fréquence : 1 impression par utilisateur, par emplacement (fréquence de portée unique garantie de 1).",
    "tipoFicheiro": "Prend en charge Spark Ads et Non-Spark Ads (recommandé 1-2 créations par campagne) ; Duet/Stitch : Spark Ads suit les réglages de la vidéo originale, Non-Spark Ads non pris en charge.",
    "copies": "Objectif : Reach. Ciblage disponible : âge (18+) et localisation (pays). Suivi tiers pris en charge (impressions et clics). Landing page : webview standard (HTTPS) ou pages internes TikTok (Branded Hashtag Challenge, Effect, TikTok Shop) — ne prend pas en charge la redirection automatique vers un app store ni un lien depuis TopView vers un LIVE. Musique : même politique que les publicités in-feed reservation standard (Commercial Music Library ou vos propres pistes autorisées). Les commentaires et le téléchargement de la vidéo peuvent être désactivés. Add-ons : seulement ceux disponibles sur les deux emplacements (TopView + Top Feed). Son : toujours activé. Filigrane : vous pouvez demander une vidéo téléchargeable sans filigrane."
+  }
+ },
+ "DV360|Prog - Standard Banners": {
+  "en": {
+   "tipoFicheiro": "ZIP with HTML5 and image/script folders, or JPEG/GIF; always include a backup image inside the creative's ZIP.",
+   "copies": "There is no template for creatives served on Google — always insert Google's clicktag (GWD: inserted in the editor; other tools: place it in the code, see guidelines). Cannot include video (it would become Rich Media, with different specs). Animation: max. 30 seconds. White background: use a border to make the creative stand out. Validation: use the DCM asset validator (all checks must pass)."
+  },
+  "es": {
+   "tipoFicheiro": "ZIP con HTML5 y carpetas de imágenes/scripts, o JPEG/GIF; incluir siempre una imagen de respaldo dentro del ZIP de la creatividad.",
+   "copies": "No hay plantilla para las piezas servidas en Google — insertar siempre el clicktag de Google (GWD: se inserta en el editor; otros programas: colocarlo en el código, ver guías). No puede tener vídeo (pasaría a ser Rich Media, con especificaciones diferentes). Animación: máx. 30 segundos. Fondo blanco: usar un borde para destacar la pieza. Validación: usar el validador de assets de DCM (todos los puntos deben estar OK)."
+  },
+  "fr": {
+   "tipoFicheiro": "ZIP avec HTML5 et dossiers d'images/scripts, ou JPEG/GIF ; toujours inclure une image de secours dans le ZIP de la création.",
+   "copies": "Il n'y a pas de template pour les créations servies sur Google — toujours insérer le clicktag Google (GWD : inséré dans l'éditeur ; autres outils : à placer dans le code, voir les consignes). Ne peut pas contenir de vidéo (deviendrait Rich Media, avec des spécifications différentes). Animation : max. 30 secondes. Fond blanc : utiliser une bordure pour faire ressortir la création. Validation : utiliser le validateur d'assets DCM (tous les points doivent être OK)."
+  }
+ },
+ "DV360|Prog - Companion Banner": {
+  "en": {
+   "dimensao": "640x640px",
+   "peso": "200 KB",
+   "tipoFicheiro": "JPEG or PNG"
+  },
+  "es": {
+   "dimensao": "640x640px",
+   "peso": "200 KB",
+   "tipoFicheiro": "JPEG o PNG"
+  },
+  "fr": {
+   "dimensao": "640x640px",
+   "peso": "200 Ko",
+   "tipoFicheiro": "JPEG ou PNG"
+  }
+ },
+ "DV360|Prog - Pre-Roll": {
+  "en": {
+   "dimensao": "Recommended length: 15''. Maximum length: 30'' — videos longer than 30'' get a skip ad.",
+   "peso": "10 MB",
+   "tipoFicheiro": "MP4 video"
+  },
+  "es": {
+   "dimensao": "Duración recomendada: 15''. Duración máxima: 30'' — los vídeos de más de 30'' tienen skip ad.",
+   "peso": "10 MB",
+   "tipoFicheiro": "Vídeo MP4"
+  },
+  "fr": {
+   "dimensao": "Durée recommandée : 15''. Durée maximale : 30'' — les vidéos de plus de 30'' ont un skip ad.",
+   "peso": "10 Mo",
+   "tipoFicheiro": "Vidéo MP4"
+  }
+ },
+ "DV360|Prog - Connected TV": {
+  "en": {
+   "dimensao": "Recommended length: 15''. Maximum length: 30'' — videos longer than 30'' get a skip ad.",
+   "peso": "10 MB",
+   "tipoFicheiro": "MP4 video"
+  },
+  "es": {
+   "dimensao": "Duración recomendada: 15''. Duración máxima: 30'' — los vídeos de más de 30'' tienen skip ad.",
+   "peso": "10 MB",
+   "tipoFicheiro": "Vídeo MP4"
+  },
+  "fr": {
+   "dimensao": "Durée recommandée : 15''. Durée maximale : 30'' — les vidéos de plus de 30'' ont un skip ad.",
+   "peso": "10 Mo",
+   "tipoFicheiro": "Vidéo MP4"
   }
  }
 }
