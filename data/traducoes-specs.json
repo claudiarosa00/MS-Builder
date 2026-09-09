@@ -5255,23 +5255,6 @@
    "copies": "Il n'y a pas de template pour les créations servies sur Google — toujours insérer le clicktag Google (GWD : inséré dans l'éditeur ; autres outils : à placer dans le code, voir les consignes). Ne peut pas contenir de vidéo (deviendrait Rich Media, avec des spécifications différentes). Animation : max. 30 secondes. Fond blanc : utiliser une bordure pour faire ressortir la création. Validation : utiliser le validateur d'assets DCM (tous les points doivent être OK)."
   }
  },
- "DV360|Prog - Companion Banner": {
-  "en": {
-   "dimensao": "640x640px",
-   "peso": "200 KB",
-   "tipoFicheiro": "JPEG or PNG"
-  },
-  "es": {
-   "dimensao": "640x640px",
-   "peso": "200 KB",
-   "tipoFicheiro": "JPEG o PNG"
-  },
-  "fr": {
-   "dimensao": "640x640px",
-   "peso": "200 Ko",
-   "tipoFicheiro": "JPEG ou PNG"
-  }
- },
  "DV360|Prog - Pre-Roll": {
   "en": {
    "dimensao": "Recommended length: 15''. Maximum length: 30'' — videos longer than 30'' get a skip ad.",
@@ -5304,6 +5287,40 @@
    "dimensao": "Durée recommandée : 15''. Durée maximale : 30'' — les vidéos de plus de 30'' ont un skip ad.",
    "peso": "10 Mo",
    "tipoFicheiro": "Vidéo MP4"
+  }
+ },
+ "DV360|Prog - Companion Banner (Audio)": {
+  "en": {
+   "dimensao": "640x640px",
+   "peso": "200 KB",
+   "tipoFicheiro": "JPEG or PNG"
+  },
+  "es": {
+   "dimensao": "640x640px",
+   "peso": "200 KB",
+   "tipoFicheiro": "JPEG o PNG"
+  },
+  "fr": {
+   "dimensao": "640x640px",
+   "peso": "200 Ko",
+   "tipoFicheiro": "JPEG ou PNG"
+  }
+ },
+ "DV360|Prog - Companion Banner (YouTube)": {
+  "en": {
+   "dimensao": "300x60 (desktop only)",
+   "peso": "< 150 KB",
+   "tipoFicheiro": "JPG, GIF or PNG"
+  },
+  "es": {
+   "dimensao": "300x60 (solo en escritorio)",
+   "peso": "< 150 KB",
+   "tipoFicheiro": "JPG, GIF o PNG"
+  },
+  "fr": {
+   "dimensao": "300x60 (ordinateur uniquement)",
+   "peso": "< 150 Ko",
+   "tipoFicheiro": "JPG, GIF ou PNG"
   }
  }
 }
