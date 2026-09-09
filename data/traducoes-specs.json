@@ -5356,5 +5356,42 @@
   "fr": {
    "dimensao": "Spécifications à définir"
   }
+ },
+ "DV360|Prog - Outstream": {
+  "en": {
+   "dimensao": "Dimensions: min. 256px on both the longer and shorter side, except 300x250 and 320x180 (accepted exceptions). Placement: main body of the page only (not sidebar, header or footer).",
+   "aspectRatio": "4:3 or 16:9 (horizontal); 3:4 or 9:16 (vertical) — outside these ratios the ad won't serve",
+   "peso": "Up to 10 MB",
+   "tipoFicheiro": "AVI, MOV, MP4, M4V, MPEG, MPG, WEBM or WMV; VAST tags only (VPAID not supported); audio: recommended loudness -24 LKFS ±2 LKFS"
+  },
+  "es": {
+   "dimensao": "Dimensiones: mín. 256px en el lado más largo y en el más corto, excepto 300x250 y 320x180 (excepciones aceptadas). Colocación: solo en el cuerpo principal de la página (no en barra lateral, cabecera o pie de página).",
+   "aspectRatio": "4:3 o 16:9 (horizontal); 3:4 o 9:16 (vertical) — fuera de estas proporciones el anuncio no se sirve",
+   "peso": "Hasta 10 MB",
+   "tipoFicheiro": "AVI, MOV, MP4, M4V, MPEG, MPG, WEBM o WMV; solo etiquetas VAST (VPAID no compatible); audio: sonoridad recomendada -24 LKFS ±2 LKFS"
+  },
+  "fr": {
+   "dimensao": "Dimensions : min. 256px sur le côté le plus long et le plus court, sauf 300x250 et 320x180 (exceptions acceptées). Emplacement : uniquement dans le corps principal de la page (pas dans la barre latérale, l'en-tête ou le pied de page).",
+   "aspectRatio": "4:3 ou 16:9 (horizontal) ; 3:4 ou 9:16 (vertical) — en dehors de ces ratios, la publicité ne sera pas diffusée",
+   "peso": "Jusqu'à 10 Mo",
+   "tipoFicheiro": "AVI, MOV, MP4, M4V, MPEG, MPG, WEBM ou WMV ; balises VAST uniquement (VPAID non pris en charge) ; audio : sonie recommandée -24 LKFS ±2 LKFS"
+  }
+ },
+ "DV360|Prog - Rewarded Video": {
+  "en": {
+   "dimensao": "Applies to video ads only — the user receives a reward (e.g. in-app currency, power-up) after watching the ad.",
+   "peso": "Up to 10 MB",
+   "tipoFicheiro": "AVI, MOV, MP4, M4V, MPEG, MPG, WEBM or WMV; audio: recommended loudness -24 LKFS ±2 LKFS"
+  },
+  "es": {
+   "dimensao": "Se aplica solo a anuncios de vídeo — el usuario recibe una recompensa (p. ej., moneda dentro de la app, power-up) después de ver el anuncio.",
+   "peso": "Hasta 10 MB",
+   "tipoFicheiro": "AVI, MOV, MP4, M4V, MPEG, MPG, WEBM o WMV; audio: sonoridad recomendada -24 LKFS ±2 LKFS"
+  },
+  "fr": {
+   "dimensao": "S'applique uniquement aux publicités vidéo — l'utilisateur reçoit une récompense (ex. : monnaie in-app, power-up) après avoir regardé la publicité.",
+   "peso": "Jusqu'à 10 Mo",
+   "tipoFicheiro": "AVI, MOV, MP4, M4V, MPEG, MPG, WEBM ou WMV ; audio : sonie recommandée -24 LKFS ±2 LKFS"
+  }
  }
 }
