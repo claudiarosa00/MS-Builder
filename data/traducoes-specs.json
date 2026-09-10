@@ -6056,5 +6056,56 @@
       "tipoFicheiro": "JPG (format statique).",
       "copies": "Prend uniquement en charge le tag de clics (impossible d'utiliser le tag d'impressions)."
     }
+  },
+  "Azerion|Static Starter": {
+    "en": {
+      "dimensao": "PSD file 2560x1600px (RGB color profile). 3 graphic elements as layers: background image; copy (as image or text); logo.",
+      "tipoFicheiro": "PSD",
+      "copies": "Layout options: background with copy (base); + CTA on the left or right (optional); + logo at the top, left or right."
+    },
+    "es": {
+      "dimensao": "Archivo PSD 2560x1600px (perfil de color RGB). 3 elementos gráficos en capas: imagen de fondo; copy (en imagen o texto); logo.",
+      "tipoFicheiro": "PSD",
+      "copies": "Opciones de diseño: fondo con copy (base); + CTA a la izquierda o derecha (opcional); + logo en la parte superior, izquierda o derecha."
+    },
+    "fr": {
+      "dimensao": "Fichier PSD 2560x1600px (profil de couleurs RVB). 3 éléments graphiques en calques : image de fond ; texte (en image ou en texte) ; logo.",
+      "tipoFicheiro": "PSD",
+      "copies": "Options de mise en page : fond avec texte (base) ; + CTA à gauche ou à droite (facultatif) ; + logo en haut, à gauche ou à droite."
+    }
+  },
+  "Anzu|Display Ads": {
+    "en": {
+      "dimensao": "480x320px, 320x480px, 320x50px, 300x250px or 640x360px. Max. 1024px on the longer side; recommended min. 512px on the longer side, keeping the aspect ratio.",
+      "aspectRatio": "3:2, 2:3, 6.4:1, 6:5 or 16:9 (depending on the chosen size)",
+      "tipoFicheiro": "PNG, JPG or BMP (GIF also accepted, automatically resized by Anzu).",
+      "copies": "Up to 10 creatives per deal. All creatives are moderated by the Roblox team and may require changes to meet Roblox compliance rules."
+    },
+    "es": {
+      "dimensao": "480x320px, 320x480px, 320x50px, 300x250px o 640x360px. Máx. 1024px en el lado más largo; se recomienda mín. 512px en el lado más largo, manteniendo el aspect ratio.",
+      "aspectRatio": "3:2, 2:3, 6.4:1, 6:5 o 16:9 (según el tamaño elegido)",
+      "tipoFicheiro": "PNG, JPG o BMP (también se acepta GIF, redimensionado automáticamente por Anzu).",
+      "copies": "Hasta 10 creatividades por deal. Todas las creatividades son moderadas por el equipo de Roblox y pueden sufrir cambios para cumplir las reglas de compliance de Roblox."
+    },
+    "fr": {
+      "dimensao": "480x320px, 320x480px, 320x50px, 300x250px ou 640x360px. Max. 1024px sur le côté le plus long ; min. recommandé 512px sur le côté le plus long, en conservant le ratio d'aspect.",
+      "aspectRatio": "3:2, 2:3, 6,4:1, 6:5 ou 16:9 (selon la taille choisie)",
+      "tipoFicheiro": "PNG, JPG ou BMP (le GIF est aussi accepté, redimensionné automatiquement par Anzu).",
+      "copies": "Jusqu'à 10 créations par deal. Toutes les créations sont modérées par l'équipe Roblox et peuvent être modifiées pour respecter les règles de conformité de Roblox."
+    }
+  },
+  "OLX|Homepage Leaderboard": {
+    "en": {
+      "peso": "Max. 1 MB",
+      "tipoFicheiro": "JPEG, JPG, PNG, GIF or HTML5 (GWD)"
+    },
+    "es": {
+      "peso": "Máx. 1 MB",
+      "tipoFicheiro": "JPEG, JPG, PNG, GIF o HTML5 (GWD)"
+    },
+    "fr": {
+      "peso": "Max. 1 Mo",
+      "tipoFicheiro": "JPEG, JPG, PNG, GIF ou HTML5 (GWD)"
+    }
   }
 }
