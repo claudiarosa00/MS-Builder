@@ -6061,37 +6061,17 @@
     "en": {
       "dimensao": "PSD file 2560x1600px (RGB color profile). 3 graphic elements as layers: background image; copy (as image or text); logo.",
       "tipoFicheiro": "PSD",
-      "copies": "Layout options: background with copy (base); + CTA on the left or right (optional); + logo at the top, left or right."
+      "copies": "Layout options: background with copy (base); + CTA on the left or right (optional); + logo at the top, left or right. Support with DCM tracking. See the additional technical sheet provided by the publisher (\"We Transfer\", not included here)."
     },
     "es": {
       "dimensao": "Archivo PSD 2560x1600px (perfil de color RGB). 3 elementos gráficos en capas: imagen de fondo; copy (en imagen o texto); logo.",
       "tipoFicheiro": "PSD",
-      "copies": "Opciones de diseño: fondo con copy (base); + CTA a la izquierda o derecha (opcional); + logo en la parte superior, izquierda o derecha."
+      "copies": "Opciones de diseño: fondo con copy (base); + CTA a la izquierda o derecha (opcional); + logo en la parte superior, izquierda o derecha. Soporte con tracking DCM. Ver la ficha técnica adicional proporcionada por el medio (\"We Transfer\", no incluida aquí)."
     },
     "fr": {
       "dimensao": "Fichier PSD 2560x1600px (profil de couleurs RVB). 3 éléments graphiques en calques : image de fond ; texte (en image ou en texte) ; logo.",
       "tipoFicheiro": "PSD",
-      "copies": "Options de mise en page : fond avec texte (base) ; + CTA à gauche ou à droite (facultatif) ; + logo en haut, à gauche ou à droite."
-    }
-  },
-  "Anzu|Display Ads": {
-    "en": {
-      "dimensao": "480x320px, 320x480px, 320x50px, 300x250px or 640x360px. Max. 1024px on the longer side; recommended min. 512px on the longer side, keeping the aspect ratio.",
-      "aspectRatio": "3:2, 2:3, 6.4:1, 6:5 or 16:9 (depending on the chosen size)",
-      "tipoFicheiro": "PNG, JPG or BMP (GIF also accepted, automatically resized by Anzu).",
-      "copies": "Up to 10 creatives per deal. All creatives are moderated by the Roblox team and may require changes to meet Roblox compliance rules."
-    },
-    "es": {
-      "dimensao": "480x320px, 320x480px, 320x50px, 300x250px o 640x360px. Máx. 1024px en el lado más largo; se recomienda mín. 512px en el lado más largo, manteniendo el aspect ratio.",
-      "aspectRatio": "3:2, 2:3, 6.4:1, 6:5 o 16:9 (según el tamaño elegido)",
-      "tipoFicheiro": "PNG, JPG o BMP (también se acepta GIF, redimensionado automáticamente por Anzu).",
-      "copies": "Hasta 10 creatividades por deal. Todas las creatividades son moderadas por el equipo de Roblox y pueden sufrir cambios para cumplir las reglas de compliance de Roblox."
-    },
-    "fr": {
-      "dimensao": "480x320px, 320x480px, 320x50px, 300x250px ou 640x360px. Max. 1024px sur le côté le plus long ; min. recommandé 512px sur le côté le plus long, en conservant le ratio d'aspect.",
-      "aspectRatio": "3:2, 2:3, 6,4:1, 6:5 ou 16:9 (selon la taille choisie)",
-      "tipoFicheiro": "PNG, JPG ou BMP (le GIF est aussi accepté, redimensionné automatiquement par Anzu).",
-      "copies": "Jusqu'à 10 créations par deal. Toutes les créations sont modérées par l'équipe Roblox et peuvent être modifiées pour respecter les règles de conformité de Roblox."
+      "copies": "Options de mise en page : fond avec texte (base) ; + CTA à gauche ou à droite (facultatif) ; + logo en haut, à gauche ou à droite. Support avec tracking DCM. Voir la fiche technique complémentaire fournie par le média (\"We Transfer\", non incluse ici)."
     }
   },
   "OLX|Homepage Leaderboard": {
@@ -6106,6 +6086,263 @@
     "fr": {
       "peso": "Max. 1 Mo",
       "tipoFicheiro": "JPEG, JPG, PNG, GIF ou HTML5 (GWD)"
+    }
+  },
+  "Roblox|Display Ads": {
+    "en": {
+      "dimensao": "480x320px, 320x480px, 320x50px, 300x250px or 640x360px. Max. 1024px on the longer side; recommended min. 512px on the longer side, keeping the aspect ratio.",
+      "aspectRatio": "3:2, 2:3, 6.4:1, 6:5 or 16:9 (depending on the chosen size)",
+      "tipoFicheiro": "PNG, JPG or BMP (GIF also accepted, automatically resized by Anzu).",
+      "copies": "Support with DCM tracking. Up to 10 creatives per deal. All creatives are moderated by the Roblox team and may require changes to meet Roblox compliance rules. See the additional technical file provided by the publisher (not included here)."
+    },
+    "es": {
+      "dimensao": "480x320px, 320x480px, 320x50px, 300x250px o 640x360px. Máx. 1024px en el lado más largo; se recomienda mín. 512px en el lado más largo, manteniendo el aspect ratio.",
+      "aspectRatio": "3:2, 2:3, 6.4:1, 6:5 o 16:9 (según el tamaño elegido)",
+      "tipoFicheiro": "PNG, JPG o BMP (también se acepta GIF, redimensionado automáticamente por Anzu).",
+      "copies": "Soporte con tracking DCM. Hasta 10 creatividades por deal. Todas las creatividades son moderadas por el equipo de Roblox y pueden sufrir cambios para cumplir las reglas de compliance de Roblox. Ver el fichero técnico adicional proporcionado por el medio (no incluido aquí)."
+    },
+    "fr": {
+      "dimensao": "480x320px, 320x480px, 320x50px, 300x250px ou 640x360px. Max. 1024px sur le côté le plus long ; min. recommandé 512px sur le côté le plus long, en conservant le ratio d'aspect.",
+      "aspectRatio": "3:2, 2:3, 6,4:1, 6:5 ou 16:9 (selon la taille choisie)",
+      "tipoFicheiro": "PNG, JPG ou BMP (le GIF est aussi accepté, redimensionné automatiquement par Anzu).",
+      "copies": "Support avec tracking DCM. Jusqu'à 10 créations par deal. Toutes les créations sont modérées par l'équipe Roblox et peuvent être modifiées pour respecter les règles de conformité de Roblox. Voir le fichier technique complémentaire fourni par le média (non inclus ici)."
+    }
+  },
+  "Azerion|Skin": {
+    "en": {
+      "dimensao": "Required working files: side banners in PSD, fonts, copy and brand color book/codes. The exact side-banner dimensions are in an additional technical sheet provided by the publisher (not included here).",
+      "tipoFicheiro": "PSD",
+      "copies": "The side banners can be identical or different, at the client's discretion. Support with DCM tracking. The publisher helps produce the final version — if there are extra elements it can work with to enrich the format, send the editable files."
+    },
+    "es": {
+      "dimensao": "Ficheros de trabajo necesarios: banners laterales en PSD, fuentes, copies y color book/codes de marca. Las dimensiones exactas de los banners laterales están en una ficha técnica adicional proporcionada por el medio (no incluida aquí).",
+      "tipoFicheiro": "PSD",
+      "copies": "Los banners laterales pueden ser iguales o diferentes, a criterio del cliente. Soporte con tracking DCM. El medio ayuda a producir la versión final — si hay elementos extra con los que pueda trabajar para enriquecer el formato, enviar los ficheros editables."
+    },
+    "fr": {
+      "dimensao": "Fichiers de travail nécessaires : bannières latérales en PSD, polices, textes et color book/codes de marque. Les dimensions exactes des bannières latérales figurent dans une fiche technique complémentaire fournie par le média (non incluse ici).",
+      "tipoFicheiro": "PSD",
+      "copies": "Les bannières latérales peuvent être identiques ou différentes, au choix du client. Support avec tracking DCM. Le média aide à produire la version finale — s'il y a des éléments supplémentaires avec lesquels il peut travailler pour enrichir le format, envoyer les fichiers modifiables."
+    }
+  },
+  "Azerion|Native ad": {
+    "en": {
+      "aspectRatio": "1.91:1, 1.78:1, 1.5:1, 1.33:1 or 1:1 (at least one required)",
+      "peso": "Max. 200 KB",
+      "tipoFicheiro": "Tag (Sizmek, DoubleClick, Weborama, etc.), Image (JPG, GIF) or HTML5 (*)",
+      "copies": "Support with DCM tracking. Copy (all required): Short Headline (x2) — max. 30 characters; Long Headline — 90 characters; Description — 90 characters; Business/Brand Name — 25 characters."
+    },
+    "es": {
+      "aspectRatio": "1.91:1, 1.78:1, 1.5:1, 1.33:1 o 1:1 (al menos uno obligatorio)",
+      "peso": "Máx. 200 KB",
+      "tipoFicheiro": "Tag (Sizmek, DoubleClick, Weborama, etc.), Imagen (JPG, GIF) o HTML5 (*)",
+      "copies": "Soporte con tracking DCM. Copies (todos obligatorios): Short Headline (x2) — máx. 30 caracteres; Long Headline — 90 caracteres; Descripción — 90 caracteres; Business/Brand Name — 25 caracteres."
+    },
+    "fr": {
+      "aspectRatio": "1,91:1, 1,78:1, 1,5:1, 1,33:1 ou 1:1 (au moins un obligatoire)",
+      "peso": "Max. 200 Ko",
+      "tipoFicheiro": "Tag (Sizmek, DoubleClick, Weborama, etc.), Image (JPG, GIF) ou HTML5 (*)",
+      "copies": "Support avec tracking DCM. Textes (tous obligatoires) : Short Headline (x2) — max. 30 caractères ; Long Headline — 90 caractères ; Description — 90 caractères ; Business/Brand Name — 25 caractères."
+    }
+  },
+  "Bauer|Leaderboard": {
+    "en": {
+      "dimensao": "728x90px (Desktop, Tablet)"
+    },
+    "es": {
+      "dimensao": "728x90px (Desktop, Tablet)"
+    },
+    "fr": {
+      "dimensao": "728x90px (Desktop, Tablette)"
+    }
+  },
+  "Bauer|Mobile Leaderboard": {
+    "en": {
+      "dimensao": "320x50px (Mobile)"
+    },
+    "es": {
+      "dimensao": "320x50px (Mobile)"
+    },
+    "fr": {
+      "dimensao": "320x50px (Mobile)"
+    }
+  },
+  "Bauer|MREC (mpu)": {
+    "en": {
+      "dimensao": "300x250px (All)",
+      "peso": "Max. 150 KB",
+      "tipoFicheiro": "GIF, JPEG or HTML5"
+    },
+    "es": {
+      "dimensao": "300x250px (All)",
+      "peso": "Máx. 150 KB",
+      "tipoFicheiro": "GIF, JPEG o HTML5"
+    },
+    "fr": {
+      "dimensao": "300x250px (All)",
+      "peso": "Max. 150 Ko",
+      "tipoFicheiro": "GIF, JPEG ou HTML5"
+    }
+  },
+  "Bauer|Billboard (desktop)": {
+    "en": {
+      "dimensao": "970x250px (Desktop)",
+      "peso": "Max. 250 KB",
+      "tipoFicheiro": "GIF, JPEG or HTML5"
+    },
+    "es": {
+      "dimensao": "970x250px (Desktop)",
+      "peso": "Máx. 250 KB",
+      "tipoFicheiro": "GIF, JPEG o HTML5"
+    },
+    "fr": {
+      "dimensao": "970x250px (Desktop)",
+      "peso": "Max. 250 Ko",
+      "tipoFicheiro": "GIF, JPEG ou HTML5"
+    }
+  },
+  "Bauer|Mobile Billboard": {
+    "en": {
+      "dimensao": "320x100px (Mobile)"
+    },
+    "es": {
+      "dimensao": "320x100px (Mobile)"
+    },
+    "fr": {
+      "dimensao": "320x100px (Mobile)"
+    }
+  },
+  "Bauer|Halfpage (double mpu)": {
+    "en": {
+      "dimensao": "300x600px (All)",
+      "peso": "Max. 250 KB",
+      "tipoFicheiro": "GIF, JPEG or HTML5"
+    },
+    "es": {
+      "dimensao": "300x600px (All)",
+      "peso": "Máx. 250 KB",
+      "tipoFicheiro": "GIF, JPEG o HTML5"
+    },
+    "fr": {
+      "dimensao": "300x600px (All)",
+      "peso": "Max. 250 Ko",
+      "tipoFicheiro": "GIF, JPEG ou HTML5"
+    }
+  },
+  "Bauer|Native": {
+    "en": {
+      "dimensao": "Responsive (All) — adapts to the site's layout.",
+      "copies": "Custom native formats, specific to each site. See each site's own specs (e.g. Bauer Native — All Site) via the link provided by the publisher (not included here)."
+    },
+    "es": {
+      "dimensao": "Responsive (All) — se adapta al diseño del sitio.",
+      "copies": "Formatos nativos personalizados, específicos de cada sitio. Consultar las specs propias de cada sitio (ej.: Bauer Native — All Site) a través del enlace proporcionado por el medio (no incluido aquí)."
+    },
+    "fr": {
+      "dimensao": "Responsive (All) — s'adapte à la mise en page du site.",
+      "copies": "Formats natifs personnalisés, spécifiques à chaque site. Consulter les spécifications propres à chaque site (ex. : Bauer Native — All Site) via le lien fourni par le média (non inclus ici)."
+    }
+  },
+  "Bauer|Mobile Interscroller": {
+    "en": {
+      "dimensao": "300x600px (Mobile)",
+      "copies": "Served via a third-party tag (Mobkoi)."
+    },
+    "es": {
+      "dimensao": "300x600px (Mobile)",
+      "copies": "Servido mediante tag de terceros (Mobkoi)."
+    },
+    "fr": {
+      "dimensao": "300x600px (Mobile)",
+      "copies": "Diffusé via une balise tierce (Mobkoi)."
+    }
+  },
+  "Bauer|Socially Inspired Rich Media": {
+    "en": {
+      "dimensao": "Multi — built in-house by Illuminate (Mobile).",
+      "copies": "Interactive, mobile-first rich media solution with socially-inspired formats, designed to reach users while they read editorial content. Full technical specs are in a separate document (\"Social Display RMF Specifications\"), not included here."
+    },
+    "es": {
+      "dimensao": "Multi — formato construido internamente por Illuminate (Mobile).",
+      "copies": "Solución de rich media interactiva, optimizada mobile-first, con formatos inspirados en redes sociales, diseñada para llegar a los usuarios mientras leen contenido editorial. Las specs técnicas completas están en un documento aparte (\"Social Display RMF Specifications\"), no incluido aquí."
+    },
+    "fr": {
+      "dimensao": "Multi — format conçu en interne par Illuminate (Mobile).",
+      "copies": "Solution de rich media interactive, optimisée mobile-first, avec des formats inspirés des réseaux sociaux, conçue pour toucher les utilisateurs pendant la lecture de contenu éditorial. Les spécifications techniques complètes se trouvent dans un document à part (\"Social Display RMF Specifications\"), non inclus ici."
+    }
+  },
+  "Bauer|Standard Takeover": {
+    "en": {
+      "dimensao": "Multi (All) — combination of several ad spaces on the page.",
+      "tipoFicheiro": "Skin/hero images in static format: JPG or PNG.",
+      "copies": "No third-party creative tags accepted (viewability, conversion, engagement) — only impression and click trackers."
+    },
+    "es": {
+      "dimensao": "Multi (All) — combinación de varios espacios publicitarios en la página.",
+      "tipoFicheiro": "Imágenes skin/hero en formato estático: JPG o PNG.",
+      "copies": "No se aceptan tags de creatividades de terceros (viewability, conversión, engagement) — solo trackers de impresión y clic."
+    },
+    "fr": {
+      "dimensao": "Multi (All) — combinaison de plusieurs espaces publicitaires sur la page.",
+      "tipoFicheiro": "Images skin/hero en format statique : JPG ou PNG.",
+      "copies": "Aucune balise de création tierce acceptée (viewability, conversion, engagement) — uniquement des trackers d'impression et de clic."
+    }
+  },
+  "Bauer|Hero Takeover": {
+    "en": {
+      "dimensao": "Responsive (All).",
+      "tipoFicheiro": "Skin/hero images in static format: JPG or PNG.",
+      "copies": "No third-party creative tags accepted (viewability, conversion, engagement) — only impression and click trackers."
+    },
+    "es": {
+      "dimensao": "Responsive (All).",
+      "tipoFicheiro": "Imágenes skin/hero en formato estático: JPG o PNG.",
+      "copies": "No se aceptan tags de creatividades de terceros (viewability, conversión, engagement) — solo trackers de impresión y clic."
+    },
+    "fr": {
+      "dimensao": "Responsive (All).",
+      "tipoFicheiro": "Images skin/hero en format statique : JPG ou PNG.",
+      "copies": "Aucune balise de création tierce acceptée (viewability, conversion, engagement) — uniquement des trackers d'impression et de clic."
+    }
+  },
+  "Bauer|In-Article Video": {
+    "en": {
+      "aspectRatio": "16:9 or 4:3 (horizontal, min. 1280x720 or 1280x960); 9:16 (vertical, min. 720x1280) — at least 1 horizontal video is recommended to deliver across all devices.",
+      "peso": "Min. 4 KB, max. 4 MB",
+      "tipoFicheiro": "MP4, 3GPP or MOV (H264, MPEG4 video, AAC audio); AVI (MJPEG video, PCM audio); MPEG-PS (MPEG2 video, MP2 audio); WMV. Min. bitrate 1500 kbit/s. Max. length 30s. No audio autoplay (muted by default). VAST tags 2.0 to 4.2 (VPAID not supported).",
+      "copies": "Standalone video ad between paragraphs of editorial content (mobile, tablet and desktop). Plays automatically when 50% of the ad is in view; muted by default; \"Learn More\" button at the bottom of the ad (only clickable element)."
+    },
+    "es": {
+      "aspectRatio": "16:9 o 4:3 (horizontal, mín. 1280x720 o 1280x960); 9:16 (vertical, mín. 720x1280) — se recomienda al menos 1 vídeo horizontal para la entrega en todos los dispositivos.",
+      "peso": "Mín. 4 KB, máx. 4 MB",
+      "tipoFicheiro": "MP4, 3GPP o MOV (H264, vídeo MPEG4, audio AAC); AVI (vídeo MJPEG, audio PCM); MPEG-PS (vídeo MPEG2, audio MP2); WMV. Bitrate mín. 1500 kbit/s. Duración máx. 30s. Sin autoplay de audio (silenciado por defecto). Tags VAST 2.0 a 4.2 (sin soporte para VPAID).",
+      "copies": "Anuncio de vídeo independiente entre párrafos de contenido editorial (mobile, tablet y desktop). Se reproduce automáticamente cuando el 50% del anuncio es visible; sonido desactivado por defecto; botón \"Learn More\" en la parte inferior del anuncio (único elemento clicable)."
+    },
+    "fr": {
+      "aspectRatio": "16:9 ou 4:3 (horizontal, min. 1280x720 ou 1280x960) ; 9:16 (vertical, min. 720x1280) — au moins 1 vidéo horizontale est recommandée pour une diffusion sur tous les appareils.",
+      "peso": "Min. 4 Ko, max. 4 Mo",
+      "tipoFicheiro": "MP4, 3GPP ou MOV (H264, vidéo MPEG4, audio AAC) ; AVI (vidéo MJPEG, audio PCM) ; MPEG-PS (vidéo MPEG2, audio MP2) ; WMV. Bitrate min. 1500 kbit/s. Durée max. 30s. Pas de lecture automatique du son (coupé par défaut). Balises VAST 2.0 à 4.2 (VPAID non pris en charge).",
+      "copies": "Publicité vidéo autonome entre les paragraphes de contenu éditorial (mobile, tablette et bureau). Se lance automatiquement quand 50 % de la publicité est visible ; son coupé par défaut ; bouton « Learn More » en bas de la publicité (seul élément cliquable)."
+    }
+  },
+  "Bauer|Radio Player Pre-Roll": {
+    "en": {
+      "aspectRatio": "16:9 or 4:3 (horizontal, min. 1280x720 or 1280x960); 9:16 (vertical, min. 720x1280) — at least 1 horizontal video is recommended to deliver across all devices.",
+      "peso": "Min. 4 KB, max. 4 MB",
+      "tipoFicheiro": "MP4, 3GPP or MOV (H264, MPEG4 video, AAC audio); AVI (MJPEG video, PCM audio); MPEG-PS (MPEG2 video, MP2 audio); WMV. Min. bitrate 1500 kbit/s. Max. length 30s. No audio autoplay (muted by default). VAST tags 2.0 to 4.2 (VPAID not supported).",
+      "copies": "Single pre-roll, played at the start of a user-initiated audio stream (e.g. Radio Players like Kiss). Sold as part of the Radio Player Takeover or via programmatic. Not currently available on Bauer's YouTube channels."
+    },
+    "es": {
+      "aspectRatio": "16:9 o 4:3 (horizontal, mín. 1280x720 o 1280x960); 9:16 (vertical, mín. 720x1280) — se recomienda al menos 1 vídeo horizontal para la entrega en todos los dispositivos.",
+      "peso": "Mín. 4 KB, máx. 4 MB",
+      "tipoFicheiro": "MP4, 3GPP o MOV (H264, vídeo MPEG4, audio AAC); AVI (vídeo MJPEG, audio PCM); MPEG-PS (vídeo MPEG2, audio MP2); WMV. Bitrate mín. 1500 kbit/s. Duración máx. 30s. Sin autoplay de audio (silenciado por defecto). Tags VAST 2.0 a 4.2 (sin soporte para VPAID).",
+      "copies": "Pre-roll único, reproducido al iniciar un stream de audio iniciado por el usuario (ej.: Radio Players como Kiss). Se vende como parte del Radio Player Takeover o vía programática. No disponible actualmente en los canales de YouTube de Bauer."
+    },
+    "fr": {
+      "aspectRatio": "16:9 ou 4:3 (horizontal, min. 1280x720 ou 1280x960) ; 9:16 (vertical, min. 720x1280) — au moins 1 vidéo horizontale est recommandée pour une diffusion sur tous les appareils.",
+      "peso": "Min. 4 Ko, max. 4 Mo",
+      "tipoFicheiro": "MP4, 3GPP ou MOV (H264, vidéo MPEG4, audio AAC) ; AVI (vidéo MJPEG, audio PCM) ; MPEG-PS (vidéo MPEG2, audio MP2) ; WMV. Bitrate min. 1500 kbit/s. Durée max. 30s. Pas de lecture automatique du son (coupé par défaut). Balises VAST 2.0 à 4.2 (VPAID non pris en charge).",
+      "copies": "Pré-roll unique, diffusé au lancement d'un flux audio initié par l'utilisateur (ex. : Radio Players comme Kiss). Vendu dans le cadre du Radio Player Takeover ou en programmatique. Non disponible actuellement sur les chaînes YouTube de Bauer."
     }
   }
 }

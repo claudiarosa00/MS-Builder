@@ -62,12 +62,12 @@ templates/                  Reservado para uso futuro (atualmente vazio)
 
 ## Base de dados de formatos
 
-Os 339 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
+Os 354 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
 mapeados a partir da base real de specs da agência (269 formatos de
 publisher → 40 categorias "Digital2020" canónicas, mais os formatos
 Programmatic/DV360 adicionados depois, os 36 formatos de compra direta do
-publisher "Notícias Ilimitadas", e 3 formatos adicionais — WeTransfer via
-Azerion, Roblox via Anzu, e OLX). Colunas: **Meio**, **Canal**,
+publisher "Notícias Ilimitadas", os formatos WeTransfer via Azerion,
+Roblox e OLX, e o publisher "Bauer" — Reino Unido). Colunas: **Meio**, **Canal**,
 **Fornecedor**, **Veículo**, **Grupo Digital2020**, **Formato**,
 **Dimensão**, **Aspect Ratio**, **Peso**, **Tipo de Ficheiro**, **Copies**,
 **Link**.
