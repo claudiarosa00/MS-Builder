@@ -23,6 +23,7 @@ const botoesFiltroCategoria = document.querySelectorAll(".filtro-categoria");
 const botaoLimparFiltros = document.getElementById("botaoLimparFiltros");
 const botoesObjetivo = document.querySelectorAll(".objetivo-botao");
 const botaoVoltarTopo = document.getElementById("botaoVoltarTopo");
+const notificacaoToast = document.getElementById("notificacaoToast");
 const mensagensSemResultados = {
   construir: document.getElementById("semResultadosConstruir"),
   specs: document.getElementById("semResultadosSpecs"),
@@ -106,6 +107,7 @@ const TRADUCOES = {
   botaoLimparSelecao: { pt: "Limpar seleção", en: "Clear selection", es: "Limpiar selección", fr: "Effacer la sélection" },
   botaoSelecionarTodos: { pt: "Selecionar todos", en: "Select all", es: "Seleccionar todos", fr: "Tout sélectionner" },
   botaoVoltarTopo: { pt: "Voltar ao topo", en: "Back to top", es: "Volver arriba", fr: "Retour en haut" },
+  notificacaoExportado: { pt: "Pedido exportado com sucesso.", en: "Request exported successfully.", es: "Solicitud exportada correctamente.", fr: "Demande exportée avec succès." },
   botaoExportar: { pt: "Exportar para Excel", en: "Export to Excel", es: "Exportar a Excel", fr: "Exporter vers Excel" },
   semResultados: { pt: "Nenhum formato encontrado com estes filtros.", en: "No formats found with these filters.", es: "No se encontraron formatos con estos filtros.", fr: "Aucun format trouvé avec ces filtres." },
   estadoCarregando: { pt: "A carregar formatos...", en: "Loading formats...", es: "Cargando formatos...", fr: "Chargement des formats..." },
@@ -240,14 +242,11 @@ function atualizarResumoCampanha() {
   const cliente = campoCliente.value.trim();
   const campanha = campoCampanha.value.trim();
 
-  if (!cliente && !campanha) {
-    resumoCampanha.textContent = "";
-    return;
-  }
-  resumoCampanha.textContent = formatar("resumoCampanhaTexto", {
+  resumoCampanha.textContent = (!cliente && !campanha) ? "" : formatar("resumoCampanhaTexto", {
     cliente: cliente || t("clientePorPreencher"),
     campanha: campanha || t("campanhaPorPreencher"),
   });
+  guardarEstadoLocal();
 }
 
 campoCliente.addEventListener("input", atualizarResumoCampanha);
@@ -379,6 +378,12 @@ async function carregarFormatos() {
       TRADUCOES_SPECS = {};
     }
 
+    // Restaura Companhia/Cliente/Campanha + seleção de um pedido em curso
+    // (ver secção 14), antes de desenhar as listas — assim as checkboxes já
+    // nascem marcadas com a seleção guardada, em vez de precisarem de um
+    // segundo desenho.
+    restaurarEstadoLocal();
+
     // Depois de carregado com sucesso não há nada útil a dizer aqui — a
     // própria lista de formatos a aparecer no ecrã já confirma que correu
     // bem, por isso limpamos a mensagem de "A carregar..." sem a substituir.
@@ -386,6 +391,8 @@ async function carregarFormatos() {
     mostrarFormatosAgrupados(listaFormatos, todosFormatos, { comCheckbox: true, comLink: false, simplificado: true, prefixoId: "construir" });
     mostrarFormatosAgrupados(listaSpecs, todosFormatos, { comCheckbox: false, comLink: true, simplificado: false, prefixoId: "specs" });
     aplicarFiltros();
+    atualizarResumoCampanha();
+    atualizarResumoSelecao();
   } catch (erro) {
     mostrarEstado(formatar("estadoErro", { msg: erro.message }), true);
     console.error(erro);
@@ -790,6 +797,7 @@ function atualizarResumoSelecao() {
   // saber qual gerar, por isso o botão de exportar fica bloqueado.
   botaoExportar.disabled = total === 0 || campoCompanhia.value === "";
   botaoLimparSelecao.disabled = total === 0;
+  guardarEstadoLocal();
 
   if (total === 0) {
     resumoSelecao.innerHTML = "";
@@ -997,11 +1005,34 @@ async function exportarSelecaoParaExcel() {
   link.download = nomeFicheiro;
   link.click();
   URL.revokeObjectURL(link.href);
+
+  // O download em si não dá nenhum feedback visível na página — sem esta
+  // notificação, num computador mais lento pode parecer que não aconteceu nada.
+  mostrarNotificacao(t("notificacaoExportado"));
 }
 
 /*
 ============================================
-12. BOTÃO "VOLTAR AO TOPO"
+12. NOTIFICAÇÃO FLUTUANTE (toast)
+Mensagem discreta que aparece uns segundos e desaparece
+sozinha — usada para confirmar ações sem interromper o
+utilizador com um alert().
+============================================
+*/
+let temporizadorNotificacao = null;
+
+function mostrarNotificacao(mensagem) {
+  notificacaoToast.textContent = mensagem;
+  notificacaoToast.hidden = false;
+  clearTimeout(temporizadorNotificacao);
+  temporizadorNotificacao = setTimeout(() => {
+    notificacaoToast.hidden = true;
+  }, 3500);
+}
+
+/*
+============================================
+13. BOTÃO "VOLTAR AO TOPO"
 Só aparece depois de algum scroll para baixo, para não
 ocupar espaço no ecrã enquanto não faz falta.
 ============================================
@@ -1018,7 +1049,87 @@ botaoVoltarTopo.addEventListener("click", () => {
 
 /*
 ============================================
-13. ARRANQUE DA APLICAÇÃO
+14. PERSISTÊNCIA LOCAL (localStorage)
+Guarda o estado do pedido em curso (Companhia/Cliente/
+Campanha + seleção por objetivo) para não se perder se a
+página for atualizada ou fechada sem querer. Guarda-se pela
+chave "Fornecedor|Formato" (estável), não pelo "id" (que é
+só a posição na base e pode mudar entre carregamentos) — um
+formato que já não existir na base é simplesmente ignorado
+ao restaurar, em vez de dar erro.
+
+localStorage pode estar bloqueado (modo privado, políticas do
+browser, sandbox do Artifact) — nesse caso a app continua a
+funcionar normalmente, só sem persistência.
+============================================
+*/
+const CHAVE_LOCALSTORAGE_PEDIDO = "csbuilder-pedido-em-curso";
+
+function guardarEstadoLocal() {
+  if (todosFormatos.length === 0) {
+    return; // ainda não há formatos carregados — não sobrescrever o que já estava guardado
+  }
+  try {
+    const idParaChave = new Map(todosFormatos.map((f) => [f.id, `${f.fornecedor}|${f.formato}`]));
+    const selecoes = {};
+    OBJETIVOS.forEach((objetivo) => {
+      selecoes[objetivo] = [...selecoesPorObjetivo[objetivo]]
+        .map((id) => idParaChave.get(id))
+        .filter(Boolean);
+    });
+    localStorage.setItem(CHAVE_LOCALSTORAGE_PEDIDO, JSON.stringify({
+      companhia: campoCompanhia.value,
+      cliente: campoCliente.value,
+      campanha: campoCampanha.value,
+      objetivoAtivo,
+      selecoes,
+    }));
+  } catch (erro) {
+    // localStorage indisponível — nada a fazer, a app continua sem persistência.
+  }
+}
+
+function restaurarEstadoLocal() {
+  let estadoGuardado;
+  try {
+    const bruto = localStorage.getItem(CHAVE_LOCALSTORAGE_PEDIDO);
+    if (!bruto) {
+      return;
+    }
+    estadoGuardado = JSON.parse(bruto);
+  } catch (erro) {
+    return;
+  }
+
+  const chaveParaId = new Map(todosFormatos.map((f) => [`${f.fornecedor}|${f.formato}`, f.id]));
+  OBJETIVOS.forEach((objetivo) => {
+    const chaves = (estadoGuardado.selecoes && estadoGuardado.selecoes[objetivo]) || [];
+    chaves.forEach((chave) => {
+      const id = chaveParaId.get(chave);
+      if (id !== undefined) {
+        selecoesPorObjetivo[objetivo].add(id);
+      }
+    });
+  });
+
+  if (estadoGuardado.companhia) {
+    campoCompanhia.value = estadoGuardado.companhia;
+  }
+  if (estadoGuardado.cliente) {
+    campoCliente.value = estadoGuardado.cliente;
+  }
+  if (estadoGuardado.campanha) {
+    campoCampanha.value = estadoGuardado.campanha;
+  }
+  if (estadoGuardado.objetivoAtivo && OBJETIVOS.includes(estadoGuardado.objetivoAtivo)) {
+    objetivoAtivo = estadoGuardado.objetivoAtivo;
+    botoesObjetivo.forEach((botao) => botao.classList.toggle("ativo", botao.dataset.objetivo === objetivoAtivo));
+  }
+}
+
+/*
+============================================
+15. ARRANQUE DA APLICAÇÃO
 ============================================
 */
 aplicarTraducoesEstaticas();

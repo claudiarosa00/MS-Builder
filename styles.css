@@ -303,6 +303,29 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   display: none;
 }
 
+/* Notificação flutuante discreta (ex.: confirmação de exportação) —
+   aparece uns segundos e desaparece sozinha (ver app.js). */
+.notificacao-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 32px;
+  transform: translateX(-50%);
+  background-color: var(--cor-escuro);
+  color: #ffffff;
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  z-index: 60;
+  max-width: min(90vw, 420px);
+  text-align: center;
+}
+
+.notificacao-toast[hidden] {
+  display: none;
+}
+
 .sem-resultados {
   margin: 24px 32px 0 32px;
   padding: 16px 20px;
