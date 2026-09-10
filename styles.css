@@ -276,6 +276,33 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   cursor: not-allowed;
 }
 
+/* Botão flutuante "voltar ao topo" — fixo no canto, só visível depois de
+   algum scroll (controlado em app.js, via o atributo [hidden]). */
+.botao-voltar-topo {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--cor-destaque);
+  color: #ffffff;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  z-index: 50;
+}
+
+.botao-voltar-topo:hover {
+  background-color: var(--cor-destaque-escuro);
+}
+
+.botao-voltar-topo[hidden] {
+  display: none;
+}
+
 .sem-resultados {
   margin: 24px 32px 0 32px;
   padding: 16px 20px;

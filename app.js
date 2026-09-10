@@ -22,6 +22,7 @@ const campoPesquisa = document.getElementById("campoPesquisa");
 const botoesFiltroCategoria = document.querySelectorAll(".filtro-categoria");
 const botaoLimparFiltros = document.getElementById("botaoLimparFiltros");
 const botoesObjetivo = document.querySelectorAll(".objetivo-botao");
+const botaoVoltarTopo = document.getElementById("botaoVoltarTopo");
 const mensagensSemResultados = {
   construir: document.getElementById("semResultadosConstruir"),
   specs: document.getElementById("semResultadosSpecs"),
@@ -104,6 +105,7 @@ const TRADUCOES = {
   botaoLimparFiltros: { pt: "Limpar filtros", en: "Clear filters", es: "Limpiar filtros", fr: "Effacer les filtres" },
   botaoLimparSelecao: { pt: "Limpar seleção", en: "Clear selection", es: "Limpiar selección", fr: "Effacer la sélection" },
   botaoSelecionarTodos: { pt: "Selecionar todos", en: "Select all", es: "Seleccionar todos", fr: "Tout sélectionner" },
+  botaoVoltarTopo: { pt: "Voltar ao topo", en: "Back to top", es: "Volver arriba", fr: "Retour en haut" },
   botaoExportar: { pt: "Exportar para Excel", en: "Export to Excel", es: "Exportar a Excel", fr: "Exporter vers Excel" },
   semResultados: { pt: "Nenhum formato encontrado com estes filtros.", en: "No formats found with these filters.", es: "No se encontraron formatos con estos filtros.", fr: "Aucun format trouvé avec ces filtres." },
   estadoCarregando: { pt: "A carregar formatos...", en: "Loading formats...", es: "Cargando formatos...", fr: "Chargement des formats..." },
@@ -999,7 +1001,24 @@ async function exportarSelecaoParaExcel() {
 
 /*
 ============================================
-12. ARRANQUE DA APLICAÇÃO
+12. BOTÃO "VOLTAR AO TOPO"
+Só aparece depois de algum scroll para baixo, para não
+ocupar espaço no ecrã enquanto não faz falta.
+============================================
+*/
+const LIMIAR_SCROLL_VOLTAR_TOPO = 400;
+
+window.addEventListener("scroll", () => {
+  botaoVoltarTopo.hidden = window.scrollY < LIMIAR_SCROLL_VOLTAR_TOPO;
+});
+
+botaoVoltarTopo.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+/*
+============================================
+13. ARRANQUE DA APLICAÇÃO
 ============================================
 */
 aplicarTraducoesEstaticas();
