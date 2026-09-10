@@ -3806,21 +3806,24 @@
       "aspectRatio": "9:16 (example video)",
       "peso": "Icon: ≤500 KB. Example video: ≤100 MB, bitrate >2,500kbps. Music cover: ≤1 MB. Main/secondary logo: ≤10 MB each. Brand safety logos (competitors/brand): ≤1024 KB each.",
       "tipoFicheiro": "Icon: PNG, JPG or JPEG. Example video: MP4, MPEG, 3GP, AVI, MOV. Music: MP3. Logos: JPG/JPEG/PNG (PNG recommended).",
-      "copies": "Advertiser name: up to 24 characters (no spaces/emojis/special characters, except '&'). Mission name: up to 70 characters (recommended ≤18 characters to fit on one line; no spaces/emojis/special characters like < > \" &). Mission description: up to 300 characters (recommended ≤150 characters). Example video caption: up to 150 characters (recommended 4-60 characters, no line breaks). Song name: up to 60 characters (recommended ≤12 characters); artist name unlimited (recommended ≤12 characters). Logo name: up to 20 characters. Competitor/brand name (brand safety): up to 20 characters each. Requirements: at least 1 required general requirement (official music, official hashtag, mention official account, use/trigger Branded Effect, or Duet); up to 3 optional specific requirements (dance, lip-sync, change outfits, show your face); optional brand requirements (reveal logo >1s, use Quick Effect)."
+      "copies": "Advertiser name: up to 24 characters (no spaces/emojis/special characters, except '&'). Mission name: up to 70 characters (recommended ≤18 characters to fit on one line; no spaces/emojis/special characters like < > \" &). Mission description: up to 300 characters (recommended ≤150 characters). Example video caption: up to 150 characters (recommended 4-60 characters, no line breaks). Song name: up to 60 characters (recommended ≤12 characters); artist name unlimited (recommended ≤12 characters). Logo name: up to 20 characters. Competitor/brand name (brand safety): up to 20 characters each.",
+      "observacoes": "Requirements: at least 1 required general requirement (official music, official hashtag, mention official account, use/trigger Branded Effect, or Duet); up to 3 optional specific requirements (dance, lip-sync, change outfits, show your face); optional brand requirements (reveal logo >1s, use Quick Effect)."
     },
     "es": {
       "dimensao": "ICONO DE LA MISSION: 240x240px. VÍDEO DE EJEMPLO (obligatorio, 1 a 10 vídeos): 9:16, ≥720x1280px, duración recomendada 12-15s. MÚSICA OFICIAL (opcional): portada 300x300 (elementos clave centrados en un diámetro de 260px), duración 15s-1min (recomendado 15s). LOGO DE LA MARCA (opcional): imagen principal + hasta 4 secundarias, mín. 1000x1000px. QUICK EFFECT (opcional): 1 a 10 imágenes, 100x100 a 1000x1000px. BRAND SAFETY — exclusión de competidores (hasta 5) / contenido negativo: logos de marca/competidores.",
       "aspectRatio": "9:16 (vídeo de ejemplo)",
       "peso": "Icono: ≤500 KB. Vídeo de ejemplo: ≤100 MB, bitrate >2.500kbps. Portada de música: ≤1 MB. Logo principal/secundario: ≤10 MB cada uno. Logos de brand safety (competidores/marca): ≤1024 KB cada uno.",
       "tipoFicheiro": "Icono: PNG, JPG o JPEG. Vídeo de ejemplo: MP4, MPEG, 3GP, AVI, MOV. Música: MP3. Logos: JPG/JPEG/PNG (recomendado PNG).",
-      "copies": "Nombre del anunciante: hasta 24 caracteres (sin espacios/emojis/caracteres especiales, excepto '&'). Nombre de la Mission: hasta 70 caracteres (recomendado ≤18 caracteres para caber en una línea; sin espacios/emojis/caracteres especiales como < > \" &). Descripción de la Mission: hasta 300 caracteres (recomendado ≤150 caracteres). Título del vídeo de ejemplo: hasta 150 caracteres (recomendado 4-60 caracteres, sin saltos de línea). Nombre de la canción: hasta 60 caracteres (recomendado ≤12 caracteres); nombre del artista sin límite (recomendado ≤12 caracteres). Nombre del logo: hasta 20 caracteres. Nombre de competidor/marca (brand safety): hasta 20 caracteres cada uno. Requisitos: al menos 1 requisito general obligatorio (música oficial, hashtag oficial, mencionar cuenta oficial, usar/activar Branded Effect, o Duet); hasta 3 requisitos específicos opcionales (bailar, lip-sync, cambiar de ropa, mostrar la cara); requisitos de marca opcionales (revelar el logo >1s, usar Quick Effect)."
+      "copies": "Nombre del anunciante: hasta 24 caracteres (sin espacios/emojis/caracteres especiales, excepto '&'). Nombre de la Mission: hasta 70 caracteres (recomendado ≤18 caracteres para caber en una línea; sin espacios/emojis/caracteres especiales como < > \" &). Descripción de la Mission: hasta 300 caracteres (recomendado ≤150 caracteres). Título del vídeo de ejemplo: hasta 150 caracteres (recomendado 4-60 caracteres, sin saltos de línea). Nombre de la canción: hasta 60 caracteres (recomendado ≤12 caracteres); nombre del artista sin límite (recomendado ≤12 caracteres). Nombre del logo: hasta 20 caracteres. Nombre de competidor/marca (brand safety): hasta 20 caracteres cada uno.",
+      "observacoes": "Requisitos: al menos 1 requisito general obligatorio (música oficial, hashtag oficial, mencionar cuenta oficial, usar/activar Branded Effect, o Duet); hasta 3 requisitos específicos opcionales (bailar, lip-sync, cambiar de ropa, mostrar la cara); requisitos de marca opcionales (revelar el logo >1s, usar Quick Effect)."
     },
     "fr": {
       "dimensao": "ICÔNE DE LA MISSION : 240x240px. VIDÉO D'EXEMPLE (obligatoire, 1 à 10 vidéos) : 9:16, ≥720x1280px, durée recommandée 12-15s. MUSIQUE OFFICIELLE (facultatif) : couverture 300x300 (éléments clés centrés dans un diamètre de 260px), durée 15s-1min (recommandé 15s). LOGO DE LA MARQUE (facultatif) : image principale + jusqu'à 4 secondaires, min. 1000x1000px. QUICK EFFECT (facultatif) : 1 à 10 images, 100x100 à 1000x1000px. BRAND SAFETY — exclusion de concurrents (jusqu'à 5) / contenu négatif : logos de marque/concurrents.",
       "aspectRatio": "9:16 (vidéo d'exemple)",
       "peso": "Icône : ≤500 Ko. Vidéo d'exemple : ≤100 Mo, bitrate >2 500kbps. Couverture musicale : ≤1 Mo. Logo principal/secondaire : ≤10 Mo chacun. Logos brand safety (concurrents/marque) : ≤1024 Ko chacun.",
       "tipoFicheiro": "Icône : PNG, JPG ou JPEG. Vidéo d'exemple : MP4, MPEG, 3GP, AVI, MOV. Musique : MP3. Logos : JPG/JPEG/PNG (PNG recommandé).",
-      "copies": "Nom de l'annonceur : jusqu'à 24 caractères (sans espaces/emojis/caractères spéciaux, sauf « & »). Nom de la Mission : jusqu'à 70 caractères (recommandé ≤18 caractères pour tenir sur une ligne ; sans espaces/emojis/caractères spéciaux comme < > \" &). Description de la Mission : jusqu'à 300 caractères (recommandé ≤150 caractères). Légende de la vidéo d'exemple : jusqu'à 150 caractères (recommandé 4-60 caractères, sans sauts de ligne). Nom de la chanson : jusqu'à 60 caractères (recommandé ≤12 caractères) ; nom de l'artiste sans limite (recommandé ≤12 caractères). Nom du logo : jusqu'à 20 caractères. Nom du concurrent/marque (brand safety) : jusqu'à 20 caractères chacun. Exigences : au moins 1 exigence générale obligatoire (musique officielle, hashtag officiel, mentionner le compte officiel, utiliser/déclencher le Branded Effect, ou Duet) ; jusqu'à 3 exigences spécifiques facultatives (danser, playback, changer de tenue, montrer son visage) ; exigences de marque facultatives (révéler le logo >1s, utiliser Quick Effect)."
+      "copies": "Nom de l'annonceur : jusqu'à 24 caractères (sans espaces/emojis/caractères spéciaux, sauf « & »). Nom de la Mission : jusqu'à 70 caractères (recommandé ≤18 caractères pour tenir sur une ligne ; sans espaces/emojis/caractères spéciaux comme < > \" &). Description de la Mission : jusqu'à 300 caractères (recommandé ≤150 caractères). Légende de la vidéo d'exemple : jusqu'à 150 caractères (recommandé 4-60 caractères, sans sauts de ligne). Nom de la chanson : jusqu'à 60 caractères (recommandé ≤12 caractères) ; nom de l'artiste sans limite (recommandé ≤12 caractères). Nom du logo : jusqu'à 20 caractères. Nom du concurrent/marque (brand safety) : jusqu'à 20 caractères chacun.",
+      "observacoes": "Exigences : au moins 1 exigence générale obligatoire (musique officielle, hashtag officiel, mentionner le compte officiel, utiliser/déclencher le Branded Effect, ou Duet) ; jusqu'à 3 exigences spécifiques facultatives (danser, playback, changer de tenue, montrer son visage) ; exigences de marque facultatives (révéler le logo >1s, utiliser Quick Effect)."
     }
   },
   "TikTok|Carousel Ads": {
@@ -3849,21 +3852,24 @@
       "aspectRatio": "9:16 (recommended), 16:9 or 1:1",
       "peso": "≤500 MB; bitrate ≥516 kbps. Profile photo: <50 KB.",
       "tipoFicheiro": "MP4, MOV, MPEG, 3GP, AVI. Profile photo: JPG, JPEG, PNG.",
-      "copies": "Caption: displayed in white, uniform font (not customizable); doesn't support clickable links, the '@' symbol, or hashtags. Account name: 1 line, max. 10 characters (CN/JP/KR) or 20 characters (other languages). Safe zones vary by orientation (vertical/horizontal/square), language (LTR/RTL) and anchor use — reference files available on TikTok Ads Help."
+      "copies": "Caption: displayed in white, uniform font (not customizable); doesn't support clickable links, the '@' symbol, or hashtags. Account name: 1 line, max. 10 characters (CN/JP/KR) or 20 characters (other languages).",
+      "observacoes": "Safe zones vary by orientation (vertical/horizontal/square), language (LTR/RTL) and anchor use — reference files available on TikTok Ads Help."
     },
     "es": {
       "dimensao": "Vertical (recomendado): 9:16, ≥540x960px. Horizontal: 16:9, ≥960x540px. Square: 1:1, ≥640x640px. Duración: hasta 10min. Foto de perfil (opcional): 98x98px, cuadrada (se usa una foto predeterminada si se deja en blanco). Nombre de la cuenta (App Ads): se extrae automáticamente de la App Store/Google Play; se usa como título de la landing page en el navegador in-app. Download Card (solo App Ads): generada automáticamente, aparece justo después del CTA o del color de fondo.",
       "aspectRatio": "9:16 (recomendado), 16:9 o 1:1",
       "peso": "≤500 MB; bitrate ≥516 kbps. Foto de perfil: <50 KB.",
       "tipoFicheiro": "MP4, MOV, MPEG, 3GP, AVI. Foto de perfil: JPG, JPEG, PNG.",
-      "copies": "Título: se muestra en blanco, fuente uniforme (no personalizable); no admite enlaces clicables, el símbolo '@' ni hashtags. Nombre de la cuenta: 1 línea, máx. 10 caracteres (CN/JP/KR) o 20 caracteres (otros idiomas). Las zonas seguras varían según la orientación (vertical/horizontal/cuadrada), el idioma (LTR/RTL) y el uso de anchors — hay archivos de referencia disponibles en TikTok Ads Help."
+      "copies": "Título: se muestra en blanco, fuente uniforme (no personalizable); no admite enlaces clicables, el símbolo '@' ni hashtags. Nombre de la cuenta: 1 línea, máx. 10 caracteres (CN/JP/KR) o 20 caracteres (otros idiomas).",
+      "observacoes": "Las zonas seguras varían según la orientación (vertical/horizontal/cuadrada), el idioma (LTR/RTL) y el uso de anchors — hay archivos de referencia disponibles en TikTok Ads Help."
     },
     "fr": {
       "dimensao": "Vertical (recommandé) : 9:16, ≥540x960px. Horizontal : 16:9, ≥960x540px. Carré : 1:1, ≥640x640px. Durée : jusqu'à 10min. Photo de profil (facultatif) : 98x98px, carrée (une photo par défaut est utilisée si laissée vide). Nom du compte (App Ads) : extrait automatiquement de l'App Store/Google Play ; utilisé comme titre de la landing page dans le navigateur intégré. Download Card (App Ads uniquement) : générée automatiquement, apparaît juste après le CTA ou la couleur de fond.",
       "aspectRatio": "9:16 (recommandé), 16:9 ou 1:1",
       "peso": "≤500 Mo ; bitrate ≥516 kbps. Photo de profil : <50 Ko.",
       "tipoFicheiro": "MP4, MOV, MPEG, 3GP, AVI. Photo de profil : JPG, JPEG, PNG.",
-      "copies": "Légende : affichée en blanc, police uniforme (non personnalisable) ; ne prend pas en charge les liens cliquables, le symbole « @ » ni les hashtags. Nom du compte : 1 ligne, max. 10 caractères (CN/JP/KR) ou 20 caractères (autres langues). Les zones de sécurité varient selon l'orientation (verticale/horizontale/carrée), la langue (LTR/RTL) et l'utilisation d'ancres — fichiers de référence disponibles sur TikTok Ads Help."
+      "copies": "Légende : affichée en blanc, police uniforme (non personnalisable) ; ne prend pas en charge les liens cliquables, le symbole « @ » ni les hashtags. Nom du compte : 1 ligne, max. 10 caractères (CN/JP/KR) ou 20 caractères (autres langues).",
+      "observacoes": "Les zones de sécurité varient selon l'orientation (verticale/horizontale/carrée), la langue (LTR/RTL) et l'utilisation d'ancres — fichiers de référence disponibles sur TikTok Ads Help."
     }
   },
   "TikTok|Pulse": {
@@ -3928,19 +3934,22 @@
       "dimensao": "Spark Ads Pull: no minimum/maximum duration (uses the organic video as published). Non-Spark Ads and Spark Ads Push: vertical, ≥540x960px; duration 5-60s (recommended 9-15s).",
       "peso": "Non-Spark Ads and Spark Ads Push: ≤500 MB, bitrate ≥2,500kbps. Spark Ads Pull: no own limit (uses the already published video).",
       "tipoFicheiro": "Spark Ads Pull: .mp4 or .mov (typically). Non-Spark Ads and Spark Ads Push: .mp4, .mov, .mpeg, .3gp.",
-      "copies": "Profile photo: square, 98x98px, <50 KB, .jpg/.jpeg/.png (key element centered within a 66x66px area); on Spark Ads it uses the video account's profile photo. Account name: 1 line, max. 10 characters (CN/JP/KR) or 20 characters (other languages), no emojis or '{ }'. Ad caption: Spark Ads Pull up to 100 characters (pulled from the organic video, can be blank); Non-Spark/Spark Push up to 100 characters, max. 4 lines visible (recommended ≤50 characters CN/JP/KR or ≤100 characters other languages to avoid being covered by 'See more'), no '{ }', emojis only supported from version 11. Max. 20 ads per ad group."
+      "copies": "Profile photo: square, 98x98px, <50 KB, .jpg/.jpeg/.png (key element centered within a 66x66px area); on Spark Ads it uses the video account's profile photo. Account name: 1 line, max. 10 characters (CN/JP/KR) or 20 characters (other languages), no emojis or '{ }'. Ad caption: Spark Ads Pull up to 100 characters (pulled from the organic video, can be blank); Non-Spark/Spark Push up to 100 characters, max. 4 lines visible (recommended ≤50 characters CN/JP/KR or ≤100 characters other languages to avoid being covered by 'See more'), no '{ }', emojis only supported from version 11.",
+      "observacoes": "Max. 20 ads per ad group."
     },
     "es": {
       "dimensao": "Spark Ads Pull: sin duración mínima/máxima (usa el vídeo orgánico tal como se publicó). Non-Spark Ads y Spark Ads Push: vertical, ≥540x960px; duración 5-60s (recomendado 9-15s).",
       "peso": "Non-Spark Ads y Spark Ads Push: ≤500 MB, bitrate ≥2.500kbps. Spark Ads Pull: sin límite propio (usa el vídeo ya publicado).",
       "tipoFicheiro": "Spark Ads Pull: .mp4 o .mov (normalmente). Non-Spark Ads y Spark Ads Push: .mp4, .mov, .mpeg, .3gp.",
-      "copies": "Foto de perfil: cuadrada, 98x98px, <50 KB, .jpg/.jpeg/.png (elemento clave centrado en un área de 66x66px); en Spark Ads usa la foto de perfil de la cuenta del vídeo. Nombre de la cuenta: 1 línea, máx. 10 caracteres (CN/JP/KR) o 20 caracteres (otros idiomas), sin emojis ni '{ }'. Título del anuncio: Spark Ads Pull hasta 100 caracteres (extraído del vídeo orgánico, puede estar en blanco); Non-Spark/Spark Push hasta 100 caracteres, máx. 4 líneas visibles (recomendado ≤50 caracteres CN/JP/KR o ≤100 caracteres otros idiomas para evitar ser cubierto por 'Ver más'), sin '{ }', emojis solo compatibles a partir de la versión 11. Máx. 20 anuncios por grupo de anuncios."
+      "copies": "Foto de perfil: cuadrada, 98x98px, <50 KB, .jpg/.jpeg/.png (elemento clave centrado en un área de 66x66px); en Spark Ads usa la foto de perfil de la cuenta del vídeo. Nombre de la cuenta: 1 línea, máx. 10 caracteres (CN/JP/KR) o 20 caracteres (otros idiomas), sin emojis ni '{ }'. Título del anuncio: Spark Ads Pull hasta 100 caracteres (extraído del vídeo orgánico, puede estar en blanco); Non-Spark/Spark Push hasta 100 caracteres, máx. 4 líneas visibles (recomendado ≤50 caracteres CN/JP/KR o ≤100 caracteres otros idiomas para evitar ser cubierto por 'Ver más'), sin '{ }', emojis solo compatibles a partir de la versión 11.",
+      "observacoes": "Máx. 20 anuncios por grupo de anuncios."
     },
     "fr": {
       "dimensao": "Spark Ads Pull : sans durée minimale/maximale (utilise la vidéo organique telle que publiée). Non-Spark Ads et Spark Ads Push : vertical, ≥540x960px ; durée 5-60s (recommandé 9-15s).",
       "peso": "Non-Spark Ads et Spark Ads Push : ≤500 Mo, bitrate ≥2 500kbps. Spark Ads Pull : pas de limite propre (utilise la vidéo déjà publiée).",
       "tipoFicheiro": "Spark Ads Pull : .mp4 ou .mov (généralement). Non-Spark Ads et Spark Ads Push : .mp4, .mov, .mpeg, .3gp.",
-      "copies": "Photo de profil : carrée, 98x98px, <50 Ko, .jpg/.jpeg/.png (élément clé centré dans une zone de 66x66px) ; sur Spark Ads, la photo de profil du compte de la vidéo est utilisée. Nom du compte : 1 ligne, max. 10 caractères (CN/JP/KR) ou 20 caractères (autres langues), sans emojis ni « { } ». Légende de l'annonce : Spark Ads Pull jusqu'à 100 caractères (extraite de la vidéo organique, peut être vide) ; Non-Spark/Spark Push jusqu'à 100 caractères, max. 4 lignes visibles (recommandé ≤50 caractères CN/JP/KR ou ≤100 caractères autres langues pour éviter d'être masqué par « Voir plus »), sans « { } », emojis pris en charge uniquement à partir de la version 11. Max. 20 publicités par groupe de publicités."
+      "copies": "Photo de profil : carrée, 98x98px, <50 Ko, .jpg/.jpeg/.png (élément clé centré dans une zone de 66x66px) ; sur Spark Ads, la photo de profil du compte de la vidéo est utilisée. Nom du compte : 1 ligne, max. 10 caractères (CN/JP/KR) ou 20 caractères (autres langues), sans emojis ni « { } ». Légende de l'annonce : Spark Ads Pull jusqu'à 100 caractères (extraite de la vidéo organique, peut être vide) ; Non-Spark/Spark Push jusqu'à 100 caractères, max. 4 lignes visibles (recommandé ≤50 caractères CN/JP/KR ou ≤100 caractères autres langues pour éviter d'être masqué par « Voir plus »), sans « { } », emojis pris en charge uniquement à partir de la version 11.",
+      "observacoes": "Max. 20 publicités par groupe de publicités."
     }
   },
   "X|Carousel Ad": {
@@ -5030,19 +5039,19 @@
       "dimensao": "No fixed dimension — AR experience created via Lens Web Builder or Lens Studio.",
       "peso": "Varies by AR asset",
       "tipoFicheiro": "Lens assets per Lens Studio/Lens Web Builder",
-      "copies": "Visible logo or brand name required on Face and World Lenses, preferably top left or top right, outside the area covered by the UI/carousel; a 'SPONSORED' tag is automatically added by Snapchat (visible for 2 sec, doesn't show in the user's Snap)."
+      "observacoes": "Visible logo or brand name required on Face and World Lenses, preferably top left or top right, outside the area covered by the UI/carousel; a 'SPONSORED' tag is automatically added by Snapchat (visible for 2 sec, doesn't show in the user's Snap)."
     },
     "es": {
       "dimensao": "Sin dimensión fija — experiencia AR creada mediante Lens Web Builder o Lens Studio.",
       "peso": "Varía según el asset AR",
       "tipoFicheiro": "Assets de Lens según Lens Studio/Lens Web Builder",
-      "copies": "Logotipo o nombre de marca visible obligatorio en Face y World Lenses, preferiblemente en la esquina superior izquierda o derecha, fuera del área cubierta por la interfaz/carrusel; Snapchat añade automáticamente una etiqueta 'SPONSORED' (visible durante 2 seg, no aparece en el Snap del usuario)."
+      "observacoes": "Logotipo o nombre de marca visible obligatorio en Face y World Lenses, preferiblemente en la esquina superior izquierda o derecha, fuera del área cubierta por la interfaz/carrusel; Snapchat añade automáticamente una etiqueta 'SPONSORED' (visible durante 2 seg, no aparece en el Snap del usuario)."
     },
     "fr": {
       "dimensao": "Sans dimension fixe — expérience AR créée via Lens Web Builder ou Lens Studio.",
       "peso": "Varie selon l'asset AR",
       "tipoFicheiro": "Assets Lens selon Lens Studio/Lens Web Builder",
-      "copies": "Logo ou nom de marque visible obligatoire sur les Lenses Face et World, de préférence en haut à gauche ou en haut à droite, hors de la zone couverte par l'interface/le carrousel ; une mention « SPONSORED » est ajoutée automatiquement par Snapchat (visible pendant 2 sec, n'apparaît pas dans le Snap de l'utilisateur)."
+      "observacoes": "Logo ou nom de marque visible obligatoire sur les Lenses Face et World, de préférence en haut à gauche ou en haut à droite, hors de la zone couverte par l'interface/le carrousel ; une mention « SPONSORED » est ajoutée automatiquement par Snapchat (visible pendant 2 sec, n'apparaît pas dans le Snap de l'utilisateur)."
     }
   },
   "Snapchat|Sponsored Snap": {
@@ -5088,21 +5097,24 @@
       "aspectRatio": "1:1 (recommended — always renders as square on desktop/mobile, timeline/profile) or 9:16 (vertical, takes up the same amount of space); the ad is automatically matched with publisher content of a similar ratio",
       "peso": "Max. 1 GB",
       "tipoFicheiro": "MP4 or MOV; H.264 codec (Baseline, Main or High Profile, 4:2:0 color space); AAC LC audio",
-      "copies": "URL (optional): must begin with http:// or https://. Branding and captions/closed captioning strongly recommended."
+      "copies": "URL (optional): must begin with http:// or https://.",
+      "observacoes": "Branding and captions/closed captioning strongly recommended."
     },
     "es": {
       "dimensao": "Recomendado 1200x1200 (mín. 600x600 para 1:1); si no es 1:1, mín. 640x360. Duración recomendada ≤15s (máx. 2:20). Bitrate: 1080p 6.000-10.000k (recomendado 6.000k); 720p 5.000-8.000k (recomendado 5.000k). Frecuencia de fotogramas: 29,97 o 30 FPS (superior aceptado, no hacer upsampling).",
       "aspectRatio": "1:1 (recomendado — siempre se renderiza como cuadrado en escritorio/móvil, timeline/perfil) o 9:16 (vertical, ocupa el mismo espacio); el anuncio se combina automáticamente con contenido del publisher de proporción similar",
       "peso": "Máx. 1 GB",
       "tipoFicheiro": "MP4 o MOV; códec H.264 (Baseline, Main o High Profile, espacio de color 4:2:0); audio AAC LC",
-      "copies": "URL (opcional): debe empezar por http:// o https://. Branding y subtítulos/closed captioning muy recomendado."
+      "copies": "URL (opcional): debe empezar por http:// o https://.",
+      "observacoes": "Branding y subtítulos/closed captioning muy recomendado."
     },
     "fr": {
       "dimensao": "Recommandé 1200x1200 (min. 600x600 pour 1:1) ; si pas en 1:1, min. 640x360. Durée recommandée ≤15s (max. 2:20). Bitrate : 1080p 6 000-10 000k (recommandé 6 000k) ; 720p 5 000-8 000k (recommandé 5 000k). Fréquence d'images : 29,97 ou 30 FPS (supérieur accepté, ne pas suréchantillonner).",
       "aspectRatio": "1:1 (recommandé — s'affiche toujours en carré sur ordinateur/mobile, timeline/profil) ou 9:16 (vertical, occupe le même espace) ; la publicité est automatiquement associée à du contenu du publisher au ratio similaire",
       "peso": "Max. 1 Go",
       "tipoFicheiro": "MP4 ou MOV ; codec H.264 (Baseline, Main ou High Profile, espace colorimétrique 4:2:0) ; audio AAC LC",
-      "copies": "URL (facultatif) : doit commencer par http:// ou https://. Branding et sous-titres/closed captioning fortement recommandés."
+      "copies": "URL (facultatif) : doit commencer par http:// ou https://.",
+      "observacoes": "Branding et sous-titres/closed captioning fortement recommandés."
     }
   },
   "X|X Live": {
@@ -5166,17 +5178,17 @@
     "en": {
       "dimensao": "Follows the standard specs of the supported formats: Standalone Image/Video Ads; Image/Video Ads with Web or App button; Image/Video Carousel Ads with Web or App button (single destination); Image/Video Ads with Conversation Button; Moment Ads.",
       "tipoFicheiro": "Configured and launched via Arrow (third-party platform, IC Group + X Next)",
-      "copies": "3 campaign formats: Scheduled (opt-in post + 1 scheduled post); Subscription (opt-in post + multiple scheduled posts); Instant (1 instant post per opted-in person). Requires a public, verified X account, and X OAuth authorization to Arrow."
+      "observacoes": "3 campaign formats: Scheduled (opt-in post + 1 scheduled post); Subscription (opt-in post + multiple scheduled posts); Instant (1 instant post per opted-in person). Requires a public, verified X account, and X OAuth authorization to Arrow."
     },
     "es": {
       "dimensao": "Sigue las especificaciones estándar de los formatos compatibles: Standalone Image/Video Ads; Image/Video Ads con botón Web o App; Image/Video Carousel Ads con botón Web o App (destino único); Image/Video Ads con Conversation Button; Moment Ads.",
       "tipoFicheiro": "Configurado y lanzado mediante Arrow (plataforma de terceros, IC Group + X Next)",
-      "copies": "3 formatos de campaña: Scheduled (post de opt-in + 1 post programado); Subscription (post de opt-in + varios posts programados); Instant (1 post instantáneo por persona que hizo opt-in). Requiere una cuenta X pública y verificada, y autorización mediante X OAuth a Arrow."
+      "observacoes": "3 formatos de campaña: Scheduled (post de opt-in + 1 post programado); Subscription (post de opt-in + varios posts programados); Instant (1 post instantáneo por persona que hizo opt-in). Requiere una cuenta X pública y verificada, y autorización mediante X OAuth a Arrow."
     },
     "fr": {
       "dimensao": "Suit les spécifications standard des formats pris en charge : Standalone Image/Video Ads ; Image/Video Ads avec bouton Web ou App ; Image/Video Carousel Ads avec bouton Web ou App (destination unique) ; Image/Video Ads avec Conversation Button ; Moment Ads.",
       "tipoFicheiro": "Configuré et lancé via Arrow (plateforme tierce, IC Group + X Next)",
-      "copies": "3 formats de campagne : Scheduled (post d'opt-in + 1 post programmé) ; Subscription (post d'opt-in + plusieurs posts programmés) ; Instant (1 post instantané par personne ayant fait l'opt-in). Nécessite un compte X public et vérifié, et une autorisation X OAuth vers Arrow."
+      "observacoes": "3 formats de campagne : Scheduled (post d'opt-in + 1 post programmé) ; Subscription (post d'opt-in + plusieurs posts programmés) ; Instant (1 post instantané par personne ayant fait l'opt-in). Nécessite un compte X public et vérifié, et une autorisation X OAuth vers Arrow."
     }
   },
   "X|Dynamic Product Ads": {
@@ -5228,31 +5240,31 @@
     "en": {
       "dimensao": "Combines the TopView (first content seen when opening the app) and Top Feed (first in-feed ad in the For You feed) placements, for 1 day (24h). No dayparting. Frequency: 1 impression per user, per placement (guaranteed unique reach frequency of 1).",
       "tipoFicheiro": "Supports Spark Ads and Non-Spark Ads (recommended 1-2 creatives per campaign); Duet/Stitch: Spark Ads follows the original video's toggles, Non-Spark Ads not supported.",
-      "copies": "Objective: Reach. Available targeting: age (18+) and location (country). Third-party tracking supported (impressions and clicks). Landing page: standard webview (HTTPS) or internal TikTok pages (Branded Hashtag Challenge, Effect, TikTok Shop) — doesn't support automatic redirect to an app store or linking from TopView to a LIVE stream. Music: same policy as standard reservation in-feed ads (Commercial Music Library or your own authorized tracks). Comments and video download can be disabled. Add-ons: only those available on both placements (TopView + Top Feed). Sound: always on. Watermark: you can request a watermark-free downloadable video."
+      "observacoes": "Objective: Reach. Available targeting: age (18+) and location (country). Third-party tracking supported (impressions and clicks). Landing page: standard webview (HTTPS) or internal TikTok pages (Branded Hashtag Challenge, Effect, TikTok Shop) — doesn't support automatic redirect to an app store or linking from TopView to a LIVE stream. Music: same policy as standard reservation in-feed ads (Commercial Music Library or your own authorized tracks). Comments and video download can be disabled. Add-ons: only those available on both placements (TopView + Top Feed). Sound: always on. Watermark: you can request a watermark-free downloadable video."
     },
     "es": {
       "dimensao": "Combina los placements TopView (primer contenido visto al abrir la app) y Top Feed (primer anuncio in-feed en el feed For You), durante 1 día (24h). Sin dayparting. Frecuencia: 1 impresión por usuario, por placement (alcance único garantizado de frecuencia 1).",
       "tipoFicheiro": "Compatible con Spark Ads y Non-Spark Ads (recomendado 1-2 creatividades por campaña); Duet/Stitch: Spark Ads sigue la configuración del vídeo original, Non-Spark Ads no compatible.",
-      "copies": "Objetivo: Reach. Segmentación disponible: edad (18+) y ubicación (país). Seguimiento de terceros compatible (impresiones y clics). Landing page: webview estándar (HTTPS) o páginas internas de TikTok (Branded Hashtag Challenge, Effect, TikTok Shop) — no admite redirección automática a una tienda de apps ni enlace desde TopView a un LIVE. Música: misma política que los anuncios in-feed reservation estándar (Commercial Music Library o pistas propias autorizadas). Se pueden desactivar los comentarios y la descarga del vídeo. Add-ons: solo los disponibles en ambos placements (TopView + Top Feed). Sonido: siempre activado. Marca de agua: se puede solicitar un vídeo descargable sin marca de agua."
+      "observacoes": "Objetivo: Reach. Segmentación disponible: edad (18+) y ubicación (país). Seguimiento de terceros compatible (impresiones y clics). Landing page: webview estándar (HTTPS) o páginas internas de TikTok (Branded Hashtag Challenge, Effect, TikTok Shop) — no admite redirección automática a una tienda de apps ni enlace desde TopView a un LIVE. Música: misma política que los anuncios in-feed reservation estándar (Commercial Music Library o pistas propias autorizadas). Se pueden desactivar los comentarios y la descarga del vídeo. Add-ons: solo los disponibles en ambos placements (TopView + Top Feed). Sonido: siempre activado. Marca de agua: se puede solicitar un vídeo descargable sin marca de agua."
     },
     "fr": {
       "dimensao": "Combine les emplacements TopView (premier contenu vu à l'ouverture de l'app) et Top Feed (première publicité in-feed dans le fil For You), pendant 1 jour (24h). Pas de dayparting. Fréquence : 1 impression par utilisateur, par emplacement (fréquence de portée unique garantie de 1).",
       "tipoFicheiro": "Prend en charge Spark Ads et Non-Spark Ads (recommandé 1-2 créations par campagne) ; Duet/Stitch : Spark Ads suit les réglages de la vidéo originale, Non-Spark Ads non pris en charge.",
-      "copies": "Objectif : Reach. Ciblage disponible : âge (18+) et localisation (pays). Suivi tiers pris en charge (impressions et clics). Landing page : webview standard (HTTPS) ou pages internes TikTok (Branded Hashtag Challenge, Effect, TikTok Shop) — ne prend pas en charge la redirection automatique vers un app store ni un lien depuis TopView vers un LIVE. Musique : même politique que les publicités in-feed reservation standard (Commercial Music Library ou vos propres pistes autorisées). Les commentaires et le téléchargement de la vidéo peuvent être désactivés. Add-ons : seulement ceux disponibles sur les deux emplacements (TopView + Top Feed). Son : toujours activé. Filigrane : vous pouvez demander une vidéo téléchargeable sans filigrane."
+      "observacoes": "Objectif : Reach. Ciblage disponible : âge (18+) et localisation (pays). Suivi tiers pris en charge (impressions et clics). Landing page : webview standard (HTTPS) ou pages internes TikTok (Branded Hashtag Challenge, Effect, TikTok Shop) — ne prend pas en charge la redirection automatique vers un app store ni un lien depuis TopView vers un LIVE. Musique : même politique que les publicités in-feed reservation standard (Commercial Music Library ou vos propres pistes autorisées). Les commentaires et le téléchargement de la vidéo peuvent être désactivés. Add-ons : seulement ceux disponibles sur les deux emplacements (TopView + Top Feed). Son : toujours activé. Filigrane : vous pouvez demander une vidéo téléchargeable sans filigrane."
     }
   },
   "DV360|Prog - Standard Banners": {
     "en": {
       "tipoFicheiro": "ZIP with HTML5 and image/script folders, or JPEG/GIF; always include a backup image inside the creative's ZIP.",
-      "copies": "There is no template for creatives served on Google — always insert Google's clicktag (GWD: inserted in the editor; other tools: place it in the code, see guidelines). Cannot include video (it would become Rich Media, with different specs). Animation: max. 30 seconds. White background: use a border to make the creative stand out. Validation: use the DCM asset validator (all checks must pass)."
+      "observacoes": "There is no template for creatives served on Google — always insert Google's clicktag (GWD: inserted in the editor; other tools: place it in the code, see guidelines). Cannot include video (it would become Rich Media, with different specs). Animation: max. 30 seconds. White background: use a border to make the creative stand out. Validation: use the DCM asset validator (all checks must pass)."
     },
     "es": {
       "tipoFicheiro": "ZIP con HTML5 y carpetas de imágenes/scripts, o JPEG/GIF; incluir siempre una imagen de respaldo dentro del ZIP de la creatividad.",
-      "copies": "No hay plantilla para las piezas servidas en Google — insertar siempre el clicktag de Google (GWD: se inserta en el editor; otros programas: colocarlo en el código, ver guías). No puede tener vídeo (pasaría a ser Rich Media, con especificaciones diferentes). Animación: máx. 30 segundos. Fondo blanco: usar un borde para destacar la pieza. Validación: usar el validador de assets de DCM (todos los puntos deben estar OK)."
+      "observacoes": "No hay plantilla para las piezas servidas en Google — insertar siempre el clicktag de Google (GWD: se inserta en el editor; otros programas: colocarlo en el código, ver guías). No puede tener vídeo (pasaría a ser Rich Media, con especificaciones diferentes). Animación: máx. 30 segundos. Fondo blanco: usar un borde para destacar la pieza. Validación: usar el validador de assets de DCM (todos los puntos deben estar OK)."
     },
     "fr": {
       "tipoFicheiro": "ZIP avec HTML5 et dossiers d'images/scripts, ou JPEG/GIF ; toujours inclure une image de secours dans le ZIP de la création.",
-      "copies": "Il n'y a pas de template pour les créations servies sur Google — toujours insérer le clicktag Google (GWD : inséré dans l'éditeur ; autres outils : à placer dans le code, voir les consignes). Ne peut pas contenir de vidéo (deviendrait Rich Media, avec des spécifications différentes). Animation : max. 30 secondes. Fond blanc : utiliser une bordure pour faire ressortir la création. Validation : utiliser le validateur d'assets DCM (tous les points doivent être OK)."
+      "observacoes": "Il n'y a pas de template pour les créations servies sur Google — toujours insérer le clicktag Google (GWD : inséré dans l'éditeur ; autres outils : à placer dans le code, voir les consignes). Ne peut pas contenir de vidéo (deviendrait Rich Media, avec des spécifications différentes). Animation : max. 30 secondes. Fond blanc : utiliser une bordure pour faire ressortir la création. Validation : utiliser le validateur d'assets DCM (tous les points doivent être OK)."
     }
   },
   "DV360|Prog - Pre-Roll": {
@@ -6042,36 +6054,36 @@
       "dimensao": "2 images: 300x250px + 640x124px.",
       "peso": "Max. 200 KB per image.",
       "tipoFicheiro": "JPG (static format).",
-      "copies": "Only supports click tags (impression tags cannot be used)."
+      "observacoes": "Only supports click tags (impression tags cannot be used)."
     },
     "es": {
       "dimensao": "2 imágenes: 300x250px + 640x124px.",
       "peso": "Máx. 200 KB por imagen.",
       "tipoFicheiro": "JPG (formato estático).",
-      "copies": "Solo admite tag de clics (no es posible usar tag de impresiones)."
+      "observacoes": "Solo admite tag de clics (no es posible usar tag de impresiones)."
     },
     "fr": {
       "dimensao": "2 images : 300x250px + 640x124px.",
       "peso": "Max. 200 KB par image.",
       "tipoFicheiro": "JPG (format statique).",
-      "copies": "Prend uniquement en charge le tag de clics (impossible d'utiliser le tag d'impressions)."
+      "observacoes": "Prend uniquement en charge le tag de clics (impossible d'utiliser le tag d'impressions)."
     }
   },
   "Azerion|Static Starter": {
     "en": {
       "dimensao": "PSD file 2560x1600px (RGB color profile). 3 graphic elements as layers: background image; copy (as image or text); logo.",
       "tipoFicheiro": "PSD",
-      "copies": "Layout options: background with copy (base); + CTA on the left or right (optional); + logo at the top, left or right. Support with DCM tracking. See the additional technical sheet provided by the publisher (\"We Transfer\", not included here)."
+      "observacoes": "Layout options: background with copy (base); + CTA on the left or right (optional); + logo at the top, left or right. Support with DCM tracking. See the additional technical sheet provided by the publisher (\"We Transfer\", not included here)."
     },
     "es": {
       "dimensao": "Archivo PSD 2560x1600px (perfil de color RGB). 3 elementos gráficos en capas: imagen de fondo; copy (en imagen o texto); logo.",
       "tipoFicheiro": "PSD",
-      "copies": "Opciones de diseño: fondo con copy (base); + CTA a la izquierda o derecha (opcional); + logo en la parte superior, izquierda o derecha. Soporte con tracking DCM. Ver la ficha técnica adicional proporcionada por el medio (\"We Transfer\", no incluida aquí)."
+      "observacoes": "Opciones de diseño: fondo con copy (base); + CTA a la izquierda o derecha (opcional); + logo en la parte superior, izquierda o derecha. Soporte con tracking DCM. Ver la ficha técnica adicional proporcionada por el medio (\"We Transfer\", no incluida aquí)."
     },
     "fr": {
       "dimensao": "Fichier PSD 2560x1600px (profil de couleurs RVB). 3 éléments graphiques en calques : image de fond ; texte (en image ou en texte) ; logo.",
       "tipoFicheiro": "PSD",
-      "copies": "Options de mise en page : fond avec texte (base) ; + CTA à gauche ou à droite (facultatif) ; + logo en haut, à gauche ou à droite. Support avec tracking DCM. Voir la fiche technique complémentaire fournie par le média (\"We Transfer\", non incluse ici)."
+      "observacoes": "Options de mise en page : fond avec texte (base) ; + CTA à gauche ou à droite (facultatif) ; + logo en haut, à gauche ou à droite. Support avec tracking DCM. Voir la fiche technique complémentaire fournie par le média (\"We Transfer\", non incluse ici)."
     }
   },
   "OLX|Homepage Leaderboard": {
@@ -6093,36 +6105,36 @@
       "dimensao": "480x320px, 320x480px, 320x50px, 300x250px or 640x360px. Max. 1024px on the longer side; recommended min. 512px on the longer side, keeping the aspect ratio.",
       "aspectRatio": "3:2, 2:3, 6.4:1, 6:5 or 16:9 (depending on the chosen size)",
       "tipoFicheiro": "PNG, JPG or BMP (GIF also accepted, automatically resized by Anzu).",
-      "copies": "Support with DCM tracking. Up to 10 creatives per deal. All creatives are moderated by the Roblox team and may require changes to meet Roblox compliance rules. See the additional technical file provided by the publisher (not included here)."
+      "observacoes": "Support with DCM tracking. Up to 10 creatives per deal. All creatives are moderated by the Roblox team and may require changes to meet Roblox compliance rules. See the additional technical file provided by the publisher (not included here)."
     },
     "es": {
       "dimensao": "480x320px, 320x480px, 320x50px, 300x250px o 640x360px. Máx. 1024px en el lado más largo; se recomienda mín. 512px en el lado más largo, manteniendo el aspect ratio.",
       "aspectRatio": "3:2, 2:3, 6.4:1, 6:5 o 16:9 (según el tamaño elegido)",
       "tipoFicheiro": "PNG, JPG o BMP (también se acepta GIF, redimensionado automáticamente por Anzu).",
-      "copies": "Soporte con tracking DCM. Hasta 10 creatividades por deal. Todas las creatividades son moderadas por el equipo de Roblox y pueden sufrir cambios para cumplir las reglas de compliance de Roblox. Ver el fichero técnico adicional proporcionado por el medio (no incluido aquí)."
+      "observacoes": "Soporte con tracking DCM. Hasta 10 creatividades por deal. Todas las creatividades son moderadas por el equipo de Roblox y pueden sufrir cambios para cumplir las reglas de compliance de Roblox. Ver el fichero técnico adicional proporcionado por el medio (no incluido aquí)."
     },
     "fr": {
       "dimensao": "480x320px, 320x480px, 320x50px, 300x250px ou 640x360px. Max. 1024px sur le côté le plus long ; min. recommandé 512px sur le côté le plus long, en conservant le ratio d'aspect.",
       "aspectRatio": "3:2, 2:3, 6,4:1, 6:5 ou 16:9 (selon la taille choisie)",
       "tipoFicheiro": "PNG, JPG ou BMP (le GIF est aussi accepté, redimensionné automatiquement par Anzu).",
-      "copies": "Support avec tracking DCM. Jusqu'à 10 créations par deal. Toutes les créations sont modérées par l'équipe Roblox et peuvent être modifiées pour respecter les règles de conformité de Roblox. Voir le fichier technique complémentaire fourni par le média (non inclus ici)."
+      "observacoes": "Support avec tracking DCM. Jusqu'à 10 créations par deal. Toutes les créations sont modérées par l'équipe Roblox et peuvent être modifiées pour respecter les règles de conformité de Roblox. Voir le fichier technique complémentaire fourni par le média (non inclus ici)."
     }
   },
   "Azerion|Skin": {
     "en": {
-      "dimensao": "Required working files: side banners in PSD, fonts, copy and brand color book/codes. The exact side-banner dimensions are in an additional technical sheet provided by the publisher (not included here).",
+      "dimensao": "Required working files: side banners in PSD, fonts, copy and brand color book/codes.",
       "tipoFicheiro": "PSD",
-      "copies": "The side banners can be identical or different, at the client's discretion. Support with DCM tracking. The publisher helps produce the final version — if there are extra elements it can work with to enrich the format, send the editable files."
+      "observacoes": "The side banners can be identical or different, at the client's discretion. Support with DCM tracking. The publisher helps produce the final version — if there are extra elements it can work with to enrich the format, send the editable files. The exact side-banner dimensions are in an additional technical sheet provided by the publisher (not included here)."
     },
     "es": {
-      "dimensao": "Ficheros de trabajo necesarios: banners laterales en PSD, fuentes, copies y color book/codes de marca. Las dimensiones exactas de los banners laterales están en una ficha técnica adicional proporcionada por el medio (no incluida aquí).",
+      "dimensao": "Ficheros de trabajo necesarios: banners laterales en PSD, fuentes, copies y color book/codes de marca.",
       "tipoFicheiro": "PSD",
-      "copies": "Los banners laterales pueden ser iguales o diferentes, a criterio del cliente. Soporte con tracking DCM. El medio ayuda a producir la versión final — si hay elementos extra con los que pueda trabajar para enriquecer el formato, enviar los ficheros editables."
+      "observacoes": "Los banners laterales pueden ser iguales o diferentes, a criterio del cliente. Soporte con tracking DCM. El medio ayuda a producir la versión final — si hay elementos extra con los que pueda trabajar para enriquecer el formato, enviar los ficheros editables. Las dimensiones exactas de los banners laterales están en una ficha técnica adicional proporcionada por el medio (no incluida aquí)."
     },
     "fr": {
-      "dimensao": "Fichiers de travail nécessaires : bannières latérales en PSD, polices, textes et color book/codes de marque. Les dimensions exactes des bannières latérales figurent dans une fiche technique complémentaire fournie par le média (non incluse ici).",
+      "dimensao": "Fichiers de travail nécessaires : bannières latérales en PSD, polices, textes et color book/codes de marque.",
       "tipoFicheiro": "PSD",
-      "copies": "Les bannières latérales peuvent être identiques ou différentes, au choix du client. Support avec tracking DCM. Le média aide à produire la version finale — s'il y a des éléments supplémentaires avec lesquels il peut travailler pour enrichir le format, envoyer les fichiers modifiables."
+      "observacoes": "Les bannières latérales peuvent être identiques ou différentes, au choix du client. Support avec tracking DCM. Le média aide à produire la version finale — s'il y a des éléments supplémentaires avec lesquels il peut travailler pour enrichir le format, envoyer les fichiers modifiables. Les dimensions exactes des bannières latérales figurent dans une fiche technique complémentaire fournie par le média (non incluse ici)."
     }
   },
   "Azerion|Native ad": {
@@ -6130,19 +6142,22 @@
       "aspectRatio": "1.91:1, 1.78:1, 1.5:1, 1.33:1 or 1:1 (at least one required)",
       "peso": "Max. 200 KB",
       "tipoFicheiro": "Tag (Sizmek, DoubleClick, Weborama, etc.), Image (JPG, GIF) or HTML5 (*)",
-      "copies": "Support with DCM tracking. Copy (all required): Short Headline (x2) — max. 30 characters; Long Headline — 90 characters; Description — 90 characters; Business/Brand Name — 25 characters."
+      "copies": "All required: Short Headline (x2) — max. 30 characters; Long Headline — 90 characters; Description — 90 characters; Business/Brand Name — 25 characters.",
+      "observacoes": "Support with DCM tracking."
     },
     "es": {
       "aspectRatio": "1.91:1, 1.78:1, 1.5:1, 1.33:1 o 1:1 (al menos uno obligatorio)",
       "peso": "Máx. 200 KB",
       "tipoFicheiro": "Tag (Sizmek, DoubleClick, Weborama, etc.), Imagen (JPG, GIF) o HTML5 (*)",
-      "copies": "Soporte con tracking DCM. Copies (todos obligatorios): Short Headline (x2) — máx. 30 caracteres; Long Headline — 90 caracteres; Descripción — 90 caracteres; Business/Brand Name — 25 caracteres."
+      "copies": "Todos obligatorios: Short Headline (x2) — máx. 30 caracteres; Long Headline — 90 caracteres; Descripción — 90 caracteres; Business/Brand Name — 25 caracteres.",
+      "observacoes": "Soporte con tracking DCM."
     },
     "fr": {
       "aspectRatio": "1,91:1, 1,78:1, 1,5:1, 1,33:1 ou 1:1 (au moins un obligatoire)",
       "peso": "Max. 200 Ko",
       "tipoFicheiro": "Tag (Sizmek, DoubleClick, Weborama, etc.), Image (JPG, GIF) ou HTML5 (*)",
-      "copies": "Support avec tracking DCM. Textes (tous obligatoires) : Short Headline (x2) — max. 30 caractères ; Long Headline — 90 caractères ; Description — 90 caractères ; Business/Brand Name — 25 caractères."
+      "copies": "Tous obligatoires : Short Headline (x2) — max. 30 caractères ; Long Headline — 90 caractères ; Description — 90 caractères ; Business/Brand Name — 25 caractères.",
+      "observacoes": "Support avec tracking DCM."
     }
   },
   "Bauer|Leaderboard": {
@@ -6232,77 +6247,77 @@
   "Bauer|Native": {
     "en": {
       "dimensao": "Responsive (All) — adapts to the site's layout.",
-      "copies": "Custom native formats, specific to each site. See each site's own specs (e.g. Bauer Native — All Site) via the link provided by the publisher (not included here)."
+      "observacoes": "Custom native formats, specific to each site. See each site's own specs (e.g. Bauer Native — All Site) via the link provided by the publisher (not included here)."
     },
     "es": {
       "dimensao": "Responsive (All) — se adapta al diseño del sitio.",
-      "copies": "Formatos nativos personalizados, específicos de cada sitio. Consultar las specs propias de cada sitio (ej.: Bauer Native — All Site) a través del enlace proporcionado por el medio (no incluido aquí)."
+      "observacoes": "Formatos nativos personalizados, específicos de cada sitio. Consultar las specs propias de cada sitio (ej.: Bauer Native — All Site) a través del enlace proporcionado por el medio (no incluido aquí)."
     },
     "fr": {
       "dimensao": "Responsive (All) — s'adapte à la mise en page du site.",
-      "copies": "Formats natifs personnalisés, spécifiques à chaque site. Consulter les spécifications propres à chaque site (ex. : Bauer Native — All Site) via le lien fourni par le média (non inclus ici)."
+      "observacoes": "Formats natifs personnalisés, spécifiques à chaque site. Consulter les spécifications propres à chaque site (ex. : Bauer Native — All Site) via le lien fourni par le média (non inclus ici)."
     }
   },
   "Bauer|Mobile Interscroller": {
     "en": {
       "dimensao": "300x600px (Mobile)",
-      "copies": "Served via a third-party tag (Mobkoi)."
+      "observacoes": "Served via a third-party tag (Mobkoi)."
     },
     "es": {
       "dimensao": "300x600px (Mobile)",
-      "copies": "Servido mediante tag de terceros (Mobkoi)."
+      "observacoes": "Servido mediante tag de terceros (Mobkoi)."
     },
     "fr": {
       "dimensao": "300x600px (Mobile)",
-      "copies": "Diffusé via une balise tierce (Mobkoi)."
+      "observacoes": "Diffusé via une balise tierce (Mobkoi)."
     }
   },
   "Bauer|Socially Inspired Rich Media": {
     "en": {
       "dimensao": "Multi — built in-house by Illuminate (Mobile).",
-      "copies": "Interactive, mobile-first rich media solution with socially-inspired formats, designed to reach users while they read editorial content. Full technical specs are in a separate document (\"Social Display RMF Specifications\"), not included here."
+      "observacoes": "Interactive, mobile-first rich media solution with socially-inspired formats, designed to reach users while they read editorial content. Full technical specs are in a separate document (\"Social Display RMF Specifications\"), not included here."
     },
     "es": {
       "dimensao": "Multi — formato construido internamente por Illuminate (Mobile).",
-      "copies": "Solución de rich media interactiva, optimizada mobile-first, con formatos inspirados en redes sociales, diseñada para llegar a los usuarios mientras leen contenido editorial. Las specs técnicas completas están en un documento aparte (\"Social Display RMF Specifications\"), no incluido aquí."
+      "observacoes": "Solución de rich media interactiva, optimizada mobile-first, con formatos inspirados en redes sociales, diseñada para llegar a los usuarios mientras leen contenido editorial. Las specs técnicas completas están en un documento aparte (\"Social Display RMF Specifications\"), no incluido aquí."
     },
     "fr": {
       "dimensao": "Multi — format conçu en interne par Illuminate (Mobile).",
-      "copies": "Solution de rich media interactive, optimisée mobile-first, avec des formats inspirés des réseaux sociaux, conçue pour toucher les utilisateurs pendant la lecture de contenu éditorial. Les spécifications techniques complètes se trouvent dans un document à part (\"Social Display RMF Specifications\"), non inclus ici."
+      "observacoes": "Solution de rich media interactive, optimisée mobile-first, avec des formats inspirés des réseaux sociaux, conçue pour toucher les utilisateurs pendant la lecture de contenu éditorial. Les spécifications techniques complètes se trouvent dans un document à part (\"Social Display RMF Specifications\"), non inclus ici."
     }
   },
   "Bauer|Standard Takeover": {
     "en": {
       "dimensao": "Multi (All) — combination of several ad spaces on the page.",
       "tipoFicheiro": "Skin/hero images in static format: JPG or PNG.",
-      "copies": "No third-party creative tags accepted (viewability, conversion, engagement) — only impression and click trackers."
+      "observacoes": "No third-party creative tags accepted (viewability, conversion, engagement) — only impression and click trackers."
     },
     "es": {
       "dimensao": "Multi (All) — combinación de varios espacios publicitarios en la página.",
       "tipoFicheiro": "Imágenes skin/hero en formato estático: JPG o PNG.",
-      "copies": "No se aceptan tags de creatividades de terceros (viewability, conversión, engagement) — solo trackers de impresión y clic."
+      "observacoes": "No se aceptan tags de creatividades de terceros (viewability, conversión, engagement) — solo trackers de impresión y clic."
     },
     "fr": {
       "dimensao": "Multi (All) — combinaison de plusieurs espaces publicitaires sur la page.",
       "tipoFicheiro": "Images skin/hero en format statique : JPG ou PNG.",
-      "copies": "Aucune balise de création tierce acceptée (viewability, conversion, engagement) — uniquement des trackers d'impression et de clic."
+      "observacoes": "Aucune balise de création tierce acceptée (viewability, conversion, engagement) — uniquement des trackers d'impression et de clic."
     }
   },
   "Bauer|Hero Takeover": {
     "en": {
       "dimensao": "Responsive (All).",
       "tipoFicheiro": "Skin/hero images in static format: JPG or PNG.",
-      "copies": "No third-party creative tags accepted (viewability, conversion, engagement) — only impression and click trackers."
+      "observacoes": "No third-party creative tags accepted (viewability, conversion, engagement) — only impression and click trackers."
     },
     "es": {
       "dimensao": "Responsive (All).",
       "tipoFicheiro": "Imágenes skin/hero en formato estático: JPG o PNG.",
-      "copies": "No se aceptan tags de creatividades de terceros (viewability, conversión, engagement) — solo trackers de impresión y clic."
+      "observacoes": "No se aceptan tags de creatividades de terceros (viewability, conversión, engagement) — solo trackers de impresión y clic."
     },
     "fr": {
       "dimensao": "Responsive (All).",
       "tipoFicheiro": "Images skin/hero en format statique : JPG ou PNG.",
-      "copies": "Aucune balise de création tierce acceptée (viewability, conversion, engagement) — uniquement des trackers d'impression et de clic."
+      "observacoes": "Aucune balise de création tierce acceptée (viewability, conversion, engagement) — uniquement des trackers d'impression et de clic."
     }
   },
   "Bauer|In-Article Video": {
@@ -6310,19 +6325,19 @@
       "aspectRatio": "16:9 or 4:3 (horizontal, min. 1280x720 or 1280x960); 9:16 (vertical, min. 720x1280) — at least 1 horizontal video is recommended to deliver across all devices.",
       "peso": "Min. 4 KB, max. 4 MB",
       "tipoFicheiro": "MP4, 3GPP or MOV (H264, MPEG4 video, AAC audio); AVI (MJPEG video, PCM audio); MPEG-PS (MPEG2 video, MP2 audio); WMV. Min. bitrate 1500 kbit/s. Max. length 30s. No audio autoplay (muted by default). VAST tags 2.0 to 4.2 (VPAID not supported).",
-      "copies": "Standalone video ad between paragraphs of editorial content (mobile, tablet and desktop). Plays automatically when 50% of the ad is in view; muted by default; \"Learn More\" button at the bottom of the ad (only clickable element)."
+      "observacoes": "Standalone video ad between paragraphs of editorial content (mobile, tablet and desktop). Plays automatically when 50% of the ad is in view; muted by default; \"Learn More\" button at the bottom of the ad (only clickable element)."
     },
     "es": {
       "aspectRatio": "16:9 o 4:3 (horizontal, mín. 1280x720 o 1280x960); 9:16 (vertical, mín. 720x1280) — se recomienda al menos 1 vídeo horizontal para la entrega en todos los dispositivos.",
       "peso": "Mín. 4 KB, máx. 4 MB",
       "tipoFicheiro": "MP4, 3GPP o MOV (H264, vídeo MPEG4, audio AAC); AVI (vídeo MJPEG, audio PCM); MPEG-PS (vídeo MPEG2, audio MP2); WMV. Bitrate mín. 1500 kbit/s. Duración máx. 30s. Sin autoplay de audio (silenciado por defecto). Tags VAST 2.0 a 4.2 (sin soporte para VPAID).",
-      "copies": "Anuncio de vídeo independiente entre párrafos de contenido editorial (mobile, tablet y desktop). Se reproduce automáticamente cuando el 50% del anuncio es visible; sonido desactivado por defecto; botón \"Learn More\" en la parte inferior del anuncio (único elemento clicable)."
+      "observacoes": "Anuncio de vídeo independiente entre párrafos de contenido editorial (mobile, tablet y desktop). Se reproduce automáticamente cuando el 50% del anuncio es visible; sonido desactivado por defecto; botón \"Learn More\" en la parte inferior del anuncio (único elemento clicable)."
     },
     "fr": {
       "aspectRatio": "16:9 ou 4:3 (horizontal, min. 1280x720 ou 1280x960) ; 9:16 (vertical, min. 720x1280) — au moins 1 vidéo horizontale est recommandée pour une diffusion sur tous les appareils.",
       "peso": "Min. 4 Ko, max. 4 Mo",
       "tipoFicheiro": "MP4, 3GPP ou MOV (H264, vidéo MPEG4, audio AAC) ; AVI (vidéo MJPEG, audio PCM) ; MPEG-PS (vidéo MPEG2, audio MP2) ; WMV. Bitrate min. 1500 kbit/s. Durée max. 30s. Pas de lecture automatique du son (coupé par défaut). Balises VAST 2.0 à 4.2 (VPAID non pris en charge).",
-      "copies": "Publicité vidéo autonome entre les paragraphes de contenu éditorial (mobile, tablette et bureau). Se lance automatiquement quand 50 % de la publicité est visible ; son coupé par défaut ; bouton « Learn More » en bas de la publicité (seul élément cliquable)."
+      "observacoes": "Publicité vidéo autonome entre les paragraphes de contenu éditorial (mobile, tablette et bureau). Se lance automatiquement quand 50 % de la publicité est visible ; son coupé par défaut ; bouton « Learn More » en bas de la publicité (seul élément cliquable)."
     }
   },
   "Bauer|Radio Player Pre-Roll": {
@@ -6330,19 +6345,19 @@
       "aspectRatio": "16:9 or 4:3 (horizontal, min. 1280x720 or 1280x960); 9:16 (vertical, min. 720x1280) — at least 1 horizontal video is recommended to deliver across all devices.",
       "peso": "Min. 4 KB, max. 4 MB",
       "tipoFicheiro": "MP4, 3GPP or MOV (H264, MPEG4 video, AAC audio); AVI (MJPEG video, PCM audio); MPEG-PS (MPEG2 video, MP2 audio); WMV. Min. bitrate 1500 kbit/s. Max. length 30s. No audio autoplay (muted by default). VAST tags 2.0 to 4.2 (VPAID not supported).",
-      "copies": "Single pre-roll, played at the start of a user-initiated audio stream (e.g. Radio Players like Kiss). Sold as part of the Radio Player Takeover or via programmatic. Not currently available on Bauer's YouTube channels."
+      "observacoes": "Single pre-roll, played at the start of a user-initiated audio stream (e.g. Radio Players like Kiss). Sold as part of the Radio Player Takeover or via programmatic. Not currently available on Bauer's YouTube channels."
     },
     "es": {
       "aspectRatio": "16:9 o 4:3 (horizontal, mín. 1280x720 o 1280x960); 9:16 (vertical, mín. 720x1280) — se recomienda al menos 1 vídeo horizontal para la entrega en todos los dispositivos.",
       "peso": "Mín. 4 KB, máx. 4 MB",
       "tipoFicheiro": "MP4, 3GPP o MOV (H264, vídeo MPEG4, audio AAC); AVI (vídeo MJPEG, audio PCM); MPEG-PS (vídeo MPEG2, audio MP2); WMV. Bitrate mín. 1500 kbit/s. Duración máx. 30s. Sin autoplay de audio (silenciado por defecto). Tags VAST 2.0 a 4.2 (sin soporte para VPAID).",
-      "copies": "Pre-roll único, reproducido al iniciar un stream de audio iniciado por el usuario (ej.: Radio Players como Kiss). Se vende como parte del Radio Player Takeover o vía programática. No disponible actualmente en los canales de YouTube de Bauer."
+      "observacoes": "Pre-roll único, reproducido al iniciar un stream de audio iniciado por el usuario (ej.: Radio Players como Kiss). Se vende como parte del Radio Player Takeover o vía programática. No disponible actualmente en los canales de YouTube de Bauer."
     },
     "fr": {
       "aspectRatio": "16:9 ou 4:3 (horizontal, min. 1280x720 ou 1280x960) ; 9:16 (vertical, min. 720x1280) — au moins 1 vidéo horizontale est recommandée pour une diffusion sur tous les appareils.",
       "peso": "Min. 4 Ko, max. 4 Mo",
       "tipoFicheiro": "MP4, 3GPP ou MOV (H264, vidéo MPEG4, audio AAC) ; AVI (vidéo MJPEG, audio PCM) ; MPEG-PS (vidéo MPEG2, audio MP2) ; WMV. Bitrate min. 1500 kbit/s. Durée max. 30s. Pas de lecture automatique du son (coupé par défaut). Balises VAST 2.0 à 4.2 (VPAID non pris en charge).",
-      "copies": "Pré-roll unique, diffusé au lancement d'un flux audio initié par l'utilisateur (ex. : Radio Players comme Kiss). Vendu dans le cadre du Radio Player Takeover ou en programmatique. Non disponible actuellement sur les chaînes YouTube de Bauer."
+      "observacoes": "Pré-roll unique, diffusé au lancement d'un flux audio initié par l'utilisateur (ex. : Radio Players comme Kiss). Vendu dans le cadre du Radio Player Takeover ou en programmatique. Non disponible actuellement sur les chaînes YouTube de Bauer."
     }
   }
 }

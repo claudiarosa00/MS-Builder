@@ -70,12 +70,16 @@ publisher "Notícias Ilimitadas", os formatos WeTransfer via Azerion,
 Roblox e OLX, e o publisher "Bauer" — Reino Unido). Colunas: **Meio**, **Canal**,
 **Fornecedor**, **Veículo**, **Grupo Digital2020**, **Formato**,
 **Dimensão**, **Aspect Ratio**, **Peso**, **Tipo de Ficheiro**, **Copies**,
-**Link**.
+**Observações**, **Link**.
 
 A coluna **Dimensão** deve conter só as dimensões/proporções/durações que
 é preciso entregar — não informação de texto. Os limites de copy (texto
 principal, título, descrição, CTA, hashtags, etc.) ficam na coluna
-**Copies**, separada, sobretudo relevante em Social Media e Google.
+**Copies**, separada, sobretudo relevante em Social Media e Google. Tudo o
+resto que não seja dimensão, peso, tipo de ficheiro ou copy — notas de
+suporte, opções de layout, requisitos de moderação, referências a ficheiros
+técnicos à parte, etc. — fica na coluna **Observações**, para o Copies não
+se tornar um "cesto" com informação de tipos diferentes.
 
 A coluna **Aspect Ratio** é calculada a partir da Dimensão, não escrita à
 mão: usa o rácio já indicado explicitamente no texto (ex.: "(1:1)") quando
@@ -152,5 +156,7 @@ O botão "Exportar para Excel" gera um `.xlsx` com o logótipo e cor da
 Companhia escolhida, os dados da Campanha, e uma secção por objetivo
 selecionado (Awareness / Consideration / Conversion), cada uma com o seu
 próprio cabeçalho de tabela — incluindo Canal, Plataforma/Publisher,
-Dimensão, Peso, Tipo de Ficheiro e um link direto para a spec oficial de
-cada formato.
+Formato, Tema (Grupo Digital2020), Dimensão, Aspect Ratio, Peso, Tipo de
+Ficheiro, Copies, Observações e um link direto para a spec oficial de cada
+formato. Esta estrutura de colunas é igual nas duas Companhias (Havas
+Media / Arena Media) — só o logótipo e a cor de cabeçalho mudam.
