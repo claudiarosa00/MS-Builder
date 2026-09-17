@@ -428,7 +428,7 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   display: flex;
   flex-direction: column;
   gap: 4px;
-  min-width: 240px;
+  flex: 1 1 240px;
 }
 
 .campo label {
