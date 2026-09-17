@@ -83,31 +83,6 @@
         </div>
       </section>
 
-      <!--
-      ============================================
-      3.1.1 SELETOR DE OBJETIVO (Awareness / Consideration / Conversion)
-      Cada objetivo tem a sua própria seleção de formatos: o mesmo
-      formato pode ser pedido em mais que um objetivo (ex.: Single
-      Image para Awareness E para Conversion), porque a agência trata
-      essas criatividades/copies como pedidos distintos mesmo quando
-      as specs técnicas são iguais.
-      ============================================
-      -->
-      <section class="seletor-objetivo" data-tab-visivel="construir">
-        <label data-i18n="labelObjetivo">Objetivo</label>
-        <div class="objetivos-botoes" role="tablist">
-          <button type="button" class="objetivo-botao ativo" data-objetivo="awareness">
-            <span data-i18n="objetivoAwareness">Awareness</span> <span class="objetivo-contagem" data-contagem="awareness"></span>
-          </button>
-          <button type="button" class="objetivo-botao" data-objetivo="consideration">
-            <span data-i18n="objetivoConsideration">Consideration</span> <span class="objetivo-contagem" data-contagem="consideration"></span>
-          </button>
-          <button type="button" class="objetivo-botao" data-objetivo="conversion">
-            <span data-i18n="objetivoConversion">Conversion</span> <span class="objetivo-contagem" data-contagem="conversion"></span>
-          </button>
-        </div>
-      </section>
-
       <p id="resumoCampanha" class="resumo-campanha" data-tab-visivel="construir"></p>
 
       <!--
@@ -140,10 +115,39 @@
 
       <!--
       ============================================
-      3.3 BARRA DE AÇÕES (resumo da seleção + exportar) — só Construir Pedido
+      3.3 BARRA FIXA (Objetivo + resumo da seleção + exportar) — só
+      Construir Pedido. Fica sticky no topo do ecrã ao fazer scroll, para
+      trocar de Objetivo (Awareness/Consideration/Conversion) nunca
+      obrigar a voltar ao topo da página — é algo que se faz muitas vezes
+      enquanto se percorre a lista de formatos.
       ============================================
       -->
       <div class="barra-fixa" data-tab-visivel="construir">
+        <!--
+        ============================================
+        3.3.1 SELETOR DE OBJETIVO (Awareness / Consideration / Conversion)
+        Cada objetivo tem a sua própria seleção de formatos: o mesmo
+        formato pode ser pedido em mais que um objetivo (ex.: Single
+        Image para Awareness E para Conversion), porque a agência trata
+        essas criatividades/copies como pedidos distintos mesmo quando
+        as specs técnicas são iguais.
+        ============================================
+        -->
+        <section class="seletor-objetivo">
+          <label data-i18n="labelObjetivo">Objetivo</label>
+          <div class="objetivos-botoes" role="tablist">
+            <button type="button" class="objetivo-botao ativo" data-objetivo="awareness">
+              <span data-i18n="objetivoAwareness">Awareness</span> <span class="objetivo-contagem" data-contagem="awareness"></span>
+            </button>
+            <button type="button" class="objetivo-botao" data-objetivo="consideration">
+              <span data-i18n="objetivoConsideration">Consideration</span> <span class="objetivo-contagem" data-contagem="consideration"></span>
+            </button>
+            <button type="button" class="objetivo-botao" data-objetivo="conversion">
+              <span data-i18n="objetivoConversion">Conversion</span> <span class="objetivo-contagem" data-contagem="conversion"></span>
+            </button>
+          </div>
+        </section>
+
         <aside id="resumoSelecao" class="resumo-selecao"></aside>
         <div id="areaExportar" class="area-exportar">
           <button id="botaoExportar" type="button" disabled data-i18n="botaoExportar">Exportar para Excel</button>
