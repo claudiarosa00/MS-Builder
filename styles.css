@@ -265,7 +265,7 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
 */
 .barra-filtros {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 14px;
   flex-wrap: wrap;
   padding: 20px 32px 0 32px;
@@ -287,8 +287,17 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   outline-offset: 1px;
 }
 
+/* Duas filas curtas (Online / Offline) em vez de uma única fila comprida
+   — mais fácil de percorrer com o olho do que tudo espremido numa linha. */
 .filtros-categoria {
   display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filtros-grupo {
+  display: flex;
+  align-items: center;
   gap: 6px;
   flex-wrap: wrap;
 }
