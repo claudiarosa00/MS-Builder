@@ -108,6 +108,8 @@ const TRADUCOES = {
   filtroCompraDireta: { pt: "Compra Direta", en: "Direct Buy", es: "Compra Directa", fr: "Achat Direct" },
   filtroGoogleSearch: { pt: "Google ou Search", en: "Google & Search", es: "Google o Búsqueda", fr: "Google ou Recherche" },
   filtroProgramatico: { pt: "Programático", en: "Programmatic", es: "Programática", fr: "Programmatique" },
+  labelOnline: { pt: "Online", en: "Online", es: "Online", fr: "Online" },
+  labelOffline: { pt: "Offline", en: "Offline", es: "Offline", fr: "Offline" },
   botaoLimparFiltros: { pt: "Limpar filtros", en: "Clear filters", es: "Limpiar filtros", fr: "Effacer les filtres" },
   botaoLimparSelecao: { pt: "Limpar seleção", en: "Clear selection", es: "Limpiar selección", fr: "Effacer la sélection" },
   botaoSelecionarTodos: { pt: "Selecionar todos", en: "Select all", es: "Seleccionar todos", fr: "Tout sélectionner" },
@@ -438,18 +440,41 @@ function paraIdHtml(texto) {
 }
 
 // A que categoria do índice pertence um publisher, a partir dos seus
-// próprios formatos: o Google fica à parte (é comprado de forma diferente
-// dos publishers "tradicionais"); os restantes seguem o campo "canal"
-// que já vem da base (Paid Social / Programático / Internet-Compra Direta).
-const ORDEM_CATEGORIAS = ["Social Media", "Compra Direta", "Google ou Search", "Programático"];
+// próprios formatos: primeiro separamos por meio (Digital vs. os meios
+// offline — OOH, TV, Rádio, Cinema, Imprensa — usando o mesmo mapeamento
+// de grupoMeioDoFormato/VALOR_BASE_PARA_GRUPO_MEIO já usado na exportação
+// para Excel, para "o que é online vs. offline" viver num só sítio); só
+// dentro do Digital é que faz sentido subdividir por Google / Social Media
+// / Programático / Compra Direta, a partir do campo "canal" da base.
+const ORDEM_CATEGORIAS = [
+  "Social Media",
+  "Compra Direta",
+  "Google ou Search",
+  "Programático",
+  "OOH",
+  "TV",
+  "Rádio",
+  "Cinema",
+  "Imprensa",
+];
+const CATEGORIAS_ONLINE = new Set(["Social Media", "Compra Direta", "Google ou Search", "Programático"]);
 const CHAVE_TRADUCAO_CATEGORIA = {
   "Social Media": "filtroSocialMedia",
   "Compra Direta": "filtroCompraDireta",
   "Google ou Search": "filtroGoogleSearch",
   "Programático": "filtroProgramatico",
+  "OOH": "meioOOH",
+  "TV": "meioTV",
+  "Rádio": "meioRadio",
+  "Cinema": "meioCinema",
+  "Imprensa": "meioImprensa",
 };
 
 function categoriaDoPublisher(nomePublisher, formatosDoPublisher) {
+  const grupoMeio = grupoMeioDoFormato(formatosDoPublisher[0]);
+  if (grupoMeio !== "Digital") {
+    return grupoMeio;
+  }
   // Os vários tipos de campanha do Google (Display Network, Demand Gen, App
   // Campaigns, Performance Max, Search, Vídeo) ficam cada um no seu próprio
   // bloco de publisher, mas todos pertencem à mesma categoria "Google ou Search".
@@ -479,8 +504,10 @@ function mostrarFormatosAgrupados(contentor, formatos, opcoes) {
   const grupos = agruparPorPublisher(formatos);
 
   // Ordem de aparecimento: primeiro por canal, pela ordem fixa definida em
-  // ORDEM_CATEGORIAS (Social Media, Compra Direta, Google ou Search); dentro
-  // de cada canal, os publishers ficam por ordem alfabética.
+  // ORDEM_CATEGORIAS (Social Media, Compra Direta, Google ou Search,
+  // Programático, e depois os meios offline — OOH, TV, Rádio, Cinema,
+  // Imprensa); dentro de cada categoria, os publishers ficam por ordem
+  // alfabética.
   const nomesPublishers = Object.keys(grupos).sort((a, b) => {
     const posicaoA = ORDEM_CATEGORIAS.indexOf(categoriaDoPublisher(a, grupos[a]));
     const posicaoB = ORDEM_CATEGORIAS.indexOf(categoriaDoPublisher(b, grupos[b]));
@@ -492,14 +519,47 @@ function mostrarFormatosAgrupados(contentor, formatos, opcoes) {
 
   contentor.innerHTML = "";
 
+  // Ao mudar de categoria, insere um cabeçalho a identificá-la — e, sempre
+  // que se muda de Online para Offline (ou vice-versa), um cabeçalho maior
+  // a marcar essa fronteira, para ficar claro visualmente que OOH (e no
+  // futuro TV/Rádio/Cinema/Imprensa) não é "Compra Direta" nem nenhuma
+  // outra categoria online.
+  let categoriaAnterior = null;
+  let grupoOnlineOfflineAnterior = null;
   for (const nomePublisher of nomesPublishers) {
     // Dentro do publisher, os próprios formatos também ficam por ordem
     // alfabética (em vez da ordem em que vieram da base).
     const formatosDoPublisher = [...grupos[nomePublisher]].sort((a, b) =>
       (a.formato || "").localeCompare(b.formato || "", "pt")
     );
+    const categoria = categoriaDoPublisher(nomePublisher, formatosDoPublisher);
+    if (categoria !== categoriaAnterior) {
+      const grupoOnlineOffline = CATEGORIAS_ONLINE.has(categoria) ? "online" : "offline";
+      if (grupoOnlineOffline !== grupoOnlineOfflineAnterior) {
+        contentor.appendChild(criarCabecalhoOnlineOffline(grupoOnlineOffline));
+        grupoOnlineOfflineAnterior = grupoOnlineOffline;
+      }
+      contentor.appendChild(criarCabecalhoCategoria(categoria));
+      categoriaAnterior = categoria;
+    }
     contentor.appendChild(criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes));
   }
+}
+
+function criarCabecalhoOnlineOffline(grupoOnlineOffline) {
+  const cabecalho = document.createElement("h2");
+  cabecalho.className = `cabecalho-online-offline cabecalho-online-offline--${grupoOnlineOffline}`;
+  cabecalho.textContent = t(grupoOnlineOffline === "online" ? "labelOnline" : "labelOffline");
+  cabecalho.dataset.grupo = grupoOnlineOffline;
+  return cabecalho;
+}
+
+function criarCabecalhoCategoria(categoria) {
+  const cabecalho = document.createElement("h3");
+  cabecalho.className = "cabecalho-categoria";
+  cabecalho.textContent = t(CHAVE_TRADUCAO_CATEGORIA[categoria]);
+  cabecalho.dataset.categoria = categoria;
+  return cabecalho;
 }
 
 function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes) {
@@ -623,10 +683,24 @@ function atualizarIndicePublishers() {
 
   indicePublishers.innerHTML = "";
 
+  // Tal como no conteúdo principal, agrupa visualmente as categorias online
+  // (Social Media, Compra Direta, Google ou Search, Programático) à parte
+  // das offline (OOH, e no futuro TV/Rádio/Cinema/Imprensa), com um
+  // cabeçalho "Online"/"Offline" sempre que se muda de um grupo para o outro.
+  let grupoOnlineOfflineAnterior = null;
   for (const categoria of ORDEM_CATEGORIAS) {
     const blocosDaCategoria = blocos.filter((bloco) => bloco.dataset.categoria === categoria);
     if (blocosDaCategoria.length === 0) {
       continue;
+    }
+
+    const grupoOnlineOffline = CATEGORIAS_ONLINE.has(categoria) ? "online" : "offline";
+    if (grupoOnlineOffline !== grupoOnlineOfflineAnterior) {
+      const rotulo = document.createElement("h2");
+      rotulo.className = `indice-online-offline indice-online-offline--${grupoOnlineOffline}`;
+      rotulo.textContent = t(grupoOnlineOffline === "online" ? "labelOnline" : "labelOffline");
+      indicePublishers.appendChild(rotulo);
+      grupoOnlineOfflineAnterior = grupoOnlineOffline;
     }
 
     const titulo = document.createElement("h3");
@@ -670,6 +744,7 @@ function aplicarFiltros() {
   const texto = campoPesquisa.value.trim().toLowerCase();
   const blocos = painelAtivo.querySelectorAll(".grupo-publisher");
   let algumVisivel = false;
+  const categoriasVisiveis = new Set();
 
   blocos.forEach((bloco) => {
     const categoriaCombina = categoriaFiltroAtiva === "todas" || bloco.dataset.categoria === categoriaFiltroAtiva;
@@ -692,7 +767,22 @@ function aplicarFiltros() {
     bloco.style.display = blocoVisivel ? "" : "none";
     if (blocoVisivel) {
       algumVisivel = true;
+      categoriasVisiveis.add(bloco.dataset.categoria);
     }
+  });
+
+  // Os cabeçalhos de categoria e de Online/Offline não têm linhas próprias
+  // para filtrar — escondem-se consoante os blocos de publisher que lhes
+  // seguem tenham ficado visíveis ou não, para nunca sobrar um cabeçalho
+  // "órfão" sem nada por baixo.
+  painelAtivo.querySelectorAll(".cabecalho-categoria").forEach((cabecalho) => {
+    cabecalho.style.display = categoriasVisiveis.has(cabecalho.dataset.categoria) ? "" : "none";
+  });
+  painelAtivo.querySelectorAll(".cabecalho-online-offline").forEach((cabecalho) => {
+    const categoriasDoGrupo = ORDEM_CATEGORIAS.filter(
+      (categoria) => (CATEGORIAS_ONLINE.has(categoria) ? "online" : "offline") === cabecalho.dataset.grupo
+    );
+    cabecalho.style.display = categoriasDoGrupo.some((categoria) => categoriasVisiveis.has(categoria)) ? "" : "none";
   });
 
   mensagensSemResultados[tabAtiva].hidden = algumVisivel;

@@ -13,8 +13,14 @@ processo manual que antes era feito diretamente em Excel.
   para um ficheiro Excel já formatado no estilo do template real da agência.
 - **Biblioteca de Formatos**: consulta livre de todos os formatos disponíveis
   (specs completas — dimensões, peso, tipo de ficheiro, link oficial), sem
-  seleção, organizada por publisher e por canal (Social Media / Compra Direta
-  / Google / Programático).
+  seleção, organizada por publisher e por categoria — separadas visualmente
+  em **Online** (Social Media / Compra Direta / Google ou Search /
+  Programático) e **Offline** (OOH, e no futuro TV / Rádio / Cinema /
+  Imprensa), tanto no índice lateral como na própria lista e nos filtros de
+  categoria. Esta separação existe porque um publisher offline (ex.: um
+  fornecedor de OOH) não é "Compra Direta" nem nenhuma das outras categorias
+  digitais — é um meio à parte (ver `categoriaDoPublisher` em `app.js`, que
+  usa o mesmo mapeamento de meio → grupo já usado na exportação para Excel).
 - Suporta 4 idiomas (Português, Inglês, Espanhol, Francês) — interface,
   cabeçalhos do Excel, e também as specs de cada formato (Dimensão, Aspect
   Ratio, Peso, Tipo de Ficheiro, Copies) mudam de língua, através de um

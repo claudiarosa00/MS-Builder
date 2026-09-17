@@ -173,6 +173,34 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   margin-top: 0;
 }
 
+/* Separa visualmente as categorias online (Social Media, Compra Direta,
+   Google ou Search, Programático) das offline (OOH, e no futuro
+   TV/Rádio/Cinema/Imprensa) — sem isto, OOH aparecia misturado com as
+   categorias de compra digital, o que não faz sentido. */
+.indice-online-offline {
+  margin: 20px 0 4px 0;
+  padding: 6px 10px 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-top: 1px solid var(--cor-borda);
+}
+
+.indice-online-offline:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.indice-online-offline--online {
+  color: var(--cor-destaque);
+}
+
+.indice-online-offline--offline {
+  color: var(--cor-escuro);
+}
+
 .indice-publishers a {
   color: var(--cor-texto-suave);
   text-decoration: none;
@@ -251,6 +279,19 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   border-color: var(--cor-destaque);
   color: #ffffff;
   font-weight: 600;
+}
+
+/* Rótulo "Online"/"Offline" entre os grupos de botões de filtro, para
+   deixar claro que OOH não é mais uma opção de compra digital. */
+.filtros-separador {
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--cor-texto-suave);
+  padding: 0 2px;
 }
 
 /* Botão discreto para "Limpar filtros" / "Limpar seleção" — nunca deve
@@ -580,6 +621,38 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   border-radius: 8px;
   padding: 16px 20px;
   scroll-margin-top: 12px;
+}
+
+/* Cabeçalho grande "Online"/"Offline" — marca a fronteira entre as
+   categorias de compra digital e os meios offline (OOH, e no futuro
+   TV/Rádio/Cinema/Imprensa), para nunca parecer que OOH é "Compra Direta". */
+.cabecalho-online-offline {
+  margin: 4px 0 -4px 0;
+  padding-bottom: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 2px solid currentColor;
+}
+
+.cabecalho-online-offline--online {
+  color: var(--cor-destaque);
+}
+
+.cabecalho-online-offline--offline {
+  color: var(--cor-escuro);
+}
+
+/* Sub-cabeçalho de categoria (Social Media, Compra Direta, ..., OOH),
+   antes do primeiro publisher de cada uma. */
+.cabecalho-categoria {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--cor-texto-suave);
 }
 
 .grupo-publisher h2 {
