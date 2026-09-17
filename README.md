@@ -72,14 +72,18 @@ templates/                  Reservado para uso futuro (atualmente vazio)
 
 ## Base de dados de formatos
 
-Os 381 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
+Os 505 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
 mapeados a partir da base real de specs da agência (269 formatos de
 publisher → 40 categorias "Digital2020" canónicas, mais os formatos
 Programmatic/DV360 adicionados depois, os 36 formatos de compra direta do
 publisher "Notícias Ilimitadas", os formatos WeTransfer via Azerion,
-Roblox e OLX, o publisher "Bauer" — Reino Unido, e os 27 primeiros
-formatos de OOH — `Meio = "OOH"` — de MOP, DreamMedia, BIG Outdoors,
-JCDecaux e Táxi Advertising). Colunas: **Meio**, **Canal**,
+Roblox e OLX, o publisher "Bauer" — Reino Unido, os 27 formatos de OOH —
+`Meio = "OOH"` — de MOP, DreamMedia, BIG Outdoors, JCDecaux e Táxi
+Advertising, e os 124 primeiros formatos de Imprensa — `Meio =
+"Imprensa"` — de Correio da Manhã (jornal diário + suplemento Mais Sport
++ revistas semanais Boa Onda/VIDAS/Domingo), Destak, Jornal de Negócios,
+Record, Sábado (+ Sábado Viajante), TV Guia, Expresso (1º Caderno +
+Economia + Revista E) e Attitude). Colunas: **Meio**, **Canal**,
 **Fornecedor**, **Veículo**, **Grupo Digital2020**, **Formato**,
 **Dimensão**, **Aspect Ratio**, **Peso**, **Tipo de Ficheiro**, **Copies**,
 **Observações**, **Link**.
@@ -134,14 +138,29 @@ um palpite.
 
 Atualmente cobre os meios **Internet** e **Programático** (Social Media,
 Compra Direta, Google/Search e Programático) — ambos aparecem juntos na
-folha "Digital" da exportação — e o meio **OOH** (Publicidade Exterior),
+folha "Digital" da exportação —, o meio **OOH** (Publicidade Exterior),
 com 27 formatos reais de MOP, DreamMedia, BIG Outdoors, JCDecaux e Táxi
 Advertising: Outdoors/Monopostes/Painéis em papel e vinil, Mupis (papel e
-digital), LED indoor/outdoor, Multibanco (ATM) e decoração de táxi (ver
-secção "Exportação para Excel" abaixo). Os restantes meios offline (TV,
-Rádio, Cinema, Imprensa) já têm a estrutura de exportação pronta (cada um
-com a sua própria folha), mas entram na base só quando houver dados reais
-para os mapear — nunca são inventados.
+digital), LED indoor/outdoor, Multibanco (ATM) e decoração de táxi, e o
+meio **Imprensa**, com 124 formatos reais de jornais e revistas (Correio
+da Manhã, Destak, Jornal de Negócios, Record, Sábado, Sábado Viajante,
+TV Guia, Expresso e Attitude) — Página, Página Dupla, meias e quartos de
+página, rodapés, orelhas de capa e outros formatos especiais próprios de
+cada publicação (ver secção "Exportação para Excel" abaixo). Os
+restantes meios offline (TV, Rádio, Cinema) já têm a estrutura de
+exportação pronta (cada um com a sua própria folha), mas entram na base
+só quando houver dados reais para os mapear — nunca são inventados.
+
+Alguns publishers de Imprensa têm mais que um **Veículo** distinto (ex.:
+"Correio da Manhã" cobre o jornal diário, o suplemento "Mais Sport" e as
+3 revistas semanais "Boa Onda"/"VIDAS"/"Domingo"), cada um com as suas
+próprias dimensões mesmo quando o nome do Formato se repete (ex.:
+"Página" existe em 5 veículos diferentes do Correio da Manhã). Por isso
+a coluna **Veículo** ganha uma coluna própria na Biblioteca de Formatos e
+no Construir Pedido sempre que, dentro de um publisher, há mais que um
+veículo distinto do próprio nome do publisher — nos restantes casos
+(a maioria, onde Veículo = Fornecedor) a coluna nem aparece, para não
+ficar redundante (ver `opcoes.comVeiculo` em `app.js`).
 
 ## Traduções das specs (EN/ES/FR)
 
@@ -153,13 +172,18 @@ ex.: "Vídeo" → "Video"). Estas traduções vivem num ficheiro à parte,
 empresa contratada que atualiza `data/base-formatos.xlsx` continua a
 trabalhar só em português, sem se preocupar com idiomas.
 
-Estrutura do ficheiro: um objeto indexado por `"Fornecedor|Formato"` (o
-texto exato como está na base), com uma chave por língua (`en`, `es`,
-`fr`), cada uma com os campos traduzidos que se aplicam.
+Estrutura do ficheiro: um objeto indexado por `"Fornecedor|Veículo|Formato"`
+(o texto exato como está na base, ver `chaveTraducao` em `app.js`), com uma
+chave por língua (`en`, `es`, `fr`), cada uma com os campos traduzidos que
+se aplicam. A chave inclui o Veículo (não só Fornecedor+Formato) porque um
+mesmo Fornecedor pode ter vários Veículos com o mesmo nome de Formato —
+ex.: "Correio da Manhã" tem "Página" no jornal diário, no suplemento Mais
+Sport e em cada uma das 3 revistas semanais, cada um com uma tradução
+diferente porque a Dimensão também é diferente.
 
 ```json
 {
-  "Facebook|Single Image": {
+  "Facebook|Facebook|Single Image": {
     "en": { "dimensao": "Feed: 1440x1800 (min. 600px width...)", "copies": "..." },
     "es": { "dimensao": "Feed: 1440x1800 (mín. 600px ancho...)", "copies": "..." },
     "fr": { "dimensao": "Feed : 1440x1800 (min. 600px largeur...)", "copies": "..." }

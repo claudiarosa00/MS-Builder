@@ -131,6 +131,7 @@ const TRADUCOES = {
   campanhaPorPreencher: { pt: "(campanha por preencher)", en: "(campaign pending)", es: "(campaña por completar)", fr: "(campagne à renseigner)" },
   contagemFormatos: { pt: " ({n} formatos)", en: " ({n} formats)", es: " ({n} formatos)", fr: " ({n} formats)" },
   colFormato: { pt: "Formato", en: "Format", es: "Formato", fr: "Format" },
+  colVeiculo: { pt: "Veículo", en: "Vehicle", es: "Vehículo", fr: "Support" },
   colGrupoDigital2020: { pt: "Grupo Digital2020", en: "Digital2020 Group", es: "Grupo Digital2020", fr: "Groupe Digital2020" },
   colDimensao: { pt: "Dimensão", en: "Dimensions", es: "Dimensión", fr: "Dimensions" },
   colAspectRatio: { pt: "Aspect Ratio", en: "Aspect Ratio", es: "Aspect Ratio", fr: "Aspect Ratio" },
@@ -177,11 +178,21 @@ function formatar(chave, valores) {
 // procura em TRADUCOES_SPECS pela chave "Fornecedor|Formato"; se não houver
 // tradução para essa linha ou esse campo (ex.: base atualizada mas
 // traduções ainda não), cai para o texto original em vez de mostrar vazio.
+// A chave inclui o Veículo (não só Fornecedor+Formato) porque um mesmo
+// Fornecedor pode ter vários Veículos com o mesmo nome de Formato — ex.:
+// "Correio da Manhã" tem "Página" no jornal diário, no suplemento Mais
+// Sport e em cada uma das 3 revistas semanais, cada um com dimensões
+// diferentes. Sem o Veículo na chave, a tradução de um "roubava" a dos
+// outros.
+function chaveTraducao(formato) {
+  return `${formato.fornecedor}|${formato.veiculo}|${formato.formato}`;
+}
+
 function textoTraduzido(formato, campo) {
   if (idiomaAtual === "pt") {
     return formato[campo];
   }
-  const traducao = TRADUCOES_SPECS[`${formato.fornecedor}|${formato.formato}`];
+  const traducao = TRADUCOES_SPECS[chaveTraducao(formato)];
   const valorTraduzido = traducao && traducao[idiomaAtual] && traducao[idiomaAtual][campo];
   return valorTraduzido || formato[campo];
 }
@@ -589,7 +600,19 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes) {
   // TV/Rádio/Cinema/Imprensa), por isso nem a coluna é desenhada para eles.
   // Um publisher pertence sempre por inteiro a um único meio, daí bastar
   // olhar para o primeiro formato para decidir.
-  const opcoesComMeio = { ...opcoes, comGrupoDigital2020: grupoMeioDoFormato(formatosDoPublisher[0]) === "Digital" };
+  //
+  // O Veículo só ganha coluna própria quando, dentro deste publisher, há
+  // mais que um veículo distinto do próprio nome do publisher — ex.:
+  // "Correio da Manhã" tem o jornal diário, o suplemento Mais Sport e 3
+  // revistas semanais, todos com formatos de nome igual ("Página",
+  // "Rodapé", ...) mas dimensões diferentes; sem a coluna não daria para
+  // os distinguir. Para a maioria dos publishers (onde Veículo = Fornecedor)
+  // a coluna nem aparece, para não ficar redundante.
+  const opcoesComMeio = {
+    ...opcoes,
+    comGrupoDigital2020: grupoMeioDoFormato(formatosDoPublisher[0]) === "Digital",
+    comVeiculo: formatosDoPublisher.some((f) => f.veiculo && f.veiculo !== nomePublisher),
+  };
 
   const tabela = document.createElement("table");
   tabela.className = "tabela-formatos";
@@ -610,6 +633,7 @@ function criarCabecalhoTabela(opcoes) {
   const colunaCheckbox = opcoes.comCheckbox ? '<th class="coluna-checkbox"></th>' : "";
   const colunaLink = opcoes.comLink ? `<th>${t("colFonte")}</th>` : "";
   const colunaGrupoDigital2020 = opcoes.comGrupoDigital2020 ? `<th>${t("colGrupoDigital2020")}</th>` : "";
+  const colunaVeiculo = opcoes.comVeiculo ? `<th>${t("colVeiculo")}</th>` : "";
 
   // Na tab "Construir Pedido" (simplificado) só mostramos o essencial para
   // escolher — nome do formato e o grupo Digital2020. As specs completas
@@ -620,6 +644,7 @@ function criarCabecalhoTabela(opcoes) {
       <tr>
         ${colunaCheckbox}
         <th>${t("colFormato")}</th>
+        ${colunaVeiculo}
         ${colunaGrupoDigital2020}
       </tr>
     `;
@@ -630,6 +655,7 @@ function criarCabecalhoTabela(opcoes) {
     <tr>
       ${colunaCheckbox}
       <th>${t("colFormato")}</th>
+      ${colunaVeiculo}
       ${colunaGrupoDigital2020}
       <th>${t("colDimensao")}</th>
       <th>${t("colAspectRatio")}</th>
@@ -654,11 +680,13 @@ function criarLinhaFormato(formato, opcoes) {
   const colunaGrupoDigital2020 = opcoes.comGrupoDigital2020
     ? `<td><span class="etiqueta-dg2020">${formato.grupoDigital2020 ?? "—"}</span></td>`
     : "";
+  const colunaVeiculo = opcoes.comVeiculo ? `<td>${formato.veiculo ?? "—"}</td>` : "";
 
   if (opcoes.simplificado) {
     linha.innerHTML = `
       ${colunaCheckbox}
       <td>${textoTraduzido(formato, "formato") ?? ""}</td>
+      ${colunaVeiculo}
       ${colunaGrupoDigital2020}
     `;
     return linha;
@@ -670,6 +698,7 @@ function criarLinhaFormato(formato, opcoes) {
   linha.innerHTML = `
     ${colunaCheckbox}
     <td>${textoTraduzido(formato, "formato") ?? ""}</td>
+    ${colunaVeiculo}
     ${colunaGrupoDigital2020}
     <td>${textoTraduzido(formato, "dimensao") ?? t("naoEspecificado")}</td>
     <td>${textoTraduzido(formato, "aspectRatio") || "—"}</td>
@@ -952,7 +981,11 @@ function atualizarResumoSelecao() {
           const etiqueta = grupoMeioDoFormato(f) === "Digital"
             ? ` <span class="etiqueta-dg2020">${f.grupoDigital2020 ?? "—"}</span>`
             : "";
-          return `<li>${f.fornecedor} — ${textoTraduzido(f, "formato")}${etiqueta}</li>`;
+          // Quando o Veículo é diferente do Fornecedor (ex.: "Correio da
+          // Manhã" → "Boa Onda"), mostra-o também — senão duas seleções
+          // diferentes podiam aparecer com o mesmo texto no resumo.
+          const veiculo = f.veiculo && f.veiculo !== f.fornecedor ? ` (${f.veiculo})` : "";
+          return `<li>${f.fornecedor}${veiculo} — ${textoTraduzido(f, "formato")}${etiqueta}</li>`;
         })
         .join("");
       return `<li class="resumo-grupo-objetivo"><strong>${t(CHAVE_TRADUCAO_OBJETIVO[objetivo])}</strong><ul>${itensObjetivo}</ul></li>`;
@@ -1271,10 +1304,10 @@ botaoVoltarTopo.addEventListener("click", () => {
 Guarda o estado do pedido em curso (Companhia/Cliente/
 Campanha + seleção por objetivo) para não se perder se a
 página for atualizada ou fechada sem querer. Guarda-se pela
-chave "Fornecedor|Formato" (estável), não pelo "id" (que é
-só a posição na base e pode mudar entre carregamentos) — um
-formato que já não existir na base é simplesmente ignorado
-ao restaurar, em vez de dar erro.
+chave "Fornecedor|Veículo|Formato" (estável, ver chaveTraducao),
+não pelo "id" (que é só a posição na base e pode mudar entre
+carregamentos) — um formato que já não existir na base é
+simplesmente ignorado ao restaurar, em vez de dar erro.
 
 localStorage pode estar bloqueado (modo privado, políticas do
 browser, sandbox do Artifact) — nesse caso a app continua a
@@ -1288,7 +1321,7 @@ function guardarEstadoLocal() {
     return; // ainda não há formatos carregados — não sobrescrever o que já estava guardado
   }
   try {
-    const idParaChave = new Map(todosFormatos.map((f) => [f.id, `${f.fornecedor}|${f.formato}`]));
+    const idParaChave = new Map(todosFormatos.map((f) => [f.id, chaveTraducao(f)]));
     const selecoes = {};
     OBJETIVOS.forEach((objetivo) => {
       selecoes[objetivo] = [...selecoesPorObjetivo[objetivo]]
@@ -1319,7 +1352,7 @@ function restaurarEstadoLocal() {
     return;
   }
 
-  const chaveParaId = new Map(todosFormatos.map((f) => [`${f.fornecedor}|${f.formato}`, f.id]));
+  const chaveParaId = new Map(todosFormatos.map((f) => [chaveTraducao(f), f.id]));
   OBJETIVOS.forEach((objetivo) => {
     const chaves = (estadoGuardado.selecoes && estadoGuardado.selecoes[objetivo]) || [];
     chaves.forEach((chave) => {
