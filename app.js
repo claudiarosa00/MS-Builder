@@ -17,7 +17,14 @@ const botaoExportar = document.getElementById("botaoExportar");
 const botaoSelecionarTodos = document.getElementById("botaoSelecionarTodos");
 const botaoLimparSelecao = document.getElementById("botaoLimparSelecao");
 const botoesTab = document.querySelectorAll(".tab-botao");
-const paineisTab = { construir: document.getElementById("tabConstruir"), specs: document.getElementById("tabSpecs") };
+// A configuração do pedido, a barra de ações e as duas listas já não vivem
+// dentro de uma secção "painel" única por tab — ficam soltas na página (para
+// a ordem visual poder ser: config do pedido → filtros → lista), e cada uma
+// leva o atributo data-tab-visivel a dizer a que tab pertence. paineisTab
+// continua a apontar para o contentor de cada lista (onde vivem os blocos
+// .grupo-publisher), usado para filtrar/pesquisar só dentro da tab ativa.
+const paineisTab = { construir: document.getElementById("listaFormatos"), specs: document.getElementById("listaSpecs") };
+const elementosPorTab = document.querySelectorAll("[data-tab-visivel]");
 const campoPesquisa = document.getElementById("campoPesquisa");
 const botoesFiltroCategoria = document.querySelectorAll(".filtro-categoria");
 const botaoLimparFiltros = document.getElementById("botaoLimparFiltros");
@@ -228,9 +235,9 @@ botoesTab.forEach((botao) => {
 
 function mudarTab(nomeTab) {
   tabAtiva = nomeTab;
-  for (const [nome, painel] of Object.entries(paineisTab)) {
-    painel.hidden = nome !== nomeTab;
-  }
+  elementosPorTab.forEach((elemento) => {
+    elemento.hidden = elemento.dataset.tabVisivel !== nomeTab;
+  });
   botoesTab.forEach((botao) => {
     const ativo = botao.dataset.tab === nomeTab;
     botao.classList.toggle("ativo", ativo);

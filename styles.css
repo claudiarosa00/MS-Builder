@@ -254,7 +254,13 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   min-width: 0;
 }
 
-.painel-tab[hidden] {
+/* Vários elementos (config do pedido, barra de ações, as duas listas)
+   pertencem só a uma das tabs mas já não vivem dentro de uma secção
+   "painel" única — cada um leva data-tab-visivel e o app.js liga/desliga
+   o atributo [hidden] consoante a tab ativa. Como alguns têm display:flex
+   na própria classe (mais específico que o [hidden] da folha de estilo do
+   browser), é preciso este reforço para [hidden] continuar a esconder. */
+[data-tab-visivel][hidden] {
   display: none;
 }
 

@@ -59,14 +59,67 @@
 
       <!--
       ============================================
-      3.0 BARRA DE FILTROS
+      3.1 CONFIGURAÇÃO DO PEDIDO (Companhia/Cliente/Campanha + Objetivo)
+      Só existe na tab "Construir Pedido" — primeiro define-se PARA QUEM
+      é o pedido, só depois faz sentido filtrar/pesquisar formatos.
+      ============================================
+      -->
+      <section class="dados-campanha" data-tab-visivel="construir">
+        <div class="campo">
+          <label for="campoCompanhia"><span data-i18n="labelCompanhia">Companhia</span> <span class="marca-obrigatorio">*</span></label>
+          <select id="campoCompanhia" required>
+            <option value="" disabled selected data-i18n="opcaoSelecionar">— Selecionar —</option>
+            <option value="Havas Media">Havas Media</option>
+            <option value="Arena Media">Arena Media</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="campoCliente" data-i18n="labelCliente">Cliente</label>
+          <input type="text" id="campoCliente" data-i18n-placeholder="placeholderCliente" placeholder="Nome do cliente">
+        </div>
+        <div class="campo">
+          <label for="campoCampanha" data-i18n="labelCampanha">Campanha</label>
+          <input type="text" id="campoCampanha" data-i18n-placeholder="placeholderCampanha" placeholder="Nome da campanha">
+        </div>
+      </section>
+
+      <!--
+      ============================================
+      3.1.1 SELETOR DE OBJETIVO (Awareness / Consideration / Conversion)
+      Cada objetivo tem a sua própria seleção de formatos: o mesmo
+      formato pode ser pedido em mais que um objetivo (ex.: Single
+      Image para Awareness E para Conversion), porque a agência trata
+      essas criatividades/copies como pedidos distintos mesmo quando
+      as specs técnicas são iguais.
+      ============================================
+      -->
+      <section class="seletor-objetivo" data-tab-visivel="construir">
+        <label data-i18n="labelObjetivo">Objetivo</label>
+        <div class="objetivos-botoes" role="tablist">
+          <button type="button" class="objetivo-botao ativo" data-objetivo="awareness">
+            <span data-i18n="objetivoAwareness">Awareness</span> <span class="objetivo-contagem" data-contagem="awareness"></span>
+          </button>
+          <button type="button" class="objetivo-botao" data-objetivo="consideration">
+            <span data-i18n="objetivoConsideration">Consideration</span> <span class="objetivo-contagem" data-contagem="consideration"></span>
+          </button>
+          <button type="button" class="objetivo-botao" data-objetivo="conversion">
+            <span data-i18n="objetivoConversion">Conversion</span> <span class="objetivo-contagem" data-contagem="conversion"></span>
+          </button>
+        </div>
+      </section>
+
+      <p id="resumoCampanha" class="resumo-campanha" data-tab-visivel="construir"></p>
+
+      <!--
+      ============================================
+      3.2 BARRA DE FILTROS
       Partilhada pelas duas tabs: filtra sempre a que
       estiver aberta no momento (pesquisa por nome +
-      filtro por categoria).
+      filtro por categoria). A pesquisa fica à direita dos
+      botões de categoria, que são o filtro mais usado.
       ============================================
       -->
       <div class="barra-filtros">
-        <input type="text" id="campoPesquisa" data-i18n-placeholder="placeholderPesquisa" placeholder="Pesquisar formato ou publisher...">
         <div class="filtros-categoria">
           <div class="filtros-grupo">
             <button type="button" class="filtro-categoria ativo" data-categoria="todas" data-i18n="filtroTodas">Todas</button>
@@ -81,90 +134,43 @@
             <button type="button" class="filtro-categoria" data-categoria="OOH" data-i18n="meioOOH">OOH</button>
           </div>
         </div>
+        <input type="text" id="campoPesquisa" data-i18n-placeholder="placeholderPesquisa" placeholder="Pesquisar formato ou publisher...">
         <button type="button" id="botaoLimparFiltros" class="botao-limpar" data-i18n="botaoLimparFiltros">Limpar filtros</button>
       </div>
 
       <!--
       ============================================
-      3.1 TAB "CONSTRUIR PEDIDO"
+      3.3 BARRA DE AÇÕES (resumo da seleção + exportar) — só Construir Pedido
       ============================================
       -->
-      <section id="tabConstruir" class="painel-tab">
-
-        <section class="dados-campanha">
-          <div class="campo">
-            <label for="campoCompanhia"><span data-i18n="labelCompanhia">Companhia</span> <span class="marca-obrigatorio">*</span></label>
-            <select id="campoCompanhia" required>
-              <option value="" disabled selected data-i18n="opcaoSelecionar">— Selecionar —</option>
-              <option value="Havas Media">Havas Media</option>
-              <option value="Arena Media">Arena Media</option>
-            </select>
-          </div>
-          <div class="campo">
-            <label for="campoCliente" data-i18n="labelCliente">Cliente</label>
-            <input type="text" id="campoCliente" data-i18n-placeholder="placeholderCliente" placeholder="Nome do cliente">
-          </div>
-          <div class="campo">
-            <label for="campoCampanha" data-i18n="labelCampanha">Campanha</label>
-            <input type="text" id="campoCampanha" data-i18n-placeholder="placeholderCampanha" placeholder="Nome da campanha">
-          </div>
-        </section>
-
-        <!--
-        ============================================
-        3.1.1 SELETOR DE OBJETIVO (Awareness / Consideration / Conversion)
-        Cada objetivo tem a sua própria seleção de formatos: o mesmo
-        formato pode ser pedido em mais que um objetivo (ex.: Single
-        Image para Awareness E para Conversion), porque a agência trata
-        essas criatividades/copies como pedidos distintos mesmo quando
-        as specs técnicas são iguais.
-        ============================================
-        -->
-        <section class="seletor-objetivo">
-          <label data-i18n="labelObjetivo">Objetivo</label>
-          <div class="objetivos-botoes" role="tablist">
-            <button type="button" class="objetivo-botao ativo" data-objetivo="awareness">
-              <span data-i18n="objetivoAwareness">Awareness</span> <span class="objetivo-contagem" data-contagem="awareness"></span>
-            </button>
-            <button type="button" class="objetivo-botao" data-objetivo="consideration">
-              <span data-i18n="objetivoConsideration">Consideration</span> <span class="objetivo-contagem" data-contagem="consideration"></span>
-            </button>
-            <button type="button" class="objetivo-botao" data-objetivo="conversion">
-              <span data-i18n="objetivoConversion">Conversion</span> <span class="objetivo-contagem" data-contagem="conversion"></span>
-            </button>
-          </div>
-        </section>
-
-        <p id="resumoCampanha" class="resumo-campanha"></p>
-
-        <div class="barra-fixa">
-          <aside id="resumoSelecao" class="resumo-selecao"></aside>
-          <div id="areaExportar" class="area-exportar">
-            <button id="botaoExportar" type="button" disabled data-i18n="botaoExportar">Exportar para Excel</button>
-            <button id="botaoSelecionarTodos" type="button" class="botao-limpar" data-i18n="botaoSelecionarTodos">Selecionar todos</button>
-            <button id="botaoLimparSelecao" type="button" class="botao-limpar" disabled data-i18n="botaoLimparSelecao">Limpar seleção</button>
-          </div>
+      <div class="barra-fixa" data-tab-visivel="construir">
+        <aside id="resumoSelecao" class="resumo-selecao"></aside>
+        <div id="areaExportar" class="area-exportar">
+          <button id="botaoExportar" type="button" disabled data-i18n="botaoExportar">Exportar para Excel</button>
+          <button id="botaoSelecionarTodos" type="button" class="botao-limpar" data-i18n="botaoSelecionarTodos">Selecionar todos</button>
+          <button id="botaoLimparSelecao" type="button" class="botao-limpar" disabled data-i18n="botaoLimparSelecao">Limpar seleção</button>
         </div>
+      </div>
 
-        <section id="areaEstado" class="area-estado"></section>
-
-        <p id="semResultadosConstruir" class="sem-resultados" hidden data-i18n="semResultados">Nenhum formato encontrado com estes filtros.</p>
-
-        <!-- Lista com checkboxes, para selecionar formatos para o pedido -->
-        <main id="listaFormatos" class="lista-formatos"></main>
-      </section>
+      <section id="areaEstado" class="area-estado"></section>
 
       <!--
       ============================================
-      3.2 TAB "BIBLIOTECA DE FORMATOS"
+      3.4 LISTA "CONSTRUIR PEDIDO" (com checkboxes)
+      ============================================
+      -->
+      <p id="semResultadosConstruir" class="sem-resultados" hidden data-tab-visivel="construir" data-i18n="semResultados">Nenhum formato encontrado com estes filtros.</p>
+      <main id="listaFormatos" class="lista-formatos" data-tab-visivel="construir"></main>
+
+      <!--
+      ============================================
+      3.5 LISTA "BIBLIOTECA DE FORMATOS"
       Só consulta: todos os formatos, sem checkboxes,
       com o link para a fonte oficial visível.
       ============================================
       -->
-      <section id="tabSpecs" class="painel-tab" hidden>
-        <p id="semResultadosSpecs" class="sem-resultados" hidden data-i18n="semResultados">Nenhum formato encontrado com estes filtros.</p>
-        <main id="listaSpecs" class="lista-formatos"></main>
-      </section>
+      <p id="semResultadosSpecs" class="sem-resultados" hidden data-tab-visivel="specs" data-i18n="semResultados">Nenhum formato encontrado com estes filtros.</p>
+      <main id="listaSpecs" class="lista-formatos" data-tab-visivel="specs" hidden></main>
 
     </div>
   </div>
