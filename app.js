@@ -84,6 +84,11 @@ const TRADUCOES = {
   subtitulo: { pt: "Construtor de Specs Criativas", en: "Creative Specs Builder", es: "Generador de Especificaciones Creativas", fr: "Générateur de Spécifications Créatives" },
   indiceAriaLabel: { pt: "Índice de publishers", en: "Publisher index", es: "Índice de editores", fr: "Index des éditeurs" },
   excelValorMeioDigital: { pt: "Digital", en: "Digital", es: "Digital", fr: "Numérique" },
+  meioOOH: { pt: "OOH", en: "OOH", es: "OOH", fr: "OOH" },
+  meioTV: { pt: "TV", en: "TV", es: "TV", fr: "TV" },
+  meioRadio: { pt: "Rádio", en: "Radio", es: "Radio", fr: "Radio" },
+  meioCinema: { pt: "Cinema", en: "Cinema", es: "Cine", fr: "Cinéma" },
+  meioImprensa: { pt: "Imprensa", en: "Press", es: "Prensa", fr: "Presse" },
   labelIdioma: { pt: "Idioma", en: "Language", es: "Idioma", fr: "Langue" },
   labelCompanhia: { pt: "Companhia", en: "Company", es: "Compañía", fr: "Société" },
   opcaoSelecionar: { pt: "— Selecionar —", en: "— Select —", es: "— Seleccionar —", fr: "— Sélectionner —" },
@@ -141,7 +146,6 @@ const TRADUCOES = {
   excelLabelCliente: { pt: "Cliente:", en: "Client:", es: "Cliente:", fr: "Client:" },
   excelLabelCampanha: { pt: "Campanha:", en: "Campaign:", es: "Campaña:", fr: "Campagne:" },
   excelLabelMeio: { pt: "Meio:", en: "Media:", es: "Medio:", fr: "Média:" },
-  excelNomeFolha: { pt: "Pedido de Specs", en: "Creative Specs Request", es: "Solicitud de Especificaciones", fr: "Demande de Spécifications" },
   excelNomeFicheiroPrefixo: { pt: "Pedido_Specs", en: "Creative_Specs_Request", es: "Solicitud_Especificaciones", fr: "Demande_Specifications" },
   valorPreencher: { pt: "(preencher)", en: "(fill in)", es: "(completar)", fr: "(à renseigner)" },
 };
@@ -864,7 +868,48 @@ function canalExibicaoFormato(formato) {
   if (formato.canal === "Programático") {
     return t("canalProgramatico");
   }
-  return t("canalInternet");
+  if (formato.canal === "Internet") {
+    return t("canalInternet");
+  }
+  // Outros meios (OOH, TV, Rádio, Cinema, Imprensa, ...) ainda não têm
+  // tradução própria de Canal — mostra o valor tal como vem da base, em
+  // vez de assumir "Internet" para tudo o que não for digital.
+  return formato.canal || t("canalInternet");
+}
+
+// Cada meio de compra (Digital, OOH, TV, Rádio, Cinema, Imprensa) tem
+// sempre a sua própria folha no Excel exportado (ver exportarSelecaoParaExcel)
+// — mesmo que o pedido junte formatos de vários meios, cada equipa/
+// fornecedor só vê a folha que lhe interessa. O valor "Meio" que vem da
+// base (Internet, Programático, OOH, ...) mapeia para um destes grupos;
+// vários valores da base podem cair no mesmo grupo — Internet e
+// Programático são ambos "Digital", por exemplo.
+const ORDEM_MEIOS_EXCEL = ["Digital", "OOH", "TV", "Rádio", "Cinema", "Imprensa"];
+const VALOR_BASE_PARA_GRUPO_MEIO = {
+  "INTERNET": "Digital",
+  "PROGRAMÁTICO": "Digital",
+  "OOH": "OOH",
+  "TV": "TV",
+  "RÁDIO": "Rádio",
+  "RADIO": "Rádio",
+  "CINEMA": "Cinema",
+  "IMPRENSA": "Imprensa",
+};
+const CHAVE_TRADUCAO_MEIO = {
+  "Digital": "excelValorMeioDigital",
+  "OOH": "meioOOH",
+  "TV": "meioTV",
+  "Rádio": "meioRadio",
+  "Cinema": "meioCinema",
+  "Imprensa": "meioImprensa",
+};
+
+// Um meio da base que ainda não esteja mapeado acima (ex.: valor novo,
+// escrito de forma diferente) cai no seu próprio valor em vez de
+// desaparecer silenciosamente — fica visível para corrigir o mapeamento.
+function grupoMeioDoFormato(formato) {
+  const valorBase = (formato.meio || "").toUpperCase();
+  return VALOR_BASE_PARA_GRUPO_MEIO[valorBase] || formato.meio || "Digital";
 }
 
 // Escreve uma secção completa (título do objetivo + cabeçalho da tabela +
@@ -927,18 +972,13 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
 
 botaoExportar.addEventListener("click", exportarSelecaoParaExcel);
 
-async function exportarSelecaoParaExcel() {
-  const companhia = campoCompanhia.value;
-  if (totalFormatosSelecionados() === 0 || !companhia) {
-    return;
-  }
-
-  const config = CONFIGURACAO_COMPANHIA[companhia];
-  const cliente = campoCliente.value.trim() || t("valorPreencher");
-  const campanha = campoCampanha.value.trim() || t("valorPreencher");
-
-  const workbook = new ExcelJS.Workbook();
-  const folha = workbook.addWorksheet(t("excelNomeFolha"));
+// Escreve a folha de um meio (Digital / OOH / TV / Rádio / Cinema /
+// Imprensa): logótipo, bloco Companhia/Cliente/Campanha/Meio, e uma
+// secção por objetivo com os formatos desse meio (objetivos sem formatos
+// desse meio não geram secção nessa folha).
+async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha, grupoMeio) {
+  const nomeMeio = t(CHAVE_TRADUCAO_MEIO[grupoMeio]) || grupoMeio;
+  const folha = workbook.addWorksheet(nomeMeio);
 
   // Sem gridlines — só a tabela em si vai ter linhas (mais abaixo),
   // para o Excel ficar limpo e não parecer uma grelha genérica.
@@ -979,21 +1019,59 @@ async function exportarSelecaoParaExcel() {
   folha.getCell("F5").style = estiloValor;
   folha.getCell("E6").value = t("excelLabelMeio");
   folha.getCell("E6").style = estiloRotulo;
-  folha.getCell("F6").value = t("excelValorMeioDigital");
+  folha.getCell("F6").value = nomeMeio;
   folha.getCell("F6").style = estiloValor;
 
   // --- Uma secção por objetivo (Awareness / Consideration / Conversion),
   // cada uma com o seu próprio cabeçalho de tabela — o mesmo formato pode
   // aparecer em mais que uma secção, porque foi pedido para objetivos
-  // diferentes. Objetivos sem nenhum formato selecionado não geram secção. ---
+  // diferentes. Objetivos sem nenhum formato deste meio não geram secção. ---
   let linhaAtual = 10;
   OBJETIVOS.forEach((objetivo) => {
-    const formatosDoObjetivo = todosFormatos.filter((f) => selecoesPorObjetivo[objetivo].has(f.id));
+    const formatosDoObjetivo = todosFormatos.filter(
+      (f) => selecoesPorObjetivo[objetivo].has(f.id) && grupoMeioDoFormato(f) === grupoMeio
+    );
     if (formatosDoObjetivo.length === 0) {
       return;
     }
     linhaAtual = escreverSeccaoObjetivo(folha, linhaAtual, t(CHAVE_TRADUCAO_OBJETIVO[objetivo]), formatosDoObjetivo, config);
   });
+}
+
+async function exportarSelecaoParaExcel() {
+  const companhia = campoCompanhia.value;
+  if (totalFormatosSelecionados() === 0 || !companhia) {
+    return;
+  }
+
+  const config = CONFIGURACAO_COMPANHIA[companhia];
+  const cliente = campoCliente.value.trim() || t("valorPreencher");
+  const campanha = campoCampanha.value.trim() || t("valorPreencher");
+
+  const workbook = new ExcelJS.Workbook();
+
+  // Descobre que meios têm pelo menos um formato selecionado (nalgum
+  // objetivo) — só esses ganham folha; a ordem segue ORDEM_MEIOS_EXCEL,
+  // com qualquer meio ainda não previsto a aparecer no fim.
+  const gruposComSelecao = new Set();
+  OBJETIVOS.forEach((objetivo) => {
+    selecoesPorObjetivo[objetivo].forEach((id) => {
+      const formato = todosFormatos.find((f) => f.id === id);
+      if (formato) {
+        gruposComSelecao.add(grupoMeioDoFormato(formato));
+      }
+    });
+  });
+  const gruposOrdenados = ORDEM_MEIOS_EXCEL.filter((grupo) => gruposComSelecao.has(grupo));
+  gruposComSelecao.forEach((grupo) => {
+    if (!gruposOrdenados.includes(grupo)) {
+      gruposOrdenados.push(grupo);
+    }
+  });
+
+  for (const grupoMeio of gruposOrdenados) {
+    await escreverFolhaMeio(workbook, config, companhia, cliente, campanha, grupoMeio);
+  }
 
   // --- Gerar o ficheiro e fazer o download no browser ---
   const buffer = await workbook.xlsx.writeBuffer();

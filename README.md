@@ -111,9 +111,13 @@ base vem da informação real fornecida pela agência. Onde não havia
 informação disponível, o campo fica em branco em vez de ser preenchido com
 um palpite.
 
-Atualmente cobre apenas o meio **Internet** (Social Media, Compra Direta e
-Google/Search). Outros meios (TV, OOH, Cinema, Imprensa) ficam para uma fase
-futura, quando houver dados reais para os mapear da mesma forma.
+Atualmente cobre os meios **Internet** e **Programático** (Social Media,
+Compra Direta, Google/Search e Programático) — ambos aparecem juntos na
+folha "Digital" da exportação (ver secção "Exportação para Excel" abaixo).
+Os restantes meios offline (**OOH**, TV, Rádio, Cinema, Imprensa) já têm a
+estrutura de exportação pronta (cada um com a sua própria folha), mas
+entram na base só quando houver dados reais para os mapear — nunca são
+inventados.
 
 ## Traduções das specs (EN/ES/FR)
 
@@ -152,11 +156,22 @@ empresa contratada.
 
 ## Exportação para Excel
 
-O botão "Exportar para Excel" gera um `.xlsx` com o logótipo e cor da
-Companhia escolhida, os dados da Campanha, e uma secção por objetivo
-selecionado (Awareness / Consideration / Conversion), cada uma com o seu
-próprio cabeçalho de tabela — incluindo Canal, Plataforma/Publisher,
-Formato, Tema (Grupo Digital2020), Dimensão, Aspect Ratio, Peso, Tipo de
-Ficheiro, Copies, Observações e um link direto para a spec oficial de cada
-formato. Esta estrutura de colunas é igual nas duas Companhias (Havas
-Media / Arena Media) — só o logótipo e a cor de cabeçalho mudam.
+O botão "Exportar para Excel" gera um `.xlsx` com **uma folha por meio de
+compra** (Digital, OOH, TV, Rádio, Cinema, Imprensa) — só entram as folhas
+dos meios que têm pelo menos um formato selecionado, para cada
+equipa/fornecedor poder trabalhar só com a folha que lhe interessa. Cada
+folha tem o logótipo e cor da Companhia escolhida, os dados da Campanha, e
+uma secção por objetivo selecionado (Awareness / Consideration /
+Conversion), cada uma com o seu próprio cabeçalho de tabela — incluindo
+Canal, Plataforma/Publisher, Formato, Tema (Grupo Digital2020), Dimensão,
+Aspect Ratio, Peso, Tipo de Ficheiro, Copies, Observações e um link direto
+para a spec oficial de cada formato. Esta estrutura é igual nas duas
+Companhias (Havas Media / Arena Media) — só o logótipo e a cor de
+cabeçalho mudam.
+
+O "meio" de cada formato vem do campo **Meio** da base (`Internet` e
+`Programático` mapeiam ambos para a folha "Digital"; `OOH`, `TV`, `Rádio`,
+`Cinema` e `Imprensa` mapeiam cada um para a sua própria folha — ver
+`ORDEM_MEIOS_EXCEL` e `VALOR_BASE_PARA_GRUPO_MEIO` em `app.js`). Um valor
+de Meio novo que ainda não esteja nesse mapeamento ganha na mesma a sua
+própria folha (com esse nome tal como vem da base), em vez de desaparecer.
