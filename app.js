@@ -577,13 +577,20 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes) {
   titulo.appendChild(contagem);
   bloco.appendChild(titulo);
 
+  // O Grupo Digital2020 é uma taxonomia exclusiva dos meios digitais — não
+  // existe (nem faz sentido) para publishers offline (OOH, e no futuro
+  // TV/Rádio/Cinema/Imprensa), por isso nem a coluna é desenhada para eles.
+  // Um publisher pertence sempre por inteiro a um único meio, daí bastar
+  // olhar para o primeiro formato para decidir.
+  const opcoesComMeio = { ...opcoes, comGrupoDigital2020: grupoMeioDoFormato(formatosDoPublisher[0]) === "Digital" };
+
   const tabela = document.createElement("table");
   tabela.className = "tabela-formatos";
-  tabela.appendChild(criarCabecalhoTabela(opcoes));
+  tabela.appendChild(criarCabecalhoTabela(opcoesComMeio));
 
   const corpo = document.createElement("tbody");
   for (const formato of formatosDoPublisher) {
-    corpo.appendChild(criarLinhaFormato(formato, opcoes));
+    corpo.appendChild(criarLinhaFormato(formato, opcoesComMeio));
   }
   tabela.appendChild(corpo);
 
@@ -595,6 +602,7 @@ function criarCabecalhoTabela(opcoes) {
   const cabecalho = document.createElement("thead");
   const colunaCheckbox = opcoes.comCheckbox ? '<th class="coluna-checkbox"></th>' : "";
   const colunaLink = opcoes.comLink ? `<th>${t("colFonte")}</th>` : "";
+  const colunaGrupoDigital2020 = opcoes.comGrupoDigital2020 ? `<th>${t("colGrupoDigital2020")}</th>` : "";
 
   // Na tab "Construir Pedido" (simplificado) só mostramos o essencial para
   // escolher — nome do formato e o grupo Digital2020. As specs completas
@@ -605,7 +613,7 @@ function criarCabecalhoTabela(opcoes) {
       <tr>
         ${colunaCheckbox}
         <th>${t("colFormato")}</th>
-        <th>${t("colGrupoDigital2020")}</th>
+        ${colunaGrupoDigital2020}
       </tr>
     `;
     return cabecalho;
@@ -615,7 +623,7 @@ function criarCabecalhoTabela(opcoes) {
     <tr>
       ${colunaCheckbox}
       <th>${t("colFormato")}</th>
-      <th>${t("colGrupoDigital2020")}</th>
+      ${colunaGrupoDigital2020}
       <th>${t("colDimensao")}</th>
       <th>${t("colAspectRatio")}</th>
       <th>${t("colPeso")}</th>
@@ -636,12 +644,15 @@ function criarLinhaFormato(formato, opcoes) {
   const colunaCheckbox = opcoes.comCheckbox
     ? `<td class="coluna-checkbox"><input type="checkbox" class="checkbox-formato" data-id="${formato.id}" ${selecoesPorObjetivo[objetivoAtivo].has(formato.id) ? "checked" : ""}></td>`
     : "";
+  const colunaGrupoDigital2020 = opcoes.comGrupoDigital2020
+    ? `<td><span class="etiqueta-dg2020">${formato.grupoDigital2020 ?? "—"}</span></td>`
+    : "";
 
   if (opcoes.simplificado) {
     linha.innerHTML = `
       ${colunaCheckbox}
       <td>${textoTraduzido(formato, "formato") ?? ""}</td>
-      <td><span class="etiqueta-dg2020">${formato.grupoDigital2020 ?? "—"}</span></td>
+      ${colunaGrupoDigital2020}
     `;
     return linha;
   }
@@ -652,7 +663,7 @@ function criarLinhaFormato(formato, opcoes) {
   linha.innerHTML = `
     ${colunaCheckbox}
     <td>${textoTraduzido(formato, "formato") ?? ""}</td>
-    <td><span class="etiqueta-dg2020">${formato.grupoDigital2020 ?? "—"}</span></td>
+    ${colunaGrupoDigital2020}
     <td>${textoTraduzido(formato, "dimensao") ?? t("naoEspecificado")}</td>
     <td>${textoTraduzido(formato, "aspectRatio") || "—"}</td>
     <td>${textoTraduzido(formato, "peso") ?? t("naoEspecificado")}</td>
@@ -903,7 +914,14 @@ function atualizarResumoSelecao() {
     .map((objetivo) => {
       const formatosDoObjetivo = todosFormatos.filter((f) => selecoesPorObjetivo[objetivo].has(f.id));
       const itensObjetivo = formatosDoObjetivo
-        .map((f) => `<li>${f.fornecedor} — ${textoTraduzido(f, "formato")} <span class="etiqueta-dg2020">${f.grupoDigital2020 ?? "—"}</span></li>`)
+        .map((f) => {
+          // Tal como nas tabelas, o Grupo Digital2020 só existe para meios
+          // digitais — um formato offline (OOH, ...) não mostra a etiqueta.
+          const etiqueta = grupoMeioDoFormato(f) === "Digital"
+            ? ` <span class="etiqueta-dg2020">${f.grupoDigital2020 ?? "—"}</span>`
+            : "";
+          return `<li>${f.fornecedor} — ${textoTraduzido(f, "formato")}${etiqueta}</li>`;
+        })
         .join("");
       return `<li class="resumo-grupo-objetivo"><strong>${t(CHAVE_TRADUCAO_OBJETIVO[objetivo])}</strong><ul>${itensObjetivo}</ul></li>`;
     })

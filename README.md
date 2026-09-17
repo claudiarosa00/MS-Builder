@@ -80,6 +80,15 @@ JCDecaux e Táxi Advertising). Colunas: **Meio**, **Canal**,
 **Dimensão**, **Aspect Ratio**, **Peso**, **Tipo de Ficheiro**, **Copies**,
 **Observações**, **Link**.
 
+A coluna **Grupo Digital2020** é uma taxonomia exclusiva dos meios digitais
+(Internet/Programático) — fica sempre em branco nas linhas offline (OOH, e
+no futuro TV/Rádio/Cinema/Imprensa), porque essa categorização não existe
+nem se aplica a esses meios. A app também não mostra essa coluna/etiqueta
+em lado nenhum do HTML (Construir Pedido, Biblioteca de Formatos, resumo da
+seleção) para publishers offline — só aparece para os que são digitais (ver
+`opcoes.comGrupoDigital2020` em `app.js`, decidido por publisher a partir
+do Meio, com `grupoMeioDoFormato`).
+
 A coluna **Dimensão** deve conter só as dimensões/proporções/durações que
 é preciso entregar — não informação de texto. Os limites de copy (texto
 principal, título, descrição, CTA, hashtags, etc.) ficam na coluna
