@@ -6359,5 +6359,503 @@
       "tipoFicheiro": "MP4, 3GPP ou MOV (H264, vidéo MPEG4, audio AAC) ; AVI (vidéo MJPEG, audio PCM) ; MPEG-PS (vidéo MPEG2, audio MP2) ; WMV. Bitrate min. 1500 kbit/s. Durée max. 30s. Pas de lecture automatique du son (coupé par défaut). Balises VAST 2.0 à 4.2 (VPAID non pris en charge).",
       "observacoes": "Pré-roll unique, diffusé au lancement d'un flux audio initié par l'utilisateur (ex. : Radio Players comme Kiss). Vendu dans le cadre du Radio Player Takeover ou en programmatique. Non disponible actuellement sur les chaînes YouTube de Bauer."
     }
+  },
+  "MOP|High Impact": {
+    "en": {
+      "dimensao": "Technical drawing at 1/10 scale + 3 mm bleed (or at the scale provided, in the case of vehicles) — generic format, no fixed dimension.",
+      "tipoFicheiro": "PDF (print quality), JPEG (for viewing) and an editable file (for minor adjustments)",
+      "observacoes": "Fonts converted to curves; images finalized at 300 dpi; file saved in a version earlier than the one used to create it; always in CMYK (Pantone and RGB not accepted); no relevant information elements near the trim margins. Send via WeTransfer/Hightail/Dropbox or the client's FTP (with username and password); CD/DVD always with a color proof."
+    },
+    "es": {
+      "dimensao": "Diseño técnico a escala 1/10 + 3 mm de sangrado (o en la escala facilitada, en el caso de vehículos) — formato genérico, sin dimensión fija.",
+      "tipoFicheiro": "PDF (calidad de impresión), JPEG (visualización) y archivo editable (para ajustes menores)",
+      "observacoes": "Fuentes convertidas en curvas; imágenes finalizadas a 300 dpi; archivo guardado en una versión anterior a la utilizada para crearlo; siempre en CMYK (no se aceptan Pantone ni RGB); sin elementos de información relevante junto a los márgenes de corte. Envío mediante WeTransfer/Hightail/Dropbox o FTP del cliente (con usuario y contraseña); CD/DVD siempre con prueba de color."
+    },
+    "fr": {
+      "dimensao": "Dessin technique à l'échelle 1/10 + 3 mm de fond perdu (ou à l'échelle fournie, dans le cas des véhicules) — format générique, sans dimension fixe.",
+      "tipoFicheiro": "PDF (qualité d'impression), JPEG (visualisation) et fichier modifiable (pour des ajustements mineurs)",
+      "observacoes": "Polices converties en courbes ; images finalisées à 300 dpi ; fichier enregistré dans une version antérieure à celle utilisée pour le créer ; toujours en CMJN (Pantone et RVB non acceptés) ; aucun élément d'information pertinent près des marges de coupe. Envoi via WeTransfer/Hightail/Dropbox ou FTP du client (avec identifiant et mot de passe) ; CD/DVD toujours accompagné d'une épreuve couleur."
+    }
+  },
+  "MOP|Outdoor 8x3": {
+    "en": {
+      "dimensao": "Final artwork: 784x300mm (reduced scale). Actual size: 8000x3000mm. Visible area: 7950x2950mm.",
+      "tipoFicheiro": "120g blueback poster paper or 120g AFC; printed with U.V. inks; PDF (print quality), JPEG (for viewing) and an editable file.",
+      "observacoes": "Fonts in curves; images at 300 dpi; file in a version earlier than the software's current one; always CMYK (no Pantone/RGB); no relevant information near the trim margins. Delivery deadline: up to 5 business days before the campaign start. Posters delivered collated (in order) and folded — 14-sheet poster, order from last to first sheet, with the image facing up; overlap registration marks mandatory, with overlap margins of 4cm on the right side and 12.5cm at the bottom of the lower sheets (the paper has variable stretch). Quantities: April to September, +15% of the number of faces; October to March, +25%. Posters delivered and identified individually, and collated. Note: images with dark backgrounds or that require a lot of ink reduce installation quality. Send via WeTransfer/Hightail/Dropbox or the client's FTP; CD/DVD always with a color proof."
+    },
+    "es": {
+      "dimensao": "Arte final: 784x300mm (escala reducida). Medida real: 8000x3000mm. Área visible: 7950x2950mm.",
+      "tipoFicheiro": "Papel cartel 120g blueback o AFC 120g; impresión con tintas U.V.; PDF (calidad de impresión), JPEG (visualización) y archivo editable.",
+      "observacoes": "Fuentes en curvas; imágenes a 300 dpi; archivo en versión anterior del programa; siempre CMYK (sin Pantone/RGB); sin información relevante junto a los márgenes de corte. Plazo de entrega: hasta 5 días hábiles antes del inicio de la campaña. Carteles entregados intercalados (ordenados) y doblados — cartel de 14 hojas, orden de la última a la primera hoja, con la imagen hacia arriba; miras de solape obligatorias, con márgenes de solape de 4cm en el lado derecho y 12,5cm en el fondo de las hojas inferiores (el papel tiene estiramiento variable). Cantidades: Abril a Septiembre, +15% del nº de caras; Octubre a Marzo, +25%. Carteles entregados e identificados por unidad, e intercalados. Nota: las imágenes con fondos oscuros o que requieran mucha tinta reducen la calidad de la instalación. Envío mediante WeTransfer/Hightail/Dropbox o FTP del cliente; CD/DVD siempre con prueba de color."
+    },
+    "fr": {
+      "dimensao": "Fichier final (BAT) : 784x300mm (échelle réduite). Taille réelle : 8000x3000mm. Zone visible : 7950x2950mm.",
+      "tipoFicheiro": "Papier affiche 120g blueback ou AFC 120g ; impression en encres U.V. ; PDF (qualité d'impression), JPEG (visualisation) et fichier modifiable.",
+      "observacoes": "Polices en courbes ; images à 300 dpi ; fichier dans une version antérieure du programme ; toujours en CMJN (sans Pantone/RVB) ; aucune information pertinente près des marges de coupe. Délai de livraison : jusqu'à 5 jours ouvrés avant le début de la campagne. Affiches livrées assemblées (dans l'ordre) et pliées — affiche de 14 feuilles, ordre de la dernière à la première feuille, image tournée vers le haut ; repères de recouvrement obligatoires, avec des marges de recouvrement de 4cm du côté droit et de 12,5cm en bas des feuilles inférieures (le papier a un allongement variable). Quantités : avril à septembre, +15% du nombre de faces ; octobre à mars, +25%. Affiches livrées et identifiées à l'unité, et assemblées. Remarque : les images à fonds sombres ou nécessitant beaucoup d'encre réduisent la qualité de la pose. Envoi via WeTransfer/Hightail/Dropbox ou FTP du client ; CD/DVD toujours accompagné d'une épreuve couleur."
+    }
+  },
+  "MOP|Multibanco - Imagem": {
+    "en": {
+      "dimensao": "3 available sizes: 640x417px, 800x522px or 1024x667px. 3 distinct moments: 1st moment 10s, 2nd moment 3s, 3rd moment 10s (you can use 1, 2 or 3 different images, or combine with video across the different moments).",
+      "peso": "Max. 1 MB",
+      "tipoFicheiro": "JPG or PNG, resolution equal to or higher than 72 dpi",
+      "observacoes": "Content may not be shown that explicitly and without context displays body parts normally kept covered; mentions monetary and payment financial institutions, political or union parties/associations, religious organizations; uses symbols/language that could be confused with the ATM's operation; or that, in the first advertising moment, shows any price without clearly identifying it as the advertiser's, product's or service's price. The advertising code applies to all other principles."
+    },
+    "es": {
+      "dimensao": "3 tamaños disponibles: 640x417px, 800x522px o 1024x667px. 3 momentos distintos: 1er momento 10s, 2º momento 3s, 3er momento 10s (se pueden usar 1, 2 o 3 imágenes diferentes, o combinar con vídeo en los distintos momentos).",
+      "peso": "Máx. 1 MB",
+      "tipoFicheiro": "JPG o PNG, resolución igual o superior a 72 dpi",
+      "observacoes": "No es posible presentar contenidos que muestren, de forma explícita y no contextualizada, partes del cuerpo habitualmente cubiertas; que mencionen instituciones financieras monetarias y de pago, partidos/asociaciones políticas o sindicales, organizaciones religiosas; que usen símbolos/lenguaje que puedan confundirse con el funcionamiento del cajero automático; o que, en el primer momento publicitario, muestren cualquier precio sin identificación clara de que se trata de un precio del anunciante, producto o servicio. Para todos los demás principios se aplica el código de publicidad."
+    },
+    "fr": {
+      "dimensao": "3 tailles disponibles : 640x417px, 800x522px ou 1024x667px. 3 moments distincts : 1er moment 10s, 2e moment 3s, 3e moment 10s (possibilité d'utiliser 1, 2 ou 3 images différentes, ou de combiner avec de la vidéo selon les moments).",
+      "peso": "Max. 1 MB",
+      "tipoFicheiro": "JPG ou PNG, résolution égale ou supérieure à 72 dpi",
+      "observacoes": "Il n'est pas possible de présenter des contenus qui montrent, de manière explicite et non contextualisée, des parties du corps habituellement dissimulées ; qui mentionnent des institutions financières monétaires et de paiement, des partis/associations politiques ou syndicaux, des organisations religieuses ; qui utilisent des symboles/un langage pouvant être confondus avec le fonctionnement du distributeur automatique ; ou qui, dans le premier moment publicitaire, montrent un prix quelconque sans indication claire qu'il s'agit d'un prix de l'annonceur, du produit ou du service. Pour tous les autres principes, le code de la publicité s'applique."
+    }
+  },
+  "MOP|Multibanco - Vídeo": {
+    "en": {
+      "dimensao": "2 available sizes: 640x392px or 800x496px. 3 distinct moments: 1st moment 5s, 2nd moment 2s, 3rd moment 5s (you can use 1, 2 or 3 different videos, or combine with images across the different moments; suggestion: end with a static image of the last frame).",
+      "peso": "Max. 1 MB",
+      "tipoFicheiro": "MPEG-1 or MP4",
+      "observacoes": "No audio channel. Frame rate: 24 frames/s. Color depth: 24 bits/pixel. Same content principles as the \"Multibanco - Imagem\" format."
+    },
+    "es": {
+      "dimensao": "2 tamaños disponibles: 640x392px o 800x496px. 3 momentos distintos: 1er momento 5s, 2º momento 2s, 3er momento 5s (se pueden usar 1, 2 o 3 vídeos diferentes, o combinar con imágenes en los distintos momentos; sugerencia: terminar con la imagen estática del último frame).",
+      "peso": "Máx. 1 MB",
+      "tipoFicheiro": "MPEG-1 o MP4",
+      "observacoes": "Sin canal de audio. Frame rate: 24 frames/s. Profundidad de color: 24 bits/pixel. Mismos principios de contenido que el formato \"Multibanco - Imagen\"."
+    },
+    "fr": {
+      "dimensao": "2 tailles disponibles : 640x392px ou 800x496px. 3 moments distincts : 1er moment 5s, 2e moment 2s, 3e moment 5s (possibilité d'utiliser 1, 2 ou 3 vidéos différentes, ou de combiner avec des images selon les moments ; suggestion : terminer par l'image statique de la dernière frame).",
+      "peso": "Max. 1 MB",
+      "tipoFicheiro": "MPEG-1 ou MP4",
+      "observacoes": "Sans canal audio. Frame rate : 24 frames/s. Profondeur de couleur : 24 bits/pixel. Mêmes principes de contenu que le format « Multibanco - Imagem »."
+    }
+  },
+  "MOP|Decorações Integrais e Grande Formato": {
+    "en": {
+      "dimensao": "Technical drawing at 1/10 scale + 3 mm bleed (or at the scale provided, in the case of vehicles).",
+      "tipoFicheiro": "PDF (print quality), JPEG (for viewing) and an editable file (for minor adjustments)",
+      "observacoes": "Fonts converted to curves; images finalized at 300 dpi; file saved in a version earlier than the software's current one; always CMYK (no Pantone/RGB); no relevant information near the trim margins. Send via WeTransfer/Hightail/Dropbox or the client's FTP; CD/DVD always with a color proof."
+    },
+    "es": {
+      "dimensao": "Diseño técnico a escala 1/10 + 3 mm de sangrado (o en la escala facilitada, en el caso de vehículos).",
+      "tipoFicheiro": "PDF (calidad de impresión), JPEG (visualización) y archivo editable (para ajustes menores)",
+      "observacoes": "Fuentes convertidas en curvas; imágenes finalizadas a 300 dpi; archivo guardado en una versión anterior del programa; siempre CMYK (sin Pantone/RGB); sin información relevante junto a los márgenes de corte. Envío mediante WeTransfer/Hightail/Dropbox o FTP del cliente; CD/DVD siempre con prueba de color."
+    },
+    "fr": {
+      "dimensao": "Dessin technique à l'échelle 1/10 + 3 mm de fond perdu (ou à l'échelle fournie, dans le cas des véhicules).",
+      "tipoFicheiro": "PDF (qualité d'impression), JPEG (visualisation) et fichier modifiable (pour des ajustements mineurs)",
+      "observacoes": "Polices converties en courbes ; images finalisées à 300 dpi ; fichier enregistré dans une version antérieure du programme ; toujours en CMJN (sans Pantone/RVB) ; aucune information pertinente près des marges de coupe. Envoi via WeTransfer/Hightail/Dropbox ou FTP du client ; CD/DVD toujours accompagné d'une épreuve couleur."
+    }
+  },
+  "MOP|Grande Formato Digital Indoor 16x9": {
+    "en": {
+      "dimensao": "1920x1080px. Can be used on 16x9 LED displays, triple-screen setups (3 screens) or Tomi Spot TV.",
+      "aspectRatio": "16:9",
+      "peso": "Max. 100 MB",
+      "tipoFicheiro": "MP4, H264 codec",
+      "observacoes": "Duration: 10 seconds (mandatory). Max. bitrate 6 Mbps. Frame rate 24 frames/s. On the 3-screen setup there is an actual 2.5cm gap between screens, which splits/cuts the image — this must be taken into account to avoid distorting phrases or relevant elements (break zones)."
+    },
+    "es": {
+      "dimensao": "1920x1080px. Puede utilizarse en soporte LED 16x9, pantalla triple (3 pantallas) o Tomi Spot TV.",
+      "aspectRatio": "16:9",
+      "peso": "Máx. 100 MB",
+      "tipoFicheiro": "MP4, códec H264",
+      "observacoes": "Duración: 10 segundos (obligatorio). Bitrate máx. 6 Mbps. Framerate 24 frames/s. En el soporte de 3 pantallas existe una separación real de 2,5cm entre pantallas, que divide/corta la imagen — debe tenerse en cuenta para no deformar frases o elementos relevantes (zonas de corte)."
+    },
+    "fr": {
+      "dimensao": "1920x1080px. Peut être utilisé sur support LED 16x9, écran triple (3 écrans) ou Tomi Spot TV.",
+      "aspectRatio": "16:9",
+      "peso": "Max. 100 MB",
+      "tipoFicheiro": "MP4, codec H264",
+      "observacoes": "Durée : 10 secondes (obligatoire). Bitrate max. 6 Mbps. Framerate 24 frames/s. Sur le support à 3 écrans, il existe une séparation réelle de 2,5cm entre les écrans, qui divise/coupe l'image — à prendre en compte pour ne pas déformer des phrases ou éléments importants (zones de rupture)."
+    }
+  },
+  "MOP|Mupi Digital": {
+    "en": {
+      "dimensao": "1080x1920px.",
+      "aspectRatio": "9:16",
+      "peso": "Max. 100 MB",
+      "tipoFicheiro": "MP4, H264 codec",
+      "observacoes": "Duration: 10 seconds (mandatory). Max. bitrate 6 Mbps. Frame rate 24 frames/s."
+    },
+    "es": {
+      "dimensao": "1080x1920px.",
+      "aspectRatio": "9:16",
+      "peso": "Máx. 100 MB",
+      "tipoFicheiro": "MP4, códec H264",
+      "observacoes": "Duración: 10 segundos (obligatorio). Bitrate máx. 6 Mbps. Framerate 24 frames/s."
+    },
+    "fr": {
+      "dimensao": "1080x1920px.",
+      "aspectRatio": "9:16",
+      "peso": "Max. 100 MB",
+      "tipoFicheiro": "MP4, codec H264",
+      "observacoes": "Durée : 10 secondes (obligatoire). Bitrate max. 6 Mbps. Framerate 24 frames/s."
+    }
+  },
+  "MOP|Mupi": {
+    "en": {
+      "dimensao": "Final artwork: 234x348mm + 1mm bleed. Actual size: 1185x1750mm. Visible area: 1131x1667mm.",
+      "tipoFicheiro": "PDF (print quality), JPEG (for viewing) and an editable file",
+      "observacoes": "Fonts in curves; images at 300 dpi; file in a version earlier than the software's current one; always CMYK (no Pantone/RGB); no relevant information near the trim margins. Send via WeTransfer/Hightail/Dropbox or the client's FTP; CD/DVD always with a color proof."
+    },
+    "es": {
+      "dimensao": "Arte final: 234x348mm + 1mm de sangrado. Medida real: 1185x1750mm. Área visible: 1131x1667mm.",
+      "tipoFicheiro": "PDF (calidad de impresión), JPEG (visualización) y archivo editable",
+      "observacoes": "Fuentes en curvas; imágenes a 300 dpi; archivo en versión anterior del programa; siempre CMYK (sin Pantone/RGB); sin información relevante junto a los márgenes de corte. Envío mediante WeTransfer/Hightail/Dropbox o FTP del cliente; CD/DVD siempre con prueba de color."
+    },
+    "fr": {
+      "dimensao": "Fichier final (BAT) : 234x348mm + 1mm de fond perdu. Taille réelle : 1185x1750mm. Zone visible : 1131x1667mm.",
+      "tipoFicheiro": "PDF (qualité d'impression), JPEG (visualisation) et fichier modifiable",
+      "observacoes": "Polices en courbes ; images à 300 dpi ; fichier dans une version antérieure du programme ; toujours en CMJN (sans Pantone/RVB) ; aucune information pertinente près des marges de coupe. Envoi via WeTransfer/Hightail/Dropbox ou FTP du client ; CD/DVD toujours accompagné d'une épreuve couleur."
+    }
+  },
+  "DreamMedia|Outdoor 8x3": {
+    "en": {
+      "dimensao": "8000x3000mm (advertising area = visible area).",
+      "tipoFicheiro": "Closed file: JPG, TIFF or PDF, at 10% of actual size, at 300 dpi. Editable format: text converted to curves (outlines) or fonts supplied.",
+      "observacoes": "Bleed: 10cm all around (must not contain important information). Files supplied in CMYK ready for printing — RGB files are converted to CMYK, and colors may change as a result."
+    },
+    "es": {
+      "dimensao": "8000x3000mm (área publicitaria = área visible).",
+      "tipoFicheiro": "Archivo cerrado: JPG, TIFF o PDF, al 10% del tamaño real, a 300 dpi. Formato editable: textos convertidos en curvas (contornos) o fuentes proporcionadas.",
+      "observacoes": "Sangrado: 10cm en todo el contorno (no debe contener información importante). Archivos entregados en CMYK listos para impresión — los archivos en RGB se convierten a CMYK, pudiendo los colores sufrir alteraciones."
+    },
+    "fr": {
+      "dimensao": "8000x3000mm (zone publicitaire = zone visible).",
+      "tipoFicheiro": "Fichier verrouillé : JPG, TIFF ou PDF, à 10% de la taille réelle, à 300 dpi. Format modifiable : textes convertis en courbes (contours vectorisés) ou polices fournies.",
+      "observacoes": "Fond perdu : 10cm tout autour (ne doit contenir aucune information importante). Fichiers fournis en CMJN prêts pour l'impression — les fichiers en RVB sont convertis en CMJN, ce qui peut entraîner des altérations de couleur."
+    }
+  },
+  "BIG Outdoors|Monoposte 10x5": {
+    "en": {
+      "dimensao": "Advertising area: 10000x5000mm.",
+      "tipoFicheiro": "Closed file: JPG, TIFF or PDF, at 10% of actual size, at 300 dpi. Editable format: text converted to curves (outlines) or fonts supplied.",
+      "observacoes": "Bleed: 10cm all around (must not contain important information). Files supplied in CMYK ready for printing — RGB files are converted to CMYK, and colors may change as a result. Important: the final artwork must not contain letters smaller than 30cm (110 points); give greater prominence to the product, logo, phone number and website for better communication results."
+    },
+    "es": {
+      "dimensao": "Área publicitaria: 10000x5000mm.",
+      "tipoFicheiro": "Archivo cerrado: JPG, TIFF o PDF, al 10% del tamaño real, a 300 dpi. Formato editable: textos convertidos en curvas (contornos) o fuentes proporcionadas.",
+      "observacoes": "Sangrado: 10cm en todo el contorno (no debe contener información importante). Archivos entregados en CMYK listos para impresión — los archivos en RGB se convierten a CMYK, pudiendo los colores sufrir alteraciones. Importante: el arte final no debe contener letras de tamaño inferior a 30cm (110 puntos); dar mayor protagonismo al producto, logotipo, teléfono y sitio web para mejores resultados de comunicación."
+    },
+    "fr": {
+      "dimensao": "Zone publicitaire : 10000x5000mm.",
+      "tipoFicheiro": "Fichier verrouillé : JPG, TIFF ou PDF, à 10% de la taille réelle, à 300 dpi. Format modifiable : textes convertis en courbes (contours vectorisés) ou polices fournies.",
+      "observacoes": "Fond perdu : 10cm tout autour (ne doit contenir aucune information importante). Fichiers fournis en CMJN prêts pour l'impression — les fichiers en RVB sont convertis en CMJN, ce qui peut entraîner des altérations de couleur. Important : le fichier final (BAT) ne doit pas contenir de lettres de taille inférieure à 30cm (110 points) ; mettre davantage en avant le produit, le logo, le téléphone et le site pour de meilleurs résultats de communication."
+    }
+  },
+  "BIG Outdoors|Monoposte 11x5": {
+    "en": {
+      "dimensao": "Advertising area: 11000x5000mm.",
+      "tipoFicheiro": "Closed file: JPG, TIFF or PDF, at 10% of actual size, at 300 dpi. Editable format: text converted to curves (outlines) or fonts supplied.",
+      "observacoes": "Bleed: 10cm all around (must not contain important information). Files supplied in CMYK ready for printing — RGB files are converted to CMYK, and colors may change as a result. Important: the final artwork must not contain letters smaller than 30cm (110 points); give greater prominence to the product, logo, phone number and website for better communication results."
+    },
+    "es": {
+      "dimensao": "Área publicitaria: 11000x5000mm.",
+      "tipoFicheiro": "Archivo cerrado: JPG, TIFF o PDF, al 10% del tamaño real, a 300 dpi. Formato editable: textos convertidos en curvas (contornos) o fuentes proporcionadas.",
+      "observacoes": "Sangrado: 10cm en todo el contorno (no debe contener información importante). Archivos entregados en CMYK listos para impresión — los archivos en RGB se convierten a CMYK, pudiendo los colores sufrir alteraciones. Importante: el arte final no debe contener letras de tamaño inferior a 30cm (110 puntos); dar mayor protagonismo al producto, logotipo, teléfono y sitio web para mejores resultados de comunicación."
+    },
+    "fr": {
+      "dimensao": "Zone publicitaire : 11000x5000mm.",
+      "tipoFicheiro": "Fichier verrouillé : JPG, TIFF ou PDF, à 10% de la taille réelle, à 300 dpi. Format modifiable : textes convertis en courbes (contours vectorisés) ou polices fournies.",
+      "observacoes": "Fond perdu : 10cm tout autour (ne doit contenir aucune information importante). Fichiers fournis en CMJN prêts pour l'impression — les fichiers en RVB sont convertis en CMJN, ce qui peut entraîner des altérations de couleur. Important : le fichier final (BAT) ne doit pas contenir de lettres de taille inférieure à 30cm (110 points) ; mettre davantage en avant le produit, le logo, le téléphone et le site pour de meilleurs résultats de communication."
+    }
+  },
+  "BIG Outdoors|Monoposte 12x5": {
+    "en": {
+      "dimensao": "Advertising area: 12000x5000mm.",
+      "tipoFicheiro": "Closed file: JPG, TIFF or PDF, at 10% of actual size, at 300 dpi. Editable format: text converted to curves (outlines) or fonts supplied.",
+      "observacoes": "Bleed: 10cm all around (must not contain important information). Files supplied in CMYK ready for printing — RGB files are converted to CMYK, and colors may change as a result. Important: the final artwork must not contain letters smaller than 30cm (110 points); give greater prominence to the product, logo, phone number and website for better communication results."
+    },
+    "es": {
+      "dimensao": "Área publicitaria: 12000x5000mm.",
+      "tipoFicheiro": "Archivo cerrado: JPG, TIFF o PDF, al 10% del tamaño real, a 300 dpi. Formato editable: textos convertidos en curvas (contornos) o fuentes proporcionadas.",
+      "observacoes": "Sangrado: 10cm en todo el contorno (no debe contener información importante). Archivos entregados en CMYK listos para impresión — los archivos en RGB se convierten a CMYK, pudiendo los colores sufrir alteraciones. Importante: el arte final no debe contener letras de tamaño inferior a 30cm (110 puntos); dar mayor protagonismo al producto, logotipo, teléfono y sitio web para mejores resultados de comunicación."
+    },
+    "fr": {
+      "dimensao": "Zone publicitaire : 12000x5000mm.",
+      "tipoFicheiro": "Fichier verrouillé : JPG, TIFF ou PDF, à 10% de la taille réelle, à 300 dpi. Format modifiable : textes convertis en courbes (contours vectorisés) ou polices fournies.",
+      "observacoes": "Fond perdu : 10cm tout autour (ne doit contenir aucune information importante). Fichiers fournis en CMJN prêts pour l'impression — les fichiers en RVB sont convertis en CMJN, ce qui peut entraîner des altérations de couleur. Important : le fichier final (BAT) ne doit pas contenir de lettres de taille inférieure à 30cm (110 points) ; mettre davantage en avant le produit, le logo, le téléphone et le site pour de meilleurs résultats de communication."
+    }
+  },
+  "JCDecaux|Mupi Papel": {
+    "en": {
+      "dimensao": "Total area: 1185x1750mm. Visible area: 1160x1710mm.",
+      "tipoFicheiro": "Paper, 130g weight, poster back with white background. File: Illustrator, Photoshop, PDF, EPS or TIFF.",
+      "observacoes": "Deadline: 7 business days after Final Artwork approval. If sending a PDF, pay attention to embedded colors/profiles/image resolution; include fonts; text converted to curves, open and editable. Offset printing: CMYK, min. 300 dpi, max. 400 dpi. Digital printing: CMYK, min. 150 dpi, max. 200 dpi. File at the indicated size + 3cm bleed (3mm if the FA is produced at 10% scale); respect the virtual safety area to avoid elements being cut off during installation; send a color proof whenever possible. Upon receipt, JCDecaux sends a JPG for final validation before printing; once approved, it declines responsibility for distortions/flaws in the image. Quality criteria: opacity ≥88%, whiteness 91-93 ISO, water absorption (cobb60) 15-30g/m², water absorption (cobb300) <70g/m², max. stretch ±2%/m, tensile strength (wet) >0.6kN/m — materials outside these requirements may not be installed. Environmental specifications: paper with PEFC/FSC certification (or equivalent); REACH/GreenGuard-compliant inks, free of heavy metals; recycled paper, chlorine-free (ECF/TCF)."
+    },
+    "es": {
+      "dimensao": "Área total: 1185x1750mm. Área visible: 1160x1710mm.",
+      "tipoFicheiro": "Papel, gramaje 130g, reverso del cartel con fondo blanco. Archivo: Illustrator, Photoshop, PDF, EPS o TIFF.",
+      "observacoes": "Plazo: 7 días hábiles tras la aprobación del Arte Final. Si se envía PDF, prestar atención a colores/perfiles incrustados/resolución de imágenes; enviar las fuentes; texto convertido en curvas, abierto y editable. Impresión offset: CMYK, mín. 300 dpi, máx. 400 dpi. Impresión digital: CMYK, mín. 150 dpi, máx. 200 dpi. Archivo en la medida indicada + 3cm de sangrado (3mm si el AF se elabora a escala del 10%); respetar el área de seguridad virtual para evitar el corte de elementos en la instalación; siempre que sea posible, enviar con prueba de color. Tras la recepción, JCDecaux envía un JPG para la validación final antes de imprimir; tras la aprobación, declina responsabilidad por desformateos/fallos en la imagen. Criterios de calidad: opacidad ≥88%, blancura 91-93 ISO, absorción de agua (cobb60) 15-30g/m², absorción de agua (cobb300) <70g/m², estiramiento máx. ±2%/m, resistencia a la rotura por tracción (húmedo) >0,6kN/m — los materiales fuera de estos requisitos pueden no ser instalados. Especificaciones ambientales: papel con certificación PEFC/FSC (o equivalente); tintas conformes con REACH/GreenGuard, libres de metales pesados; papel reciclado, sin cloro (ECF/TCF)."
+    },
+    "fr": {
+      "dimensao": "Zone totale : 1185x1750mm. Zone visible : 1160x1710mm.",
+      "tipoFicheiro": "Papier, grammage 130g, verso de l'affiche à fond blanc. Fichier : Illustrator, Photoshop, PDF, EPS ou TIFF.",
+      "observacoes": "Délai : 7 jours ouvrés après approbation du fichier final (BAT). En cas d'envoi en PDF, attention aux couleurs/profils intégrés/résolution des images ; envoyer les polices ; texte converti en courbes, ouvert et modifiable. Impression offset : CMJN, min. 300 dpi, max. 400 dpi. Impression numérique : CMJN, min. 150 dpi, max. 200 dpi. Fichier à la taille indiquée + 3cm de fond perdu (3mm si le BAT est réalisé à l'échelle de 10%) ; respecter la zone de sécurité virtuelle pour éviter la coupe d'éléments lors de la pose ; dans la mesure du possible, envoyer avec une épreuve couleur. Après réception, JCDecaux envoie un JPG pour validation finale avant impression ; après approbation, décline toute responsabilité en cas de déformations/défauts sur l'image. Critères de qualité : opacité ≥88%, blancheur 91-93 ISO, absorption d'eau (cobb60) 15-30g/m², absorption d'eau (cobb300) <70g/m², allongement max. ±2%/m, résistance à la rupture en traction (humide) >0,6kN/m — les matériaux ne respectant pas ces exigences peuvent ne pas être posés. Spécifications environnementales : papier certifié PEFC/FSC (ou équivalent) ; encres conformes REACH/GreenGuard, sans métaux lourds ; papier recyclé, sans chlore (ECF/TCF)."
+    }
+  },
+  "JCDecaux|Impressão Senior": {
+    "en": {
+      "dimensao": "Visible area: 3020x2230mm. Total area: 3200x2350mm.",
+      "tipoFicheiro": "Paper, 150g weight, poster back with white background. File: Illustrator, Photoshop, PDF, EPS or TIFF.",
+      "observacoes": "Printed on 1, 2 or 4 sheets, delivered collated in installation order (starting with sheet 1, back facing down). 2-sheet printing: sheet 1 3200x1200mm (trimmed 3130x1150mm) + identical sheet 2, overlap margin 25mm/35mm. 4-sheet printing: 1600x1200mm per sheet (trimmed 1530x1175mm), trimmed to size with no margin between them. Deadline: 7 business days after Final Artwork approval. File: Illustrator/Photoshop (include fonts and their links) or PDF (embedded colors/profiles/image resolution, text in curves); offset printing CMYK 300-400 dpi, digital CMYK 150-200 dpi; indicated size + 3cm bleed (3mm at 10% scale); respect the virtual safety area; send a color proof whenever possible. Delivery to JCDecaux's premises 5 business days before the campaign start, with the campaign print and a certified transport document; delivery hours 07h-12h and 13h30-16h (Gate 2), Beco da Aviação nº1, Granja do Alpriate, Vialonga. Upon receipt, JCDecaux sends a JPG for validation; once approved, it declines responsibility for flaws in the image. Quality criteria: opacity ≥88%, whiteness 91-93 ISO, water absorption (cobb60) 15-30g/m², (cobb300) <70g/m², max. stretch ±2%/m, tensile strength (wet) >0.6kN/m."
+    },
+    "es": {
+      "dimensao": "Área visible: 3020x2230mm. Área total: 3200x2350mm.",
+      "tipoFicheiro": "Papel, gramaje 150g, reverso del cartel con fondo blanco. Archivo: Illustrator, Photoshop, PDF, EPS o TIFF.",
+      "observacoes": "Impresión en 1, 2 o 4 hojas, entregadas intercaladas por orden de colocación (empezando por la hoja 1, con el reverso hacia abajo). Impresión en 2 hojas: hoja 1 3200x1200mm (recortada 3130x1150mm) + hoja 2 idéntica, margen de solape 25mm/35mm. Impresión en 4 hojas: 1600x1200mm por hoja (recortada 1530x1175mm), recortadas a medida sin margen entre sí. Plazo: 7 días hábiles tras la aprobación del Arte Final. Archivo: Illustrator/Photoshop (incluir fuentes y sus enlaces) o PDF (colores/perfiles incrustados/resolución de imágenes, texto en curvas); impresión offset CMYK 300-400 dpi, digital CMYK 150-200 dpi; medida indicada + 3cm de sangrado (3mm a escala del 10%); respetar área de seguridad virtual; enviar con prueba de color siempre que sea posible. Entrega en las instalaciones de JCDecaux 5 días hábiles antes del inicio de la campaña, con impresión de la campaña y guía de transporte certificada; horario de entrega 07h-12h y 13h30-16h (Puerta 2), Beco da Aviação nº1, Granja do Alpriate, Vialonga. Tras la recepción, JCDecaux envía JPG para validación; tras la aprobación, declina responsabilidad por fallos en la imagen. Criterios de calidad: opacidad ≥88%, blancura 91-93 ISO, absorción de agua (cobb60) 15-30g/m², (cobb300) <70g/m², estiramiento máx. ±2%/m, resistencia a la rotura (húmedo) >0,6kN/m."
+    },
+    "fr": {
+      "dimensao": "Zone visible : 3020x2230mm. Zone totale : 3200x2350mm.",
+      "tipoFicheiro": "Papier, grammage 150g, verso de l'affiche à fond blanc. Fichier : Illustrator, Photoshop, PDF, EPS ou TIFF.",
+      "observacoes": "Impression en 1, 2 ou 4 feuilles, livrées assemblées dans l'ordre de collage (en commençant par la feuille 1, verso vers le bas). Impression en 2 feuilles : feuille 1 3200x1200mm (rognée 3130x1150mm) + feuille 2 identique, marge de recouvrement 25mm/35mm. Impression en 4 feuilles : 1600x1200mm par feuille (rognée 1530x1175mm), rognées à la mesure sans marge entre elles. Délai : 7 jours ouvrés après approbation du fichier final (BAT). Fichier : Illustrator/Photoshop (inclure les polices et leurs liens respectifs) ou PDF (couleurs/profils intégrés/résolution des images, texte en courbes) ; impression offset CMJN 300-400 dpi, numérique CMJN 150-200 dpi ; taille indiquée + 3cm de fond perdu (3mm à l'échelle de 10%) ; respecter la zone de sécurité virtuelle ; envoyer avec une épreuve couleur dans la mesure du possible. Livraison dans les installations de JCDecaux 5 jours ouvrés avant le début de la campagne, avec l'impression de la campagne et un bon de transport certifié ; horaire de livraison 07h-12h et 13h30-16h (Porte 2), Beco da Aviação n°1, Granja do Alpriate, Vialonga. Après réception, JCDecaux envoie un JPG pour validation ; après approbation, décline toute responsabilité en cas de défauts sur l'image. Critères de qualité : opacité ≥88%, blancheur 91-93 ISO, absorption d'eau (cobb60) 15-30g/m², (cobb300) <70g/m², allongement max. ±2%/m, résistance à la rupture (humide) >0,6kN/m."
+    }
+  },
+  "JCDecaux|Mupi Digital": {
+    "en": {
+      "dimensao": "1080x1920px.",
+      "aspectRatio": "9:16",
+      "tipoFicheiro": "Quicktime (.MOV) or .MP4, H264 codec, native compression, bitrate between 6,000 and 20,000.",
+      "observacoes": "Frame rate 25fps; duration 10 sec.; no audio channel. Send the video 2 business days before the campaign start, by email to the JCDecaux contact. After sending, JCDecaux declines responsibility for flaws in the submitted video. Changes to the video require the client's final approval; JCDecaux is not liable for delays in delivery (no airing compensation)."
+    },
+    "es": {
+      "dimensao": "1080x1920px.",
+      "aspectRatio": "9:16",
+      "tipoFicheiro": "Quicktime (.MOV) o .MP4, códec H264, compresión nativa, bitrate entre 6.000 y 20.000.",
+      "observacoes": "Framerate 25fps; duración 10 seg.; sin canal de audio. Envío del vídeo 2 días hábiles antes del inicio de la campaña, por correo electrónico al contacto de JCDecaux. Tras el envío, JCDecaux declina responsabilidad por fallos en el vídeo presentado. Los cambios al vídeo requieren la aprobación final del cliente; JCDecaux no se responsabiliza por retrasos en la entrega (sin compensación de airing)."
+    },
+    "fr": {
+      "dimensao": "1080x1920px.",
+      "aspectRatio": "9:16",
+      "tipoFicheiro": "Quicktime (.MOV) ou .MP4, codec H264, compression native, bitrate entre 6.000 et 20.000.",
+      "observacoes": "Framerate 25fps ; durée 10 sec. ; sans canal audio. Envoi de la vidéo 2 jours ouvrés avant le début de la campagne, par e-mail au contact JCDecaux. Après l'envoi, JCDecaux décline toute responsabilité en cas de défauts sur la vidéo présentée. Les modifications de la vidéo nécessitent l'approbation finale du client ; JCDecaux n'est pas responsable en cas de retard de livraison (sans compensation de diffusion)."
+    }
+  },
+  "JCDecaux|Mupi Digital (Shopping)": {
+    "en": {
+      "dimensao": "File delivered at 1920x1080px (landscape, for 63'' screens), automatically rotated by the system for vertical display at 1080x1920px.",
+      "aspectRatio": "16:9 (file) / 9:16 (display)",
+      "tipoFicheiro": "Native file (native compression), max. bitrate 20,000.",
+      "observacoes": "Spot duration: 10 seconds, within a 60-second loop with other advertisers. Send the video 2 days before the campaign start, by email to the JCDecaux contact. Changes require the client's final approval; JCDecaux declines responsibility for flaws in the video after submission, and is not liable for delays in delivery."
+    },
+    "es": {
+      "dimensao": "Archivo entregado en 1920x1080px (horizontal, para pantallas de 63''), rotado automáticamente por el sistema para visualización vertical 1080x1920px.",
+      "aspectRatio": "16:9 (archivo) / 9:16 (visualización)",
+      "tipoFicheiro": "Archivo nativo (compresión nativa), bitrate máx. 20.000.",
+      "observacoes": "Duración del spot: 10 segundos, dentro de un loop de 60 segundos con otros anunciantes. Enviar el vídeo 2 días antes del inicio de la campaña, por correo electrónico al contacto de JCDecaux. Los cambios requieren la aprobación final del cliente; JCDecaux declina responsabilidad por fallos en el vídeo tras el envío, y no se responsabiliza por retrasos en la entrega."
+    },
+    "fr": {
+      "dimensao": "Fichier livré en 1920x1080px (paysage, pour écrans de 63''), pivoté automatiquement par le système pour affichage vertical 1080x1920px.",
+      "aspectRatio": "16:9 (fichier) / 9:16 (affichage)",
+      "tipoFicheiro": "Fichier natif (compression native), bitrate max. 20.000.",
+      "observacoes": "Durée du spot : 10 secondes, au sein d'une boucle de 60 secondes avec d'autres annonceurs. Envoyer la vidéo 2 jours avant le début de la campagne, par e-mail au contact JCDecaux. Les modifications nécessitent l'approbation finale du client ; JCDecaux décline toute responsabilité en cas de défauts sur la vidéo après l'envoi, et n'est pas responsable en cas de retard de livraison."
+    }
+  },
+  "JCDecaux|Painel 8x3 - Papel": {
+    "en": {
+      "dimensao": "Total area: 8000x3000mm. Visible area: 7500x2750mm.",
+      "tipoFicheiro": "Paper, weight between 120g and 170g, poster back with blue background. File: Illustrator, Photoshop, PDF, EPS or TIFF.",
+      "observacoes": "Deadline: 7 business days after Final Artwork approval. Printed on 12, 14 or 16 sheets, delivered collated (starting with sheet 1, back facing down), numbered in the top right corner. 14-sheet printing: upper sheets 1-6 (997mm each) + sheet 7 (997mm), lower sheets 9-13 (1135mm each) + sheet 14 (1135mm); overlap margin 25mm on the right on the upper sheets (except the last one) and 25mm on the right + at the top on the lower sheets (except the last one, top only); overlap areas free of printing. 16-sheet printing: upper 1-7 (997mm) + sheet 8 (997mm), lower 9-15 (997mm) + sheet 16 (997mm), same margin rules. If PDF: embedded colors/profiles/image resolution, text in curves; offset printing CMYK 300-400 dpi, digital CMYK 150-200 dpi; indicated size + 3cm bleed (3mm at 10% scale); virtual safety area; color proof recommended. Delivery to JCDecaux's premises, Gate 1, Beco da Aviação nº1, Granja do Alpriate, Vialonga, 07h-12h/13h30-16h. Upon receipt, JCDecaux sends a JPG for validation; once approved, it declines responsibility for flaws in the image."
+    },
+    "es": {
+      "dimensao": "Área total: 8000x3000mm. Área visible: 7500x2750mm.",
+      "tipoFicheiro": "Papel, gramaje entre 120g y 170g, reverso del cartel con fondo azul. Archivo: Illustrator, Photoshop, PDF, EPS o TIFF.",
+      "observacoes": "Plazo: 7 días hábiles tras la aprobación del Arte Final. Impresión en 12, 14 o 16 hojas, entregadas intercaladas (empezando por la hoja 1, reverso hacia abajo), numeradas en la esquina superior derecha. Impresión en 14 hojas: hojas superiores 1-6 (997mm cada una) + hoja 7 (997mm), hojas inferiores 9-13 (1135mm cada una) + hoja 14 (1135mm); margen de solape 25mm a la derecha en las hojas superiores (excepto la última) y 25mm a la derecha + en la parte superior en las inferiores (excepto la última, solo en la parte superior); áreas de solape exentas de impresión. Impresión en 16 hojas: superiores 1-7 (997mm) + hoja 8 (997mm), inferiores 9-15 (997mm) + hoja 16 (997mm), mismas reglas de margen. Si es PDF: colores/perfiles incrustados/resolución de imágenes, texto en curvas; impresión offset CMYK 300-400 dpi, digital CMYK 150-200 dpi; medida indicada + 3cm de sangrado (3mm a escala del 10%); área de seguridad virtual; prueba de color recomendada. Entrega en las instalaciones de JCDecaux, Puerta 1, Beco da Aviação nº1, Granja do Alpriate, Vialonga, 07h-12h/13h30-16h. Tras la recepción, JCDecaux envía JPG para validación; tras la aprobación, declina responsabilidad por fallos en la imagen."
+    },
+    "fr": {
+      "dimensao": "Zone totale : 8000x3000mm. Zone visible : 7500x2750mm.",
+      "tipoFicheiro": "Papier, grammage entre 120g et 170g, verso de l'affiche à fond bleu. Fichier : Illustrator, Photoshop, PDF, EPS ou TIFF.",
+      "observacoes": "Délai : 7 jours ouvrés après approbation du fichier final (BAT). Impression en 12, 14 ou 16 feuilles, livrées assemblées (en commençant par la feuille 1, verso vers le bas), numérotées dans le coin supérieur droit. Impression en 14 feuilles : feuilles supérieures 1-6 (997mm chacune) + feuille 7 (997mm), feuilles inférieures 9-13 (1135mm chacune) + feuille 14 (1135mm) ; marge de recouvrement 25mm à droite sur les feuilles supérieures (sauf la dernière) et 25mm à droite + en haut sur les inférieures (sauf la dernière, seulement en haut) ; les zones de recouvrement sont exemptes d'impression. Impression en 16 feuilles : supérieures 1-7 (997mm) + feuille 8 (997mm), inférieures 9-15 (997mm) + feuille 16 (997mm), mêmes règles de marge. En cas de PDF : couleurs/profils intégrés/résolution des images, texte en courbes ; impression offset CMJN 300-400 dpi, numérique CMJN 150-200 dpi ; taille indiquée + 3cm de fond perdu (3mm à l'échelle de 10%) ; zone de sécurité virtuelle ; épreuve couleur recommandée. Livraison dans les installations de JCDecaux, Porte 1, Beco da Aviação n°1, Granja do Alpriate, Vialonga, 07h-12h/13h30-16h. Après réception, JCDecaux envoie un JPG pour validation ; après approbation, décline toute responsabilité en cas de défauts sur l'image."
+    }
+  },
+  "JCDecaux|Painel 8x3 - Vinil": {
+    "en": {
+      "dimensao": "Total area: 8000x3000mm. Visible area: 8000x3000mm (no margin).",
+      "tipoFicheiro": "White or transparent PVC vinyl, glossy or matte surface, removable and transparent polyacrylate; backing in silicone-coated paper 135g/m². File: Illustrator, Photoshop, PDF, EPS or TIFF.",
+      "observacoes": "Recommended use: short and medium-duration outdoor billboards. Printing method: solvent-based, UV or latex inks. Deadline: 7 business days after Final Artwork approval. Printed on 8 sheets of 1000mm each, rolled in order (sheet 1 to 8), numbered in the top right corner; overlap margin 25mm on the right on all sheets (overlap areas free of printing). If PDF: embedded colors/profiles/image resolution, text in curves; offset printing CMYK 300-400 dpi, digital CMYK 150-200 dpi; indicated size + 5cm bleed (5mm at 10% scale); virtual safety area; color proof recommended. Delivery to JCDecaux's premises, Gate 1, Beco da Aviação nº1, Granja do Alpriate, Vialonga, 5 business days before the campaign start, with the campaign print and a certified transport document, 07h-12h/13h30-16h. Upon receipt, JCDecaux sends a JPG for validation; once approved, it declines responsibility for flaws in the image."
+    },
+    "es": {
+      "dimensao": "Área total: 8000x3000mm. Área visible: 8000x3000mm (sin margen).",
+      "tipoFicheiro": "Vinilo PVC blanco o transparente, superficie brillante o mate, poliacrilato removible y transparente; base en papel revestido de silicona 135g/m². Archivo: Illustrator, Photoshop, PDF, EPS o TIFF.",
+      "observacoes": "Uso recomendado: outdoors de corta y media duración. Método de impresión: tintas de base solvente, UV o látex. Plazo: 7 días hábiles tras la aprobación del Arte Final. Impresión en 8 hojas de 1000mm cada una, enrolladas por orden (hoja 1 a 8), numeradas en la esquina superior derecha; margen de solape 25mm a la derecha en todas las hojas (áreas de solape exentas de impresión). Si es PDF: colores/perfiles incrustados/resolución de imágenes, texto en curvas; impresión offset CMYK 300-400 dpi, digital CMYK 150-200 dpi; medida indicada + 5cm de sangrado (5mm a escala del 10%); área de seguridad virtual; prueba de color recomendada. Entrega en las instalaciones de JCDecaux, Puerta 1, Beco da Aviação nº1, Granja do Alpriate, Vialonga, 5 días hábiles antes del inicio de la campaña, con impresión de la campaña y guía de transporte certificada, 07h-12h/13h30-16h. Tras la recepción, JCDecaux envía JPG para validación; tras la aprobación, declina responsabilidad por fallos en la imagen."
+    },
+    "fr": {
+      "dimensao": "Zone totale : 8000x3000mm. Zone visible : 8000x3000mm (sans marge).",
+      "tipoFicheiro": "Vinyle PVC blanc ou transparent, surface brillante ou mate, polyacrylate amovible et transparent ; support en papier siliconé 135g/m². Fichier : Illustrator, Photoshop, PDF, EPS ou TIFF.",
+      "observacoes": "Usage recommandé : affichage extérieur de courte et moyenne durée. Méthode d'impression : encres à base solvant, UV ou latex. Délai : 7 jours ouvrés après approbation du fichier final (BAT). Impression en 8 feuilles de 1000mm chacune, enroulées dans l'ordre (feuille 1 à 8), numérotées dans le coin supérieur droit ; marge de recouvrement 25mm à droite sur toutes les feuilles (zones de recouvrement exemptes d'impression). En cas de PDF : couleurs/profils intégrés/résolution des images, texte en courbes ; impression offset CMJN 300-400 dpi, numérique CMJN 150-200 dpi ; taille indiquée + 5cm de fond perdu (5mm à l'échelle de 10%) ; zone de sécurité virtuelle ; épreuve couleur recommandée. Livraison dans les installations de JCDecaux, Porte 1, Beco da Aviação n°1, Granja do Alpriate, Vialonga, 5 jours ouvrés avant le début de la campagne, avec l'impression de la campagne et un bon de transport certifié, 07h-12h/13h30-16h. Après réception, JCDecaux envoie un JPG pour validation ; après approbation, décline toute responsabilité en cas de défauts sur l'image."
+    }
+  },
+  "JCDecaux|Premium LED 6m²": {
+    "en": {
+      "dimensao": "328x492px.",
+      "aspectRatio": "2:3",
+      "tipoFicheiro": "Quicktime (.MOV) or .MP4, H264 codec, native compression, bitrate between 6,000 and 20,000.",
+      "observacoes": "Frame rate 25fps; duration 10 sec.; no audio channel. Send the video 4 business days before the campaign start, by email to the JCDecaux contact. Share of time: 12.5%. JCDecaux declines responsibility for flaws in the video after submission; it is not liable for delays in delivery (no airing compensation); changes require the client's final approval."
+    },
+    "es": {
+      "dimensao": "328x492px.",
+      "aspectRatio": "2:3",
+      "tipoFicheiro": "Quicktime (.MOV) o .MP4, códec H264, compresión nativa, bitrate entre 6.000 y 20.000.",
+      "observacoes": "Framerate 25fps; duración 10 seg.; sin canal de audio. Envío del vídeo 4 días hábiles antes del inicio de la campaña, por correo electrónico al contacto de JCDecaux. Share of time: 12,5%. JCDecaux declina responsabilidad por fallos en el vídeo tras el envío; no se responsabiliza por retrasos en la entrega (sin compensación de airing); los cambios requieren la aprobación final del cliente."
+    },
+    "fr": {
+      "dimensao": "328x492px.",
+      "aspectRatio": "2:3",
+      "tipoFicheiro": "Quicktime (.MOV) ou .MP4, codec H264, compression native, bitrate entre 6.000 et 20.000.",
+      "observacoes": "Framerate 25fps ; durée 10 sec. ; sans canal audio. Envoi de la vidéo 4 jours ouvrés avant le début de la campagne, par e-mail au contact JCDecaux. Share of time : 12,5%. JCDecaux décline toute responsabilité en cas de défauts sur la vidéo après l'envoi ; elle n'est pas responsable en cas de retard de livraison (sans compensation de diffusion) ; les modifications nécessitent l'approbation finale du client."
+    }
+  },
+  "JCDecaux|Premium LED 8m²": {
+    "en": {
+      "dimensao": "370x656px.",
+      "aspectRatio": "9:16",
+      "tipoFicheiro": "Quicktime (.MOV) or .MP4, H264 codec, native compression, bitrate between 6,000 and 20,000.",
+      "observacoes": "Frame rate 25fps; duration 10 sec.; no audio channel. Send the video 2 business days before the campaign start, by email to the JCDecaux contact. Share of time: 12.5%. JCDecaux declines responsibility for flaws in the video after submission; it is not liable for delays in delivery (no airing compensation); changes require the client's final approval."
+    },
+    "es": {
+      "dimensao": "370x656px.",
+      "aspectRatio": "9:16",
+      "tipoFicheiro": "Quicktime (.MOV) o .MP4, códec H264, compresión nativa, bitrate entre 6.000 y 20.000.",
+      "observacoes": "Framerate 25fps; duración 10 seg.; sin canal de audio. Envío del vídeo 2 días hábiles antes del inicio de la campaña, por correo electrónico al contacto de JCDecaux. Share of time: 12,5%. JCDecaux declina responsabilidad por fallos en el vídeo tras el envío; no se responsabiliza por retrasos en la entrega (sin compensación de airing); los cambios requieren la aprobación final del cliente."
+    },
+    "fr": {
+      "dimensao": "370x656px.",
+      "aspectRatio": "9:16",
+      "tipoFicheiro": "Quicktime (.MOV) ou .MP4, codec H264, compression native, bitrate entre 6.000 et 20.000.",
+      "observacoes": "Framerate 25fps ; durée 10 sec. ; sans canal audio. Envoi de la vidéo 2 jours ouvrés avant le début de la campagne, par e-mail au contact JCDecaux. Share of time : 12,5%. JCDecaux décline toute responsabilité en cas de défauts sur la vidéo après l'envoi ; elle n'est pas responsable en cas de retard de livraison (sans compensation de diffusion) ; les modifications nécessitent l'approbation finale du client."
+    }
+  },
+  "JCDecaux|Premium LED 12m²": {
+    "en": {
+      "dimensao": "1520x800px.",
+      "aspectRatio": "1.91:1",
+      "tipoFicheiro": "Quicktime (.MOV) or .MP4, H264 codec, native compression, bitrate between 6,000 and 20,000.",
+      "observacoes": "Frame rate 25fps; duration 10 sec.; no audio channel. Send the video 2 business days before the campaign start, by email to the JCDecaux contact. Share of time: 12.5%. JCDecaux declines responsibility for flaws in the video after submission; it is not liable for delays in delivery (no airing compensation); changes require the client's final approval."
+    },
+    "es": {
+      "dimensao": "1520x800px.",
+      "aspectRatio": "1.91:1",
+      "tipoFicheiro": "Quicktime (.MOV) o .MP4, códec H264, compresión nativa, bitrate entre 6.000 y 20.000.",
+      "observacoes": "Framerate 25fps; duración 10 seg.; sin canal de audio. Envío del vídeo 2 días hábiles antes del inicio de la campaña, por correo electrónico al contacto de JCDecaux. Share of time: 12,5%. JCDecaux declina responsabilidad por fallos en el vídeo tras el envío; no se responsabiliza por retrasos en la entrega (sin compensación de airing); los cambios requieren la aprobación final del cliente."
+    },
+    "fr": {
+      "dimensao": "1520x800px.",
+      "aspectRatio": "1.91:1",
+      "tipoFicheiro": "Quicktime (.MOV) ou .MP4, codec H264, compression native, bitrate entre 6.000 et 20.000.",
+      "observacoes": "Framerate 25fps ; durée 10 sec. ; sans canal audio. Envoi de la vidéo 2 jours ouvrés avant le début de la campagne, par e-mail au contact JCDecaux. Share of time : 12,5%. JCDecaux décline toute responsabilité en cas de défauts sur la vidéo après l'envoi ; elle n'est pas responsable en cas de retard de livraison (sans compensation de diffusion) ; les modifications nécessitent l'approbation finale du client."
+    }
+  },
+  "JCDecaux|Premium LED 15m²": {
+    "en": {
+      "dimensao": "720x1296px.",
+      "aspectRatio": "9:16",
+      "tipoFicheiro": "Quicktime (.MOV) or .MP4, H264 codec, native compression, bitrate between 6,000 and 20,000.",
+      "observacoes": "Frame rate 25fps; duration 10 sec.; no audio channel. Send the video 2 business days before the campaign start, by email to the JCDecaux contact. Share of time: 12.5%. JCDecaux declines responsibility for flaws in the video after submission; it is not liable for delays in delivery (no airing compensation); changes require the client's final approval."
+    },
+    "es": {
+      "dimensao": "720x1296px.",
+      "aspectRatio": "9:16",
+      "tipoFicheiro": "Quicktime (.MOV) o .MP4, códec H264, compresión nativa, bitrate entre 6.000 y 20.000.",
+      "observacoes": "Framerate 25fps; duración 10 seg.; sin canal de audio. Envío del vídeo 2 días hábiles antes del inicio de la campaña, por correo electrónico al contacto de JCDecaux. Share of time: 12,5%. JCDecaux declina responsabilidad por fallos en el vídeo tras el envío; no se responsabiliza por retrasos en la entrega (sin compensación de airing); los cambios requieren la aprobación final del cliente."
+    },
+    "fr": {
+      "dimensao": "720x1296px.",
+      "aspectRatio": "9:16",
+      "tipoFicheiro": "Quicktime (.MOV) ou .MP4, codec H264, compression native, bitrate entre 6.000 et 20.000.",
+      "observacoes": "Framerate 25fps ; durée 10 sec. ; sans canal audio. Envoi de la vidéo 2 jours ouvrés avant le début de la campagne, par e-mail au contact JCDecaux. Share of time : 12,5%. JCDecaux décline toute responsabilité en cas de défauts sur la vidéo après l'envoi ; elle n'est pas responsable en cas de retard de livraison (sans compensation de diffusion) ; les modifications nécessitent l'approbation finale du client."
+    }
+  },
+  "JCDecaux|Premium LED 18m²": {
+    "en": {
+      "dimensao": "640x1152px.",
+      "aspectRatio": "9:16",
+      "tipoFicheiro": "Quicktime (.MOV) or .MP4, H264 codec, native compression, bitrate between 6,000 and 20,000.",
+      "observacoes": "Frame rate 25fps; duration 10 sec.; no audio channel. Send the video 2 business days before the campaign start, by email to the JCDecaux contact. Share of time: 12.5%. JCDecaux declines responsibility for flaws in the video after submission; it is not liable for delays in delivery (no airing compensation); changes require the client's final approval."
+    },
+    "es": {
+      "dimensao": "640x1152px.",
+      "aspectRatio": "9:16",
+      "tipoFicheiro": "Quicktime (.MOV) o .MP4, códec H264, compresión nativa, bitrate entre 6.000 y 20.000.",
+      "observacoes": "Framerate 25fps; duración 10 seg.; sin canal de audio. Envío del vídeo 2 días hábiles antes del inicio de la campaña, por correo electrónico al contacto de JCDecaux. Share of time: 12,5%. JCDecaux declina responsabilidad por fallos en el vídeo tras el envío; no se responsabiliza por retrasos en la entrega (sin compensación de airing); los cambios requieren la aprobación final del cliente."
+    },
+    "fr": {
+      "dimensao": "640x1152px.",
+      "aspectRatio": "9:16",
+      "tipoFicheiro": "Quicktime (.MOV) ou .MP4, codec H264, compression native, bitrate entre 6.000 et 20.000.",
+      "observacoes": "Framerate 25fps ; durée 10 sec. ; sans canal audio. Envoi de la vidéo 2 jours ouvrés avant le début de la campagne, par e-mail au contact JCDecaux. Share of time : 12,5%. JCDecaux décline toute responsabilité en cas de défauts sur la vidéo après l'envoi ; elle n'est pas responsable en cas de retard de livraison (sans compensation de diffusion) ; les modifications nécessitent l'approbation finale du client."
+    }
+  },
+  "JCDecaux|Premium LED 22m²": {
+    "en": {
+      "dimensao": "1248x800px.",
+      "tipoFicheiro": "Quicktime (.MOV) or .MP4, H264 codec, native compression, bitrate between 6,000 and 20,000.",
+      "observacoes": "Frame rate 25fps; duration 10 sec.; no audio channel. Send the video 2 business days before the campaign start, by email to the JCDecaux contact. Share of time: 12.5%. \"Subtle Motion\" style video recommended: slow, gradual movement of the creative elements (slow motion with no abrupt cuts; backgrounds shifted/zoomed slowly instead of flashing; text fading in gradually instead of sliding/pulsing; lights glowing instead of flickering); brand visible in at least 80% of the creative. JCDecaux declines responsibility for flaws in the video after submission; it is not liable for delays in delivery (no airing compensation); changes require the client's final approval."
+    },
+    "es": {
+      "dimensao": "1248x800px.",
+      "tipoFicheiro": "Quicktime (.MOV) o .MP4, códec H264, compresión nativa, bitrate entre 6.000 y 20.000.",
+      "observacoes": "Framerate 25fps; duración 10 seg.; sin canal de audio. Envío del vídeo 2 días hábiles antes del inicio de la campaña, por correo electrónico al contacto de JCDecaux. Share of time: 12,5%. Se recomienda un vídeo en estilo \"Subtle Motion\": movimiento lento y gradual de los elementos creativos (slow motion sin cortes bruscos; fondos desplazados/ampliados lentamente en lugar de intermitentes; texto que se desvanece gradualmente en lugar de deslizarse/pulsar; luces que brillan en lugar de parpadear); marca visible en al menos el 80% de la creatividad. JCDecaux declina responsabilidad por fallos en el vídeo tras el envío; no se responsabiliza por retrasos en la entrega (sin compensación de airing); los cambios requieren la aprobación final del cliente."
+    },
+    "fr": {
+      "dimensao": "1248x800px.",
+      "tipoFicheiro": "Quicktime (.MOV) ou .MP4, codec H264, compression native, bitrate entre 6.000 et 20.000.",
+      "observacoes": "Framerate 25fps ; durée 10 sec. ; sans canal audio. Envoi de la vidéo 2 jours ouvrés avant le début de la campagne, par e-mail au contact JCDecaux. Share of time : 12,5%. Vidéo en style « Subtle Motion » recommandé : mouvement lent et progressif des éléments créatifs (slow motion sans coupures brusques ; arrière-plans déplacés/agrandis lentement plutôt qu'intermittents ; texte s'estompant progressivement plutôt que de glisser/pulser ; lumières qui scintillent plutôt que de clignoter) ; marque visible sur au moins 80% de la création. JCDecaux décline toute responsabilité en cas de défauts sur la vidéo après l'envoi ; elle n'est pas responsable en cas de retard de livraison (sans compensation de diffusion) ; les modifications nécessitent l'approbation finale du client."
+    }
+  },
+  "JCDecaux|Premium LED 25m²": {
+    "en": {
+      "dimensao": "480x810px.",
+      "tipoFicheiro": "Quicktime (.MOV) or .MP4, H264 codec, native compression, bitrate between 6,000 and 20,000.",
+      "observacoes": "Frame rate 25fps; duration 10 sec.; no audio channel. Send the video 2 business days before the campaign start, by email to the JCDecaux contact. Share of time: 12.5%. JCDecaux declines responsibility for flaws in the video after submission; it is not liable for delays in delivery (no airing compensation); changes require the client's final approval."
+    },
+    "es": {
+      "dimensao": "480x810px.",
+      "tipoFicheiro": "Quicktime (.MOV) o .MP4, códec H264, compresión nativa, bitrate entre 6.000 y 20.000.",
+      "observacoes": "Framerate 25fps; duración 10 seg.; sin canal de audio. Envío del vídeo 2 días hábiles antes del inicio de la campaña, por correo electrónico al contacto de JCDecaux. Share of time: 12,5%. JCDecaux declina responsabilidad por fallos en el vídeo tras el envío; no se responsabiliza por retrasos en la entrega (sin compensación de airing); los cambios requieren la aprobación final del cliente."
+    },
+    "fr": {
+      "dimensao": "480x810px.",
+      "tipoFicheiro": "Quicktime (.MOV) ou .MP4, codec H264, compression native, bitrate entre 6.000 et 20.000.",
+      "observacoes": "Framerate 25fps ; durée 10 sec. ; sans canal audio. Envoi de la vidéo 2 jours ouvrés avant le début de la campagne, par e-mail au contact JCDecaux. Share of time : 12,5%. JCDecaux décline toute responsabilité en cas de défauts sur la vidéo après l'envoi ; elle n'est pas responsable en cas de retard de livraison (sans compensation de diffusion) ; les modifications nécessitent l'approbation finale du client."
+    }
+  },
+  "JCDecaux|Premium LED 37m²": {
+    "en": {
+      "dimensao": "480x738px.",
+      "tipoFicheiro": "Quicktime (.MOV) or .MP4, H264 codec, native compression, bitrate between 6,000 and 20,000.",
+      "observacoes": "Frame rate 25fps; duration 10 sec.; no audio channel. Send the video 2 business days before the campaign start, by email to the JCDecaux contact. Share of time: 16.7%. \"Subtle Motion\" style video recommended (see the \"Premium LED 22m²\" format for full guidelines). JCDecaux declines responsibility for flaws in the video after submission; it is not liable for delays in delivery (no airing compensation); changes require the client's final approval."
+    },
+    "es": {
+      "dimensao": "480x738px.",
+      "tipoFicheiro": "Quicktime (.MOV) o .MP4, códec H264, compresión nativa, bitrate entre 6.000 y 20.000.",
+      "observacoes": "Framerate 25fps; duración 10 seg.; sin canal de audio. Envío del vídeo 2 días hábiles antes del inicio de la campaña, por correo electrónico al contacto de JCDecaux. Share of time: 16,7%. Se recomienda un vídeo en estilo \"Subtle Motion\" (ver formato \"Premium LED 22m²\" para las guidelines completas). JCDecaux declina responsabilidad por fallos en el vídeo tras el envío; no se responsabiliza por retrasos en la entrega (sin compensación de airing); los cambios requieren la aprobación final del cliente."
+    },
+    "fr": {
+      "dimensao": "480x738px.",
+      "tipoFicheiro": "Quicktime (.MOV) ou .MP4, codec H264, compression native, bitrate entre 6.000 et 20.000.",
+      "observacoes": "Framerate 25fps ; durée 10 sec. ; sans canal audio. Envoi de la vidéo 2 jours ouvrés avant le début de la campagne, par e-mail au contact JCDecaux. Share of time : 16,7%. Vidéo en style « Subtle Motion » recommandé (voir le format « Premium LED 22m² » pour les guidelines complètes). JCDecaux décline toute responsabilité en cas de défauts sur la vidéo après l'envoi ; elle n'est pas responsable en cas de retard de livraison (sans compensation de diffusion) ; les modifications nécessitent l'approbation finale du client."
+    }
+  },
+  "Táxi Advertising|Decoração de Táxi": {
+    "en": {
+      "dimensao": "Keep the template's original size (actual vector files supplied by the vendor, with the design for the left side and right side of the taxi).",
+      "tipoFicheiro": "Working files in Illustrator (vector). Delivery: JPG or PDF.",
+      "observacoes": "The text must stay within the yellow safety line (so it is not cut off). The background behind the text must extend past the white line by at least 50mm of bleed. Printed in CMYK, resolution 150 pixels/inch. A PDF with the taxi decoration mockup must also be sent, to guide the vinyl application."
+    },
+    "es": {
+      "dimensao": "Mantener el tamaño original de la plantilla (archivos vectoriales reales facilitados por el proveedor, con el diseño del lado izquierdo y del lado derecho del taxi).",
+      "tipoFicheiro": "Archivos de trabajo en Illustrator (vectoriales). Entrega: JPG o PDF.",
+      "observacoes": "El texto debe mantenerse dentro de la línea amarilla de seguridad (para no ser cortado). El fondo detrás del texto debe sobrepasar la línea blanca en al menos 50mm de sangrado. Impresión en CMYK, resolución 150 píxeles/pulgada. Es obligatorio enviar también un PDF con la maqueta de la decoración del taxi, para orientar la colocación del vinilo."
+    },
+    "fr": {
+      "dimensao": "Conserver la taille originale du template (fichiers vectoriels réels fournis par le fournisseur, avec le dessin du côté gauche et du côté droit du taxi).",
+      "tipoFicheiro": "Fichiers de travail en Illustrator (vectoriels). Livraison : JPG ou PDF.",
+      "observacoes": "Le texte doit rester à l'intérieur de la ligne jaune de sécurité (pour ne pas être coupé). L'arrière-plan derrière le texte doit dépasser la ligne blanche d'au moins 50mm de fond perdu. Impression en CMJN, résolution 150 pixels/pouce. Il est obligatoire d'envoyer également un PDF avec la maquette de la décoration du taxi, pour orienter la pose du vinyle."
+    }
   }
 }

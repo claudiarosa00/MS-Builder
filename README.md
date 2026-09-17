@@ -62,12 +62,14 @@ templates/                  Reservado para uso futuro (atualmente vazio)
 
 ## Base de dados de formatos
 
-Os 354 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
+Os 381 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
 mapeados a partir da base real de specs da agência (269 formatos de
 publisher → 40 categorias "Digital2020" canónicas, mais os formatos
 Programmatic/DV360 adicionados depois, os 36 formatos de compra direta do
 publisher "Notícias Ilimitadas", os formatos WeTransfer via Azerion,
-Roblox e OLX, e o publisher "Bauer" — Reino Unido). Colunas: **Meio**, **Canal**,
+Roblox e OLX, o publisher "Bauer" — Reino Unido, e os 27 primeiros
+formatos de OOH — `Meio = "OOH"` — de MOP, DreamMedia, BIG Outdoors,
+JCDecaux e Táxi Advertising). Colunas: **Meio**, **Canal**,
 **Fornecedor**, **Veículo**, **Grupo Digital2020**, **Formato**,
 **Dimensão**, **Aspect Ratio**, **Peso**, **Tipo de Ficheiro**, **Copies**,
 **Observações**, **Link**.
@@ -113,11 +115,14 @@ um palpite.
 
 Atualmente cobre os meios **Internet** e **Programático** (Social Media,
 Compra Direta, Google/Search e Programático) — ambos aparecem juntos na
-folha "Digital" da exportação (ver secção "Exportação para Excel" abaixo).
-Os restantes meios offline (**OOH**, TV, Rádio, Cinema, Imprensa) já têm a
-estrutura de exportação pronta (cada um com a sua própria folha), mas
-entram na base só quando houver dados reais para os mapear — nunca são
-inventados.
+folha "Digital" da exportação — e o meio **OOH** (Publicidade Exterior),
+com 27 formatos reais de MOP, DreamMedia, BIG Outdoors, JCDecaux e Táxi
+Advertising: Outdoors/Monopostes/Painéis em papel e vinil, Mupis (papel e
+digital), LED indoor/outdoor, Multibanco (ATM) e decoração de táxi (ver
+secção "Exportação para Excel" abaixo). Os restantes meios offline (TV,
+Rádio, Cinema, Imprensa) já têm a estrutura de exportação pronta (cada um
+com a sua própria folha), mas entram na base só quando houver dados reais
+para os mapear — nunca são inventados.
 
 ## Traduções das specs (EN/ES/FR)
 
