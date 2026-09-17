@@ -21,6 +21,10 @@ processo manual que antes era feito diretamente em Excel.
   fornecedor de OOH) não é "Compra Direta" nem nenhuma das outras categorias
   digitais — é um meio à parte (ver `categoriaDoPublisher` em `app.js`, que
   usa o mesmo mapeamento de meio → grupo já usado na exportação para Excel).
+  No índice lateral, cada categoria (Social Media, Compra Direta, ..., OOH)
+  é recolhível — começa fechada, só a mostrar o nome, e um clique nela (ou
+  na setinha) é que revela os publishers lá dentro; o estado aberto/fechado
+  mantém-se ao mudar de filtro, de idioma ou de tab.
 - Suporta 4 idiomas (Português, Inglês, Espanhol, Francês) — interface,
   cabeçalhos do Excel, e também as specs de cada formato (Dimensão, Aspect
   Ratio, Peso, Tipo de Ficheiro, Copies) mudam de língua, através de um

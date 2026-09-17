@@ -159,18 +159,54 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   background-color: var(--cor-fundo-cartao);
 }
 
+/* Cada categoria é um botão recolhível — começa fechada, só a mostrar o
+   nome; um clique (na seta ou no nome) revela os publishers lá dentro. */
 .indice-categoria {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
   margin: 14px 0 2px 0;
-  padding: 0 10px;
+  padding: 6px 10px;
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--cor-destaque);
+  background: none;
+  border: none;
+  border-radius: 5px;
+  font-family: var(--fonte-base);
+  cursor: pointer;
+  text-align: left;
 }
 
 .indice-categoria:first-child {
   margin-top: 0;
+}
+
+.indice-categoria:hover {
+  background-color: var(--cor-destaque-suave);
+}
+
+.indice-categoria-seta {
+  display: inline-block;
+  font-size: 9px;
+  transition: transform 0.15s ease;
+}
+
+.indice-categoria.expandida .indice-categoria-seta {
+  transform: rotate(90deg);
+}
+
+.indice-categoria-links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.indice-categoria-links.recolhida {
+  display: none;
 }
 
 /* Separa visualmente as categorias online (Social Media, Compra Direta,

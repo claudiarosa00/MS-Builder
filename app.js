@@ -682,8 +682,17 @@ Constrói a lista de links a partir das secções que já
 estão desenhadas na tab ativa (lê o "data-publisher" e o
 "data-categoria" que cada bloco de publisher já tem).
 Clicar num link salta para essa secção com scroll suave.
+
+Cada categoria (Social Media, Compra Direta, ..., OOH) é recolhível:
+começa fechada, só mostrando o nome, e só ao clicar no nome (ou na
+setinha) é que aparecem os publishers lá dentro — evita um índice
+enorme logo de início. O estado (que categorias estão abertas) vive
+fora da função, para sobreviver a re-renderizações do índice (troca de
+filtro, de idioma, de tab).
 ============================================
 */
+const categoriasIndiceExpandidas = new Set();
+
 function atualizarIndicePublishers() {
   const painelAtivo = paineisTab[tabAtiva];
   // Só entram no índice os publishers que ainda têm alguma linha visível
@@ -714,10 +723,25 @@ function atualizarIndicePublishers() {
       grupoOnlineOfflineAnterior = grupoOnlineOffline;
     }
 
-    const titulo = document.createElement("h3");
-    titulo.className = "indice-categoria";
-    titulo.textContent = t(CHAVE_TRADUCAO_CATEGORIA[categoria]);
+    const expandida = categoriasIndiceExpandidas.has(categoria);
+
+    const titulo = document.createElement("button");
+    titulo.type = "button";
+    titulo.className = `indice-categoria${expandida ? " expandida" : ""}`;
+    titulo.setAttribute("aria-expanded", String(expandida));
+    titulo.innerHTML = `<span class="indice-categoria-seta" aria-hidden="true">▸</span><span>${t(CHAVE_TRADUCAO_CATEGORIA[categoria])}</span>`;
+    titulo.addEventListener("click", () => {
+      if (categoriasIndiceExpandidas.has(categoria)) {
+        categoriasIndiceExpandidas.delete(categoria);
+      } else {
+        categoriasIndiceExpandidas.add(categoria);
+      }
+      atualizarIndicePublishers();
+    });
     indicePublishers.appendChild(titulo);
+
+    const listaLinks = document.createElement("div");
+    listaLinks.className = `indice-categoria-links${expandida ? "" : " recolhida"}`;
 
     blocosDaCategoria.forEach((bloco) => {
       const link = document.createElement("a");
@@ -727,8 +751,9 @@ function atualizarIndicePublishers() {
         evento.preventDefault();
         bloco.scrollIntoView({ behavior: "smooth", block: "start" });
       });
-      indicePublishers.appendChild(link);
+      listaLinks.appendChild(link);
     });
+    indicePublishers.appendChild(listaLinks);
   }
 }
 
