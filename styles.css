@@ -266,14 +266,15 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
 */
 .barra-filtros {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 14px;
-  padding: 24px 32px 20px 32px;
-  border-bottom: 1px solid var(--cor-borda);
+  flex-wrap: wrap;
+  padding: 20px 32px 0 32px;
 }
 
 #campoPesquisa {
-  width: 100%;
+  flex: 1;
+  min-width: 220px;
   padding: 10px 14px;
   border: 1px solid var(--cor-borda);
   border-radius: 6px;
@@ -287,19 +288,10 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   outline-offset: 1px;
 }
 
-.linha-filtros-categoria {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-
 .filtros-categoria {
   display: flex;
-  align-items: center;
   gap: 6px;
   flex-wrap: wrap;
-  row-gap: 10px;
 }
 
 .filtro-categoria {
@@ -326,9 +318,7 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
 }
 
 /* Rótulo "Online"/"Offline" entre os grupos de botões de filtro, para
-   deixar claro que OOH não é mais uma opção de compra digital. A borda
-   à esquerda funciona como um pequeno separador visual entre grupos,
-   para não parecerem todos os botões uma única fila indistinta. */
+   deixar claro que OOH não é mais uma opção de compra digital. */
 .filtros-separador {
   display: flex;
   align-items: center;
@@ -337,9 +327,7 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--cor-texto-suave);
-  padding-left: 14px;
-  margin-left: 2px;
-  border-left: 1px solid var(--cor-borda);
+  padding: 0 2px;
 }
 
 /* Botão discreto para "Limpar filtros" / "Limpar seleção" — nunca deve
@@ -427,25 +415,13 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
 
 /*
 ============================================
-6. CARTÃO DE CONFIGURAÇÃO DO PEDIDO (Companhia/Cliente/Campanha + Objetivo)
-Junta as duas secções num único cartão visualmente destacado da barra
-de filtros acima e da barra de ações fixa abaixo — antes estava tudo
-encostado, sem nenhuma pausa visual entre "o que estou a filtrar", "que
-pedido estou a configurar" e "o que já selecionei".
+6. DADOS DA CAMPANHA (Cliente / Campanha)
 ============================================
 */
-.cartao-configuracao {
-  margin: 24px 32px 20px 32px;
-  background-color: var(--cor-fundo-cartao);
-  border: 1px solid var(--cor-borda);
-  border-radius: 10px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-}
-
 .dados-campanha {
   display: flex;
   gap: 20px;
-  padding: 24px 24px 0 24px;
+  padding: 20px 32px 0 32px;
   flex-wrap: wrap;
 }
 
@@ -485,15 +461,11 @@ pedido estou a configurar" e "o que já selecionei".
 }
 
 .resumo-campanha {
-  padding: 10px 24px 20px 24px;
+  padding: 8px 32px 0 32px;
   margin: 0;
   font-size: 14px;
   color: var(--cor-destaque-escuro);
   font-weight: 600;
-}
-
-.resumo-campanha:empty {
-  padding: 0;
 }
 
 /*
@@ -507,9 +479,7 @@ muda qual seleção de formatos está a ser editada.
   display: flex;
   align-items: center;
   gap: 14px;
-  margin: 20px 24px 0 24px;
-  padding: 20px 0 0 0;
-  border-top: 1px solid var(--cor-borda);
+  padding: 16px 32px 0 32px;
   flex-wrap: wrap;
 }
 
@@ -674,16 +644,11 @@ Specs" — a única diferença entre as duas é se há coluna
 de checkbox e/ou coluna de link, controlado pelo app.js.
 ============================================
 */
-/* O espaçamento entre secções não é uniforme (gap fixo): cada cartão de
-   publisher fica "colado" ao sub-cabeçalho de categoria logo acima dele
-   (pouco espaço), mas a categoria seguinte, e sobretudo a próxima secção
-   Online/Offline, precisam de bastante mais respiro — daí gap:0 aqui e
-   as margens específicas em cada elemento abaixo. */
 .lista-formatos {
-  padding: 28px 32px 48px 32px;
+  padding: 24px 32px 48px 32px;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 20px;
 }
 
 .grupo-publisher {
@@ -691,7 +656,6 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   border: 1px solid var(--cor-borda);
   border-radius: 8px;
   padding: 16px 20px;
-  margin-bottom: 16px;
   scroll-margin-top: 12px;
 }
 
@@ -699,17 +663,13 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
    categorias de compra digital e os meios offline (OOH, e no futuro
    TV/Rádio/Cinema/Imprensa), para nunca parecer que OOH é "Compra Direta". */
 .cabecalho-online-offline {
-  margin: 48px 0 16px 0;
-  padding-bottom: 10px;
+  margin: 4px 0 -4px 0;
+  padding-bottom: 8px;
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   border-bottom: 2px solid currentColor;
-}
-
-.lista-formatos > .cabecalho-online-offline:first-child {
-  margin-top: 0;
 }
 
 .cabecalho-online-offline--online {
@@ -721,10 +681,9 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
 }
 
 /* Sub-cabeçalho de categoria (Social Media, Compra Direta, ..., OOH),
-   antes do primeiro publisher de cada uma — fica perto dos cartões que
-   lhe pertencem (margem inferior pequena) mas longe do que vem antes. */
+   antes do primeiro publisher de cada uma. */
 .cabecalho-categoria {
-  margin: 28px 0 10px 0;
+  margin: 0;
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;

@@ -67,19 +67,17 @@
       -->
       <div class="barra-filtros">
         <input type="text" id="campoPesquisa" data-i18n-placeholder="placeholderPesquisa" placeholder="Pesquisar formato ou publisher...">
-        <div class="linha-filtros-categoria">
-          <div class="filtros-categoria">
-            <button type="button" class="filtro-categoria ativo" data-categoria="todas" data-i18n="filtroTodas">Todas</button>
-            <span class="filtros-separador" data-i18n="labelOnline">Online</span>
-            <button type="button" class="filtro-categoria" data-categoria="Social Media" data-i18n="filtroSocialMedia">Social Media</button>
-            <button type="button" class="filtro-categoria" data-categoria="Compra Direta" data-i18n="filtroCompraDireta">Compra Direta</button>
-            <button type="button" class="filtro-categoria" data-categoria="Google ou Search" data-i18n="filtroGoogleSearch">Google ou Search</button>
-            <button type="button" class="filtro-categoria" data-categoria="Programático" data-i18n="filtroProgramatico">Programático</button>
-            <span class="filtros-separador" data-i18n="labelOffline">Offline</span>
-            <button type="button" class="filtro-categoria" data-categoria="OOH" data-i18n="meioOOH">OOH</button>
-          </div>
-          <button type="button" id="botaoLimparFiltros" class="botao-limpar" data-i18n="botaoLimparFiltros">Limpar filtros</button>
+        <div class="filtros-categoria">
+          <button type="button" class="filtro-categoria ativo" data-categoria="todas" data-i18n="filtroTodas">Todas</button>
+          <span class="filtros-separador" data-i18n="labelOnline">Online</span>
+          <button type="button" class="filtro-categoria" data-categoria="Social Media" data-i18n="filtroSocialMedia">Social Media</button>
+          <button type="button" class="filtro-categoria" data-categoria="Compra Direta" data-i18n="filtroCompraDireta">Compra Direta</button>
+          <button type="button" class="filtro-categoria" data-categoria="Google ou Search" data-i18n="filtroGoogleSearch">Google ou Search</button>
+          <button type="button" class="filtro-categoria" data-categoria="Programático" data-i18n="filtroProgramatico">Programático</button>
+          <span class="filtros-separador" data-i18n="labelOffline">Offline</span>
+          <button type="button" class="filtro-categoria" data-categoria="OOH" data-i18n="meioOOH">OOH</button>
         </div>
+        <button type="button" id="botaoLimparFiltros" class="botao-limpar" data-i18n="botaoLimparFiltros">Limpar filtros</button>
       </div>
 
       <!--
@@ -89,53 +87,51 @@
       -->
       <section id="tabConstruir" class="painel-tab">
 
-        <div class="cartao-configuracao">
-          <section class="dados-campanha">
-            <div class="campo">
-              <label for="campoCompanhia"><span data-i18n="labelCompanhia">Companhia</span> <span class="marca-obrigatorio">*</span></label>
-              <select id="campoCompanhia" required>
-                <option value="" disabled selected data-i18n="opcaoSelecionar">— Selecionar —</option>
-                <option value="Havas Media">Havas Media</option>
-                <option value="Arena Media">Arena Media</option>
-              </select>
-            </div>
-            <div class="campo">
-              <label for="campoCliente" data-i18n="labelCliente">Cliente</label>
-              <input type="text" id="campoCliente" data-i18n-placeholder="placeholderCliente" placeholder="Nome do cliente">
-            </div>
-            <div class="campo">
-              <label for="campoCampanha" data-i18n="labelCampanha">Campanha</label>
-              <input type="text" id="campoCampanha" data-i18n-placeholder="placeholderCampanha" placeholder="Nome da campanha">
-            </div>
-          </section>
+        <section class="dados-campanha">
+          <div class="campo">
+            <label for="campoCompanhia"><span data-i18n="labelCompanhia">Companhia</span> <span class="marca-obrigatorio">*</span></label>
+            <select id="campoCompanhia" required>
+              <option value="" disabled selected data-i18n="opcaoSelecionar">— Selecionar —</option>
+              <option value="Havas Media">Havas Media</option>
+              <option value="Arena Media">Arena Media</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="campoCliente" data-i18n="labelCliente">Cliente</label>
+            <input type="text" id="campoCliente" data-i18n-placeholder="placeholderCliente" placeholder="Nome do cliente">
+          </div>
+          <div class="campo">
+            <label for="campoCampanha" data-i18n="labelCampanha">Campanha</label>
+            <input type="text" id="campoCampanha" data-i18n-placeholder="placeholderCampanha" placeholder="Nome da campanha">
+          </div>
+        </section>
 
-          <!--
-          ============================================
-          3.1.1 SELETOR DE OBJETIVO (Awareness / Consideration / Conversion)
-          Cada objetivo tem a sua própria seleção de formatos: o mesmo
-          formato pode ser pedido em mais que um objetivo (ex.: Single
-          Image para Awareness E para Conversion), porque a agência trata
-          essas criatividades/copies como pedidos distintos mesmo quando
-          as specs técnicas são iguais.
-          ============================================
-          -->
-          <section class="seletor-objetivo">
-            <label data-i18n="labelObjetivo">Objetivo</label>
-            <div class="objetivos-botoes" role="tablist">
-              <button type="button" class="objetivo-botao ativo" data-objetivo="awareness">
-                <span data-i18n="objetivoAwareness">Awareness</span> <span class="objetivo-contagem" data-contagem="awareness"></span>
-              </button>
-              <button type="button" class="objetivo-botao" data-objetivo="consideration">
-                <span data-i18n="objetivoConsideration">Consideration</span> <span class="objetivo-contagem" data-contagem="consideration"></span>
-              </button>
-              <button type="button" class="objetivo-botao" data-objetivo="conversion">
-                <span data-i18n="objetivoConversion">Conversion</span> <span class="objetivo-contagem" data-contagem="conversion"></span>
-              </button>
-            </div>
-          </section>
+        <!--
+        ============================================
+        3.1.1 SELETOR DE OBJETIVO (Awareness / Consideration / Conversion)
+        Cada objetivo tem a sua própria seleção de formatos: o mesmo
+        formato pode ser pedido em mais que um objetivo (ex.: Single
+        Image para Awareness E para Conversion), porque a agência trata
+        essas criatividades/copies como pedidos distintos mesmo quando
+        as specs técnicas são iguais.
+        ============================================
+        -->
+        <section class="seletor-objetivo">
+          <label data-i18n="labelObjetivo">Objetivo</label>
+          <div class="objetivos-botoes" role="tablist">
+            <button type="button" class="objetivo-botao ativo" data-objetivo="awareness">
+              <span data-i18n="objetivoAwareness">Awareness</span> <span class="objetivo-contagem" data-contagem="awareness"></span>
+            </button>
+            <button type="button" class="objetivo-botao" data-objetivo="consideration">
+              <span data-i18n="objetivoConsideration">Consideration</span> <span class="objetivo-contagem" data-contagem="consideration"></span>
+            </button>
+            <button type="button" class="objetivo-botao" data-objetivo="conversion">
+              <span data-i18n="objetivoConversion">Conversion</span> <span class="objetivo-contagem" data-contagem="conversion"></span>
+            </button>
+          </div>
+        </section>
 
-          <p id="resumoCampanha" class="resumo-campanha"></p>
-        </div>
+        <p id="resumoCampanha" class="resumo-campanha"></p>
 
         <div class="barra-fixa">
           <aside id="resumoSelecao" class="resumo-selecao"></aside>
