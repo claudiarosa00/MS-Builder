@@ -172,7 +172,7 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--cor-destaque);
+  color: var(--cor-escuro);
   background: none;
   border: none;
   border-radius: 5px;
@@ -234,7 +234,7 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
 }
 
 .indice-online-offline--offline {
-  color: var(--cor-escuro);
+  color: var(--cor-destaque);
 }
 
 .indice-publishers a {
