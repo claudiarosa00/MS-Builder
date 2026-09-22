@@ -8948,40 +8948,6 @@
       "observacoes": "Périodicité bimestrielle (janvier, mars, mai, juillet, septembre, novembre) ; magazine bilingue (portugais + anglais) ; distribution au Portugal et dans 22 autres pays ; pages doubles avec un décalage de 6mm vers le centre (3mm vers la gauche et 3mm vers la droite) pour garantir le repérage central. Texte vectorisé (converti en tracés) ; couleur exclusivement en noir — titres exceptés — doit être uniquement à 100% sur la plaque noire et laissée en blanc sur les autres plaques pour éviter les défauts de repérage (si noir plus soutenu, 100% noir + 70% cyan) ; accompagné d'une épreuve couleur ; matériaux livrés sur support numérique (CD/DVD) ou par e-mail."
     }
   },
-  "GoFastWay|GoFastWay|Spot TV (SD — IMX50)": {
-    "en": {
-      "dimensao": "720x576px, 25 fps",
-      "tipoFicheiro": "MXF (OP-1a), IMX50 codec, 50 Mb/s (CBR), 4:2:2 chroma, interlaced (Interlaced UFF, 16:9FHA), .mxf extension",
-      "observacoes": "Mandatory file structure: the advertising content must start on the first video frame and end on the last — 0-frame pre-roll and post-roll, file duration = spot duration x 25 frames. Audio: PCM, 2 channels (stereo), 24 bit, 48 KHz, peak level -3dB TP max., loudness (integrated) -23 LUFS. Suggested file naming: <Pub ID>_<Spot Name>_<Duration>.mxf (e.g. PUB-2015-000345_Fiat 500X Sport Edition_30.mxf) — not mandatory, but recommended whenever possible. Delivery exclusively by a registered user through the GoFastWay Portal (www.gofastway.tv). All files go through automatic quality control (technical compliance with these specs + subjective video and audio review); in case of inconsistency, GoFastWay may request delivery of a corrected file."
-    },
-    "es": {
-      "dimensao": "720x576px, 25 fps",
-      "tipoFicheiro": "MXF (OP-1a), códec IMX50, 50 Mb/s (CBR), croma 4:2:2, entrelazado (Interlaced UFF, 16:9FHA), extensión .mxf",
-      "observacoes": "Estructura obligatoria del archivo: el contenido publicitario debe empezar en el primer fotograma de vídeo y terminar en el último — pre-roll y post-roll de 0 fotogramas, duración del archivo = duración del spot x 25 fotogramas. Audio: PCM, 2 canales (estéreo), 24 bit, 48 KHz, nivel de pico -3dB TP máx., sonoridad (integrada) -23 LUFS. Nomenclatura sugerida para el archivo: <Pub ID>_<Nombre del Spot>_<Duración>.mxf (ej.: PUB-2015-000345_Fiat 500X Sport Edition_30.mxf) — no es obligatoria, pero sí recomendada siempre que sea posible. Entrega exclusivamente por un usuario registrado a través del Portal GoFastWay (www.gofastway.tv). Todos los archivos pasan por un control de calidad automático (conformidad técnica con estas specs + análisis subjetivo de vídeo y audio); en caso de incoherencia, GoFastWay puede solicitar la entrega de un nuevo archivo corregido."
-    },
-    "fr": {
-      "dimensao": "720x576px, 25 fps",
-      "tipoFicheiro": "MXF (OP-1a), codec IMX50, 50 Mb/s (CBR), chroma 4:2:2, entrelacé (Interlaced UFF, 16:9FHA), extension .mxf",
-      "observacoes": "Structure obligatoire du fichier : le contenu publicitaire doit commencer à la première image vidéo et se terminer à la dernière — pre-roll et post-roll de 0 image, durée du fichier = durée du spot x 25 images. Audio : PCM, 2 canaux (stéréo), 24 bits, 48 KHz, niveau de crête -3dB TP max., sonie (intégrée) -23 LUFS. Nomenclature suggérée pour le fichier : <Pub ID>_<Nom du Spot>_<Durée>.mxf (ex. : PUB-2015-000345_Fiat 500X Sport Edition_30.mxf) — non obligatoire, mais recommandée dans la mesure du possible. Livraison exclusivement par un utilisateur enregistré via le Portail GoFastWay (www.gofastway.tv). Tous les fichiers passent par un contrôle qualité automatique (conformité technique à ces spécifications + analyse subjective de la vidéo et de l'audio) ; en cas d'incohérence, GoFastWay peut demander la livraison d'un nouveau fichier corrigé."
-    }
-  },
-  "GoFastWay|GoFastWay|Spot TV (HD — XDCAM HD422)": {
-    "en": {
-      "dimensao": "1920x1080px, 25 fps",
-      "tipoFicheiro": "MXF (OP-1a), XDCAM HD422 codec, 50 Mb/s min. (CBR), 4:2:2 chroma, interlaced (Interlaced UFF), .mxf extension",
-      "observacoes": "Mandatory file structure: the advertising content must start on the first video frame and end on the last — 0-frame pre-roll and post-roll, file duration = spot duration x 25 frames. Audio: PCM, 2 channels (stereo), 24 bit, 48 KHz, peak level -3dB TP max., loudness (integrated) -23 LUFS. Suggested file naming: <Pub ID>_<Spot Name>_<Duration>.mxf (e.g. PUB-2015-000345_Fiat 500X Sport Edition_30.mxf) — not mandatory, but recommended whenever possible. Delivery exclusively by a registered user through the GoFastWay Portal (www.gofastway.tv). All files go through automatic quality control (technical compliance with these specs + subjective video and audio review); in case of inconsistency, GoFastWay may request delivery of a corrected file."
-    },
-    "es": {
-      "dimensao": "1920x1080px, 25 fps",
-      "tipoFicheiro": "MXF (OP-1a), códec XDCAM HD422, 50 Mb/s mín. (CBR), croma 4:2:2, entrelazado (Interlaced UFF), extensión .mxf",
-      "observacoes": "Estructura obligatoria del archivo: el contenido publicitario debe empezar en el primer fotograma de vídeo y terminar en el último — pre-roll y post-roll de 0 fotogramas, duración del archivo = duración del spot x 25 fotogramas. Audio: PCM, 2 canales (estéreo), 24 bit, 48 KHz, nivel de pico -3dB TP máx., sonoridad (integrada) -23 LUFS. Nomenclatura sugerida para el archivo: <Pub ID>_<Nombre del Spot>_<Duración>.mxf (ej.: PUB-2015-000345_Fiat 500X Sport Edition_30.mxf) — no es obligatoria, pero sí recomendada siempre que sea posible. Entrega exclusivamente por un usuario registrado a través del Portal GoFastWay (www.gofastway.tv). Todos los archivos pasan por un control de calidad automático (conformidad técnica con estas specs + análisis subjetivo de vídeo y audio); en caso de incoherencia, GoFastWay puede solicitar la entrega de un nuevo archivo corregido."
-    },
-    "fr": {
-      "dimensao": "1920x1080px, 25 fps",
-      "tipoFicheiro": "MXF (OP-1a), codec XDCAM HD422, 50 Mb/s min. (CBR), chroma 4:2:2, entrelacé (Interlaced UFF), extension .mxf",
-      "observacoes": "Structure obligatoire du fichier : le contenu publicitaire doit commencer à la première image vidéo et se terminer à la dernière — pre-roll et post-roll de 0 image, durée du fichier = durée du spot x 25 images. Audio : PCM, 2 canaux (stéréo), 24 bits, 48 KHz, niveau de crête -3dB TP max., sonie (intégrée) -23 LUFS. Nomenclature suggérée pour le fichier : <Pub ID>_<Nom du Spot>_<Durée>.mxf (ex. : PUB-2015-000345_Fiat 500X Sport Edition_30.mxf) — non obligatoire, mais recommandée dans la mesure du possible. Livraison exclusivement par un utilisateur enregistré via le Portail GoFastWay (www.gofastway.tv). Tous les fichiers passent par un contrôle qualité automatique (conformité technique à ces spécifications + analyse subjective de la vidéo et de l'audio) ; en cas d'incohérence, GoFastWay peut demander la livraison d'un nouveau fichier corrigé."
-    }
-  },
   "Rádio|Rádio|Spot Rádio": {
     "en": {
       "tipoFicheiro": "MP4 (AAC audio)",
@@ -9251,57 +9217,6 @@
       "observacoes": "Durée : 10 secondes (obligatoire). Bitrate maximum 6 Mbps. Framerate 30 frames/s. Taille maximale : 100MB."
     }
   },
-  "TVI|TVI|Ecrã Fracionado / Split Screen": {
-    "en": {
-      "dimensao": "480x1080px (25% of a 1920x1080px screen), 25 fps",
-      "tipoFicheiro": "QuickTime (.MOV), ProRes 4444 (with Alpha channel) or ProRes 422 (without Alpha), 1080i interlaced (Upper/odd Field First), 25 fps",
-      "observacoes": "Advertising content occupying at most 25% of the screen, aired simultaneously with entertainment, sports and magazine programmes. Duration 10″, including entry and exit within those 10″. No audio. The word \"PUBLICIDADE\" must stay clearly legible and inside the Safe Area for the whole time it is on air. On TVI it enters from the right of the screen. General Safe Area: 96px horizontal / 54px vertical from the edge; Title Safe Area: 192px horizontal / 108px vertical — no relevant information should fall outside these areas."
-    },
-    "es": {
-      "dimensao": "480x1080px (25% de una pantalla de 1920x1080px), 25 fps",
-      "tipoFicheiro": "QuickTime (.MOV), ProRes 4444 (con canal Alpha) o ProRes 422 (sin Alpha), 1080i entrelazado (Upper/odd Field First), 25 fps",
-      "observacoes": "Contenido publicitario que ocupa como máximo el 25% de la pantalla, emitido simultáneamente con programas de entretenimiento, deporte y magazine. Duración 10″, con entrada y salida incluidas en esos 10″. Sin audio. La palabra \"PUBLICIDADE\" debe mantenerse legible y dentro del Safe Area durante todo el tiempo que está en emisión. En TVI entra por la derecha de la pantalla. Safe Area general: 96px horizontales / 54px verticales desde el margen; Title Safe Area: 192px horizontales / 108px verticales — ninguna información relevante debe quedar fuera de estas áreas."
-    },
-    "fr": {
-      "dimensao": "480x1080px (25% d'un écran 1920x1080px), 25 fps",
-      "tipoFicheiro": "QuickTime (.MOV), ProRes 4444 (avec canal Alpha) ou ProRes 422 (sans Alpha), 1080i entrelacé (Upper/odd Field First), 25 fps",
-      "observacoes": "Contenu publicitaire occupant au maximum 25% de l'écran, diffusé simultanément avec des programmes de divertissement, de sport et magazine. Durée 10″, entrée et sortie incluses dans ces 10″. Sans son. Le mot \"PUBLICIDADE\" doit rester lisible et dans la Safe Area pendant toute la diffusion. Sur TVI, il entre par la droite de l'écran. Safe Area générale : 96px horizontaux / 54px verticaux depuis le bord ; Title Safe Area : 192px horizontaux / 108px verticaux — aucune information pertinente ne doit sortir de ces zones."
-    }
-  },
-  "TVI|CNN Portugal|Ecrã Fracionado / Split Screen": {
-    "en": {
-      "dimensao": "480x1080px (25% of a 1920x1080px screen), 25 fps",
-      "tipoFicheiro": "QuickTime (.MOV), ProRes 4444 (with Alpha channel) or ProRes 422 (without Alpha), 1080i interlaced (Upper/odd Field First), 25 fps",
-      "observacoes": "Advertising content occupying at most 25% of the screen, aired simultaneously with entertainment, sports and magazine programmes. Duration 10″, including entry and exit within those 10″. No audio. The word \"PUBLICIDADE\" must stay clearly legible and inside the Safe Area for the whole time it is on air. On CNN Portugal it enters from the left of the screen. General Safe Area: 96px horizontal / 54px vertical from the edge; Title Safe Area: 192px horizontal / 108px vertical — no relevant information should fall outside these areas."
-    },
-    "es": {
-      "dimensao": "480x1080px (25% de una pantalla de 1920x1080px), 25 fps",
-      "tipoFicheiro": "QuickTime (.MOV), ProRes 4444 (con canal Alpha) o ProRes 422 (sin Alpha), 1080i entrelazado (Upper/odd Field First), 25 fps",
-      "observacoes": "Contenido publicitario que ocupa como máximo el 25% de la pantalla, emitido simultáneamente con programas de entretenimiento, deporte y magazine. Duración 10″, con entrada y salida incluidas en esos 10″. Sin audio. La palabra \"PUBLICIDADE\" debe mantenerse legible y dentro del Safe Area durante todo el tiempo que está en emisión. En CNN Portugal entra por la izquierda de la pantalla. Safe Area general: 96px horizontales / 54px verticales desde el margen; Title Safe Area: 192px horizontales / 108px verticales — ninguna información relevante debe quedar fuera de estas áreas."
-    },
-    "fr": {
-      "dimensao": "480x1080px (25% d'un écran 1920x1080px), 25 fps",
-      "tipoFicheiro": "QuickTime (.MOV), ProRes 4444 (avec canal Alpha) ou ProRes 422 (sans Alpha), 1080i entrelacé (Upper/odd Field First), 25 fps",
-      "observacoes": "Contenu publicitaire occupant au maximum 25% de l'écran, diffusé simultanément avec des programmes de divertissement, de sport et magazine. Durée 10″, entrée et sortie incluses dans ces 10″. Sans son. Le mot \"PUBLICIDADE\" doit rester lisible et dans la Safe Area pendant toute la diffusion. Sur CNN Portugal, il entre par la gauche de l'écran. Safe Area générale : 96px horizontaux / 54px verticaux depuis le bord ; Title Safe Area : 192px horizontaux / 108px verticaux — aucune information pertinente ne doit sortir de ces zones."
-    }
-  },
-  "TVI|TVI/CNN Portugal|Telepromoção": {
-    "en": {
-      "dimensao": "1920x1080px (studio plasma screen; the plasma's usable area is 220px tall from the bottom of the screen) and 1920x1080px oráculo (prompter graphic)",
-      "tipoFicheiro": "Images/graphics: JPEG, PNG, PSD, AI/EPS (Illustrator CC version), TIFF or TGA, all at HD resolution; 3D files: C4D (ideal format), FBX or OBJ. Video: Generic video format (unless stated otherwise): MXF OP1a wrapper (.MXF), XDCAM HD 4:2:2, 1080i, 25 fps, interlaced (Upper/odd Field First), MPEG2 @ 50Mbps, 4:2:2@HL profile, 1920x1080px, 16:9 aspect ratio. Audio: 8 channels @ 24 bits, PGM on the first two channels, 48.0 KHz, uncompressed PCM (.wav or .aiff after unwrapping), reference level -20dBFS, loudness -23 LUFS (EBU R.128).",
-      "observacoes": "Materials to supply for graphics production, or graphics already finalised — used on the studio's plasma screen (for videos, photos or graphics) and/or on the oráculo (prompter graphic). Must be framed inside the indicated safe areas so logos and text are not at risk of being cut off or distorted (General Safe Area: 96px horizontal / 54px vertical from the edge; Title Safe Area: 192px horizontal / 108px vertical — no relevant information should fall outside these areas. On the studio plasma, the usable area starts 220px from the bottom of the screen; the oráculo follows the Title Safe Area). Scripts for 60″ telepromoções should be between 730 and 800 characters without spacing. Fonts must be supplied in TT format, for PC; colour references in RGB. All materials must be supplied at least one week ahead of the telepromoção's air date, in the formats listed."
-    },
-    "es": {
-      "dimensao": "1920x1080px (plasma del estudio; el área útil del plasma tiene 220px de altura desde la base de la pantalla) y oráculo 1920x1080px",
-      "tipoFicheiro": "Imágenes/grafismos: JPEG, PNG, PSD, AI/EPS (Illustrator versión CC), TIFF o TGA, todos en resolución HD; ficheros 3D: C4D (formato ideal), FBX u OBJ. Vídeo: Formato de vídeo genérico (salvo indicación contraria): wrapper MXF OP1a (.MXF), XDCAM HD 4:2:2, 1080i, 25 fps, entrelazado (Upper/odd Field First), MPEG2 @ 50Mbps, perfil 4:2:2@HL, 1920x1080px, aspect ratio 16:9. Audio: 8 canales @ 24 bits, PGM en los dos primeros canales, 48.0 KHz, PCM sin comprimir (.wav o .aiff tras desempaquetar), nivel de referencia -20dBFS, loudness -23 LUFS (EBU R.128).",
-      "observacoes": "Materiales a proporcionar para la producción de grafismos, o grafismos ya finalizados — usados en el plasma existente en el estudio (para pasar vídeos, fotografías o grafismos) y/o en el oráculo. Deben encuadrarse dentro de las áreas de seguridad indicadas para que los logos y textos no corran el riesgo de ser cortados o distorsionados (Safe Area general: 96px horizontales / 54px verticales desde el margen; Title Safe Area: 192px horizontales / 108px verticales — ninguna información relevante debe quedar fuera de estas áreas. En el plasma de estudio, el área útil empieza a 220px desde la base de la pantalla; en el oráculo se aplica el Title Safe Area). Los guiones para telepromociones de 60″ de duración deben tener entre 730 y 800 caracteres sin espaciado. Las fuentes deben entregarse en formato TT, para PC; las referencias de color en RGB. Todos los materiales deben entregarse con al menos una semana de antelación respecto a la fecha de realización de la telepromoción, en los formatos indicados."
-    },
-    "fr": {
-      "dimensao": "1920x1080px (écran plasma du studio ; la zone utile du plasma fait 220px de haut depuis le bas de l'écran) et oráculo (incrustation) 1920x1080px",
-      "tipoFicheiro": "Images/graphismes : JPEG, PNG, PSD, AI/EPS (Illustrator version CC), TIFF ou TGA, tous en résolution HD ; fichiers 3D : C4D (format idéal), FBX ou OBJ. Vidéo : Format vidéo générique (sauf indication contraire) : wrapper MXF OP1a (.MXF), XDCAM HD 4:2:2, 1080i, 25 fps, entrelacé (Upper/odd Field First), MPEG2 @ 50Mbps, profil 4:2:2@HL, 1920x1080px, aspect ratio 16:9. Audio : 8 canaux @ 24 bits, PGM sur les deux premiers canaux, 48.0 KHz, PCM non compressé (.wav ou .aiff après déballage), niveau de référence -20dBFS, loudness -23 LUFS (EBU R.128).",
-      "observacoes": "Matériaux à fournir pour la production de graphismes, ou graphismes déjà finalisés — utilisés sur l'écran plasma du studio (pour diffuser vidéos, photos ou graphismes) et/ou sur l'oráculo (incrustation). Doivent être cadrés dans les zones de sécurité indiquées pour que logos et textes ne risquent pas d'être coupés ou déformés (Safe Area générale : 96px horizontaux / 54px verticaux depuis le bord ; Title Safe Area : 192px horizontaux / 108px verticaux — aucune information pertinente ne doit sortir de ces zones. Sur le plasma du studio, la zone utile commence à 220px du bas de l'écran ; l'oráculo suit la Title Safe Area). Les textes des télépromotions de 60″ doivent compter entre 730 et 800 caractères sans espaces. Les polices doivent être fournies au format TT, pour PC ; les références de couleur en RGB. Tous les matériaux doivent être fournis au moins une semaine avant la date de diffusion de la télépromotion, dans les formats indiqués."
-    }
-  },
   "Clearspot|Clearspot|Especificações por confirmar": {
     "en": {
       "formato": "Specifications to be confirmed",
@@ -9328,6 +9243,74 @@
     "fr": {
       "formato": "Spécifications à confirmer",
       "observacoes": "Concessionnaire ajouté à la base pour l'instant sans formats associés — les spécifications techniques de CS Outdoors n'ont pas encore été fournies. Mettre à jour cette ligne (et ajouter les lignes de format nécessaires) dès réception de l'information."
+    }
+  },
+  "TV|TV|Spot TV (SD — IMX50)": {
+    "en": {
+      "dimensao": "720x576px, 25 fps",
+      "tipoFicheiro": "MXF (OP-1a), IMX50 codec, 50 Mb/s (CBR), 4:2:2 chroma, interlaced (Interlaced UFF, 16:9FHA), .mxf extension",
+      "observacoes": "Mandatory file structure: the advertising content must start on the first video frame and end on the last — 0-frame pre-roll and post-roll, file duration = spot duration x 25 frames. Audio: PCM, 2 channels (stereo), 24 bit, 48 KHz, peak level -3dB TP max., loudness (integrated) -23 LUFS. Suggested file naming: <Pub ID>_<Spot Name>_<Duration>.mxf (e.g. PUB-2015-000345_Fiat 500X Sport Edition_30.mxf) — not mandatory, but recommended whenever possible. Delivery exclusively by a registered user through the GoFastWay Portal (www.gofastway.tv). All files go through automatic quality control (technical compliance with these specs + subjective video and audio review); in case of inconsistency, GoFastWay may request delivery of a corrected file."
+    },
+    "es": {
+      "dimensao": "720x576px, 25 fps",
+      "tipoFicheiro": "MXF (OP-1a), códec IMX50, 50 Mb/s (CBR), croma 4:2:2, entrelazado (Interlaced UFF, 16:9FHA), extensión .mxf",
+      "observacoes": "Estructura obligatoria del archivo: el contenido publicitario debe empezar en el primer fotograma de vídeo y terminar en el último — pre-roll y post-roll de 0 fotogramas, duración del archivo = duración del spot x 25 fotogramas. Audio: PCM, 2 canales (estéreo), 24 bit, 48 KHz, nivel de pico -3dB TP máx., sonoridad (integrada) -23 LUFS. Nomenclatura sugerida para el archivo: <Pub ID>_<Nombre del Spot>_<Duración>.mxf (ej.: PUB-2015-000345_Fiat 500X Sport Edition_30.mxf) — no es obligatoria, pero sí recomendada siempre que sea posible. Entrega exclusivamente por un usuario registrado a través del Portal GoFastWay (www.gofastway.tv). Todos los archivos pasan por un control de calidad automático (conformidad técnica con estas specs + análisis subjetivo de vídeo y audio); en caso de incoherencia, GoFastWay puede solicitar la entrega de un nuevo archivo corregido."
+    },
+    "fr": {
+      "dimensao": "720x576px, 25 fps",
+      "tipoFicheiro": "MXF (OP-1a), codec IMX50, 50 Mb/s (CBR), chroma 4:2:2, entrelacé (Interlaced UFF, 16:9FHA), extension .mxf",
+      "observacoes": "Structure obligatoire du fichier : le contenu publicitaire doit commencer à la première image vidéo et se terminer à la dernière — pre-roll et post-roll de 0 image, durée du fichier = durée du spot x 25 images. Audio : PCM, 2 canaux (stéréo), 24 bits, 48 KHz, niveau de crête -3dB TP max., sonie (intégrée) -23 LUFS. Nomenclature suggérée pour le fichier : <Pub ID>_<Nom du Spot>_<Durée>.mxf (ex. : PUB-2015-000345_Fiat 500X Sport Edition_30.mxf) — non obligatoire, mais recommandée dans la mesure du possible. Livraison exclusivement par un utilisateur enregistré via le Portail GoFastWay (www.gofastway.tv). Tous les fichiers passent par un contrôle qualité automatique (conformité technique à ces spécifications + analyse subjective de la vidéo et de l'audio) ; en cas d'incohérence, GoFastWay peut demander la livraison d'un nouveau fichier corrigé."
+    }
+  },
+  "TV|TV|Spot TV (HD — XDCAM HD422)": {
+    "en": {
+      "dimensao": "1920x1080px, 25 fps",
+      "tipoFicheiro": "MXF (OP-1a), XDCAM HD422 codec, 50 Mb/s min. (CBR), 4:2:2 chroma, interlaced (Interlaced UFF), .mxf extension",
+      "observacoes": "Mandatory file structure: the advertising content must start on the first video frame and end on the last — 0-frame pre-roll and post-roll, file duration = spot duration x 25 frames. Audio: PCM, 2 channels (stereo), 24 bit, 48 KHz, peak level -3dB TP max., loudness (integrated) -23 LUFS. Suggested file naming: <Pub ID>_<Spot Name>_<Duration>.mxf (e.g. PUB-2015-000345_Fiat 500X Sport Edition_30.mxf) — not mandatory, but recommended whenever possible. Delivery exclusively by a registered user through the GoFastWay Portal (www.gofastway.tv). All files go through automatic quality control (technical compliance with these specs + subjective video and audio review); in case of inconsistency, GoFastWay may request delivery of a corrected file."
+    },
+    "es": {
+      "dimensao": "1920x1080px, 25 fps",
+      "tipoFicheiro": "MXF (OP-1a), códec XDCAM HD422, 50 Mb/s mín. (CBR), croma 4:2:2, entrelazado (Interlaced UFF), extensión .mxf",
+      "observacoes": "Estructura obligatoria del archivo: el contenido publicitario debe empezar en el primer fotograma de vídeo y terminar en el último — pre-roll y post-roll de 0 fotogramas, duración del archivo = duración del spot x 25 fotogramas. Audio: PCM, 2 canales (estéreo), 24 bit, 48 KHz, nivel de pico -3dB TP máx., sonoridad (integrada) -23 LUFS. Nomenclatura sugerida para el archivo: <Pub ID>_<Nombre del Spot>_<Duración>.mxf (ej.: PUB-2015-000345_Fiat 500X Sport Edition_30.mxf) — no es obligatoria, pero sí recomendada siempre que sea posible. Entrega exclusivamente por un usuario registrado a través del Portal GoFastWay (www.gofastway.tv). Todos los archivos pasan por un control de calidad automático (conformidad técnica con estas specs + análisis subjetivo de vídeo y audio); en caso de incoherencia, GoFastWay puede solicitar la entrega de un nuevo archivo corregido."
+    },
+    "fr": {
+      "dimensao": "1920x1080px, 25 fps",
+      "tipoFicheiro": "MXF (OP-1a), codec XDCAM HD422, 50 Mb/s min. (CBR), chroma 4:2:2, entrelacé (Interlaced UFF), extension .mxf",
+      "observacoes": "Structure obligatoire du fichier : le contenu publicitaire doit commencer à la première image vidéo et se terminer à la dernière — pre-roll et post-roll de 0 image, durée du fichier = durée du spot x 25 images. Audio : PCM, 2 canaux (stéréo), 24 bits, 48 KHz, niveau de crête -3dB TP max., sonie (intégrée) -23 LUFS. Nomenclature suggérée pour le fichier : <Pub ID>_<Nom du Spot>_<Durée>.mxf (ex. : PUB-2015-000345_Fiat 500X Sport Edition_30.mxf) — non obligatoire, mais recommandée dans la mesure du possible. Livraison exclusivement par un utilisateur enregistré via le Portail GoFastWay (www.gofastway.tv). Tous les fichiers passent par un contrôle qualité automatique (conformité technique à ces spécifications + analyse subjective de la vidéo et de l'audio) ; en cas d'incohérence, GoFastWay peut demander la livraison d'un nouveau fichier corrigé."
+    }
+  },
+  "TV|TV|Telepromoção": {
+    "en": {
+      "dimensao": "1920x1080px (studio plasma screen; the plasma's usable area is 220px tall from the bottom of the screen) and 1920x1080px oráculo (prompter graphic)",
+      "tipoFicheiro": "Images/graphics: JPEG, PNG, PSD, AI/EPS (Illustrator CC version), TIFF or TGA, all at HD resolution; 3D files: C4D (ideal format), FBX or OBJ. Video: Generic video format (unless stated otherwise): MXF OP1a wrapper (.MXF), XDCAM HD 4:2:2, 1080i, 25 fps, interlaced (Upper/odd Field First), MPEG2 @ 50Mbps, 4:2:2@HL profile, 1920x1080px, 16:9 aspect ratio. Audio: 8 channels @ 24 bits, PGM on the first two channels, 48.0 KHz, uncompressed PCM (.wav or .aiff after unwrapping), reference level -20dBFS, loudness -23 LUFS (EBU R.128).",
+      "observacoes": "Materials to supply for graphics production, or graphics already finalised — used on the studio's plasma screen (for videos, photos or graphics) and/or on the oráculo (prompter graphic). Must be framed inside the indicated safe areas so logos and text are not at risk of being cut off or distorted (General Safe Area: 96px horizontal / 54px vertical from the edge; Title Safe Area: 192px horizontal / 108px vertical — no relevant information should fall outside these areas. On the studio plasma, the usable area starts 220px from the bottom of the screen; the oráculo follows the Title Safe Area). Scripts for 60″ telepromoções should be between 730 and 800 characters without spacing. Fonts must be supplied in TT format, for PC; colour references in RGB. All materials must be supplied at least one week ahead of the telepromoção's air date, in the formats listed."
+    },
+    "es": {
+      "dimensao": "1920x1080px (plasma del estudio; el área útil del plasma tiene 220px de altura desde la base de la pantalla) y oráculo 1920x1080px",
+      "tipoFicheiro": "Imágenes/grafismos: JPEG, PNG, PSD, AI/EPS (Illustrator versión CC), TIFF o TGA, todos en resolución HD; ficheros 3D: C4D (formato ideal), FBX u OBJ. Vídeo: Formato de vídeo genérico (salvo indicación contraria): wrapper MXF OP1a (.MXF), XDCAM HD 4:2:2, 1080i, 25 fps, entrelazado (Upper/odd Field First), MPEG2 @ 50Mbps, perfil 4:2:2@HL, 1920x1080px, aspect ratio 16:9. Audio: 8 canales @ 24 bits, PGM en los dos primeros canales, 48.0 KHz, PCM sin comprimir (.wav o .aiff tras desempaquetar), nivel de referencia -20dBFS, loudness -23 LUFS (EBU R.128).",
+      "observacoes": "Materiales a proporcionar para la producción de grafismos, o grafismos ya finalizados — usados en el plasma existente en el estudio (para pasar vídeos, fotografías o grafismos) y/o en el oráculo. Deben encuadrarse dentro de las áreas de seguridad indicadas para que los logos y textos no corran el riesgo de ser cortados o distorsionados (Safe Area general: 96px horizontales / 54px verticales desde el margen; Title Safe Area: 192px horizontales / 108px verticales — ninguna información relevante debe quedar fuera de estas áreas. En el plasma de estudio, el área útil empieza a 220px desde la base de la pantalla; en el oráculo se aplica el Title Safe Area). Los guiones para telepromociones de 60″ de duración deben tener entre 730 y 800 caracteres sin espaciado. Las fuentes deben entregarse en formato TT, para PC; las referencias de color en RGB. Todos los materiales deben entregarse con al menos una semana de antelación respecto a la fecha de realización de la telepromoción, en los formatos indicados."
+    },
+    "fr": {
+      "dimensao": "1920x1080px (écran plasma du studio ; la zone utile du plasma fait 220px de haut depuis le bas de l'écran) et oráculo (incrustation) 1920x1080px",
+      "tipoFicheiro": "Images/graphismes : JPEG, PNG, PSD, AI/EPS (Illustrator version CC), TIFF ou TGA, tous en résolution HD ; fichiers 3D : C4D (format idéal), FBX ou OBJ. Vidéo : Format vidéo générique (sauf indication contraire) : wrapper MXF OP1a (.MXF), XDCAM HD 4:2:2, 1080i, 25 fps, entrelacé (Upper/odd Field First), MPEG2 @ 50Mbps, profil 4:2:2@HL, 1920x1080px, aspect ratio 16:9. Audio : 8 canaux @ 24 bits, PGM sur les deux premiers canaux, 48.0 KHz, PCM non compressé (.wav ou .aiff après déballage), niveau de référence -20dBFS, loudness -23 LUFS (EBU R.128).",
+      "observacoes": "Matériaux à fournir pour la production de graphismes, ou graphismes déjà finalisés — utilisés sur l'écran plasma du studio (pour diffuser vidéos, photos ou graphismes) et/ou sur l'oráculo (incrustation). Doivent être cadrés dans les zones de sécurité indiquées pour que logos et textes ne risquent pas d'être coupés ou déformés (Safe Area générale : 96px horizontaux / 54px verticaux depuis le bord ; Title Safe Area : 192px horizontaux / 108px verticaux — aucune information pertinente ne doit sortir de ces zones. Sur le plasma du studio, la zone utile commence à 220px du bas de l'écran ; l'oráculo suit la Title Safe Area). Les textes des télépromotions de 60″ doivent compter entre 730 et 800 caractères sans espaces. Les polices doivent être fournies au format TT, pour PC ; les références de couleur en RGB. Tous les matériaux doivent être fournis au moins une semaine avant la date de diffusion de la télépromotion, dans les formats indiqués."
+    }
+  },
+  "TV|TV|Ecrã Fracionado / Split Screen": {
+    "en": {
+      "dimensao": "480x1080px (25% of a 1920x1080px screen), 25 fps",
+      "tipoFicheiro": "QuickTime (.MOV), ProRes 4444 (with Alpha channel) or ProRes 422 (without Alpha), 1080i interlaced (Upper/odd Field First), 25 fps",
+      "observacoes": "Advertising content occupying at most 25% of the screen, aired simultaneously with entertainment, sports and magazine programmes. Duration 10″, including entry and exit within those 10″. No audio. The word \"PUBLICIDADE\" must stay clearly legible and inside the Safe Area for the whole time it is on air. It enters from the right of the screen on TVI and from the left on CNN Portugal. General Safe Area: 96px horizontal / 54px vertical from the edge; Title Safe Area: 192px horizontal / 108px vertical — no relevant information should fall outside these areas."
+    },
+    "es": {
+      "dimensao": "480x1080px (25% de una pantalla de 1920x1080px), 25 fps",
+      "tipoFicheiro": "QuickTime (.MOV), ProRes 4444 (con canal Alpha) o ProRes 422 (sin Alpha), 1080i entrelazado (Upper/odd Field First), 25 fps",
+      "observacoes": "Contenido publicitario que ocupa como máximo el 25% de la pantalla, emitido simultáneamente con programas de entretenimiento, deporte y magazine. Duración 10″, con entrada y salida incluidas en esos 10″. Sin audio. La palabra \"PUBLICIDADE\" debe mantenerse legible y dentro del Safe Area durante todo el tiempo que está en emisión. Entra por la derecha de la pantalla en TVI y por la izquierda en CNN Portugal. Safe Area general: 96px horizontales / 54px verticales desde el margen; Title Safe Area: 192px horizontales / 108px verticales — ninguna información relevante debe quedar fuera de estas áreas."
+    },
+    "fr": {
+      "dimensao": "480x1080px (25% d'un écran 1920x1080px), 25 fps",
+      "tipoFicheiro": "QuickTime (.MOV), ProRes 4444 (avec canal Alpha) ou ProRes 422 (sans Alpha), 1080i entrelacé (Upper/odd Field First), 25 fps",
+      "observacoes": "Contenu publicitaire occupant au maximum 25% de l'écran, diffusé simultanément avec des programmes de divertissement, de sport et magazine. Durée 10″, entrée et sortie incluses dans ces 10″. Sans son. Le mot \"PUBLICIDADE\" doit rester lisible et dans la Safe Area pendant toute la diffusion. Il entre par la droite de l'écran sur TVI et par la gauche sur CNN Portugal. Safe Area générale : 96px horizontaux / 54px verticaux depuis le bord ; Title Safe Area : 192px horizontaux / 108px verticaux — aucune information pertinente ne doit sortir de ces zones."
     }
   }
 }

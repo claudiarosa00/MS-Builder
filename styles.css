@@ -199,6 +199,13 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   background: none;
 }
 
+/* TV e Rádio com um único publisher lá dentro: o nome da categoria é o
+   próprio link direto para essa secção (ver atualizarIndicePublishers em
+   app.js) — sem seta, sem nome de publisher repetido por baixo. */
+.indice-categoria--link {
+  text-decoration: none;
+}
+
 .indice-categoria-seta {
   display: inline-block;
   font-size: 9px;

@@ -688,14 +688,21 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes) {
   // "Rodapé", ...) mas dimensões diferentes; sem a coluna não daria para
   // os distinguir. Para a maioria dos publishers (onde Veículo = Fornecedor)
   // a coluna nem aparece, para não ficar redundante.
-  // A Duração do Spot só faz sentido para TV/Rádio, e só na tab "Construir
-  // Pedido" (onde há uma seleção concreta a que a duração se aplica) — na
-  // Biblioteca de Formatos, que só mostra as specs "em bruto", não aparece.
+  // A Duração do Spot só faz sentido para formatos de "spot" (ver
+  // formatoTemDuracao), e só na tab "Construir Pedido" (onde há uma
+  // seleção concreta a que a duração se aplica) — na Biblioteca de
+  // Formatos, que só mostra as specs "em bruto", não aparece. A coluna
+  // liga-se por publisher (basta UM formato do bloco precisar dela — ex.:
+  // o bloco "TV" tem "Spot TV" a par de "Ecrã Fracionado"/"Telepromoção",
+  // que não são spots), mas cada LINHA decide por si própria se mostra o
+  // seletor ou só um traço (ver criarLinhaFormato) — nunca basta olhar
+  // só para o primeiro formato do bloco, porque um publisher pode
+  // misturar formatos com e sem esse conceito.
   const opcoesComMeio = {
     ...opcoes,
     comGrupoDigital2020: grupoMeioDoFormato(formatosDoPublisher[0]) === "Digital",
     comVeiculo: formatosDoPublisher.some((f) => f.veiculo && f.veiculo !== nomePublisher),
-    comDuracao: opcoes.simplificado && formatoTemDuracao(formatosDoPublisher[0]),
+    comDuracao: opcoes.simplificado && formatosDoPublisher.some(formatoTemDuracao),
   };
 
   const tabela = document.createElement("table");
@@ -798,7 +805,14 @@ function criarLinhaFormato(formato, opcoes) {
     ? `<td><span class="etiqueta-dg2020">${formato.grupoDigital2020 ?? "—"}</span></td>`
     : "";
   const colunaVeiculo = opcoes.comVeiculo ? `<td>${formato.veiculo ?? "—"}</td>` : "";
-  const colunaDuracao = opcoes.comDuracao ? `<td>${criarCelulaDuracao(formato)}</td>` : "";
+  // opcoes.comDuracao diz se ESTE PUBLISHER tem a coluna (basta um formato
+  // do bloco precisar); dentro dela, cada linha ainda decide por si própria
+  // se mostra o seletor ou só um traço — um publisher pode misturar
+  // formatos de spot com outros que não têm essa noção (ex.: "TV" tem
+  // "Spot TV" a par de "Ecrã Fracionado").
+  const colunaDuracao = opcoes.comDuracao
+    ? `<td>${formatoTemDuracao(formato) ? criarCelulaDuracao(formato) : "—"}</td>`
+    : "";
 
   if (opcoes.simplificado) {
     linha.innerHTML = `
@@ -848,11 +862,13 @@ filtro, de idioma, de tab).
 */
 const categoriasIndiceExpandidas = new Set();
 
-// TV e Rádio não têm o botão recolhível ▸ — têm sempre poucos fornecedores
-// lá dentro (ao contrário de Digital ou OOH), e o que varia de pedido para
-// pedido (a secundagem do spot) já fica dentro da própria tabela, não teria
-// nada que uma dropdown escondesse por defeito. Os links aparecem sempre
-// visíveis, direto por baixo do nome da categoria.
+// TV e Rádio não têm o botão recolhível ▸ — nenhum formato desses meios
+// fica associado a um canal ou estação em concreto (ver README), por isso
+// há sempre um único publisher lá dentro ("TV"/"Rádio"), e nesse caso o
+// próprio nome da categoria já é o link direto para essa secção (ver mais
+// abaixo). Se um dia passar a haver mais que um publisher nestas
+// categorias, cai-se de volta na lista de links sempre visível (sem
+// dropdown, mas sem um único link direto).
 const CATEGORIAS_SEM_DROPDOWN_INDICE = new Set(["TV", "Rádio"]);
 
 function atualizarIndicePublishers() {
@@ -886,6 +902,26 @@ function atualizarIndicePublishers() {
     }
 
     const semDropdown = CATEGORIAS_SEM_DROPDOWN_INDICE.has(categoria);
+
+    // Com um só publisher lá dentro (o caso normal de TV/Rádio — nenhum
+    // formato fica associado a um canal ou estação em concreto, ver
+    // formatoTemDuracao/README), nem faz sentido mostrar o nome do
+    // publisher outra vez por baixo: o nome da própria categoria já é o
+    // link direto para essa secção, sem nenhum passo de abrir/fechar.
+    if (semDropdown && blocosDaCategoria.length === 1) {
+      const bloco = blocosDaCategoria[0];
+      const link = document.createElement("a");
+      link.className = "indice-categoria indice-categoria--link";
+      link.href = `#${bloco.id}`;
+      link.textContent = t(CHAVE_TRADUCAO_CATEGORIA[categoria]);
+      link.addEventListener("click", (evento) => {
+        evento.preventDefault();
+        bloco.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      indicePublishers.appendChild(link);
+      continue;
+    }
+
     const expandida = semDropdown || categoriasIndiceExpandidas.has(categoria);
 
     if (semDropdown) {

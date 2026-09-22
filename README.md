@@ -25,12 +25,12 @@ processo manual que antes era feito diretamente em Excel.
   é recolhível — começa fechada, só a mostrar o nome, e um clique nela (ou
   na setinha) é que revela os publishers lá dentro; o estado aberto/fechado
   mantém-se ao mudar de filtro, de idioma ou de tab. TV e Rádio são a
-  exceção: nunca têm essa seta/dropdown, os publishers aparecem sempre
-  visíveis logo abaixo do nome da categoria (ver
-  `CATEGORIAS_SEM_DROPDOWN_INDICE` em `app.js`) — são categorias com poucos
-  fornecedores, e o que varia de pedido para pedido (a secundagem do spot)
-  já vive dentro da própria tabela, não haveria nada que uma dropdown
-  fechada por defeito ajudasse a esconder.
+  exceção: nunca têm essa seta/dropdown — como nenhum formato desses meios
+  fica associado a um canal ou estação em concreto (ver mais abaixo), há
+  sempre um único publisher lá dentro ("TV"/"Rádio"), por isso o próprio
+  nome da categoria já é o link direto para essa secção, sem nenhum passo
+  de abrir/fechar primeiro (ver `CATEGORIAS_SEM_DROPDOWN_INDICE` em
+  `app.js`).
 - Suporta 4 idiomas (Português, Inglês, Espanhol, Francês) — interface,
   cabeçalhos do Excel, e também as specs de cada formato (Dimensão, Aspect
   Ratio, Peso, Tipo de Ficheiro, Copies) mudam de língua, através de um
@@ -78,7 +78,7 @@ templates/                  Reservado para uso futuro (atualmente vazio)
 
 ## Base de dados de formatos
 
-Os 528 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
+Os 527 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
 mapeados a partir da base real de specs da agência (269 formatos de
 publisher → 40 categorias "Digital2020" canónicas, mais os formatos
 Programmatic/DV360 adicionados depois, os 36 formatos de compra direta do
@@ -96,11 +96,12 @@ houver especificações), os 124 formatos de Imprensa —
 Correio da Manhã (jornal diário + suplemento Mais Sport + revistas
 semanais Boa Onda/VIDAS/Domingo), Destak, Jornal de Negócios, Record,
 Sábado (+ Sábado Viajante), TV Guia, Expresso (1º Caderno + Economia +
-Revista E) e Attitude, e os 5 formatos de TV (`Meio = "TV"`): Spot normal
-em SD/IMX50 e HD/XDCAM HD422 (`Fornecedor = "GoFastWay"`), e Ecrã
-Fracionado/Split Screen (TVI e CNN Portugal) e Telepromoção
-(`Fornecedor = "TVI"`) — mais o primeiro de Rádio (`Meio = "Rádio"`, Spot
-normal em MP4). Colunas:
+Revista E) e Attitude, e os 4 formatos de TV (`Meio = "TV"`,
+`Fornecedor = Veículo = "TV"` — nenhum fica associado a um canal ou
+estação em concreto, ver mais abaixo): Spot normal em SD/IMX50 e
+HD/XDCAM HD422, Ecrã Fracionado/Split Screen e Telepromoção — mais o
+primeiro de Rádio (`Meio = "Rádio"`, `Fornecedor = Veículo = "Rádio"`,
+Spot normal em MP4). Colunas:
 **Meio**, **Canal**, **Fornecedor**, **Veículo**, **Grupo Digital2020**,
 **Formato**, **Dimensão**, **Aspect Ratio**, **Peso**, **Tipo de
 Ficheiro**, **Copies**, **Observações**, **Link**.
@@ -168,24 +169,30 @@ dimensão/tipo de ficheiro inventado, à espera das specs reais —, e o meio
 da Manhã, Destak, Jornal de Negócios, Record, Sábado, Sábado Viajante,
 TV Guia, Expresso e Attitude) — Página, Página Dupla, meias e quartos de
 página, rodapés, orelhas de capa e outros formatos especiais próprios de
-cada publicação, e os meios **TV** e **Rádio**. TV tem hoje 5 formatos:
-"Spot normal" entregue via Portal GoFastWay (`Fornecedor = "GoFastWay"`),
-em SD (IMX50, 720x576px) ou HD (XDCAM HD422, 1920x1080px), conforme as
-especificações técnicas oficiais da GoFastWay para entrega de ficheiros
-de spots de publicidade; e "Ecrã Fracionado/Split Screen" e
-"Telepromoção" (`Fornecedor = "TVI"`), a partir da informação técnica
-oficial da TVI/CNN Portugal (INF-COM-090/23) — o Ecrã Fracionado tem uma
-linha por Veículo (TVI e CNN Portugal) porque só isso muda entre os dois
-canais (o lado por onde entra no ecrã), e a Telepromoção é partilhada
-pelos dois (`Veículo = "TVI/CNN Portugal"`). Outros formatos de TV que a
-agência pediu — Colocação de Produto, Cartão de Patrocínio, Countdown —
-**não** entraram na base: o documento fornecido não tem specs para eles,
-e as páginas oficiais da SIC (`solutions.impresa.pt/formatos`) e da
-TVI/CNN Portugal (`mediacapitalcomercial.pt/formats/tv`) partilhadas pela
-Cláudia não puderam ser consultadas a partir deste ambiente (bloqueadas
-pela política de rede) — a atualizar assim que houver specs reais, nunca
-por palpite. Rádio continua só com "Spot normal" em MP4/AAC — como não
-foi fornecida nenhuma tabela de specs de uma rádio ou plataforma de
+cada publicação, e os meios **TV** e **Rádio**. Por decisão explícita,
+nenhum formato de TV ou Rádio fica associado a um canal, estação ou
+plataforma de entrega em concreto — `Fornecedor = Veículo = "TV"` (ou
+`"Rádio"`) em todas as linhas, sem coluna Veículo própria — porque são
+opções de formato, não escolhas de canal: um pedido de "Spot TV" ou
+"Ecrã Fracionado" não depende de que estação o vai exibir. TV tem hoje 4
+formatos: "Spot normal" em SD (IMX50, 720x576px) e HD (XDCAM HD422,
+1920x1080px), com as especificações técnicas oficiais de entrega de
+ficheiros através da plataforma de upload GoFastWay (www.gofastway.tv —
+uma plataforma onde o cliente carrega os spots, não um canal, por isso
+só é mencionada nas Observações, não no Fornecedor); e "Ecrã
+Fracionado/Split Screen" e "Telepromoção", a partir da informação
+técnica oficial da TVI/CNN Portugal (INF-COM-090/23) — a única diferença
+real entre os dois canais (o lado por onde o Ecrã Fracionado entra no
+ecrã) fica descrita na Observação desse formato, em vez de duplicar a
+linha por canal. Outros formatos de TV que a agência pediu — Colocação
+de Produto, Cartão de Patrocínio, Countdown — **não** entraram na base: o
+documento fornecido não tem specs para eles, e as páginas oficiais da SIC
+(`solutions.impresa.pt/formatos`) e da TVI/CNN Portugal
+(`mediacapitalcomercial.pt/formats/tv`) partilhadas pela Cláudia não
+puderam ser consultadas a partir deste ambiente (bloqueadas pela
+política de rede) — a atualizar assim que houver specs reais, nunca por
+palpite. Rádio continua só com "Spot normal" em MP4/AAC — como não foi
+fornecida nenhuma tabela de specs de uma rádio ou plataforma de
 distribuição concreta, este formato usa valores genéricos de entrega (o
 mesmo padrão de loudness broadcast já usado para TV), sinalizados no
 campo Observações como "a confirmar sempre junto da rádio ou da central
@@ -194,21 +201,20 @@ O meio offline restante (Cinema) já tem a estrutura de exportação pronta
 (a sua própria folha), mas entra na base só quando houver dados reais
 para o mapear — nunca é inventado.
 
-Alguns publishers têm mais que um **Veículo** distinto — em Imprensa,
+Alguns publishers de Imprensa têm mais que um **Veículo** distinto — ex.:
 "Correio da Manhã" cobre o jornal diário, o suplemento "Mais Sport" e as
-3 revistas semanais "Boa Onda"/"VIDAS"/"Domingo"; em TV, "TVI" cobre os
-canais "TVI" e "CNN Portugal" — cada um com as suas próprias
-dimensões/observações mesmo quando o nome do Formato se repete (ex.:
-"Página" existe em 5 veículos diferentes do Correio da Manhã, "Ecrã
-Fracionado/Split Screen" existe em 2 veículos da TVI). Por isso a coluna
-**Veículo** ganha uma coluna própria na Biblioteca de Formatos e no
-Construir Pedido sempre que, dentro de um publisher, há mais que um
-veículo distinto do próprio nome do publisher — nos restantes casos
-(a maioria, onde Veículo = Fornecedor) a coluna nem aparece, para não
-ficar redundante (ver `opcoes.comVeiculo` em `app.js`). Dentro de cada
-publisher, as linhas ficam sempre por ordem alfabética — primeiro pelo
-Veículo, depois pelo Formato — para blocos como o Correio da Manhã ou a
-TVI não dependerem da ordem em que as linhas foram acrescentadas à base.
+3 revistas semanais "Boa Onda"/"VIDAS"/"Domingo" —, cada um com as suas
+próprias dimensões/observações mesmo quando o nome do Formato se repete
+(ex.: "Página" existe em 5 veículos diferentes do Correio da Manhã). Por
+isso a coluna **Veículo** ganha uma coluna própria na Biblioteca de
+Formatos e no Construir Pedido sempre que, dentro de um publisher, há
+mais que um veículo distinto do próprio nome do publisher — nos
+restantes casos (a maioria, incluindo TV e Rádio, onde Veículo =
+Fornecedor) a coluna nem aparece, para não ficar redundante (ver
+`opcoes.comVeiculo` em `app.js`). Dentro de cada publisher, as linhas
+ficam sempre por ordem alfabética — primeiro pelo Veículo, depois pelo
+Formato — para blocos como o Correio da Manhã não dependerem da ordem em
+que as linhas foram acrescentadas à base.
 
 ## Traduções das specs (EN/ES/FR)
 
