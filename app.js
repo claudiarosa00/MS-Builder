@@ -181,6 +181,9 @@ const TRADUCOES = {
   colFonte: { pt: "Fonte", en: "Source", es: "Fuente", fr: "Source" },
   colCanal: { pt: "Canal", en: "Channel", es: "Canal", fr: "Canal" },
   colPlataforma: { pt: "Plataforma/Publisher", en: "Platform/Publisher", es: "Plataforma/Publisher", fr: "Plateforme/Éditeur" },
+  colEstacao: { pt: "Estação", en: "Station", es: "Estación", fr: "Station" },
+  colConcessionario: { pt: "Concessionário", en: "Concessionaire", es: "Concesionario", fr: "Concessionnaire" },
+  colTitulo: { pt: "Título", en: "Title", es: "Título", fr: "Titre" },
   colLink: { pt: "Link", en: "Link", es: "Enlace", fr: "Lien" },
   canalInternet: { pt: "Internet", en: "Internet", es: "Internet", fr: "Internet" },
   canalSocialMedia: { pt: "Social Media", en: "Social Media", es: "Social Media", fr: "Social Media" },
@@ -1202,13 +1205,106 @@ function grupoMeioDoFormato(formato) {
   return VALOR_BASE_PARA_GRUPO_MEIO[valorBase] || formato.meio || "Digital";
 }
 
+// A coluna "Plataforma/Publisher" chama-se de forma diferente consoante o
+// meio, porque é isso que a equipa desse meio reconhece (a estação de
+// rádio, o canal de TV, o concessionário de OOH, o título de imprensa).
+// Um meio sem entrada aqui mantém o rótulo genérico "Plataforma/Publisher".
+const CHAVE_TRADUCAO_COL_PLATAFORMA_POR_MEIO = {
+  "Rádio": "colEstacao",
+  "TV": "colCanal",
+  "OOH": "colConcessionario",
+  "Imprensa": "colTitulo",
+};
+
+// Cada coluna possível numa folha Excel exportada: a largura, como obter
+// o título (pode depender do grupoMeio, só para a Plataforma) e como
+// obter o valor da célula a partir do formato.
+const COLUNAS_EXCEL_DISPONIVEIS = {
+  canal: {
+    largura: 14,
+    titulo: () => t("colCanal"),
+    valor: (formato) => canalExibicaoFormato(formato),
+  },
+  plataforma: {
+    largura: 20,
+    titulo: (grupoMeio) => t(CHAVE_TRADUCAO_COL_PLATAFORMA_POR_MEIO[grupoMeio] || "colPlataforma"),
+    valor: (formato) => formato.veiculo,
+  },
+  formato: {
+    largura: 28,
+    titulo: () => t("colFormato"),
+    valor: (formato, objetivo) => textoFormatoComDuracao(formato, objetivo),
+  },
+  tema: {
+    largura: 16,
+    titulo: () => t("colTema"),
+    valor: (formato) => formato.grupoDigital2020 || "—",
+  },
+  dimensao: {
+    largura: 45,
+    titulo: () => t("colDimensao"),
+    valor: (formato) => textoTraduzido(formato, "dimensao") || t("naoEspecificado"),
+  },
+  aspectRatio: {
+    largura: 14,
+    titulo: () => t("colAspectRatio"),
+    valor: (formato) => textoTraduzido(formato, "aspectRatio") || "—",
+  },
+  peso: {
+    largura: 16,
+    titulo: () => t("colPeso"),
+    valor: (formato) => textoTraduzido(formato, "peso") || t("naoEspecificado"),
+  },
+  tipoFicheiro: {
+    largura: 22,
+    titulo: () => t("colTipoFicheiro"),
+    valor: (formato) => textoTraduzido(formato, "tipoFicheiro") || t("naoEspecificado"),
+  },
+  copies: {
+    largura: 40,
+    titulo: () => t("colCopies"),
+    valor: (formato) => textoTraduzido(formato, "copies") || "—",
+  },
+  observacoes: {
+    largura: 40,
+    titulo: () => t("colObservacoes"),
+    valor: (formato) => textoTraduzido(formato, "observacoes") || "—",
+  },
+  link: {
+    largura: 40,
+    titulo: () => t("colLink"),
+    valor: (formato) => (formato.link ? { text: formato.link, hyperlink: formato.link } : t("naoEspecificado")),
+  },
+  dataEntrega: {
+    largura: 20,
+    titulo: () => t("colDataEntrega"),
+    valor: () => "",
+  },
+};
+
+// Cada meio só leva as colunas que lhe fazem sentido — Rádio não tem
+// Dimensão/Aspect Ratio, Imprensa e OOH não têm Canal nem Tema (esse é
+// um conceito só de Digital), etc. Um meio sem entrada aqui usa o
+// conjunto completo do Digital.
+const COLUNAS_POR_MEIO_EXCEL = {
+  "Digital": ["canal", "plataforma", "formato", "tema", "dimensao", "aspectRatio", "peso", "tipoFicheiro", "copies", "observacoes", "link", "dataEntrega"],
+  "OOH": ["plataforma", "formato", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes", "dataEntrega"],
+  "TV": ["plataforma", "formato", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes", "dataEntrega"],
+  "Rádio": ["plataforma", "formato", "tipoFicheiro", "observacoes", "dataEntrega"],
+  "Cinema": ["plataforma", "formato", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes", "dataEntrega"],
+  "Imprensa": ["plataforma", "formato", "dimensao", "tipoFicheiro", "observacoes", "dataEntrega"],
+};
+
 // Escreve uma secção completa (título do objetivo + cabeçalho da tabela +
 // uma linha por formato) a partir da linha indicada, e devolve a próxima
 // linha livre (já com uma linha em branco a separar da secção seguinte).
-function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSeccao, config, objetivo) {
+// colunasChaves é a lista de colunas desta folha (ver COLUNAS_POR_MEIO_EXCEL),
+// sempre precedida pela coluna fixa "#".
+function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSeccao, config, objetivo, colunasChaves, grupoMeio) {
   let linha = linhaInicio;
+  const numColunas = colunasChaves.length + 1;
 
-  folha.mergeCells(linha, 1, linha, 13);
+  folha.mergeCells(linha, 1, linha, numColunas);
   const celulaTitulo = folha.getCell(linha, 1);
   celulaTitulo.value = tituloSeccao;
   celulaTitulo.font = { name: "Arial Nova", size: 12, bold: true, color: { argb: "FFFFFFFF" } };
@@ -1216,7 +1312,7 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
   celulaTitulo.alignment = { vertical: "middle", horizontal: "left" };
   linha += 1;
 
-  const colunas = ["#", t("colCanal"), t("colPlataforma"), t("colFormato"), t("colTema"), t("colDimensao"), t("colAspectRatio"), t("colPeso"), t("colTipoFicheiro"), t("colCopies"), t("colObservacoes"), t("colLink"), t("colDataEntrega")];
+  const colunas = ["#", ...colunasChaves.map((chave) => COLUNAS_EXCEL_DISPONIVEIS[chave].titulo(grupoMeio))];
   colunas.forEach((titulo, indice) => {
     const celula = folha.getCell(linha, indice + 1);
     celula.value = titulo;
@@ -1227,22 +1323,13 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
   });
   linha += 1;
 
+  const indiceColunaLink = colunasChaves.indexOf("link");
+
   formatosDaSeccao.forEach((formato, indice) => {
     const linhaFormato = folha.getRow(linha + indice);
     linhaFormato.values = [
       indice + 1,
-      canalExibicaoFormato(formato),
-      formato.veiculo,
-      textoFormatoComDuracao(formato, objetivo),
-      formato.grupoDigital2020 || "—",
-      textoTraduzido(formato, "dimensao") || t("naoEspecificado"),
-      textoTraduzido(formato, "aspectRatio") || "—",
-      textoTraduzido(formato, "peso") || t("naoEspecificado"),
-      textoTraduzido(formato, "tipoFicheiro") || t("naoEspecificado"),
-      textoTraduzido(formato, "copies") || "—",
-      textoTraduzido(formato, "observacoes") || "—",
-      formato.link ? { text: formato.link, hyperlink: formato.link } : t("naoEspecificado"),
-      "",
+      ...colunasChaves.map((chave) => COLUNAS_EXCEL_DISPONIVEIS[chave].valor(formato, objetivo)),
     ];
     linhaFormato.eachCell((celula) => {
       celula.font = { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } };
@@ -1251,8 +1338,8 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
     });
     // O texto do link fica na cor de destaque, sublinhado, para
     // parecer clicável mesmo antes de o utilizador lhe tocar.
-    if (formato.link) {
-      linhaFormato.getCell(12).font = { name: "Arial Nova", size: 10, color: { argb: "FF1155CC" }, underline: true };
+    if (indiceColunaLink !== -1 && formato.link) {
+      linhaFormato.getCell(indiceColunaLink + 2).font = { name: "Arial Nova", size: 10, color: { argb: "FF1155CC" }, underline: true };
     }
   });
   linha += formatosDaSeccao.length;
@@ -1274,11 +1361,15 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
   // para o Excel ficar limpo e não parecer uma grelha genérica.
   folha.views = [{ showGridLines: false }];
 
-  // --- Larguras de coluna. Têm de ser definidas ANTES de escrever
-  // valores nas células, senão o ExcelJS troca-nos as voltas e perde
-  // o conteúdo já escrito (foi um bug que apanhámos a testar). ---
+  // --- Larguras de coluna, de acordo com o template deste meio (só as
+  // colunas relevantes para ele — ver COLUNAS_POR_MEIO_EXCEL). Têm de ser
+  // definidas ANTES de escrever valores nas células, senão o ExcelJS
+  // troca-nos as voltas e perde o conteúdo já escrito (foi um bug que
+  // apanhámos a testar). ---
+  const colunasChaves = COLUNAS_POR_MEIO_EXCEL[grupoMeio] || COLUNAS_POR_MEIO_EXCEL.Digital;
   folha.columns = [
-    { width: 5 }, { width: 14 }, { width: 20 }, { width: 28 }, { width: 16 }, { width: 45 }, { width: 14 }, { width: 16 }, { width: 22 }, { width: 40 }, { width: 40 }, { width: 40 }, { width: 20 },
+    { width: 5 },
+    ...colunasChaves.map((chave) => ({ width: COLUNAS_EXCEL_DISPONIVEIS[chave].largura })),
   ];
 
   // --- Logótipo da companhia escolhida, no canto superior esquerdo ---
@@ -1324,7 +1415,7 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
     if (formatosDoObjetivo.length === 0) {
       return;
     }
-    linhaAtual = escreverSeccaoObjetivo(folha, linhaAtual, t(CHAVE_TRADUCAO_OBJETIVO[objetivo]), formatosDoObjetivo, config, objetivo);
+    linhaAtual = escreverSeccaoObjetivo(folha, linhaAtual, t(CHAVE_TRADUCAO_OBJETIVO[objetivo]), formatosDoObjetivo, config, objetivo, colunasChaves, grupoMeio);
   });
 }
 
