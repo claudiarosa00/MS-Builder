@@ -72,14 +72,19 @@ templates/                  Reservado para uso futuro (atualmente vazio)
 
 ## Base de dados de formatos
 
-Os 508 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
+Os 523 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
 mapeados a partir da base real de specs da agência (269 formatos de
 publisher → 40 categorias "Digital2020" canónicas, mais os formatos
 Programmatic/DV360 adicionados depois, os 36 formatos de compra direta do
 publisher "Notícias Ilimitadas", os formatos WeTransfer via Azerion,
-Roblox e OLX, o publisher "Bauer" — Reino Unido, os 27 formatos de OOH —
-`Meio = "OOH"` — de MOP, DreamMedia, BIG Outdoors, JCDecaux e Táxi
-Advertising, os 124 formatos de Imprensa — `Meio = "Imprensa"` — de
+Roblox e OLX, o publisher "Bauer" — Reino Unido, os 42 formatos de OOH —
+`Meio = "OOH"` — de MOP (23 formatos: Mupi/4Plus/Outdoor 8x3/Flashes em
+papel, Backlights 4x3/8x3/10x5/12x5, Autocarro em 4 variantes, Multibanco
+Imagem/Vídeo, Mupi Digital/16x9/3 Ecrãs/4x3 Digital/Tomi PhotoFun/Tomi
+Sport TV/LED Galp em digital, e High Impact/Decorações Integrais e
+Grande Formato como formatos genéricos "à escala"), DreamMedia, BIG
+Outdoors, JCDecaux e Táxi Advertising, os 124 formatos de Imprensa —
+`Meio = "Imprensa"` — de
 Correio da Manhã (jornal diário + suplemento Mais Sport + revistas
 semanais Boa Onda/VIDAS/Domingo), Destak, Jornal de Negócios, Record,
 Sábado (+ Sábado Viajante), TV Guia, Expresso (1º Caderno + Economia +
@@ -141,10 +146,12 @@ um palpite.
 Atualmente cobre os meios **Internet** e **Programático** (Social Media,
 Compra Direta, Google/Search e Programático) — ambos aparecem juntos na
 folha "Digital" da exportação —, o meio **OOH** (Publicidade Exterior),
-com 27 formatos reais de MOP, DreamMedia, BIG Outdoors, JCDecaux e Táxi
+com 42 formatos reais de MOP, DreamMedia, BIG Outdoors, JCDecaux e Táxi
 Advertising: Outdoors/Monopostes/Painéis em papel e vinil, Mupis (papel e
-digital), LED indoor/outdoor, Multibanco (ATM) e decoração de táxi, e o
-meio **Imprensa**, com 124 formatos reais de jornais e revistas (Correio
+digital), Backlights (4x3 a 12x5), publicidade em autocarros (4 posições),
+Flashes, 4Plus, ecrãs digitais (16x9, 3 ecrãs, 4x3, Tomi PhotoFun/Sport
+TV, LED Galp), Multibanco (ATM) e decoração de táxi, e o meio
+**Imprensa**, com 124 formatos reais de jornais e revistas (Correio
 da Manhã, Destak, Jornal de Negócios, Record, Sábado, Sábado Viajante,
 TV Guia, Expresso e Attitude) — Página, Página Dupla, meias e quartos de
 página, rodapés, orelhas de capa e outros formatos especiais próprios de
