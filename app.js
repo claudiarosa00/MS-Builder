@@ -219,6 +219,7 @@ const TRADUCOES = {
   colEntrega: { pt: "Entrega", en: "Delivery", es: "Entrega", fr: "Livraison" },
   colEntregaAF: { pt: "Entrega AF", en: "AF Delivery", es: "Entrega AF", fr: "Livraison AF" },
   colEntregaMorada: { pt: "Entrega na Morada", en: "Delivery to Address", es: "Entrega en la Dirección", fr: "Livraison à l'Adresse" },
+  colMoradaEntrega: { pt: "Morada de Entrega", en: "Delivery Address", es: "Dirección de Entrega", fr: "Adresse de Livraison" },
   avisoEscolherEntregaMupi: { pt: "Escolhe primeiro onde entregar este mupi de papel.", en: "Choose where to deliver this paper mupi first.", es: "Elige primero dónde entregar este mupi de papel.", fr: "Choisis d'abord où livrer ce mupi papier." },
   avisoMupisSaltadosSelecionarTodos: { pt: "{n} mupi(s) de papel ficaram por selecionar — falta escolher onde entregar.", en: "{n} paper mupi(s) were left unselected — delivery choice still missing.", es: "{n} mupi(s) de papel quedaron sin seleccionar — falta elegir dónde entregar.", fr: "{n} mupi(s) papier n'ont pas été sélectionnés — choix de livraison manquant." },
   colTemasBuilder: { pt: "Temas", en: "Themes", es: "Temas", fr: "Thèmes" },
@@ -226,7 +227,6 @@ const TRADUCOES = {
   temasAumentar: { pt: "Aumentar número de temas", en: "Increase number of themes", es: "Aumentar número de temas", fr: "Augmenter le nombre de thèmes" },
   temaNumero: { pt: "Tema {n}", en: "Theme {n}", es: "Tema {n}", fr: "Thème {n}" },
   resumoNumeroTemas: { pt: "{n} temas", en: "{n} themes", es: "{n} temas", fr: "{n} thèmes" },
-  excelLabelEnvio: { pt: "Envio:", en: "Delivery via:", es: "Envío:", fr: "Envoi:" },
   modalCancelar: { pt: "Cancelar", en: "Cancel", es: "Cancelar", fr: "Annuler" },
   modalConfirmar: { pt: "Confirmar", en: "Confirm", es: "Confirmar", fr: "Confirmer" },
   indiceAriaLabel: { pt: "Índice de publishers", en: "Publisher index", es: "Índice de editores", fr: "Index des éditeurs" },
@@ -796,6 +796,10 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes) {
   //
   // Os Temas (TV/Rádio/OOH) aplicam-se a qualquer formato destes meios, no
   // construtor — ver MEIOS_COM_TEMA.
+  //
+  // A Entrega de TV (sempre "GoFastWay") é fixa e não depende de nenhuma
+  // escolha do utilizador — por isso aparece também na Biblioteca de
+  // Formatos (não só no construtor, ao contrário da Entrega dos Mupis).
   const opcoesComMeio = {
     ...opcoes,
     comGrupoDigital2020: grupoMeioDoFormato(formatosDoPublisher[0]) === "Digital",
@@ -804,6 +808,7 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes) {
     comDuracao: opcoes.simplificado && formatosDoPublisher.some(formatoTemDuracao),
     comEntregaMupi: opcoes.simplificado && formatosDoPublisher.some(formatoEhMupiPapel),
     comTemas: opcoes.simplificado && MEIOS_COM_TEMA.has(grupoMeioDoFormato(formatosDoPublisher[0])),
+    comEntregaTV: grupoMeioDoFormato(formatosDoPublisher[0]) === "TV",
   };
 
   const tabela = document.createElement("table");
@@ -837,6 +842,7 @@ function criarCabecalhoTabela(opcoes) {
   const colunaEntregaMupi = opcoes.comEntregaMupi ? `<th scope="col">${t("colEntrega")}</th>` : "";
   const colunaTemas = opcoes.comTemas ? `<th scope="col">${t("colTemasBuilder")}</th>` : "";
   const colunaCopies = opcoes.comCopies ? `<th scope="col">${t("colCopies")}</th>` : "";
+  const colunaEntregaTV = opcoes.comEntregaTV ? `<th scope="col">${t("colEntrega")}</th>` : "";
 
   // Na tab "Construir Pedido" (simplificado) só mostramos o essencial para
   // escolher — nome do formato e o grupo Digital2020. As specs completas
@@ -868,6 +874,7 @@ function criarCabecalhoTabela(opcoes) {
       <th scope="col">${t("colPeso")}</th>
       <th scope="col">${t("colTipoFicheiro")}</th>
       ${colunaCopies}
+      ${colunaEntregaTV}
       <th scope="col">${t("colObservacoes")}</th>
       ${colunaLink}
     </tr>
@@ -1001,6 +1008,10 @@ function criarLinhaFormato(formato, opcoes) {
   // O Copies só existe para meios digitais (ver comCopies em
   // criarBlocoPublisher) — um publisher offline não desenha esta coluna.
   const colunaCopies = opcoes.comCopies ? `<td>${textoTraduzido(formato, "copies") || "—"}</td>` : "";
+  // A Entrega de TV é sempre "GoFastWay" — não vem da base, é um valor
+  // fixo (ver entregaTV em COLUNAS_EXCEL_DISPONIVEIS, a mesma ideia usada
+  // aqui na Biblioteca de Formatos).
+  const colunaEntregaTV = opcoes.comEntregaTV ? `<td>GoFastWay</td>` : "";
   linha.innerHTML = `
     ${colunaCheckbox}
     <td id="${idNomeFormato}">${nomeFormatoTexto}</td>
@@ -1011,6 +1022,7 @@ function criarLinhaFormato(formato, opcoes) {
     <td>${textoTraduzido(formato, "peso") ?? t("naoEspecificado")}</td>
     <td>${textoTraduzido(formato, "tipoFicheiro") ?? t("naoEspecificado")}</td>
     ${colunaCopies}
+    ${colunaEntregaTV}
     <td class="coluna-observacoes">${textoTraduzido(formato, "observacoes") || "—"}</td>
     ${colunaLink}
   `;
@@ -1775,6 +1787,24 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
     titulo: () => t("colEntregaMorada"),
     valor: (formato, objetivo) => (formatoEhMupiPapel(formato) && entregaEfetivaDoFormato(formato, objetivo) === "morada" ? "X" : ""),
   },
+  // Só preenchida quando a entrega escolhida foi "morada" — mostra o
+  // endereço real do concessionário (o mesmo texto do ícone de info no
+  // construtor, ver MORADA_ENTREGA_MUPI_PAPEL), para quem for entregar os
+  // cartazes não ter de voltar à app para encontrar a morada.
+  moradaEntregaMupi: {
+    largura: 45,
+    titulo: () => t("colMoradaEntrega"),
+    valor: (formato, objetivo) => (formatoEhMupiPapel(formato) && entregaEfetivaDoFormato(formato, objetivo) === "morada" ? (MORADA_ENTREGA_MUPI_PAPEL[formato.fornecedor] || "") : ""),
+  },
+  // Os formatos de TV são sempre enviados via GoFastWay — valor fixo,
+  // igual em todas as linhas (ver também colEntrega na Biblioteca de
+  // Formatos, para TV, e o CABECALHOS_BASE_EXCEL — isto não vem da base,
+  // é sempre o mesmo texto).
+  entregaTV: {
+    largura: 16,
+    titulo: () => t("colEntrega"),
+    valor: () => "GoFastWay",
+  },
   dimensao: {
     largura: 45,
     titulo: () => t("colDimensao"),
@@ -1823,8 +1853,8 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
 // conjunto completo do Digital.
 const COLUNAS_POR_MEIO_EXCEL = {
   "Digital": ["canal", "plataforma", "formato", "tema", "dimensao", "aspectRatio", "peso", "tipoFicheiro", "copies", "observacoes", "link", "dataEntrega"],
-  "OOH": ["plataforma", "formato", "temaCriativo", "dimensao", "aspectRatio", "tipoFicheiro", "entregaAF", "entregaMorada", "observacoes", "dataEntrega"],
-  "TV": ["plataforma", "formato", "secundagem", "temaCriativo", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes", "dataEntrega"],
+  "OOH": ["plataforma", "formato", "temaCriativo", "dimensao", "aspectRatio", "tipoFicheiro", "entregaAF", "entregaMorada", "moradaEntregaMupi", "observacoes", "dataEntrega"],
+  "TV": ["plataforma", "formato", "secundagem", "temaCriativo", "dimensao", "aspectRatio", "tipoFicheiro", "entregaTV", "observacoes", "dataEntrega"],
   "Rádio": ["plataforma", "formato", "secundagem", "temaCriativo", "tipoFicheiro", "observacoes", "dataEntrega"],
   "Cinema": ["plataforma", "formato", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes", "dataEntrega"],
   "Imprensa": ["plataforma", "formato", "dimensao", "tipoFicheiro", "observacoes", "dataEntrega"],
@@ -1982,15 +2012,6 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
   folha.getCell("E6").style = estiloRotulo;
   folha.getCell("F6").value = nomeMeio;
   folha.getCell("F6").style = estiloValor;
-
-  // Os formatos de TV são sempre enviados via GoFastWay — "GoFastWay" é o
-  // nome da transportadora, nunca se traduz (tal como um nome de publisher).
-  if (grupoMeio === "TV") {
-    folha.getCell("E7").value = t("excelLabelEnvio");
-    folha.getCell("E7").style = estiloRotulo;
-    folha.getCell("F7").value = "GoFastWay";
-    folha.getCell("F7").style = estiloValor;
-  }
 
   // --- Uma secção por objetivo (Awareness / Consideration / Conversion),
   // cada uma com o seu próprio cabeçalho de tabela — o mesmo formato pode
