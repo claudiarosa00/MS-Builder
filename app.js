@@ -179,7 +179,7 @@ const TRADUCOES = {
   filtroTodas: { pt: "Todas", en: "All", es: "Todas", fr: "Toutes" },
   filtroSocialMedia: { pt: "Social Media", en: "Social Media", es: "Social Media", fr: "Social Media" },
   filtroCompraDireta: { pt: "Compra Direta", en: "Direct Buy", es: "Compra Directa", fr: "Achat Direct" },
-  filtroGoogleSearch: { pt: "Google ou Search", en: "Google & Search", es: "Google o Búsqueda", fr: "Google ou Recherche" },
+  filtroGoogleSearch: { pt: "Google", en: "Google", es: "Google", fr: "Google" },
   filtroProgramatico: { pt: "Programático", en: "Programmatic", es: "Programática", fr: "Programmatique" },
   labelOnline: { pt: "Online", en: "Online", es: "Online", fr: "Online" },
   labelOffline: { pt: "Offline", en: "Offline", es: "Offline", fr: "Offline" },
@@ -913,7 +913,7 @@ function atualizarIndicePublishers() {
       const link = document.createElement("a");
       link.className = "indice-categoria indice-categoria--link";
       link.href = `#${bloco.id}`;
-      link.textContent = t(CHAVE_TRADUCAO_CATEGORIA[categoria]);
+      link.innerHTML = `<span class="indice-categoria-seta" aria-hidden="true">▸</span><span>${t(CHAVE_TRADUCAO_CATEGORIA[categoria])}</span>`;
       link.addEventListener("click", (evento) => {
         evento.preventDefault();
         bloco.scrollIntoView({ behavior: "smooth", block: "start" });

@@ -32,6 +32,17 @@ body {
   color: var(--cor-texto);
 }
 
+/* Os browsers não fazem os controlos de formulário herdar a fonte da
+   página por omissão (usam a fonte do sistema) — sem isto, botões,
+   inputs e selects ficavam visivelmente noutro tipo de letra em vez de
+   Arial Nova, mesmo com o body já configurado. */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
 /*
 ============================================
 2. CABEÇALHO
@@ -76,8 +87,8 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
 
 .logo-havas {
   display: block;
-  height: 110px;
-  width: 110px;
+  height: 150px;
+  width: 150px;
   border-radius: 10px;
   flex-shrink: 0;
 }
@@ -254,7 +265,10 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   color: var(--cor-destaque);
 }
 
-.indice-publishers a {
+/* Só os links de publisher aninhados dentro de uma categoria (ex.:
+   "JCDecaux" dentro de "OOH") — não os links de categoria em si, esses
+   seguem o estilo de .indice-categoria (ver .indice-categoria--link). */
+.indice-categoria-links a {
   color: var(--cor-texto-suave);
   text-decoration: none;
   font-size: 13px;
@@ -262,7 +276,7 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   border-radius: 5px;
 }
 
-.indice-publishers a:hover {
+.indice-categoria-links a:hover {
   background-color: var(--cor-destaque-suave);
   color: var(--cor-destaque-escuro);
 }
@@ -397,7 +411,8 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   border: none;
   background-color: var(--cor-destaque);
   color: #ffffff;
-  font-size: 20px;
+  font-size: 22px;
+  font-weight: 900;
   line-height: 1;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
