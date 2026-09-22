@@ -1026,6 +1026,68 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   display: none;
 }
 
+/* Escolha de entrega dos Mupis em papel (AF vs. morada do concessionário)
+   — dois rádios, tal como as opções de duração acima. */
+.grupo-entrega-mupi {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.opcao-entrega-mupi {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  color: var(--cor-texto);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.opcao-entrega-mupi input[type="radio"] {
+  cursor: pointer;
+}
+
+/* Contador +/- do número de temas/criatividades (TV/Rádio/OOH). */
+.grupo-temas {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.botao-tema-mais,
+.botao-tema-menos {
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 6px;
+  background-color: var(--cor-fundo-cartao);
+  color: var(--cor-texto);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.botao-tema-mais:hover:not(:disabled),
+.botao-tema-menos:hover:not(:disabled) {
+  border-color: var(--cor-destaque);
+  color: var(--cor-destaque);
+}
+
+.botao-tema-mais:disabled,
+.botao-tema-menos:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.valor-temas {
+  min-width: 1.2em;
+  text-align: center;
+  font-family: var(--fonte-base);
+  font-size: 13px;
+}
+
 /*
 ============================================
 11. RESPONSIVE (ecrãs estreitos — telemóvel/tablet pequeno)

@@ -8950,15 +8950,15 @@
   },
   "Rádio|Rádio|Spot Rádio": {
     "en": {
-      "tipoFicheiro": "MP4 (AAC audio)",
+      "tipoFicheiro": "MP3",
       "observacoes": "No specific distribution platform or radio station was indicated — generic delivery specs, always confirm with the radio station or media agency before delivering. AAC audio, 2 channels (stereo) or mono depending on the spot, 48 KHz, recommended minimum bit rate 320 kbps (CBR), loudness (integrated) -23 LUFS and peak level -3dB TP max. — the same broadcast loudness standard already used for TV."
     },
     "es": {
-      "tipoFicheiro": "MP4 (audio AAC)",
+      "tipoFicheiro": "MP3",
       "observacoes": "No se indicó ninguna plataforma de distribución ni emisora de radio específica — especificaciones genéricas de entrega, a confirmar siempre con la emisora o la central de medios antes de entregar. Audio AAC, 2 canales (estéreo) o mono según el spot, 48 KHz, bit rate mínimo recomendado 320 kbps (CBR), sonoridad (integrada) -23 LUFS y nivel de pico -3dB TP máx. — el mismo estándar de sonoridad broadcast ya usado para TV."
     },
     "fr": {
-      "tipoFicheiro": "MP4 (audio AAC)",
+      "tipoFicheiro": "MP3",
       "observacoes": "Aucune plateforme de distribution ni station de radio spécifique n'a été indiquée — spécifications génériques de livraison, à toujours confirmer auprès de la station ou de la centrale média avant la livraison. Audio AAC, 2 canaux (stéréo) ou mono selon le spot, 48 KHz, débit minimum recommandé 320 kbps (CBR), sonie (intégrée) -23 LUFS et niveau de crête -3dB TP max. — la même norme de sonie broadcast déjà utilisée pour la TV."
     }
   },

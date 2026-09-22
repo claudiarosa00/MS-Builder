@@ -137,6 +137,57 @@ const selecoesPorObjetivo = {
   conversion: new Set(),
 };
 
+// Alguns concessionários de OOH (JCDecaux, MOP, DreamMedia) deixam escolher
+// entre entregar a arte final (eles produzem os cartazes) ou entregar os
+// cartazes já produzidos na morada deles — mas só faz sentido para o Mupi
+// em PAPEL (o Mupi Digital é um ficheiro entregue normalmente, sem essa
+// questão). Um formato de Mupi papel só pode ficar marcado na seleção
+// depois de esta escolha estar feita (ver o listener de "checkbox-formato").
+// Guarda-se por objetivo, tal como a duração — a mesma pergunta pode ter
+// respostas diferentes consoante o objetivo da campanha.
+function formatoEhMupiPapel(formato) {
+  if (grupoMeioDoFormato(formato) !== "OOH") {
+    return false;
+  }
+  const nome = (formato.formato || "").toLowerCase();
+  return nome.includes("mupi") && !nome.includes("digital");
+}
+const entregaMupiPorObjetivo = {
+  awareness: new Map(),
+  consideration: new Map(),
+  conversion: new Map(),
+};
+function entregaEfetivaDoFormato(formato, objetivo) {
+  return entregaMupiPorObjetivo[objetivo].get(formato.id) || null;
+}
+
+// Morada e horário de entrega dos cartazes já produzidos, por concessionário
+// — texto fornecido pela própria Cláudia, mostrado tal como está (nunca
+// traduzido, tal como um nome próprio ou um endereço) junto à opção
+// "Entrega na Morada" de cada Mupi papel.
+const MORADA_ENTREGA_MUPI_PAPEL = {
+  "JCDecaux": "Caso entreguem cartazes nas nossas instalações, os mesmos deverão ser acompanhados de uma impressão da campanha a afixar. A entrega dos cartazes deve ser efetuada das 07h00 às 12h00 e das 13h30 às 16h00 nas instalações da JCDecaux – Portão 1. Morada: Beco da Aviação, nº 1, Granja do Alpriate, 2625-607 Vialonga – Portugal.",
+  "MOP": "Morada de entrega: R. Mário Castelhano, 42 - Armazém 7, Lux Parque - Queluz de Baixo, 2734-502 Barcarena. Horário: 8h-12h e 13h-17h. Tel: +351 214 355 485.",
+  "DreamMedia": "Morada de entrega: Rua Manuel da Maia, nº 4, 2680-186 Loures. Horário: 8h-12h e 13h-17h.",
+};
+
+// Pedir o mesmo formato para vários temas/criatividades diferentes (TV,
+// Rádio e OOH) é, tal como a duração, mais que um pedido de facto — cada
+// tema ganha a sua própria linha no Excel (ver escreverSeccaoObjetivo).
+// Aqui só se escolhe a QUANTIDADE (não o nome de cada tema, que fica por
+// preencher à mão depois no Excel, em "Tema 1"/"Tema 2"/...). Sem entrada
+// no mapa assume-se 1 (um único pedido, sem divisão por tema).
+const MEIOS_COM_TEMA = new Set(["TV", "Rádio", "OOH"]);
+const LIMITE_MAXIMO_TEMAS = 10;
+const temasPorObjetivo = {
+  awareness: new Map(),
+  consideration: new Map(),
+  conversion: new Map(),
+};
+function contagemTemasDoFormato(formato, objetivo) {
+  return temasPorObjetivo[objetivo].get(formato.id) || 1;
+}
+
 let tabAtiva = "construir";
 let categoriaFiltroAtiva = "todas";
 let idiomaAtual = "pt";
@@ -165,6 +216,17 @@ const TRADUCOES = {
   avisoObjetivo: { pt: "Cada objetivo tem a sua própria seleção — o mesmo formato pode ser pedido em mais do que um.", en: "Each objective has its own selection — the same format can be requested for more than one.", es: "Cada objetivo tiene su propia selección — el mismo formato puede pedirse en más de uno.", fr: "Chaque objectif a sa propre sélection — le même format peut être demandé pour plusieurs objectifs." },
   avisoPersistencia: { pt: "A tua seleção fica guardada neste dispositivo, mesmo que recarregues a página.", en: "Your selection stays saved on this device, even if you reload the page.", es: "Tu selección queda guardada en este dispositivo, aunque recargues la página.", fr: "Ta sélection reste enregistrée sur cet appareil, même si tu recharges la page." },
   confirmarLimparSelecao: { pt: "Limpar os {n} formatos selecionados nos 3 objetivos? Esta ação não pode ser desfeita.", en: "Clear the {n} selected formats across all 3 objectives? This action cannot be undone.", es: "¿Borrar los {n} formatos seleccionados en los 3 objetivos? Esta acción no se puede deshacer.", fr: "Effacer les {n} formats sélectionnés dans les 3 objectifs ? Cette action est irréversible." },
+  colEntrega: { pt: "Entrega", en: "Delivery", es: "Entrega", fr: "Livraison" },
+  colEntregaAF: { pt: "Entrega AF", en: "AF Delivery", es: "Entrega AF", fr: "Livraison AF" },
+  colEntregaMorada: { pt: "Entrega na Morada", en: "Delivery to Address", es: "Entrega en la Dirección", fr: "Livraison à l'Adresse" },
+  avisoEscolherEntregaMupi: { pt: "Escolhe primeiro onde entregar este mupi de papel.", en: "Choose where to deliver this paper mupi first.", es: "Elige primero dónde entregar este mupi de papel.", fr: "Choisis d'abord où livrer ce mupi papier." },
+  avisoMupisSaltadosSelecionarTodos: { pt: "{n} mupi(s) de papel ficaram por selecionar — falta escolher onde entregar.", en: "{n} paper mupi(s) were left unselected — delivery choice still missing.", es: "{n} mupi(s) de papel quedaron sin seleccionar — falta elegir dónde entregar.", fr: "{n} mupi(s) papier n'ont pas été sélectionnés — choix de livraison manquant." },
+  colTemasBuilder: { pt: "Temas", en: "Themes", es: "Temas", fr: "Thèmes" },
+  temasDiminuir: { pt: "Diminuir número de temas", en: "Decrease number of themes", es: "Disminuir número de temas", fr: "Diminuer le nombre de thèmes" },
+  temasAumentar: { pt: "Aumentar número de temas", en: "Increase number of themes", es: "Aumentar número de temas", fr: "Augmenter le nombre de thèmes" },
+  temaNumero: { pt: "Tema {n}", en: "Theme {n}", es: "Tema {n}", fr: "Thème {n}" },
+  resumoNumeroTemas: { pt: "{n} temas", en: "{n} themes", es: "{n} temas", fr: "{n} thèmes" },
+  excelLabelEnvio: { pt: "Envio:", en: "Delivery via:", es: "Envío:", fr: "Envoi:" },
   modalCancelar: { pt: "Cancelar", en: "Cancel", es: "Cancelar", fr: "Annuler" },
   modalConfirmar: { pt: "Confirmar", en: "Confirm", es: "Confirmar", fr: "Confirmer" },
   indiceAriaLabel: { pt: "Índice de publishers", en: "Publisher index", es: "Índice de editores", fr: "Index des éditeurs" },
@@ -723,11 +785,25 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes) {
   // seletor ou só um traço (ver criarLinhaFormato) — nunca basta olhar
   // só para o primeiro formato do bloco, porque um publisher pode
   // misturar formatos com e sem esse conceito.
+  // O Copies também só existe para meios digitais (é uma noção de
+  // criatividades/versões de anúncio online) — os meios offline (OOH, TV,
+  // Rádio, Cinema, Imprensa) não têm essa coluna na Biblioteca de Formatos.
+  //
+  // A Entrega (AF vs. morada) só faz sentido para o Mupi em papel de
+  // alguns concessionários de OOH (ver formatoEhMupiPapel), e só no
+  // construtor — tal como a Duração, liga-se por publisher mas cada linha
+  // decide por si própria se mostra o seletor.
+  //
+  // Os Temas (TV/Rádio/OOH) aplicam-se a qualquer formato destes meios, no
+  // construtor — ver MEIOS_COM_TEMA.
   const opcoesComMeio = {
     ...opcoes,
     comGrupoDigital2020: grupoMeioDoFormato(formatosDoPublisher[0]) === "Digital",
+    comCopies: grupoMeioDoFormato(formatosDoPublisher[0]) === "Digital",
     comVeiculo: formatosDoPublisher.some((f) => f.veiculo && f.veiculo !== nomePublisher),
     comDuracao: opcoes.simplificado && formatosDoPublisher.some(formatoTemDuracao),
+    comEntregaMupi: opcoes.simplificado && formatosDoPublisher.some(formatoEhMupiPapel),
+    comTemas: opcoes.simplificado && MEIOS_COM_TEMA.has(grupoMeioDoFormato(formatosDoPublisher[0])),
   };
 
   const tabela = document.createElement("table");
@@ -758,6 +834,9 @@ function criarCabecalhoTabela(opcoes) {
   const colunaGrupoDigital2020 = opcoes.comGrupoDigital2020 ? `<th scope="col">${t("colGrupoDigital2020")}</th>` : "";
   const colunaVeiculo = opcoes.comVeiculo ? `<th scope="col">${t("colVeiculo")}</th>` : "";
   const colunaDuracao = opcoes.comDuracao ? `<th scope="col">${t("colDuracao")}</th>` : "";
+  const colunaEntregaMupi = opcoes.comEntregaMupi ? `<th scope="col">${t("colEntrega")}</th>` : "";
+  const colunaTemas = opcoes.comTemas ? `<th scope="col">${t("colTemasBuilder")}</th>` : "";
+  const colunaCopies = opcoes.comCopies ? `<th scope="col">${t("colCopies")}</th>` : "";
 
   // Na tab "Construir Pedido" (simplificado) só mostramos o essencial para
   // escolher — nome do formato e o grupo Digital2020. As specs completas
@@ -771,6 +850,8 @@ function criarCabecalhoTabela(opcoes) {
         ${colunaVeiculo}
         ${colunaGrupoDigital2020}
         ${colunaDuracao}
+        ${colunaEntregaMupi}
+        ${colunaTemas}
       </tr>
     `;
     return cabecalho;
@@ -786,7 +867,7 @@ function criarCabecalhoTabela(opcoes) {
       <th scope="col">${t("colAspectRatio")}</th>
       <th scope="col">${t("colPeso")}</th>
       <th scope="col">${t("colTipoFicheiro")}</th>
-      <th scope="col">${t("colCopies")}</th>
+      ${colunaCopies}
       <th scope="col">${t("colObservacoes")}</th>
       ${colunaLink}
     </tr>
@@ -825,6 +906,43 @@ function criarCelulaDuracao(formato) {
   `;
 }
 
+// Escolha de entrega dos Mupis em papel (AF vs. morada do concessionário) —
+// ver formatoEhMupiPapel/entregaEfetivaDoFormato. Nenhuma das duas vem
+// marcada por omissão: escolher aqui é o que permite marcar a checkbox do
+// formato (ver o listener de "checkbox-formato").
+function criarCelulaEntregaMupi(formato) {
+  const escolha = entregaEfetivaDoFormato(formato, objetivoAtivo);
+  const infoMorada = MORADA_ENTREGA_MUPI_PAPEL[formato.fornecedor] || "";
+  return `
+    <div class="grupo-entrega-mupi" data-id="${formato.id}">
+      <label class="opcao-entrega-mupi">
+        <input type="radio" class="radio-entrega-mupi" name="entrega-mupi-${formato.id}" data-id="${formato.id}" value="af" ${escolha === "af" ? "checked" : ""}>
+        ${t("colEntregaAF")}
+      </label>
+      <label class="opcao-entrega-mupi">
+        <input type="radio" class="radio-entrega-mupi" name="entrega-mupi-${formato.id}" data-id="${formato.id}" value="morada" ${escolha === "morada" ? "checked" : ""}>
+        ${t("colEntregaMorada")}
+        ${infoMorada ? `<span class="aviso-objetivo-mini" tabindex="0" title="${infoMorada}" aria-label="${infoMorada}">ⓘ</span>` : ""}
+      </label>
+    </div>
+  `;
+}
+
+// Contador +/- do número de temas/criatividades (TV/Rádio/OOH) — ver
+// MEIOS_COM_TEMA/contagemTemasDoFormato. Só a quantidade é escolhida aqui;
+// os nomes de cada tema ("Tema 1", "Tema 2", ...) ficam por preencher à
+// mão no Excel exportado.
+function criarCelulaTemas(formato) {
+  const contagem = contagemTemasDoFormato(formato, objetivoAtivo);
+  return `
+    <div class="grupo-temas" data-id="${formato.id}">
+      <button type="button" class="botao-tema-menos" data-id="${formato.id}" aria-label="${t("temasDiminuir")}" ${contagem <= 1 ? "disabled" : ""}>−</button>
+      <span class="valor-temas" data-id="${formato.id}">${contagem}</span>
+      <button type="button" class="botao-tema-mais" data-id="${formato.id}" aria-label="${t("temasAumentar")}" ${contagem >= LIMITE_MAXIMO_TEMAS ? "disabled" : ""}>+</button>
+    </div>
+  `;
+}
+
 function criarLinhaFormato(formato, opcoes) {
   const linha = document.createElement("tr");
   // Id da célula com o nome do formato, para a checkbox se associar a ela
@@ -850,6 +968,15 @@ function criarLinhaFormato(formato, opcoes) {
   const colunaDuracao = opcoes.comDuracao
     ? `<td>${formatoTemDuracao(formato) ? criarCelulaDuracao(formato) : "—"}</td>`
     : "";
+  // Tal como a Duração, a Entrega liga-se por publisher (comEntregaMupi),
+  // mas cada linha decide por si própria se mostra o seletor — um bloco de
+  // OOH pode misturar Mupi papel com outros formatos sem essa noção.
+  const colunaEntregaMupi = opcoes.comEntregaMupi
+    ? `<td>${formatoEhMupiPapel(formato) ? criarCelulaEntregaMupi(formato) : "—"}</td>`
+    : "";
+  // Os Temas aplicam-se a qualquer formato do meio (não há exceção por
+  // linha, ao contrário de Duração/Entrega).
+  const colunaTemas = opcoes.comTemas ? `<td>${criarCelulaTemas(formato)}</td>` : "";
 
   if (opcoes.simplificado) {
     linha.innerHTML = `
@@ -858,6 +985,8 @@ function criarLinhaFormato(formato, opcoes) {
       ${colunaVeiculo}
       ${colunaGrupoDigital2020}
       ${colunaDuracao}
+      ${colunaEntregaMupi}
+      ${colunaTemas}
     `;
     return linha;
   }
@@ -869,6 +998,9 @@ function criarLinhaFormato(formato, opcoes) {
   const colunaLink = opcoes.comLink
     ? `<td>${formato.link ? `<a href="${formato.link}" target="_blank" rel="noopener" aria-label="${formatar("verSpecsLinkComNome", { formato: nomeFormatoTexto })}">${t("verSpecsLink")}</a>` : "—"}</td>`
     : "";
+  // O Copies só existe para meios digitais (ver comCopies em
+  // criarBlocoPublisher) — um publisher offline não desenha esta coluna.
+  const colunaCopies = opcoes.comCopies ? `<td>${textoTraduzido(formato, "copies") || "—"}</td>` : "";
   linha.innerHTML = `
     ${colunaCheckbox}
     <td id="${idNomeFormato}">${nomeFormatoTexto}</td>
@@ -878,7 +1010,7 @@ function criarLinhaFormato(formato, opcoes) {
     <td>${textoTraduzido(formato, "aspectRatio") || "—"}</td>
     <td>${textoTraduzido(formato, "peso") ?? t("naoEspecificado")}</td>
     <td>${textoTraduzido(formato, "tipoFicheiro") ?? t("naoEspecificado")}</td>
-    <td>${textoTraduzido(formato, "copies") || "—"}</td>
+    ${colunaCopies}
     <td class="coluna-observacoes">${textoTraduzido(formato, "observacoes") || "—"}</td>
     ${colunaLink}
   `;
@@ -1107,11 +1239,19 @@ ativo no momento (selecoesPorObjetivo[objetivoAtivo]).
 // telemóvel. Não interfere com os controlos da coluna de Duração (que têm
 // as suas próprias checkboxes/labels) nem com o link "Ver specs".
 listaFormatos.addEventListener("click", (evento) => {
+  // Os botões +/- de Temas ficam dentro de uma célula, mas não devem
+  // marcar/desmarcar a linha (tal como os controlos de Duração, que usam
+  // os seus próprios elementos em vez de passar por aqui).
+  const botaoTema = evento.target.closest(".botao-tema-mais, .botao-tema-menos");
+  if (botaoTema) {
+    mudarContagemTemas(botaoTema);
+    return;
+  }
   if (evento.target.closest("input, a, label, select, button")) {
     return;
   }
   const celula = evento.target.closest("td");
-  if (!celula || celula.classList.contains("coluna-checkbox") || celula.querySelector(".grupo-duracao")) {
+  if (!celula || celula.classList.contains("coluna-checkbox") || celula.querySelector(".grupo-duracao") || celula.querySelector(".grupo-entrega-mupi")) {
     return;
   }
   const linha = celula.closest("tr");
@@ -1123,12 +1263,42 @@ listaFormatos.addEventListener("click", (evento) => {
   checkbox.dispatchEvent(new Event("change", { bubbles: true }));
 });
 
+// Aumenta/diminui o número de temas deste formato (1..LIMITE_MAXIMO_TEMAS)
+// — não mexe na seleção, só na quantidade de linhas que este formato vai
+// gerar no Excel se/quando for selecionado (ver escreverSeccaoObjetivo).
+function mudarContagemTemas(botao) {
+  const id = Number(botao.dataset.id);
+  const formato = todosFormatos.find((f) => f.id === id);
+  const atual = contagemTemasDoFormato(formato, objetivoAtivo);
+  const delta = botao.classList.contains("botao-tema-mais") ? 1 : -1;
+  const novo = Math.min(LIMITE_MAXIMO_TEMAS, Math.max(1, atual + delta));
+  if (novo === atual) {
+    return;
+  }
+  temasPorObjetivo[objetivoAtivo].set(id, novo);
+  const grupo = botao.closest(".grupo-temas");
+  grupo.querySelector(".valor-temas").textContent = novo;
+  grupo.querySelector(".botao-tema-menos").disabled = novo <= 1;
+  grupo.querySelector(".botao-tema-mais").disabled = novo >= LIMITE_MAXIMO_TEMAS;
+  atualizarResumoSelecao();
+}
+
 listaFormatos.addEventListener("change", (evento) => {
   const alvo = evento.target;
 
   if (alvo.classList.contains("checkbox-formato")) {
     const id = Number(alvo.dataset.id);
     if (alvo.checked) {
+      const formato = todosFormatos.find((f) => f.id === id);
+      // Um Mupi em papel só pode ficar marcado depois de escolhida a
+      // entrega (AF ou morada) — sem isso, a linha não sabe o que exportar
+      // nessas duas colunas. Reverte a marcação e avisa em vez de deixar
+      // seguir em frente sem essa escolha.
+      if (formato && formatoEhMupiPapel(formato) && !entregaEfetivaDoFormato(formato, objetivoAtivo)) {
+        alvo.checked = false;
+        mostrarNotificacao(t("avisoEscolherEntregaMupi"));
+        return;
+      }
       selecoesPorObjetivo[objetivoAtivo].add(id);
     } else {
       selecoesPorObjetivo[objetivoAtivo].delete(id);
@@ -1144,8 +1314,30 @@ listaFormatos.addEventListener("change", (evento) => {
 
   if (alvo.classList.contains("checkbox-duracao-outro")) {
     mudarCheckboxDuracaoOutro(alvo);
+    return;
+  }
+
+  if (alvo.classList.contains("radio-entrega-mupi")) {
+    mudarEntregaMupi(alvo);
   }
 });
+
+// Guarda a escolha de entrega (AF/morada) deste Mupi papel e, se o
+// formato ainda não estava marcado na seleção, marca-o agora — escolher a
+// entrega é o que "confirma" este formato no pedido (ver o guard no
+// listener de "checkbox-formato").
+function mudarEntregaMupi(radio) {
+  const id = Number(radio.dataset.id);
+  entregaMupiPorObjetivo[objetivoAtivo].set(id, radio.value);
+  if (!selecoesPorObjetivo[objetivoAtivo].has(id)) {
+    selecoesPorObjetivo[objetivoAtivo].add(id);
+    const checkbox = listaFormatos.querySelector(`.checkbox-formato[data-id="${id}"]`);
+    if (checkbox) {
+      checkbox.checked = true;
+    }
+  }
+  atualizarResumoSelecao();
+}
 
 // A caixa "Outro" da duração usa o evento "input" (não "change") para
 // guardar enquanto se escreve, sem esperar que o campo perca o foco.
@@ -1242,20 +1434,51 @@ function sincronizarCheckboxesComObjetivoAtivo() {
     inputOutro.hidden = !estado.outroAtivo;
     inputOutro.value = estado.outroAtivo ? (estado.outroValor || "") : "";
   });
+
+  listaFormatos.querySelectorAll(".grupo-entrega-mupi").forEach((grupo) => {
+    const id = Number(grupo.dataset.id);
+    const formato = todosFormatos.find((f) => f.id === id);
+    const escolha = entregaEfetivaDoFormato(formato, objetivoAtivo);
+    grupo.querySelectorAll(".radio-entrega-mupi").forEach((radio) => {
+      radio.checked = radio.value === escolha;
+    });
+  });
+
+  listaFormatos.querySelectorAll(".grupo-temas").forEach((grupo) => {
+    const id = Number(grupo.dataset.id);
+    const formato = todosFormatos.find((f) => f.id === id);
+    const contagem = contagemTemasDoFormato(formato, objetivoAtivo);
+    grupo.querySelector(".valor-temas").textContent = contagem;
+    grupo.querySelector(".botao-tema-menos").disabled = contagem <= 1;
+    grupo.querySelector(".botao-tema-mais").disabled = contagem >= LIMITE_MAXIMO_TEMAS;
+  });
 }
 
 // Marca todas as checkboxes atualmente visíveis (respeita os filtros ativos
 // de pesquisa/categoria) — só afeta o objetivo ativo no momento, tal como
-// o clique individual numa checkbox.
+// o clique individual numa checkbox. Um Mupi em papel sem entrega ainda
+// escolhida fica de fora (tal como no clique individual — ver o listener
+// de "checkbox-formato"), para não ficar selecionado sem essa informação.
 botaoSelecionarTodos.addEventListener("click", () => {
   const selecaoAtiva = selecoesPorObjetivo[objetivoAtivo];
+  let mupisPorEscolher = 0;
   listaFormatos.querySelectorAll(".checkbox-formato").forEach((checkbox) => {
     const linha = checkbox.closest("tr");
-    if (linha.style.display !== "none") {
-      checkbox.checked = true;
-      selecaoAtiva.add(Number(checkbox.dataset.id));
+    if (linha.style.display === "none") {
+      return;
     }
+    const id = Number(checkbox.dataset.id);
+    const formato = todosFormatos.find((f) => f.id === id);
+    if (formato && formatoEhMupiPapel(formato) && !entregaEfetivaDoFormato(formato, objetivoAtivo)) {
+      mupisPorEscolher += 1;
+      return;
+    }
+    checkbox.checked = true;
+    selecaoAtiva.add(id);
   });
+  if (mupisPorEscolher > 0) {
+    mostrarNotificacao(formatar("avisoMupisSaltadosSelecionarTodos", { n: mupisPorEscolher }));
+  }
   atualizarResumoSelecao();
 });
 
@@ -1374,16 +1597,23 @@ function atualizarResumoSelecao() {
           // diferentes podiam aparecer com o mesmo texto no resumo.
           const veiculo = f.veiculo && f.veiculo !== f.fornecedor ? ` (${f.veiculo})` : "";
           const nomeFormato = textoTraduzido(f, "formato") ?? "";
+          // Nº de temas (TV/Rádio/OOH) e escolha de entrega (Mupi papel) —
+          // mostrados aqui para o resumo refletir sempre o que vai sair no
+          // Excel (ver escreverSeccaoObjetivo/COLUNAS_EXCEL_DISPONIVEIS).
+          const numeroTemas = MEIOS_COM_TEMA.has(grupoMeioDoFormato(f)) ? contagemTemasDoFormato(f, objetivo) : 1;
+          const etiquetaTemas = numeroTemas > 1 ? ` — ${formatar("resumoNumeroTemas", { n: numeroTemas })}` : "";
+          const escolhaEntrega = formatoEhMupiPapel(f) ? entregaEfetivaDoFormato(f, objetivo) : null;
+          const etiquetaEntrega = escolhaEntrega ? ` — ${t(escolhaEntrega === "af" ? "colEntregaAF" : "colEntregaMorada")}` : "";
           // TV/Rádio pode ter mais que uma duração escolhida — cada uma é
           // um spot pedido à parte, por isso ganha a sua própria linha no
           // resumo (mesma lógica da exportação para Excel, ver
           // escreverSeccaoObjetivo).
           if (formatoTemDuracao(f)) {
             return duracoesEfetivasDoFormato(f, objetivo).map((duracao) =>
-              `<li>${f.fornecedor}${veiculo} — ${nomeFormato} — ${duracao}″${etiqueta}</li>`
+              `<li>${f.fornecedor}${veiculo} — ${nomeFormato} — ${duracao}″${etiqueta}${etiquetaTemas}${etiquetaEntrega}</li>`
             );
           }
-          return [`<li>${f.fornecedor}${veiculo} — ${nomeFormato}${etiqueta}</li>`];
+          return [`<li>${f.fornecedor}${veiculo} — ${nomeFormato}${etiqueta}${etiquetaTemas}${etiquetaEntrega}</li>`];
         })
         .join("");
       return `<li class="resumo-grupo-objetivo"><strong>${t(CHAVE_TRADUCAO_OBJETIVO[objetivo])}</strong><ul>${itensObjetivo}</ul></li>`;
@@ -1526,6 +1756,25 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
     titulo: () => t("colTema"),
     valor: (formato) => formato.grupoDigital2020 || "—",
   },
+  // Diferente da coluna "tema" acima (essa é o Grupo Digital2020, só do
+  // Digital) — esta é o tema/criatividade escolhido no construtor para
+  // TV/Rádio/OOH (ver MEIOS_COM_TEMA/contagemTemasDoFormato), com o mesmo
+  // rótulo de coluna "Tema" porque cada uma só existe numa folha diferente.
+  temaCriativo: {
+    largura: 16,
+    titulo: () => t("colTema"),
+    valor: (formato, objetivo, duracao, temaIndice) => (temaIndice ? formatar("temaNumero", { n: temaIndice }) : "—"),
+  },
+  entregaAF: {
+    largura: 14,
+    titulo: () => t("colEntregaAF"),
+    valor: (formato, objetivo) => (formatoEhMupiPapel(formato) && entregaEfetivaDoFormato(formato, objetivo) === "af" ? "X" : ""),
+  },
+  entregaMorada: {
+    largura: 16,
+    titulo: () => t("colEntregaMorada"),
+    valor: (formato, objetivo) => (formatoEhMupiPapel(formato) && entregaEfetivaDoFormato(formato, objetivo) === "morada" ? "X" : ""),
+  },
   dimensao: {
     largura: 45,
     titulo: () => t("colDimensao"),
@@ -1574,9 +1823,9 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
 // conjunto completo do Digital.
 const COLUNAS_POR_MEIO_EXCEL = {
   "Digital": ["canal", "plataforma", "formato", "tema", "dimensao", "aspectRatio", "peso", "tipoFicheiro", "copies", "observacoes", "link", "dataEntrega"],
-  "OOH": ["plataforma", "formato", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes", "dataEntrega"],
-  "TV": ["plataforma", "formato", "secundagem", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes", "dataEntrega"],
-  "Rádio": ["plataforma", "formato", "secundagem", "tipoFicheiro", "observacoes", "dataEntrega"],
+  "OOH": ["plataforma", "formato", "temaCriativo", "dimensao", "aspectRatio", "tipoFicheiro", "entregaAF", "entregaMorada", "observacoes", "dataEntrega"],
+  "TV": ["plataforma", "formato", "secundagem", "temaCriativo", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes", "dataEntrega"],
+  "Rádio": ["plataforma", "formato", "secundagem", "temaCriativo", "tipoFicheiro", "observacoes", "dataEntrega"],
   "Cinema": ["plataforma", "formato", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes", "dataEntrega"],
   "Imprensa": ["plataforma", "formato", "dimensao", "tipoFicheiro", "observacoes", "dataEntrega"],
 };
@@ -1611,41 +1860,69 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
   linha += 1;
 
   const indiceColunaLink = colunasChaves.indexOf("link");
+  const indiceColunaTema = colunasChaves.indexOf("temaCriativo");
 
   // Um formato de TV/Rádio com mais que uma duração escolhida é, na
   // prática, mais que um spot pedido — cada duração ganha a sua própria
   // linha (com a mesma Plataforma/Formato, mas Secundagem diferente), em
   // vez de juntar tudo numa linha só. Os restantes formatos geram sempre
-  // uma única linha (duracao = null).
-  const itensLinha = [];
+  // uma única linha (duracao = null). Do mesmo modo, um formato de TV/
+  // Rádio/OOH com mais que um Tema escolhido ganha uma linha por tema — e
+  // se tiver AMBOS (duração e temas), é uma linha por cada combinação das
+  // duas (ex.: 2 durações × 3 temas = 6 linhas).
+  const gruposLinha = [];
   formatosDaSeccao.forEach((formato) => {
-    if (formatoTemDuracao(formato)) {
-      duracoesEfetivasDoFormato(formato, objetivo).forEach((duracao) => {
-        itensLinha.push({ formato, duracao });
-      });
-    } else {
-      itensLinha.push({ formato, duracao: null });
-    }
+    const duracoes = formatoTemDuracao(formato) ? duracoesEfetivasDoFormato(formato, objetivo) : [null];
+    const contagemTemas = MEIOS_COM_TEMA.has(grupoMeio) ? contagemTemasDoFormato(formato, objetivo) : 1;
+    const temas = contagemTemas > 1 ? Array.from({ length: contagemTemas }, (_, indice) => indice + 1) : [null];
+    duracoes.forEach((duracao) => {
+      gruposLinha.push({ formato, duracao, temas });
+    });
   });
 
-  itensLinha.forEach((item, indice) => {
-    const linhaFormato = folha.getRow(linha + indice);
-    linhaFormato.values = [
-      indice + 1,
-      ...colunasChaves.map((chave) => COLUNAS_EXCEL_DISPONIVEIS[chave].valor(item.formato, objetivo, item.duracao)),
-    ];
-    linhaFormato.eachCell((celula) => {
-      celula.font = { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } };
-      celula.alignment = { vertical: "top", wrapText: true };
-      celula.border = ESTILO_BORDA_COMPLETA;
+  let linhaAtual = linha;
+  gruposLinha.forEach((grupo, indiceGrupo) => {
+    const linhaInicioGrupo = linhaAtual;
+    grupo.temas.forEach((temaIndice, indiceDentroGrupo) => {
+      const linhaFormato = folha.getRow(linhaAtual);
+      // Quando este item se espalha por várias linhas (vários temas), só a
+      // primeira linha do grupo leva valor nas colunas partilhadas (tudo
+      // exceto o Tema) — as restantes ficam em branco, para o merge logo a
+      // seguir não ter de sobrepor conteúdo já escrito nelas.
+      const valoresColunas = colunasChaves.map((chave, indiceColuna) => {
+        if (indiceDentroGrupo > 0 && indiceColuna !== indiceColunaTema) {
+          return "";
+        }
+        return COLUNAS_EXCEL_DISPONIVEIS[chave].valor(grupo.formato, objetivo, grupo.duracao, temaIndice);
+      });
+      linhaFormato.values = [indiceDentroGrupo === 0 ? indiceGrupo + 1 : "", ...valoresColunas];
+      linhaFormato.eachCell({ includeEmpty: true }, (celula) => {
+        celula.font = { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } };
+        celula.alignment = { vertical: "top", wrapText: true };
+        celula.border = ESTILO_BORDA_COMPLETA;
+      });
+      // O texto do link fica na cor de destaque, sublinhado, para
+      // parecer clicável mesmo antes de o utilizador lhe tocar.
+      if (indiceColunaLink !== -1 && indiceDentroGrupo === 0 && grupo.formato.link) {
+        linhaFormato.getCell(indiceColunaLink + 2).font = { name: "Arial Nova", size: 10, color: { argb: "FF1155CC" }, underline: true };
+      }
+      linhaAtual += 1;
     });
-    // O texto do link fica na cor de destaque, sublinhado, para
-    // parecer clicável mesmo antes de o utilizador lhe tocar.
-    if (indiceColunaLink !== -1 && item.formato.link) {
-      linhaFormato.getCell(indiceColunaLink + 2).font = { name: "Arial Nova", size: 10, color: { argb: "FF1155CC" }, underline: true };
+
+    // Com mais que um tema, as colunas partilhadas (incluindo o "#") ficam
+    // visualmente unidas ao longo das linhas do grupo — só o Tema muda
+    // linha a linha.
+    if (grupo.temas.length > 1) {
+      for (let coluna = 1; coluna <= numColunas; coluna += 1) {
+        if (coluna - 2 === indiceColunaTema) {
+          continue;
+        }
+        folha.mergeCells(linhaInicioGrupo, coluna, linhaAtual - 1, coluna);
+        folha.getCell(linhaInicioGrupo, coluna).alignment = { vertical: "middle", wrapText: true, horizontal: coluna === 1 ? "center" : undefined };
+      }
     }
   });
-  linha += itensLinha.length;
+  linha = linhaAtual;
 
   return linha + 1; // uma linha em branco antes da secção seguinte
 }
@@ -1705,6 +1982,15 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
   folha.getCell("E6").style = estiloRotulo;
   folha.getCell("F6").value = nomeMeio;
   folha.getCell("F6").style = estiloValor;
+
+  // Os formatos de TV são sempre enviados via GoFastWay — "GoFastWay" é o
+  // nome da transportadora, nunca se traduz (tal como um nome de publisher).
+  if (grupoMeio === "TV") {
+    folha.getCell("E7").value = t("excelLabelEnvio");
+    folha.getCell("E7").style = estiloRotulo;
+    folha.getCell("F7").value = "GoFastWay";
+    folha.getCell("F7").style = estiloValor;
+  }
 
   // --- Uma secção por objetivo (Awareness / Consideration / Conversion),
   // cada uma com o seu próprio cabeçalho de tabela — o mesmo formato pode
@@ -1835,13 +2121,15 @@ function guardarEstadoLocal() {
     const idParaChave = new Map(todosFormatos.map((f) => [f.id, chaveTraducao(f)]));
     const selecoes = {};
     const duracoes = {};
+    const entregasMupi = {};
+    const temas = {};
     OBJETIVOS.forEach((objetivo) => {
       selecoes[objetivo] = [...selecoesPorObjetivo[objetivo]]
         .map((id) => idParaChave.get(id))
         .filter(Boolean);
-      // Só guarda durações de formatos que continuam selecionados nesse
-      // objetivo — uma duração "órfã" (de um formato entretanto desmarcado)
-      // não tem interesse em manter.
+      // Só guarda durações/entregas/temas de formatos que continuam
+      // selecionados nesse objetivo — um valor "órfão" (de um formato
+      // entretanto desmarcado) não tem interesse em manter.
       duracoes[objetivo] = {};
       duracoesPorObjetivo[objetivo].forEach((estado, id) => {
         if (selecoesPorObjetivo[objetivo].has(id)) {
@@ -1855,6 +2143,24 @@ function guardarEstadoLocal() {
           }
         }
       });
+      entregasMupi[objetivo] = {};
+      entregaMupiPorObjetivo[objetivo].forEach((valor, id) => {
+        if (selecoesPorObjetivo[objetivo].has(id)) {
+          const chave = idParaChave.get(id);
+          if (chave) {
+            entregasMupi[objetivo][chave] = valor;
+          }
+        }
+      });
+      temas[objetivo] = {};
+      temasPorObjetivo[objetivo].forEach((contagem, id) => {
+        if (selecoesPorObjetivo[objetivo].has(id)) {
+          const chave = idParaChave.get(id);
+          if (chave) {
+            temas[objetivo][chave] = contagem;
+          }
+        }
+      });
     });
     localStorage.setItem(CHAVE_LOCALSTORAGE_PEDIDO, JSON.stringify({
       companhia: campoCompanhia.value,
@@ -1863,6 +2169,8 @@ function guardarEstadoLocal() {
       objetivoAtivo,
       selecoes,
       duracoes,
+      entregasMupi,
+      temas,
     }));
   } catch (erro) {
     // localStorage indisponível — nada a fazer, a app continua sem persistência.
@@ -1900,6 +2208,22 @@ function restaurarEstadoLocal() {
           outroAtivo: !!guardado.outroAtivo,
           outroValor: guardado.outroValor || "",
         });
+      }
+    });
+
+    const entregasGuardadas = (estadoGuardado.entregasMupi && estadoGuardado.entregasMupi[objetivo]) || {};
+    Object.entries(entregasGuardadas).forEach(([chave, valor]) => {
+      const id = chaveParaId.get(chave);
+      if (id !== undefined && (valor === "af" || valor === "morada")) {
+        entregaMupiPorObjetivo[objetivo].set(id, valor);
+      }
+    });
+
+    const temasGuardados = (estadoGuardado.temas && estadoGuardado.temas[objetivo]) || {};
+    Object.entries(temasGuardados).forEach(([chave, contagem]) => {
+      const id = chaveParaId.get(chave);
+      if (id !== undefined && Number.isInteger(contagem) && contagem >= 1) {
+        temasPorObjetivo[objetivo].set(id, contagem);
       }
     });
   });
