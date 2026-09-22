@@ -9250,5 +9250,84 @@
       "tipoFicheiro": "Vidéo : MP4/MOV ; Image : tout format ; Web : HTML/URL — codec H264",
       "observacoes": "Durée : 10 secondes (obligatoire). Bitrate maximum 6 Mbps. Framerate 30 frames/s. Taille maximale : 100MB."
     }
+  },
+  "TVI|TVI|Ecrã Fracionado / Split Screen": {
+    "en": {
+      "dimensao": "480x1080px (25% of a 1920x1080px screen), 25 fps",
+      "tipoFicheiro": "QuickTime (.MOV), ProRes 4444 (with Alpha channel) or ProRes 422 (without Alpha), 1080i interlaced (Upper/odd Field First), 25 fps",
+      "observacoes": "Advertising content occupying at most 25% of the screen, aired simultaneously with entertainment, sports and magazine programmes. Duration 10″, including entry and exit within those 10″. No audio. The word \"PUBLICIDADE\" must stay clearly legible and inside the Safe Area for the whole time it is on air. On TVI it enters from the right of the screen. General Safe Area: 96px horizontal / 54px vertical from the edge; Title Safe Area: 192px horizontal / 108px vertical — no relevant information should fall outside these areas."
+    },
+    "es": {
+      "dimensao": "480x1080px (25% de una pantalla de 1920x1080px), 25 fps",
+      "tipoFicheiro": "QuickTime (.MOV), ProRes 4444 (con canal Alpha) o ProRes 422 (sin Alpha), 1080i entrelazado (Upper/odd Field First), 25 fps",
+      "observacoes": "Contenido publicitario que ocupa como máximo el 25% de la pantalla, emitido simultáneamente con programas de entretenimiento, deporte y magazine. Duración 10″, con entrada y salida incluidas en esos 10″. Sin audio. La palabra \"PUBLICIDADE\" debe mantenerse legible y dentro del Safe Area durante todo el tiempo que está en emisión. En TVI entra por la derecha de la pantalla. Safe Area general: 96px horizontales / 54px verticales desde el margen; Title Safe Area: 192px horizontales / 108px verticales — ninguna información relevante debe quedar fuera de estas áreas."
+    },
+    "fr": {
+      "dimensao": "480x1080px (25% d'un écran 1920x1080px), 25 fps",
+      "tipoFicheiro": "QuickTime (.MOV), ProRes 4444 (avec canal Alpha) ou ProRes 422 (sans Alpha), 1080i entrelacé (Upper/odd Field First), 25 fps",
+      "observacoes": "Contenu publicitaire occupant au maximum 25% de l'écran, diffusé simultanément avec des programmes de divertissement, de sport et magazine. Durée 10″, entrée et sortie incluses dans ces 10″. Sans son. Le mot \"PUBLICIDADE\" doit rester lisible et dans la Safe Area pendant toute la diffusion. Sur TVI, il entre par la droite de l'écran. Safe Area générale : 96px horizontaux / 54px verticaux depuis le bord ; Title Safe Area : 192px horizontaux / 108px verticaux — aucune information pertinente ne doit sortir de ces zones."
+    }
+  },
+  "TVI|CNN Portugal|Ecrã Fracionado / Split Screen": {
+    "en": {
+      "dimensao": "480x1080px (25% of a 1920x1080px screen), 25 fps",
+      "tipoFicheiro": "QuickTime (.MOV), ProRes 4444 (with Alpha channel) or ProRes 422 (without Alpha), 1080i interlaced (Upper/odd Field First), 25 fps",
+      "observacoes": "Advertising content occupying at most 25% of the screen, aired simultaneously with entertainment, sports and magazine programmes. Duration 10″, including entry and exit within those 10″. No audio. The word \"PUBLICIDADE\" must stay clearly legible and inside the Safe Area for the whole time it is on air. On CNN Portugal it enters from the left of the screen. General Safe Area: 96px horizontal / 54px vertical from the edge; Title Safe Area: 192px horizontal / 108px vertical — no relevant information should fall outside these areas."
+    },
+    "es": {
+      "dimensao": "480x1080px (25% de una pantalla de 1920x1080px), 25 fps",
+      "tipoFicheiro": "QuickTime (.MOV), ProRes 4444 (con canal Alpha) o ProRes 422 (sin Alpha), 1080i entrelazado (Upper/odd Field First), 25 fps",
+      "observacoes": "Contenido publicitario que ocupa como máximo el 25% de la pantalla, emitido simultáneamente con programas de entretenimiento, deporte y magazine. Duración 10″, con entrada y salida incluidas en esos 10″. Sin audio. La palabra \"PUBLICIDADE\" debe mantenerse legible y dentro del Safe Area durante todo el tiempo que está en emisión. En CNN Portugal entra por la izquierda de la pantalla. Safe Area general: 96px horizontales / 54px verticales desde el margen; Title Safe Area: 192px horizontales / 108px verticales — ninguna información relevante debe quedar fuera de estas áreas."
+    },
+    "fr": {
+      "dimensao": "480x1080px (25% d'un écran 1920x1080px), 25 fps",
+      "tipoFicheiro": "QuickTime (.MOV), ProRes 4444 (avec canal Alpha) ou ProRes 422 (sans Alpha), 1080i entrelacé (Upper/odd Field First), 25 fps",
+      "observacoes": "Contenu publicitaire occupant au maximum 25% de l'écran, diffusé simultanément avec des programmes de divertissement, de sport et magazine. Durée 10″, entrée et sortie incluses dans ces 10″. Sans son. Le mot \"PUBLICIDADE\" doit rester lisible et dans la Safe Area pendant toute la diffusion. Sur CNN Portugal, il entre par la gauche de l'écran. Safe Area générale : 96px horizontaux / 54px verticaux depuis le bord ; Title Safe Area : 192px horizontaux / 108px verticaux — aucune information pertinente ne doit sortir de ces zones."
+    }
+  },
+  "TVI|TVI/CNN Portugal|Telepromoção": {
+    "en": {
+      "dimensao": "1920x1080px (studio plasma screen; the plasma's usable area is 220px tall from the bottom of the screen) and 1920x1080px oráculo (prompter graphic)",
+      "tipoFicheiro": "Images/graphics: JPEG, PNG, PSD, AI/EPS (Illustrator CC version), TIFF or TGA, all at HD resolution; 3D files: C4D (ideal format), FBX or OBJ. Video: Generic video format (unless stated otherwise): MXF OP1a wrapper (.MXF), XDCAM HD 4:2:2, 1080i, 25 fps, interlaced (Upper/odd Field First), MPEG2 @ 50Mbps, 4:2:2@HL profile, 1920x1080px, 16:9 aspect ratio. Audio: 8 channels @ 24 bits, PGM on the first two channels, 48.0 KHz, uncompressed PCM (.wav or .aiff after unwrapping), reference level -20dBFS, loudness -23 LUFS (EBU R.128).",
+      "observacoes": "Materials to supply for graphics production, or graphics already finalised — used on the studio's plasma screen (for videos, photos or graphics) and/or on the oráculo (prompter graphic). Must be framed inside the indicated safe areas so logos and text are not at risk of being cut off or distorted (General Safe Area: 96px horizontal / 54px vertical from the edge; Title Safe Area: 192px horizontal / 108px vertical — no relevant information should fall outside these areas. On the studio plasma, the usable area starts 220px from the bottom of the screen; the oráculo follows the Title Safe Area). Scripts for 60″ telepromoções should be between 730 and 800 characters without spacing. Fonts must be supplied in TT format, for PC; colour references in RGB. All materials must be supplied at least one week ahead of the telepromoção's air date, in the formats listed."
+    },
+    "es": {
+      "dimensao": "1920x1080px (plasma del estudio; el área útil del plasma tiene 220px de altura desde la base de la pantalla) y oráculo 1920x1080px",
+      "tipoFicheiro": "Imágenes/grafismos: JPEG, PNG, PSD, AI/EPS (Illustrator versión CC), TIFF o TGA, todos en resolución HD; ficheros 3D: C4D (formato ideal), FBX u OBJ. Vídeo: Formato de vídeo genérico (salvo indicación contraria): wrapper MXF OP1a (.MXF), XDCAM HD 4:2:2, 1080i, 25 fps, entrelazado (Upper/odd Field First), MPEG2 @ 50Mbps, perfil 4:2:2@HL, 1920x1080px, aspect ratio 16:9. Audio: 8 canales @ 24 bits, PGM en los dos primeros canales, 48.0 KHz, PCM sin comprimir (.wav o .aiff tras desempaquetar), nivel de referencia -20dBFS, loudness -23 LUFS (EBU R.128).",
+      "observacoes": "Materiales a proporcionar para la producción de grafismos, o grafismos ya finalizados — usados en el plasma existente en el estudio (para pasar vídeos, fotografías o grafismos) y/o en el oráculo. Deben encuadrarse dentro de las áreas de seguridad indicadas para que los logos y textos no corran el riesgo de ser cortados o distorsionados (Safe Area general: 96px horizontales / 54px verticales desde el margen; Title Safe Area: 192px horizontales / 108px verticales — ninguna información relevante debe quedar fuera de estas áreas. En el plasma de estudio, el área útil empieza a 220px desde la base de la pantalla; en el oráculo se aplica el Title Safe Area). Los guiones para telepromociones de 60″ de duración deben tener entre 730 y 800 caracteres sin espaciado. Las fuentes deben entregarse en formato TT, para PC; las referencias de color en RGB. Todos los materiales deben entregarse con al menos una semana de antelación respecto a la fecha de realización de la telepromoción, en los formatos indicados."
+    },
+    "fr": {
+      "dimensao": "1920x1080px (écran plasma du studio ; la zone utile du plasma fait 220px de haut depuis le bas de l'écran) et oráculo (incrustation) 1920x1080px",
+      "tipoFicheiro": "Images/graphismes : JPEG, PNG, PSD, AI/EPS (Illustrator version CC), TIFF ou TGA, tous en résolution HD ; fichiers 3D : C4D (format idéal), FBX ou OBJ. Vidéo : Format vidéo générique (sauf indication contraire) : wrapper MXF OP1a (.MXF), XDCAM HD 4:2:2, 1080i, 25 fps, entrelacé (Upper/odd Field First), MPEG2 @ 50Mbps, profil 4:2:2@HL, 1920x1080px, aspect ratio 16:9. Audio : 8 canaux @ 24 bits, PGM sur les deux premiers canaux, 48.0 KHz, PCM non compressé (.wav ou .aiff après déballage), niveau de référence -20dBFS, loudness -23 LUFS (EBU R.128).",
+      "observacoes": "Matériaux à fournir pour la production de graphismes, ou graphismes déjà finalisés — utilisés sur l'écran plasma du studio (pour diffuser vidéos, photos ou graphismes) et/ou sur l'oráculo (incrustation). Doivent être cadrés dans les zones de sécurité indiquées pour que logos et textes ne risquent pas d'être coupés ou déformés (Safe Area générale : 96px horizontaux / 54px verticaux depuis le bord ; Title Safe Area : 192px horizontaux / 108px verticaux — aucune information pertinente ne doit sortir de ces zones. Sur le plasma du studio, la zone utile commence à 220px du bas de l'écran ; l'oráculo suit la Title Safe Area). Les textes des télépromotions de 60″ doivent compter entre 730 et 800 caractères sans espaces. Les polices doivent être fournies au format TT, pour PC ; les références de couleur en RGB. Tous les matériaux doivent être fournis au moins une semaine avant la date de diffusion de la télépromotion, dans les formats indiqués."
+    }
+  },
+  "Clearspot|Clearspot|Especificações por confirmar": {
+    "en": {
+      "formato": "Specifications to be confirmed",
+      "observacoes": "Concessionaire added to the base for now with no formats attached — Clearspot's technical specifications have not been supplied yet. Update this row (and add the format rows needed) once the information arrives."
+    },
+    "es": {
+      "formato": "Especificaciones por confirmar",
+      "observacoes": "Concesionaria añadida a la base por ahora sin formatos asociados — las especificaciones técnicas de Clearspot todavía no se han proporcionado. Actualizar esta línea (y añadir las líneas de formato que hagan falta) en cuanto llegue la información."
+    },
+    "fr": {
+      "formato": "Spécifications à confirmer",
+      "observacoes": "Concessionnaire ajouté à la base pour l'instant sans formats associés — les spécifications techniques de Clearspot n'ont pas encore été fournies. Mettre à jour cette ligne (et ajouter les lignes de format nécessaires) dès réception de l'information."
+    }
+  },
+  "CS Outdoors|CS Outdoors|Especificações por confirmar": {
+    "en": {
+      "formato": "Specifications to be confirmed",
+      "observacoes": "Concessionaire added to the base for now with no formats attached — CS Outdoors's technical specifications have not been supplied yet. Update this row (and add the format rows needed) once the information arrives."
+    },
+    "es": {
+      "formato": "Especificaciones por confirmar",
+      "observacoes": "Concesionaria añadida a la base por ahora sin formatos asociados — las especificaciones técnicas de CS Outdoors todavía no se han proporcionado. Actualizar esta línea (y añadir las líneas de formato que hagan falta) en cuanto llegue la información."
+    },
+    "fr": {
+      "formato": "Spécifications à confirmer",
+      "observacoes": "Concessionnaire ajouté à la base pour l'instant sans formats associés — les spécifications techniques de CS Outdoors n'ont pas encore été fournies. Mettre à jour cette ligne (et ajouter les lignes de format nécessaires) dès réception de l'information."
+    }
   }
 }

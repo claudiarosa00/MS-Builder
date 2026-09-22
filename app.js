@@ -80,9 +80,18 @@ const duracoesPorObjetivo = {
   conversion: new Map(),
 };
 
+// Só os formatos de "spot" (o clássico anúncio de X segundos) têm secundagem
+// escolhível — os restantes formatos de TV (Ecrã Fracionado, Telepromoção,
+// ...) têm a sua própria duração fixa ou nem o conceito se aplica da mesma
+// forma, por isso não ganham o seletor 15″/20″/30″/Outro nem a coluna
+// Secundagem no Excel (essa informação, quando existe, já vem nas
+// Observações desse formato).
 function formatoTemDuracao(formato) {
   const grupo = grupoMeioDoFormato(formato);
-  return grupo === "TV" || grupo === "Rádio";
+  if (grupo !== "TV" && grupo !== "Rádio") {
+    return false;
+  }
+  return (formato.formato || "").toLowerCase().includes("spot");
 }
 
 // Estado de duração para leitura (renderização) — nunca cria/guarda nada,
@@ -609,11 +618,18 @@ function mostrarFormatosAgrupados(contentor, formatos, opcoes) {
   let categoriaAnterior = null;
   let grupoOnlineOfflineAnterior = null;
   for (const nomePublisher of nomesPublishers) {
-    // Dentro do publisher, os próprios formatos também ficam por ordem
-    // alfabética (em vez da ordem em que vieram da base).
-    const formatosDoPublisher = [...grupos[nomePublisher]].sort((a, b) =>
-      (a.formato || "").localeCompare(b.formato || "", "pt")
-    );
+    // Dentro do publisher, as linhas ficam por ordem alfabética — primeiro
+    // pelo Veículo (relevante nos publishers com vários, ex.: "Correio da
+    // Manhã" ou "TVI"/"CNN Portugal"; nos restantes, onde Veículo = Fornecedor
+    // em todas as linhas, este critério não muda nada), depois pelo Formato.
+    const formatosDoPublisher = [...grupos[nomePublisher]].sort((a, b) => {
+      const veiculoA = a.veiculo || "";
+      const veiculoB = b.veiculo || "";
+      if (veiculoA !== veiculoB) {
+        return veiculoA.localeCompare(veiculoB, "pt");
+      }
+      return (a.formato || "").localeCompare(b.formato || "", "pt");
+    });
     const categoria = categoriaDoPublisher(nomePublisher, formatosDoPublisher);
     if (categoria !== categoriaAnterior) {
       const grupoOnlineOffline = CATEGORIAS_ONLINE.has(categoria) ? "online" : "offline";
@@ -832,6 +848,13 @@ filtro, de idioma, de tab).
 */
 const categoriasIndiceExpandidas = new Set();
 
+// TV e Rádio não têm o botão recolhível ▸ — têm sempre poucos fornecedores
+// lá dentro (ao contrário de Digital ou OOH), e o que varia de pedido para
+// pedido (a secundagem do spot) já fica dentro da própria tabela, não teria
+// nada que uma dropdown escondesse por defeito. Os links aparecem sempre
+// visíveis, direto por baixo do nome da categoria.
+const CATEGORIAS_SEM_DROPDOWN_INDICE = new Set(["TV", "Rádio"]);
+
 function atualizarIndicePublishers() {
   const painelAtivo = paineisTab[tabAtiva];
   // Só entram no índice os publishers que ainda têm alguma linha visível
@@ -862,22 +885,30 @@ function atualizarIndicePublishers() {
       grupoOnlineOfflineAnterior = grupoOnlineOffline;
     }
 
-    const expandida = categoriasIndiceExpandidas.has(categoria);
+    const semDropdown = CATEGORIAS_SEM_DROPDOWN_INDICE.has(categoria);
+    const expandida = semDropdown || categoriasIndiceExpandidas.has(categoria);
 
-    const titulo = document.createElement("button");
-    titulo.type = "button";
-    titulo.className = `indice-categoria${expandida ? " expandida" : ""}`;
-    titulo.setAttribute("aria-expanded", String(expandida));
-    titulo.innerHTML = `<span class="indice-categoria-seta" aria-hidden="true">▸</span><span>${t(CHAVE_TRADUCAO_CATEGORIA[categoria])}</span>`;
-    titulo.addEventListener("click", () => {
-      if (categoriasIndiceExpandidas.has(categoria)) {
-        categoriasIndiceExpandidas.delete(categoria);
-      } else {
-        categoriasIndiceExpandidas.add(categoria);
-      }
-      atualizarIndicePublishers();
-    });
-    indicePublishers.appendChild(titulo);
+    if (semDropdown) {
+      const rotuloFixo = document.createElement("div");
+      rotuloFixo.className = "indice-categoria indice-categoria--fixa";
+      rotuloFixo.textContent = t(CHAVE_TRADUCAO_CATEGORIA[categoria]);
+      indicePublishers.appendChild(rotuloFixo);
+    } else {
+      const titulo = document.createElement("button");
+      titulo.type = "button";
+      titulo.className = `indice-categoria${expandida ? " expandida" : ""}`;
+      titulo.setAttribute("aria-expanded", String(expandida));
+      titulo.innerHTML = `<span class="indice-categoria-seta" aria-hidden="true">▸</span><span>${t(CHAVE_TRADUCAO_CATEGORIA[categoria])}</span>`;
+      titulo.addEventListener("click", () => {
+        if (categoriasIndiceExpandidas.has(categoria)) {
+          categoriasIndiceExpandidas.delete(categoria);
+        } else {
+          categoriasIndiceExpandidas.add(categoria);
+        }
+        atualizarIndicePublishers();
+      });
+      indicePublishers.appendChild(titulo);
+    }
 
     const listaLinks = document.createElement("div");
     listaLinks.className = `indice-categoria-links${expandida ? "" : " recolhida"}`;

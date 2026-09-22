@@ -24,7 +24,13 @@ processo manual que antes era feito diretamente em Excel.
   No índice lateral, cada categoria (Social Media, Compra Direta, ..., OOH)
   é recolhível — começa fechada, só a mostrar o nome, e um clique nela (ou
   na setinha) é que revela os publishers lá dentro; o estado aberto/fechado
-  mantém-se ao mudar de filtro, de idioma ou de tab.
+  mantém-se ao mudar de filtro, de idioma ou de tab. TV e Rádio são a
+  exceção: nunca têm essa seta/dropdown, os publishers aparecem sempre
+  visíveis logo abaixo do nome da categoria (ver
+  `CATEGORIAS_SEM_DROPDOWN_INDICE` em `app.js`) — são categorias com poucos
+  fornecedores, e o que varia de pedido para pedido (a secundagem do spot)
+  já vive dentro da própria tabela, não haveria nada que uma dropdown
+  fechada por defeito ajudasse a esconder.
 - Suporta 4 idiomas (Português, Inglês, Espanhol, Francês) — interface,
   cabeçalhos do Excel, e também as specs de cada formato (Dimensão, Aspect
   Ratio, Peso, Tipo de Ficheiro, Copies) mudam de língua, através de um
@@ -72,25 +78,29 @@ templates/                  Reservado para uso futuro (atualmente vazio)
 
 ## Base de dados de formatos
 
-Os 523 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
+Os 528 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
 mapeados a partir da base real de specs da agência (269 formatos de
 publisher → 40 categorias "Digital2020" canónicas, mais os formatos
 Programmatic/DV360 adicionados depois, os 36 formatos de compra direta do
 publisher "Notícias Ilimitadas", os formatos WeTransfer via Azerion,
-Roblox e OLX, o publisher "Bauer" — Reino Unido, os 42 formatos de OOH —
+Roblox e OLX, o publisher "Bauer" — Reino Unido, os 44 formatos de OOH —
 `Meio = "OOH"` — de MOP (23 formatos: Mupi/4Plus/Outdoor 8x3/Flashes em
 papel, Backlights 4x3/8x3/10x5/12x5, Autocarro em 4 variantes, Multibanco
 Imagem/Vídeo, Mupi Digital/16x9/3 Ecrãs/4x3 Digital/Tomi PhotoFun/Tomi
 Sport TV/LED Galp em digital, e High Impact/Decorações Integrais e
 Grande Formato como formatos genéricos "à escala"), DreamMedia, BIG
-Outdoors, JCDecaux e Táxi Advertising, os 124 formatos de Imprensa —
+Outdoors, JCDecaux e Táxi Advertising, mais Clearspot e CS Outdoors (só
+registadas como concessionárias existentes, sem formatos, enquanto não
+houver especificações), os 124 formatos de Imprensa —
 `Meio = "Imprensa"` — de
 Correio da Manhã (jornal diário + suplemento Mais Sport + revistas
 semanais Boa Onda/VIDAS/Domingo), Destak, Jornal de Negócios, Record,
 Sábado (+ Sábado Viajante), TV Guia, Expresso (1º Caderno + Economia +
-Revista E) e Attitude, e os 2 primeiros formatos de TV (`Meio = "TV"`,
-Spot normal em SD/IMX50 e HD/XDCAM HD422, entregue via Portal GoFastWay)
-mais o primeiro de Rádio (`Meio = "Rádio"`, Spot normal em MP4). Colunas:
+Revista E) e Attitude, e os 5 formatos de TV (`Meio = "TV"`): Spot normal
+em SD/IMX50 e HD/XDCAM HD422 (`Fornecedor = "GoFastWay"`), e Ecrã
+Fracionado/Split Screen (TVI e CNN Portugal) e Telepromoção
+(`Fornecedor = "TVI"`) — mais o primeiro de Rádio (`Meio = "Rádio"`, Spot
+normal em MP4). Colunas:
 **Meio**, **Canal**, **Fornecedor**, **Veículo**, **Grupo Digital2020**,
 **Formato**, **Dimensão**, **Aspect Ratio**, **Peso**, **Tipo de
 Ficheiro**, **Copies**, **Observações**, **Link**.
@@ -150,35 +160,55 @@ com 42 formatos reais de MOP, DreamMedia, BIG Outdoors, JCDecaux e Táxi
 Advertising: Outdoors/Monopostes/Painéis em papel e vinil, Mupis (papel e
 digital), Backlights (4x3 a 12x5), publicidade em autocarros (4 posições),
 Flashes, 4Plus, ecrãs digitais (16x9, 3 ecrãs, 4x3, Tomi PhotoFun/Sport
-TV, LED Galp), Multibanco (ATM) e decoração de táxi, e o meio
+TV, LED Galp), Multibanco (ATM) e decoração de táxi — mais Clearspot e CS
+Outdoors, registadas na base e no filtro só como concessionárias
+existentes ("Especificações por confirmar" no Formato), sem nenhuma
+dimensão/tipo de ficheiro inventado, à espera das specs reais —, e o meio
 **Imprensa**, com 124 formatos reais de jornais e revistas (Correio
 da Manhã, Destak, Jornal de Negócios, Record, Sábado, Sábado Viajante,
 TV Guia, Expresso e Attitude) — Página, Página Dupla, meias e quartos de
 página, rodapés, orelhas de capa e outros formatos especiais próprios de
-cada publicação, e os meios **TV** e **Rádio**, cada um com um "Spot
-normal": TV entregue via Portal GoFastWay (`Fornecedor = "GoFastWay"`),
+cada publicação, e os meios **TV** e **Rádio**. TV tem hoje 5 formatos:
+"Spot normal" entregue via Portal GoFastWay (`Fornecedor = "GoFastWay"`),
 em SD (IMX50, 720x576px) ou HD (XDCAM HD422, 1920x1080px), conforme as
 especificações técnicas oficiais da GoFastWay para entrega de ficheiros
-de spots de publicidade; Rádio em MP4/AAC — como não foi fornecida
-nenhuma tabela de specs de uma rádio ou plataforma de distribuição
-concreta, este formato usa valores genéricos de entrega (o mesmo padrão
-de loudness broadcast já usado para TV), sinalizados no campo
-Observações como "a confirmar sempre junto da rádio ou da central de
-meios antes de entregar" (ver secção "Exportação para Excel" abaixo). O
-meio offline restante (Cinema) já tem a estrutura de exportação pronta
+de spots de publicidade; e "Ecrã Fracionado/Split Screen" e
+"Telepromoção" (`Fornecedor = "TVI"`), a partir da informação técnica
+oficial da TVI/CNN Portugal (INF-COM-090/23) — o Ecrã Fracionado tem uma
+linha por Veículo (TVI e CNN Portugal) porque só isso muda entre os dois
+canais (o lado por onde entra no ecrã), e a Telepromoção é partilhada
+pelos dois (`Veículo = "TVI/CNN Portugal"`). Outros formatos de TV que a
+agência pediu — Colocação de Produto, Cartão de Patrocínio, Countdown —
+**não** entraram na base: o documento fornecido não tem specs para eles,
+e as páginas oficiais da SIC (`solutions.impresa.pt/formatos`) e da
+TVI/CNN Portugal (`mediacapitalcomercial.pt/formats/tv`) partilhadas pela
+Cláudia não puderam ser consultadas a partir deste ambiente (bloqueadas
+pela política de rede) — a atualizar assim que houver specs reais, nunca
+por palpite. Rádio continua só com "Spot normal" em MP4/AAC — como não
+foi fornecida nenhuma tabela de specs de uma rádio ou plataforma de
+distribuição concreta, este formato usa valores genéricos de entrega (o
+mesmo padrão de loudness broadcast já usado para TV), sinalizados no
+campo Observações como "a confirmar sempre junto da rádio ou da central
+de meios antes de entregar" (ver secção "Exportação para Excel" abaixo).
+O meio offline restante (Cinema) já tem a estrutura de exportação pronta
 (a sua própria folha), mas entra na base só quando houver dados reais
 para o mapear — nunca é inventado.
 
-Alguns publishers de Imprensa têm mais que um **Veículo** distinto (ex.:
+Alguns publishers têm mais que um **Veículo** distinto — em Imprensa,
 "Correio da Manhã" cobre o jornal diário, o suplemento "Mais Sport" e as
-3 revistas semanais "Boa Onda"/"VIDAS"/"Domingo"), cada um com as suas
-próprias dimensões mesmo quando o nome do Formato se repete (ex.:
-"Página" existe em 5 veículos diferentes do Correio da Manhã). Por isso
-a coluna **Veículo** ganha uma coluna própria na Biblioteca de Formatos e
-no Construir Pedido sempre que, dentro de um publisher, há mais que um
+3 revistas semanais "Boa Onda"/"VIDAS"/"Domingo"; em TV, "TVI" cobre os
+canais "TVI" e "CNN Portugal" — cada um com as suas próprias
+dimensões/observações mesmo quando o nome do Formato se repete (ex.:
+"Página" existe em 5 veículos diferentes do Correio da Manhã, "Ecrã
+Fracionado/Split Screen" existe em 2 veículos da TVI). Por isso a coluna
+**Veículo** ganha uma coluna própria na Biblioteca de Formatos e no
+Construir Pedido sempre que, dentro de um publisher, há mais que um
 veículo distinto do próprio nome do publisher — nos restantes casos
 (a maioria, onde Veículo = Fornecedor) a coluna nem aparece, para não
-ficar redundante (ver `opcoes.comVeiculo` em `app.js`).
+ficar redundante (ver `opcoes.comVeiculo` em `app.js`). Dentro de cada
+publisher, as linhas ficam sempre por ordem alfabética — primeiro pelo
+Veículo, depois pelo Formato — para blocos como o Correio da Manhã ou a
+TVI não dependerem da ordem em que as linhas foram acrescentadas à base.
 
 ## Traduções das specs (EN/ES/FR)
 
@@ -265,8 +295,10 @@ própria folha (com esse nome tal como vem da base), em vez de desaparecer.
 
 ### Duração do Spot (TV/Rádio)
 
-Formatos de TV e Rádio têm uma característica que nenhum outro meio tem: o
-mesmo formato pode ser pedido em mais que uma duração ao mesmo tempo (ex.:
+Só os formatos de **spot** de TV e Rádio (o nome do Formato contém "spot",
+ver `formatoTemDuracao` em `app.js`) têm esta característica que nenhum
+outro meio tem: o mesmo formato pode ser pedido em mais que uma duração ao
+mesmo tempo (ex.:
 o spot principal de 30″ + um recorte de 15″ para outro momento da
 campanha) — cada duração é um spot pedido à parte. Por isso, na tab
 "Construir Pedido", qualquer formato de TV ou Rádio ganha uma coluna extra
@@ -286,3 +318,9 @@ distintos). No Excel, a duração tem a sua própria coluna **Secundagem**
 separada da coluna Formato: por exemplo, Formato "Spot TV (HD — XDCAM
 HD422)" com Secundagem "20″" numa linha e "30″" noutra, em vez de tudo
 junto no nome do formato.
+
+Os outros formatos de TV (Ecrã Fracionado/Split Screen, Telepromoção) não
+têm este seletor nem a coluna Secundagem — a sua duração, quando é fixa
+(ex.: Ecrã Fracionado são sempre 10″) ou não é bem o mesmo conceito de
+"secundagem" de um spot (ex.: o guião de uma Telepromoção), já vem descrita
+nas Observações desse formato.

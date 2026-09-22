@@ -188,6 +188,17 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   background-color: var(--cor-destaque-suave);
 }
 
+/* TV e Rádio no índice não são um botão recolhível (ver
+   CATEGORIAS_SEM_DROPDOWN_INDICE em app.js) — é só um rótulo fixo, os
+   links aparecem sempre logo a seguir. */
+.indice-categoria--fixa {
+  cursor: default;
+}
+
+.indice-categoria--fixa:hover {
+  background: none;
+}
+
 .indice-categoria-seta {
   display: inline-block;
   font-size: 9px;
