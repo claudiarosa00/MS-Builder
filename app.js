@@ -63,11 +63,15 @@ const CHAVE_TRADUCAO_OBJETIVO = {
 let objetivoAtivo = "awareness";
 
 // A duração do spot (TV/Rádio) é outra coisa que varia por seleção, não só
-// por objetivo — o mesmo "Spot TV" pode ser pedido em 30" para Awareness e
-// recortado a 15" para Consideration. Por isso guarda-se à parte, também
-// por objetivo, indexado pelo id do formato (só relevante para formatos de
-// TV/Rádio — ver formatoTemDuracao). Quando não há entrada, assume-se
-// DURACAO_OMISSAO (30", a duração mais comum), nunca fica por preencher.
+// por objetivo — o mesmo "Spot TV" pode ser pedido em mais que uma duração
+// ao mesmo tempo (ex.: 30" para o spot principal + 15" recortado para outro
+// momento da campanha), cada uma um pedido de spot distinto. Por isso
+// guarda-se à parte, também por objetivo, indexado pelo id do formato (só
+// relevante para formatos de TV/Rádio — ver formatoTemDuracao). Cada
+// entrada é { padrao: Set<string> (subconjunto de DURACOES_PADRAO
+// escolhido), outroAtivo: boolean, outroValor: string }. Quando não há
+// entrada, assume-se só DURACAO_OMISSAO (30", a duração mais comum), nunca
+// fica por preencher.
 const DURACOES_PADRAO = ["15", "20", "30"];
 const DURACAO_OMISSAO = "30";
 const duracoesPorObjetivo = {
@@ -81,20 +85,38 @@ function formatoTemDuracao(formato) {
   return grupo === "TV" || grupo === "Rádio";
 }
 
-function duracaoDoFormato(formato, objetivo) {
-  return duracoesPorObjetivo[objetivo].get(formato.id) || DURACAO_OMISSAO;
+// Estado de duração para leitura (renderização) — nunca cria/guarda nada,
+// devolve o valor por omissão (só 30") quando ainda não há escolha explícita.
+function estadoDuracaoOuOmissao(formato, objetivo) {
+  return duracoesPorObjetivo[objetivo].get(formato.id) || { padrao: new Set([DURACAO_OMISSAO]), outroAtivo: false, outroValor: "" };
 }
 
-// Texto do Formato já com a duração acrescentada (só para TV/Rádio) — usado
-// no resumo da seleção e na exportação para Excel, nunca na Biblioteca de
-// Formatos (que mostra o formato "em bruto", sem nada específico de um
-// pedido concreto).
-function textoFormatoComDuracao(formato, objetivo) {
-  const nomeFormato = textoTraduzido(formato, "formato") ?? "";
-  if (!formatoTemDuracao(formato)) {
-    return nomeFormato;
+// Garante uma entrada real no mapa (criando-a com o valor por omissão se
+// for a primeira interação) para poder ser alterada — só chamar a partir
+// de um evento do utilizador, nunca da renderização.
+function garantirEstadoDuracao(formato, objetivo) {
+  const mapa = duracoesPorObjetivo[objetivo];
+  let estado = mapa.get(formato.id);
+  if (!estado) {
+    estado = { padrao: new Set([DURACAO_OMISSAO]), outroAtivo: false, outroValor: "" };
+    mapa.set(formato.id, estado);
   }
-  return `${nomeFormato} — ${duracaoDoFormato(formato, objetivo)}″`;
+  return estado;
+}
+
+// As durações efetivamente escolhidas para este formato+objetivo, na ordem
+// 15/20/30 seguida de "Outro" (se ativo e preenchido) — nunca uma lista
+// vazia quando o formato tem duração (cai sempre em [DURACAO_OMISSAO]).
+function duracoesEfetivasDoFormato(formato, objetivo) {
+  if (!formatoTemDuracao(formato)) {
+    return [];
+  }
+  const estado = estadoDuracaoOuOmissao(formato, objetivo);
+  const valores = DURACOES_PADRAO.filter((valor) => estado.padrao.has(valor));
+  if (estado.outroAtivo && estado.outroValor.trim()) {
+    valores.push(estado.outroValor.trim());
+  }
+  return valores.length > 0 ? valores : [DURACAO_OMISSAO];
 }
 const selecoesPorObjetivo = {
   awareness: new Set(),
@@ -168,6 +190,7 @@ const TRADUCOES = {
   colFormato: { pt: "Formato", en: "Format", es: "Formato", fr: "Format" },
   colVeiculo: { pt: "Veículo", en: "Vehicle", es: "Vehículo", fr: "Support" },
   colDuracao: { pt: "Duração do Spot", en: "Spot Duration", es: "Duración del Spot", fr: "Durée du Spot" },
+  colSecundagem: { pt: "Secundagem", en: "Duration", es: "Duración", fr: "Durée" },
   duracaoOutro: { pt: "Outro", en: "Other", es: "Otro", fr: "Autre" },
   placeholderDuracaoOutro: { pt: "segundos", en: "seconds", es: "segundos", fr: "secondes" },
   colGrupoDigital2020: { pt: "Grupo Digital2020", en: "Digital2020 Group", es: "Grupo Digital2020", fr: "Groupe Digital2020" },
@@ -716,24 +739,34 @@ function criarCabecalhoTabela(opcoes) {
   return cabecalho;
 }
 
-// Select com as durações mais comuns (15"/20"/30") + "Outro" — quando
-// "Outro" está escolhido, aparece a seguir uma caixa de texto editável
-// (ver o listener de "select-duracao"/"input-duracao-outro" mais abaixo).
-// O valor mostrado vem sempre do objetivo ativo no momento (a mesma seleção
-// pode ter durações diferentes consoante o objetivo).
+// Checkboxes com as durações mais comuns (15"/20"/30") + "Outro" — mais que
+// uma pode estar marcada ao mesmo tempo, porque o mesmo formato pode ser
+// pedido em mais que uma duração (cada uma um spot distinto). Quando
+// "Outro" está marcado, aparece a seguir uma caixa de texto editável (ver
+// o listener de "checkbox-duracao"/"checkbox-duracao-outro"/
+// "input-duracao-outro" mais abaixo). O estado mostrado vem sempre do
+// objetivo ativo no momento (a mesma seleção pode ter durações diferentes
+// consoante o objetivo).
 function criarCelulaDuracao(formato) {
-  const duracaoAtual = duracaoDoFormato(formato, objetivoAtivo);
-  const ehOutro = !DURACOES_PADRAO.includes(duracaoAtual);
+  const estado = estadoDuracaoOuOmissao(formato, objetivoAtivo);
   const opcoesPadrao = DURACOES_PADRAO
-    .map((valor) => `<option value="${valor}" ${!ehOutro && duracaoAtual === valor ? "selected" : ""}>${valor}″</option>`)
+    .map((valor) => `
+      <label class="opcao-duracao">
+        <input type="checkbox" class="checkbox-duracao" data-id="${formato.id}" value="${valor}" ${estado.padrao.has(valor) ? "checked" : ""}>
+        ${valor}″
+      </label>
+    `)
     .join("");
   return `
-    <select class="select-duracao" data-id="${formato.id}">
+    <div class="grupo-duracao" data-id="${formato.id}">
       ${opcoesPadrao}
-      <option value="outro" ${ehOutro ? "selected" : ""}>${t("duracaoOutro")}</option>
-    </select>
-    <input type="text" class="input-duracao-outro" data-id="${formato.id}"
-      value="${ehOutro ? duracaoAtual : ""}" placeholder="${t("placeholderDuracaoOutro")}" ${ehOutro ? "" : "hidden"}>
+      <label class="opcao-duracao opcao-duracao-outro">
+        <input type="checkbox" class="checkbox-duracao-outro" data-id="${formato.id}" ${estado.outroAtivo ? "checked" : ""}>
+        ${t("duracaoOutro")}
+      </label>
+      <input type="text" class="input-duracao-outro" data-id="${formato.id}"
+        value="${estado.outroAtivo ? (estado.outroValor || "") : ""}" placeholder="${t("placeholderDuracaoOutro")}" ${estado.outroAtivo ? "" : "hidden"}>
+    </div>
   `;
 }
 
@@ -966,8 +999,13 @@ listaFormatos.addEventListener("change", (evento) => {
     return;
   }
 
-  if (alvo.classList.contains("select-duracao")) {
-    mudarDuracaoSelect(alvo);
+  if (alvo.classList.contains("checkbox-duracao")) {
+    mudarCheckboxDuracao(alvo);
+    return;
+  }
+
+  if (alvo.classList.contains("checkbox-duracao-outro")) {
+    mudarCheckboxDuracaoOutro(alvo);
   }
 });
 
@@ -979,29 +1017,43 @@ listaFormatos.addEventListener("input", (evento) => {
     return;
   }
   const id = Number(alvo.dataset.id);
-  const valor = alvo.value.trim();
-  if (valor) {
-    duracoesPorObjetivo[objetivoAtivo].set(id, valor);
-  } else {
-    duracoesPorObjetivo[objetivoAtivo].delete(id);
-  }
+  const formato = todosFormatos.find((f) => f.id === id);
+  const estado = garantirEstadoDuracao(formato, objetivoAtivo);
+  estado.outroValor = alvo.value.trim();
   atualizarResumoSelecao();
 });
 
-function mudarDuracaoSelect(select) {
-  const id = Number(select.dataset.id);
-  const inputOutro = select.parentElement.querySelector(".input-duracao-outro");
-  if (select.value === "outro") {
+// Marca/desmarca uma das durações padrão (15"/20"/30") — não é exclusiva,
+// o formato pode ter várias marcadas ao mesmo tempo (vários spots pedidos).
+function mudarCheckboxDuracao(checkbox) {
+  const id = Number(checkbox.dataset.id);
+  const formato = todosFormatos.find((f) => f.id === id);
+  const estado = garantirEstadoDuracao(formato, objetivoAtivo);
+  if (checkbox.checked) {
+    estado.padrao.add(checkbox.value);
+  } else {
+    estado.padrao.delete(checkbox.value);
+  }
+  atualizarResumoSelecao();
+}
+
+// Marca/desmarca a duração "Outro" — mostra/esconde a caixa de texto e
+// limpa-a ao desmarcar (o valor só volta a ficar visível se o utilizador
+// voltar a escrever depois de marcar outra vez).
+function mudarCheckboxDuracaoOutro(checkbox) {
+  const id = Number(checkbox.dataset.id);
+  const formato = todosFormatos.find((f) => f.id === id);
+  const estado = garantirEstadoDuracao(formato, objetivoAtivo);
+  estado.outroAtivo = checkbox.checked;
+  const inputOutro = checkbox.closest(".grupo-duracao").querySelector(".input-duracao-outro");
+  if (checkbox.checked) {
     inputOutro.hidden = false;
     inputOutro.focus();
-    // Só guarda quando o utilizador escrever algo (ver listener "input"
-    // acima) — escolher "Outro" sozinho, sem preencher nada, ainda não é
-    // uma duração válida.
-    return;
+  } else {
+    inputOutro.hidden = true;
+    inputOutro.value = "";
+    estado.outroValor = "";
   }
-  inputOutro.hidden = true;
-  inputOutro.value = "";
-  duracoesPorObjetivo[objetivoAtivo].set(id, select.value);
   atualizarResumoSelecao();
 }
 
@@ -1024,15 +1076,18 @@ function sincronizarCheckboxesComObjetivoAtivo() {
     checkbox.checked = selecaoAtiva.has(Number(checkbox.dataset.id));
   });
 
-  const duracaoAtiva = duracoesPorObjetivo[objetivoAtivo];
-  listaFormatos.querySelectorAll(".select-duracao").forEach((select) => {
-    const id = Number(select.dataset.id);
-    const duracaoAtual = duracaoAtiva.get(id) || DURACAO_OMISSAO;
-    const ehOutro = !DURACOES_PADRAO.includes(duracaoAtual);
-    select.value = ehOutro ? "outro" : duracaoAtual;
-    const inputOutro = select.parentElement.querySelector(".input-duracao-outro");
-    inputOutro.hidden = !ehOutro;
-    inputOutro.value = ehOutro ? duracaoAtual : "";
+  listaFormatos.querySelectorAll(".grupo-duracao").forEach((grupo) => {
+    const id = Number(grupo.dataset.id);
+    const formato = todosFormatos.find((f) => f.id === id);
+    const estado = estadoDuracaoOuOmissao(formato, objetivoAtivo);
+    grupo.querySelectorAll(".checkbox-duracao").forEach((checkbox) => {
+      checkbox.checked = estado.padrao.has(checkbox.value);
+    });
+    const checkboxOutro = grupo.querySelector(".checkbox-duracao-outro");
+    checkboxOutro.checked = estado.outroAtivo;
+    const inputOutro = grupo.querySelector(".input-duracao-outro");
+    inputOutro.hidden = !estado.outroAtivo;
+    inputOutro.value = estado.outroAtivo ? (estado.outroValor || "") : "";
   });
 }
 
@@ -1095,7 +1150,7 @@ function atualizarResumoSelecao() {
     .map((objetivo) => {
       const formatosDoObjetivo = todosFormatos.filter((f) => selecoesPorObjetivo[objetivo].has(f.id));
       const itensObjetivo = formatosDoObjetivo
-        .map((f) => {
+        .flatMap((f) => {
           // Tal como nas tabelas, o Grupo Digital2020 só existe para meios
           // digitais — um formato offline (OOH, ...) não mostra a etiqueta.
           const etiqueta = grupoMeioDoFormato(f) === "Digital"
@@ -1105,7 +1160,17 @@ function atualizarResumoSelecao() {
           // Manhã" → "Boa Onda"), mostra-o também — senão duas seleções
           // diferentes podiam aparecer com o mesmo texto no resumo.
           const veiculo = f.veiculo && f.veiculo !== f.fornecedor ? ` (${f.veiculo})` : "";
-          return `<li>${f.fornecedor}${veiculo} — ${textoFormatoComDuracao(f, objetivo)}${etiqueta}</li>`;
+          const nomeFormato = textoTraduzido(f, "formato") ?? "";
+          // TV/Rádio pode ter mais que uma duração escolhida — cada uma é
+          // um spot pedido à parte, por isso ganha a sua própria linha no
+          // resumo (mesma lógica da exportação para Excel, ver
+          // escreverSeccaoObjetivo).
+          if (formatoTemDuracao(f)) {
+            return duracoesEfetivasDoFormato(f, objetivo).map((duracao) =>
+              `<li>${f.fornecedor}${veiculo} — ${nomeFormato} — ${duracao}″${etiqueta}</li>`
+            );
+          }
+          return [`<li>${f.fornecedor}${veiculo} — ${nomeFormato}${etiqueta}</li>`];
         })
         .join("");
       return `<li class="resumo-grupo-objetivo"><strong>${t(CHAVE_TRADUCAO_OBJETIVO[objetivo])}</strong><ul>${itensObjetivo}</ul></li>`;
@@ -1233,7 +1298,15 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
   formato: {
     largura: 28,
     titulo: () => t("colFormato"),
-    valor: (formato, objetivo) => textoFormatoComDuracao(formato, objetivo),
+    valor: (formato) => textoTraduzido(formato, "formato") ?? "",
+  },
+  secundagem: {
+    largura: 14,
+    titulo: () => t("colSecundagem"),
+    // duracao vem de escreverSeccaoObjetivo, que gera uma linha por cada
+    // duração escolhida (só para formatos de TV/Rádio) — ver
+    // duracoesEfetivasDoFormato.
+    valor: (formato, objetivo, duracao) => (duracao ? `${duracao}″` : "—"),
   },
   tema: {
     largura: 16,
@@ -1289,17 +1362,18 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
 const COLUNAS_POR_MEIO_EXCEL = {
   "Digital": ["canal", "plataforma", "formato", "tema", "dimensao", "aspectRatio", "peso", "tipoFicheiro", "copies", "observacoes", "link", "dataEntrega"],
   "OOH": ["plataforma", "formato", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes", "dataEntrega"],
-  "TV": ["plataforma", "formato", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes", "dataEntrega"],
-  "Rádio": ["plataforma", "formato", "tipoFicheiro", "observacoes", "dataEntrega"],
+  "TV": ["plataforma", "formato", "secundagem", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes", "dataEntrega"],
+  "Rádio": ["plataforma", "formato", "secundagem", "tipoFicheiro", "observacoes", "dataEntrega"],
   "Cinema": ["plataforma", "formato", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes", "dataEntrega"],
   "Imprensa": ["plataforma", "formato", "dimensao", "tipoFicheiro", "observacoes", "dataEntrega"],
 };
 
 // Escreve uma secção completa (título do objetivo + cabeçalho da tabela +
-// uma linha por formato) a partir da linha indicada, e devolve a próxima
-// linha livre (já com uma linha em branco a separar da secção seguinte).
-// colunasChaves é a lista de colunas desta folha (ver COLUNAS_POR_MEIO_EXCEL),
-// sempre precedida pela coluna fixa "#".
+// uma linha por formato — ou uma linha por duração escolhida, no caso de
+// TV/Rádio, ver mais abaixo) a partir da linha indicada, e devolve a
+// próxima linha livre (já com uma linha em branco a separar da secção
+// seguinte). colunasChaves é a lista de colunas desta folha (ver
+// COLUNAS_POR_MEIO_EXCEL), sempre precedida pela coluna fixa "#".
 function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSeccao, config, objetivo, colunasChaves, grupoMeio) {
   let linha = linhaInicio;
   const numColunas = colunasChaves.length + 1;
@@ -1325,11 +1399,27 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
 
   const indiceColunaLink = colunasChaves.indexOf("link");
 
-  formatosDaSeccao.forEach((formato, indice) => {
+  // Um formato de TV/Rádio com mais que uma duração escolhida é, na
+  // prática, mais que um spot pedido — cada duração ganha a sua própria
+  // linha (com a mesma Plataforma/Formato, mas Secundagem diferente), em
+  // vez de juntar tudo numa linha só. Os restantes formatos geram sempre
+  // uma única linha (duracao = null).
+  const itensLinha = [];
+  formatosDaSeccao.forEach((formato) => {
+    if (formatoTemDuracao(formato)) {
+      duracoesEfetivasDoFormato(formato, objetivo).forEach((duracao) => {
+        itensLinha.push({ formato, duracao });
+      });
+    } else {
+      itensLinha.push({ formato, duracao: null });
+    }
+  });
+
+  itensLinha.forEach((item, indice) => {
     const linhaFormato = folha.getRow(linha + indice);
     linhaFormato.values = [
       indice + 1,
-      ...colunasChaves.map((chave) => COLUNAS_EXCEL_DISPONIVEIS[chave].valor(formato, objetivo)),
+      ...colunasChaves.map((chave) => COLUNAS_EXCEL_DISPONIVEIS[chave].valor(item.formato, objetivo, item.duracao)),
     ];
     linhaFormato.eachCell((celula) => {
       celula.font = { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } };
@@ -1338,11 +1428,11 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
     });
     // O texto do link fica na cor de destaque, sublinhado, para
     // parecer clicável mesmo antes de o utilizador lhe tocar.
-    if (indiceColunaLink !== -1 && formato.link) {
+    if (indiceColunaLink !== -1 && item.formato.link) {
       linhaFormato.getCell(indiceColunaLink + 2).font = { name: "Arial Nova", size: 10, color: { argb: "FF1155CC" }, underline: true };
     }
   });
-  linha += formatosDaSeccao.length;
+  linha += itensLinha.length;
 
   return linha + 1; // uma linha em branco antes da secção seguinte
 }
@@ -1540,11 +1630,15 @@ function guardarEstadoLocal() {
       // objetivo — uma duração "órfã" (de um formato entretanto desmarcado)
       // não tem interesse em manter.
       duracoes[objetivo] = {};
-      duracoesPorObjetivo[objetivo].forEach((duracao, id) => {
+      duracoesPorObjetivo[objetivo].forEach((estado, id) => {
         if (selecoesPorObjetivo[objetivo].has(id)) {
           const chave = idParaChave.get(id);
           if (chave) {
-            duracoes[objetivo][chave] = duracao;
+            duracoes[objetivo][chave] = {
+              padrao: [...estado.padrao],
+              outroAtivo: estado.outroAtivo,
+              outroValor: estado.outroValor,
+            };
           }
         }
       });
@@ -1585,10 +1679,14 @@ function restaurarEstadoLocal() {
     });
 
     const duracoesGuardadas = (estadoGuardado.duracoes && estadoGuardado.duracoes[objetivo]) || {};
-    Object.entries(duracoesGuardadas).forEach(([chave, duracao]) => {
+    Object.entries(duracoesGuardadas).forEach(([chave, guardado]) => {
       const id = chaveParaId.get(chave);
-      if (id !== undefined) {
-        duracoesPorObjetivo[objetivo].set(id, duracao);
+      if (id !== undefined && guardado && Array.isArray(guardado.padrao)) {
+        duracoesPorObjetivo[objetivo].set(id, {
+          padrao: new Set(guardado.padrao),
+          outroAtivo: !!guardado.outroAtivo,
+          outroValor: guardado.outroValor || "",
+        });
       }
     });
   });

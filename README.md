@@ -265,16 +265,24 @@ própria folha (com esse nome tal como vem da base), em vez de desaparecer.
 
 ### Duração do Spot (TV/Rádio)
 
-Formatos de TV e Rádio têm uma característica que nenhum outro meio tem:
-o mesmo formato pode ser pedido com durações diferentes (15″, 20″, 30″ ou
-outra, ex.: um recorte de 15″ do spot principal de 30″ para um objetivo
-diferente). Por isso, na tab "Construir Pedido", qualquer formato de TV ou
-Rádio ganha uma coluna extra com um seletor de duração (15″/20″/30″/Outro
-— "Outro" mostra logo a seguir uma caixa de texto editável). A duração
-escolhida é guardada por objetivo, tal como a própria seleção (o mesmo
-"Spot TV" pode ter 30″ em Awareness e 15″ em Consideration), persiste ao
-trocar de idioma/filtro/objetivo e ao recarregar a página (localStorage),
-e aparece junto ao nome do formato no resumo da seleção e na coluna
-Formato do Excel exportado (ex.: "Spot TV (HD — XDCAM HD422) — 30″"). Sem
-nenhuma escolha explícita, assume 30″ (`DURACAO_OMISSAO` em `app.js`) — a
-duração mais comum — para nunca ficar por preencher.
+Formatos de TV e Rádio têm uma característica que nenhum outro meio tem: o
+mesmo formato pode ser pedido em mais que uma duração ao mesmo tempo (ex.:
+o spot principal de 30″ + um recorte de 15″ para outro momento da
+campanha) — cada duração é um spot pedido à parte. Por isso, na tab
+"Construir Pedido", qualquer formato de TV ou Rádio ganha uma coluna extra
+com checkboxes de duração (15″/20″/30″, mais que uma pode estar marcada) e
+"Outro" (mostra logo a seguir uma caixa de texto editável, também
+combinável com as outras). As durações escolhidas são guardadas por
+objetivo, tal como a própria seleção (o mesmo "Spot TV" pode ter 30″ em
+Awareness e 15″+20″ em Consideration), persistem ao trocar de
+idioma/filtro/objetivo e ao recarregar a página (localStorage). Sem
+nenhuma escolha explícita, assume só 30″ (`DURACAO_OMISSAO` em `app.js`)
+— a duração mais comum — para nunca ficar por preencher.
+
+No resumo da seleção e na exportação para Excel, um formato com várias
+durações escolhidas aparece uma vez por duração (são pedidos de spots
+distintos). No Excel, a duração tem a sua própria coluna **Secundagem**
+(nas folhas TV e Rádio — ver `COLUNAS_POR_MEIO_EXCEL` em `app.js`),
+separada da coluna Formato: por exemplo, Formato "Spot TV (HD — XDCAM
+HD422)" com Secundagem "20″" numa linha e "30″" noutra, em vez de tudo
+junto no nome do formato.
