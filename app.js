@@ -1894,6 +1894,10 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
 
   const indiceColunaLink = colunasChaves.indexOf("link");
   const indiceColunaTema = colunasChaves.indexOf("temaCriativo");
+  // As colunas de "X" (Entrega AF / Entrega na Morada) ficam centradas,
+  // em vez de alinhadas à esquerda como o resto do texto — um "X" solto
+  // lê-se pior encostado ao canto da célula.
+  const COLUNAS_CENTRADAS = new Set(["entregaAF", "entregaMorada"]);
 
   // Um formato de TV/Rádio com mais que uma duração escolhida é, na
   // prática, mais que um spot pedido — cada duração ganha a sua própria
@@ -1929,9 +1933,12 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
         return COLUNAS_EXCEL_DISPONIVEIS[chave].valor(grupo.formato, objetivo, grupo.duracao, temaIndice);
       });
       linhaFormato.values = [indiceDentroGrupo === 0 ? indiceGrupo + 1 : "", ...valoresColunas];
-      linhaFormato.eachCell({ includeEmpty: true }, (celula) => {
+      linhaFormato.eachCell({ includeEmpty: true }, (celula, indiceColunaExcel) => {
+        const centrada = COLUNAS_CENTRADAS.has(colunasChaves[indiceColunaExcel - 2]);
         celula.font = { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } };
-        celula.alignment = { vertical: "top", wrapText: true };
+        celula.alignment = centrada
+          ? { vertical: "middle", horizontal: "center", wrapText: true }
+          : { vertical: "top", wrapText: true };
         celula.border = ESTILO_BORDA_COMPLETA;
       });
       // O texto do link fica na cor de destaque, sublinhado, para
@@ -1951,7 +1958,8 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
           continue;
         }
         folha.mergeCells(linhaInicioGrupo, coluna, linhaAtual - 1, coluna);
-        folha.getCell(linhaInicioGrupo, coluna).alignment = { vertical: "middle", wrapText: true, horizontal: coluna === 1 ? "center" : undefined };
+        const centrada = coluna === 1 || COLUNAS_CENTRADAS.has(colunasChaves[coluna - 2]);
+        folha.getCell(linhaInicioGrupo, coluna).alignment = { vertical: "middle", wrapText: true, horizontal: centrada ? "center" : undefined };
       }
     }
   });
