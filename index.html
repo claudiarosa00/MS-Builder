@@ -8,6 +8,11 @@
 </head>
 <body>
 
+  <!-- Só visível ao ganhar foco (primeiro Tab da página) — permite saltar
+       os 8 itens de navegação do índice lateral e ir direto ao formulário
+       do pedido, sem os percorrer todos por teclado em cada visita. -->
+  <a href="#campoCompanhia" class="skip-link" data-i18n="linkSaltarConteudo">Saltar para o formulário do pedido</a>
+
   <!--
   ============================================
   1. CABEÇALHO
@@ -18,6 +23,7 @@
     <div class="cabecalho-texto">
       <h1><span class="titulo-acento">CS</span>Builder</h1>
       <p class="subtitulo" data-i18n="subtitulo">Creative Specs Builder</p>
+      <p class="subtitulo-longo" data-i18n="subtituloLongo">Escolhe os formatos do pedido e exporta as specs completas para Excel.</p>
     </div>
     <div class="seletor-idioma">
       <label for="campoIdioma" data-i18n="labelIdioma">Idioma</label>
@@ -38,9 +44,9 @@
   consultar todos os formatos e specs, sem selecionar nada.
   ============================================
   -->
-  <div class="barra-tabs" role="tablist">
-    <button type="button" class="tab-botao" data-tab="construir" aria-selected="true" data-i18n="tabConstruir">Construir Pedido</button>
-    <button type="button" class="tab-botao" data-tab="specs" aria-selected="false" data-i18n="tabSpecs">Biblioteca de Formatos</button>
+  <div class="barra-tabs">
+    <button type="button" class="tab-botao ativo" data-tab="construir" aria-current="true" data-i18n="tabConstruir">Construir Pedido</button>
+    <button type="button" class="tab-botao" data-tab="specs" data-i18n="tabSpecs">Biblioteca de Formatos</button>
   </div>
 
   <!--
@@ -83,6 +89,8 @@
         </div>
       </section>
 
+      <p class="aviso-discreto" data-tab-visivel="construir" data-i18n="avisoClienteCampanha">Cliente e Campanha aparecem no nome do ficheiro Excel exportado.</p>
+
       <p id="resumoCampanha" class="resumo-campanha" data-tab-visivel="construir"></p>
 
       <!--
@@ -112,7 +120,7 @@
             <button type="button" class="filtro-categoria" data-categoria="Rádio" data-i18n="meioRadio">Rádio</button>
           </div>
         </div>
-        <input type="text" id="campoPesquisa" data-i18n-placeholder="placeholderPesquisa" placeholder="Pesquisar formato ou publisher...">
+        <input type="text" id="campoPesquisa" data-i18n-placeholder="placeholderPesquisa" placeholder="Pesquisar formato ou publisher..." data-i18n-aria-label="placeholderPesquisa" aria-label="Pesquisar formato ou publisher...">
         <button type="button" id="botaoLimparFiltros" class="botao-limpar" data-i18n="botaoLimparFiltros">Limpar filtros</button>
       </div>
 
@@ -137,9 +145,12 @@
         ============================================
         -->
         <section class="seletor-objetivo">
-          <label data-i18n="labelObjetivo">Objetivo</label>
-          <div class="objetivos-botoes" role="tablist">
-            <button type="button" class="objetivo-botao ativo" data-objetivo="awareness">
+          <label>
+            <span data-i18n="labelObjetivo">Objetivo</span>
+            <span class="aviso-objetivo-mini" tabindex="0" data-i18n-title="avisoObjetivo" data-i18n-aria-label="avisoObjetivo" title="Cada objetivo tem a sua própria seleção — o mesmo formato pode ser pedido em mais do que um.">ⓘ</span>
+          </label>
+          <div class="objetivos-botoes">
+            <button type="button" class="objetivo-botao ativo" data-objetivo="awareness" aria-current="true">
               <span data-i18n="objetivoAwareness">Awareness</span> <span class="objetivo-contagem" data-contagem="awareness"></span>
             </button>
             <button type="button" class="objetivo-botao" data-objetivo="consideration">
@@ -155,7 +166,7 @@
         <div id="areaExportar" class="area-exportar">
           <button id="botaoExportar" type="button" disabled data-i18n="botaoExportar">Exportar para Excel</button>
           <button id="botaoSelecionarTodos" type="button" class="botao-limpar" data-i18n="botaoSelecionarTodos">Selecionar todos</button>
-          <button id="botaoLimparSelecao" type="button" class="botao-limpar" disabled data-i18n="botaoLimparSelecao">Limpar seleção</button>
+          <button id="botaoLimparSelecao" type="button" class="botao-limpar botao-limpar--perigo" disabled data-i18n="botaoLimparSelecao">Limpar seleção</button>
         </div>
       </div>
 
@@ -166,7 +177,10 @@
       3.4 LISTA "CONSTRUIR PEDIDO" (com checkboxes)
       ============================================
       -->
-      <p id="semResultadosConstruir" class="sem-resultados" hidden data-tab-visivel="construir" data-i18n="semResultados">Nenhum formato encontrado com estes filtros.</p>
+      <p id="semResultadosConstruir" class="sem-resultados" hidden data-tab-visivel="construir">
+        <span data-i18n="semResultados">Nenhum formato encontrado com estes filtros.</span>
+        <button type="button" class="botao-limpar botao-limpar-inline" data-i18n="botaoLimparFiltros">Limpar filtros</button>
+      </p>
       <main id="listaFormatos" class="lista-formatos" data-tab-visivel="construir"></main>
 
       <!--
@@ -176,7 +190,10 @@
       com o link para a fonte oficial visível.
       ============================================
       -->
-      <p id="semResultadosSpecs" class="sem-resultados" hidden data-tab-visivel="specs" data-i18n="semResultados">Nenhum formato encontrado com estes filtros.</p>
+      <p id="semResultadosSpecs" class="sem-resultados" hidden data-tab-visivel="specs">
+        <span data-i18n="semResultados">Nenhum formato encontrado com estes filtros.</span>
+        <button type="button" class="botao-limpar botao-limpar-inline" data-i18n="botaoLimparFiltros">Limpar filtros</button>
+      </p>
       <main id="listaSpecs" class="lista-formatos" data-tab-visivel="specs" hidden></main>
 
     </div>

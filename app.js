@@ -155,6 +155,12 @@ que substitui marcadores como {n} pelo valor indicado.
 */
 const TRADUCOES = {
   subtitulo: { pt: "Construtor de Specs Criativas", en: "Creative Specs Builder", es: "Generador de Especificaciones Creativas", fr: "Générateur de Spécifications Créatives" },
+  subtituloLongo: { pt: "Escolhe os formatos do pedido e exporta as specs completas para Excel.", en: "Choose the formats for the request and export the full specs to Excel.", es: "Elige los formatos del pedido y exporta las especificaciones completas a Excel.", fr: "Choisis les formats de la demande et exporte les spécifications complètes vers Excel." },
+  linkSaltarConteudo: { pt: "Saltar para o formulário do pedido", en: "Skip to the request form", es: "Saltar al formulario del pedido", fr: "Passer au formulaire de la demande" },
+  avisoClienteCampanha: { pt: "Cliente e Campanha aparecem no nome do ficheiro Excel exportado.", en: "Client and Campaign appear in the exported Excel file's name.", es: "Cliente y Campaña aparecen en el nombre del archivo Excel exportado.", fr: "Client et Campagne apparaissent dans le nom du fichier Excel exporté." },
+  avisoObjetivo: { pt: "Cada objetivo tem a sua própria seleção — o mesmo formato pode ser pedido em mais do que um.", en: "Each objective has its own selection — the same format can be requested for more than one.", es: "Cada objetivo tiene su propia selección — el mismo formato puede pedirse en más de uno.", fr: "Chaque objectif a sa propre sélection — le même format peut être demandé pour plusieurs objectifs." },
+  avisoPersistencia: { pt: "A tua seleção fica guardada neste dispositivo, mesmo que recarregues a página.", en: "Your selection stays saved on this device, even if you reload the page.", es: "Tu selección queda guardada en este dispositivo, aunque recargues la página.", fr: "Ta sélection reste enregistrée sur cet appareil, même si tu recharges la page." },
+  confirmarLimparSelecao: { pt: "Limpar os {n} formatos selecionados nos 3 objetivos? Esta ação não pode ser desfeita.", en: "Clear the {n} selected formats across all 3 objectives? This action cannot be undone.", es: "¿Borrar los {n} formatos seleccionados en los 3 objetivos? Esta acción no se puede deshacer.", fr: "Effacer les {n} formats sélectionnés dans les 3 objectifs ? Cette action est irréversible." },
   indiceAriaLabel: { pt: "Índice de publishers", en: "Publisher index", es: "Índice de editores", fr: "Index des éditeurs" },
   excelValorMeioDigital: { pt: "Digital", en: "Digital", es: "Digital", fr: "Numérique" },
   meioOOH: { pt: "OOH", en: "OOH", es: "OOH", fr: "OOH" },
@@ -224,6 +230,7 @@ const TRADUCOES = {
   colDataEntrega: { pt: "Data de entrega", en: "Delivery Date", es: "Fecha de entrega", fr: "Date de livraison" },
   naoEspecificado: { pt: "não especificado", en: "not specified", es: "no especificado", fr: "non spécifié" },
   verSpecsLink: { pt: "Ver specs ↗", en: "View specs ↗", es: "Ver especificaciones ↗", fr: "Voir les spécifications ↗" },
+  verSpecsLinkComNome: { pt: "Ver specs de {formato} ↗", en: "View specs for {formato} ↗", es: "Ver especificaciones de {formato} ↗", fr: "Voir les spécifications de {formato} ↗" },
   resumoSelecaoTitulo: { pt: "Formatos selecionados ({n})", en: "Selected formats ({n})", es: "Formatos seleccionados ({n})", fr: "Formats sélectionnés ({n})" },
   excelLabelCompanhia: { pt: "Companhia:", en: "Company:", es: "Compañía:", fr: "Société:" },
   excelLabelCliente: { pt: "Cliente:", en: "Client:", es: "Cliente:", fr: "Client:" },
@@ -284,6 +291,9 @@ function aplicarTraducoesEstaticas() {
   document.querySelectorAll("[data-i18n-aria-label]").forEach((elemento) => {
     elemento.setAttribute("aria-label", t(elemento.dataset.i18nAriaLabel));
   });
+  document.querySelectorAll("[data-i18n-title]").forEach((elemento) => {
+    elemento.setAttribute("title", t(elemento.dataset.i18nTitle));
+  });
 
   // O título "CSBuilder" nunca se traduz (é o nome do produto) — só a
   // parte descritiva a seguir ao travessão, tanto no separador do browser
@@ -325,7 +335,16 @@ function mudarTab(nomeTab) {
   botoesTab.forEach((botao) => {
     const ativo = botao.dataset.tab === nomeTab;
     botao.classList.toggle("ativo", ativo);
-    botao.setAttribute("aria-selected", ativo);
+    // aria-current (não aria-selected) porque estes botões não seguem o
+    // padrão ARIA completo de tabs (não há role="tab"/"tabpanel" nem
+    // navegação por setas) — aria-selected só é válido dentro desse
+    // padrão; aria-current="true" descreve corretamente "a vista atual
+    // dentro de um conjunto" sem prometer um contrato que não existe.
+    if (ativo) {
+      botao.setAttribute("aria-current", "true");
+    } else {
+      botao.removeAttribute("aria-current");
+    }
   });
   aplicarFiltros();
 }
@@ -667,7 +686,7 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes) {
   bloco.dataset.publisher = nomePublisher;
   bloco.dataset.categoria = categoriaDoPublisher(nomePublisher, formatosDoPublisher);
 
-  const titulo = document.createElement("h2");
+  const titulo = document.createElement("h4");
   titulo.textContent = nomePublisher;
   const contagem = document.createElement("span");
   contagem.className = "contagem";
@@ -715,17 +734,24 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes) {
   }
   tabela.appendChild(corpo);
 
-  bloco.appendChild(tabela);
+  // Em ecrãs estreitos a tabela pode não caber (muitas colunas, ou uma
+  // Observação longa) — o scroll horizontal fica contido dentro deste
+  // wrapper, em vez de forçar a página inteira a deslizar de lado.
+  const tabelaEnvolvente = document.createElement("div");
+  tabelaEnvolvente.className = "tabela-formatos-wrap";
+  tabelaEnvolvente.appendChild(tabela);
+
+  bloco.appendChild(tabelaEnvolvente);
   return bloco;
 }
 
 function criarCabecalhoTabela(opcoes) {
   const cabecalho = document.createElement("thead");
-  const colunaCheckbox = opcoes.comCheckbox ? '<th class="coluna-checkbox"></th>' : "";
-  const colunaLink = opcoes.comLink ? `<th>${t("colFonte")}</th>` : "";
-  const colunaGrupoDigital2020 = opcoes.comGrupoDigital2020 ? `<th>${t("colGrupoDigital2020")}</th>` : "";
-  const colunaVeiculo = opcoes.comVeiculo ? `<th>${t("colVeiculo")}</th>` : "";
-  const colunaDuracao = opcoes.comDuracao ? `<th>${t("colDuracao")}</th>` : "";
+  const colunaCheckbox = opcoes.comCheckbox ? '<th class="coluna-checkbox" scope="col"></th>' : "";
+  const colunaLink = opcoes.comLink ? `<th scope="col">${t("colFonte")}</th>` : "";
+  const colunaGrupoDigital2020 = opcoes.comGrupoDigital2020 ? `<th scope="col">${t("colGrupoDigital2020")}</th>` : "";
+  const colunaVeiculo = opcoes.comVeiculo ? `<th scope="col">${t("colVeiculo")}</th>` : "";
+  const colunaDuracao = opcoes.comDuracao ? `<th scope="col">${t("colDuracao")}</th>` : "";
 
   // Na tab "Construir Pedido" (simplificado) só mostramos o essencial para
   // escolher — nome do formato e o grupo Digital2020. As specs completas
@@ -735,7 +761,7 @@ function criarCabecalhoTabela(opcoes) {
     cabecalho.innerHTML = `
       <tr>
         ${colunaCheckbox}
-        <th>${t("colFormato")}</th>
+        <th scope="col">${t("colFormato")}</th>
         ${colunaVeiculo}
         ${colunaGrupoDigital2020}
         ${colunaDuracao}
@@ -747,15 +773,15 @@ function criarCabecalhoTabela(opcoes) {
   cabecalho.innerHTML = `
     <tr>
       ${colunaCheckbox}
-      <th>${t("colFormato")}</th>
+      <th scope="col">${t("colFormato")}</th>
       ${colunaVeiculo}
       ${colunaGrupoDigital2020}
-      <th>${t("colDimensao")}</th>
-      <th>${t("colAspectRatio")}</th>
-      <th>${t("colPeso")}</th>
-      <th>${t("colTipoFicheiro")}</th>
-      <th>${t("colCopies")}</th>
-      <th>${t("colObservacoes")}</th>
+      <th scope="col">${t("colDimensao")}</th>
+      <th scope="col">${t("colAspectRatio")}</th>
+      <th scope="col">${t("colPeso")}</th>
+      <th scope="col">${t("colTipoFicheiro")}</th>
+      <th scope="col">${t("colCopies")}</th>
+      <th scope="col">${t("colObservacoes")}</th>
       ${colunaLink}
     </tr>
   `;
@@ -795,11 +821,16 @@ function criarCelulaDuracao(formato) {
 
 function criarLinhaFormato(formato, opcoes) {
   const linha = document.createElement("tr");
+  // Id da célula com o nome do formato, para a checkbox se associar a ela
+  // via aria-labelledby — sem isto, um leitor de ecrã só anuncia "checkbox,
+  // não selecionada", repetido em cada linha, sem dizer a que formato
+  // corresponde (ver auditoria de acessibilidade).
+  const idNomeFormato = `formato-nome-${opcoes.prefixoId}-${formato.id}`;
   // Marca a checkbox logo na criação se este formato já estiver selecionado
   // (importante para a lista continuar correta depois de trocar de idioma
   // ou de filtro, que voltam a desenhar as linhas do zero).
   const colunaCheckbox = opcoes.comCheckbox
-    ? `<td class="coluna-checkbox"><input type="checkbox" class="checkbox-formato" data-id="${formato.id}" ${selecoesPorObjetivo[objetivoAtivo].has(formato.id) ? "checked" : ""}></td>`
+    ? `<td class="coluna-checkbox"><input type="checkbox" class="checkbox-formato" data-id="${formato.id}" aria-labelledby="${idNomeFormato}" ${selecoesPorObjetivo[objetivoAtivo].has(formato.id) ? "checked" : ""}></td>`
     : "";
   const colunaGrupoDigital2020 = opcoes.comGrupoDigital2020
     ? `<td><span class="etiqueta-dg2020">${formato.grupoDigital2020 ?? "—"}</span></td>`
@@ -817,7 +848,7 @@ function criarLinhaFormato(formato, opcoes) {
   if (opcoes.simplificado) {
     linha.innerHTML = `
       ${colunaCheckbox}
-      <td>${textoTraduzido(formato, "formato") ?? ""}</td>
+      <td id="${idNomeFormato}">${textoTraduzido(formato, "formato") ?? ""}</td>
       ${colunaVeiculo}
       ${colunaGrupoDigital2020}
       ${colunaDuracao}
@@ -825,12 +856,16 @@ function criarLinhaFormato(formato, opcoes) {
     return linha;
   }
 
+  // aria-label com o nome do formato: sem isto, uma pessoa a navegar pela
+  // lista de links do leitor de ecrã só ouviria "Ver specs" repetido,
+  // dezenas de vezes, sem saber a que formato cada link pertence.
+  const nomeFormatoTexto = textoTraduzido(formato, "formato") ?? "";
   const colunaLink = opcoes.comLink
-    ? `<td>${formato.link ? `<a href="${formato.link}" target="_blank" rel="noopener">${t("verSpecsLink")}</a>` : "—"}</td>`
+    ? `<td>${formato.link ? `<a href="${formato.link}" target="_blank" rel="noopener" aria-label="${formatar("verSpecsLinkComNome", { formato: nomeFormatoTexto })}">${t("verSpecsLink")}</a>` : "—"}</td>`
     : "";
   linha.innerHTML = `
     ${colunaCheckbox}
-    <td>${textoTraduzido(formato, "formato") ?? ""}</td>
+    <td id="${idNomeFormato}">${nomeFormatoTexto}</td>
     ${colunaVeiculo}
     ${colunaGrupoDigital2020}
     <td>${textoTraduzido(formato, "dimensao") ?? t("naoEspecificado")}</td>
@@ -838,7 +873,7 @@ function criarLinhaFormato(formato, opcoes) {
     <td>${textoTraduzido(formato, "peso") ?? t("naoEspecificado")}</td>
     <td>${textoTraduzido(formato, "tipoFicheiro") ?? t("naoEspecificado")}</td>
     <td>${textoTraduzido(formato, "copies") || "—"}</td>
-    <td>${textoTraduzido(formato, "observacoes") || "—"}</td>
+    <td class="coluna-observacoes">${textoTraduzido(formato, "observacoes") || "—"}</td>
     ${colunaLink}
   `;
   return linha;
@@ -1032,11 +1067,20 @@ function aplicarFiltros() {
 }
 
 // Repõe a pesquisa e a categoria em "Todas", sem mexer na seleção.
-botaoLimparFiltros.addEventListener("click", () => {
+function limparFiltros() {
   campoPesquisa.value = "";
   categoriaFiltroAtiva = "todas";
   botoesFiltroCategoria.forEach((botao) => botao.classList.toggle("ativo", botao.dataset.categoria === "todas"));
   aplicarFiltros();
+}
+
+botaoLimparFiltros.addEventListener("click", limparFiltros);
+
+// O mesmo botão "Limpar filtros" aparece embutido na própria mensagem de
+// "sem resultados" (uma em cada tab) — para a recuperação do erro estar
+// mesmo ao lado do erro, em vez de só lá em cima na barra de filtros.
+document.querySelectorAll(".botao-limpar-inline").forEach((botao) => {
+  botao.addEventListener("click", limparFiltros);
 });
 
 /*
@@ -1052,6 +1096,27 @@ o que a checkbox marca/desmarca é sempre o conjunto do objetivo
 ativo no momento (selecoesPorObjetivo[objetivoAtivo]).
 ============================================
 */
+// Clicar em qualquer parte da linha (não só na checkbox de 18x18px) marca/
+// desmarca o formato — a checkbox sozinha é um alvo pequeno para tocar num
+// telemóvel. Não interfere com os controlos da coluna de Duração (que têm
+// as suas próprias checkboxes/labels) nem com o link "Ver specs".
+listaFormatos.addEventListener("click", (evento) => {
+  if (evento.target.closest("input, a, label, select, button")) {
+    return;
+  }
+  const celula = evento.target.closest("td");
+  if (!celula || celula.classList.contains("coluna-checkbox") || celula.querySelector(".grupo-duracao")) {
+    return;
+  }
+  const linha = celula.closest("tr");
+  const checkbox = linha ? linha.querySelector(".checkbox-formato") : null;
+  if (!checkbox) {
+    return;
+  }
+  checkbox.checked = !checkbox.checked;
+  checkbox.dispatchEvent(new Event("change", { bubbles: true }));
+});
+
 listaFormatos.addEventListener("change", (evento) => {
   const alvo = evento.target;
 
@@ -1128,10 +1193,25 @@ function mudarCheckboxDuracaoOutro(checkbox) {
 // nem se re-desenha), só o estado das checkboxes e das durações de
 // TV/Rádio mudam, para refletir a seleção já feita nesse objetivo (a mesma
 // seleção pode ter uma duração diferente consoante o objetivo).
+// Marca visualmente e para tecnologia de apoio qual botão de Objetivo está
+// ativo (aria-current, pela mesma razão do aria-current nos separadores de
+// tab — não há aqui um padrão ARIA completo de tabs).
+function atualizarBotoesObjetivo() {
+  botoesObjetivo.forEach((botao) => {
+    const ativo = botao.dataset.objetivo === objetivoAtivo;
+    botao.classList.toggle("ativo", ativo);
+    if (ativo) {
+      botao.setAttribute("aria-current", "true");
+    } else {
+      botao.removeAttribute("aria-current");
+    }
+  });
+}
+
 botoesObjetivo.forEach((botao) => {
   botao.addEventListener("click", () => {
     objetivoAtivo = botao.dataset.objetivo;
-    botoesObjetivo.forEach((b) => b.classList.toggle("ativo", b === botao));
+    atualizarBotoesObjetivo();
     sincronizarCheckboxesComObjetivoAtivo();
     atualizarResumoSelecao();
   });
@@ -1174,8 +1254,18 @@ botaoSelecionarTodos.addEventListener("click", () => {
 });
 
 // Esvazia a seleção dos TRÊS objetivos (é um "recomeçar o pedido do zero"),
-// não só a do objetivo ativo no momento.
+// não só a do objetivo ativo no momento — por isso pede confirmação: sem
+// isto, um clique por engano ao lado de "Selecionar todos"/"Exportar"
+// apagava um pedido inteiro sem hipótese de recuperação.
 botaoLimparSelecao.addEventListener("click", () => {
+  const total = totalFormatosSelecionados();
+  if (total === 0) {
+    return;
+  }
+  const confirmado = window.confirm(formatar("confirmarLimparSelecao", { n: total }));
+  if (!confirmado) {
+    return;
+  }
   listaFormatos.querySelectorAll(".checkbox-formato:checked").forEach((checkbox) => {
     checkbox.checked = false;
   });
@@ -1245,7 +1335,7 @@ function atualizarResumoSelecao() {
     .join("");
 
   resumoSelecao.innerHTML = `
-    <h2>${formatar("resumoSelecaoTitulo", { n: total })}</h2>
+    <h2>${formatar("resumoSelecaoTitulo", { n: total })} <span class="aviso-objetivo-mini" tabindex="0" title="${t("avisoPersistencia")}" aria-label="${t("avisoPersistencia")}">ⓘ</span></h2>
     <ul class="resumo-grupos">${grupos}</ul>
   `;
 }
@@ -1769,7 +1859,7 @@ function restaurarEstadoLocal() {
   }
   if (estadoGuardado.objetivoAtivo && OBJETIVOS.includes(estadoGuardado.objetivoAtivo)) {
     objetivoAtivo = estadoGuardado.objetivoAtivo;
-    botoesObjetivo.forEach((botao) => botao.classList.toggle("ativo", botao.dataset.objetivo === objetivoAtivo));
+    atualizarBotoesObjetivo();
   }
 }
 

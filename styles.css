@@ -43,6 +43,44 @@ textarea {
   font-family: inherit;
 }
 
+/* Um único estilo de foco por teclado para toda a aplicação — antes só os
+   campos de texto tinham um contorno customizado (vermelho); botões,
+   checkboxes e links ficavam com o azul por omissão do browser, o que
+   misturava duas linguagens visuais de foco na mesma página.
+   :focus-visible (não :focus) para o contorno só aparecer a navegar por
+   teclado, sem "piscar" em cada clique de rato. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--cor-destaque);
+  outline-offset: 2px;
+}
+
+/* Só visível ao ganhar foco (primeiro Tab da página) — deixa saltar os
+   itens do índice lateral e ir direto ao formulário do pedido. */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  left: 12px;
+  z-index: 100;
+  background-color: var(--cor-escuro);
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 0 0 8px 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus-visible {
+  top: 0;
+  outline-offset: -2px;
+}
+
 /*
 ============================================
 2. CABEÇALHO
@@ -110,6 +148,13 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   font-size: 14px;
   color: #b8b5b3;
   letter-spacing: 0.02em;
+}
+
+.subtitulo-longo {
+  margin: 6px 0 0 0;
+  font-size: 12.5px;
+  color: #8f8b87;
+  max-width: 46ch;
 }
 
 /*
@@ -320,10 +365,6 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   background-color: var(--cor-fundo-cartao);
 }
 
-#campoPesquisa:focus {
-  outline: 2px solid var(--cor-destaque);
-  outline-offset: 1px;
-}
 
 /* Duas filas curtas (Online / Offline) em vez de uma única fila comprida
    — mais fácil de percorrer com o olho do que tudo espremido numa linha. */
@@ -399,6 +440,22 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   cursor: not-allowed;
 }
 
+/* "Limpar seleção" apaga os 3 objetivos de uma vez e não tem "desfazer"
+   (só uma confirmação) — por isso fica com um tom vermelho já visível
+   sem precisar de hover, para não ter o mesmo peso visual discreto de
+   "Selecionar todos"/"Limpar filtros" (que são inofensivos). */
+.botao-limpar--perigo {
+  color: var(--cor-destaque-escuro);
+}
+
+.botao-limpar--perigo:hover {
+  color: var(--cor-destaque);
+}
+
+.botao-limpar--perigo:disabled {
+  color: #c9c4c1;
+}
+
 /* Botão flutuante "voltar ao topo" — fixo no canto, só visível depois de
    algum scroll (controlado em app.js, via o atributo [hidden]). */
 .botao-voltar-topo {
@@ -458,6 +515,17 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   border-radius: 8px;
   color: var(--cor-texto-suave);
   font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* O "Limpar filtros" já existente na barra de filtros fica repetido aqui,
+   ao lado da própria mensagem de erro — a recuperação fica junto ao
+   problema, em vez de só lá em cima. */
+.botao-limpar-inline {
+  padding: 4px 4px;
 }
 
 /*
@@ -486,8 +554,12 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   letter-spacing: 0.03em;
 }
 
+/* --cor-destaque-escuro em vez de --cor-destaque: o vermelho de marca dá só
+   4.43:1 sobre o fundo da página, abaixo do mínimo AA (4.5:1) para texto
+   deste tamanho — o tom mais escuro já usado noutros textos pequenos
+   (--cor-destaque-escuro) dá 7.44:1. */
 .marca-obrigatorio {
-  color: var(--cor-destaque);
+  color: var(--cor-destaque-escuro);
 }
 
 .campo input,
@@ -502,10 +574,11 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   color: var(--cor-texto);
 }
 
-.campo input:focus,
-.campo select:focus {
-  outline: 2px solid var(--cor-destaque);
-  outline-offset: 1px;
+.aviso-discreto {
+  margin: 6px 32px 0 32px;
+  padding: 0;
+  font-size: 12px;
+  color: var(--cor-texto-suave);
 }
 
 .resumo-campanha {
@@ -536,6 +609,22 @@ muda qual seleção de formatos está a ser editada.
   color: var(--cor-texto-suave);
   text-transform: uppercase;
   letter-spacing: 0.03em;
+}
+
+/* Ícone pequeno com explicação em "title" (ao passar o rato) e aria-label
+   (para leitor de ecrã) — em vez de um parágrafo de texto sempre visível,
+   para não sobrecarregar visualmente uma barra que fica fixa no ecrã
+   durante todo o scroll. */
+.aviso-objetivo-mini {
+  display: inline-block;
+  text-transform: none;
+  letter-spacing: normal;
+  cursor: help;
+  border-radius: 50%;
+}
+
+.aviso-objetivo-mini:hover {
+  color: var(--cor-destaque);
 }
 
 .objetivos-botoes {
@@ -644,6 +733,7 @@ página depois de selecionar formatos mais abaixo na lista.
   padding: 12px 32px;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 16px;
 }
 
@@ -665,6 +755,10 @@ página depois de selecionar formatos mais abaixo na lista.
 
 #botaoExportar:disabled {
   background-color: #c9c4c1;
+  /* Texto escuro em vez de herdar o branco: o branco sobre este cinzento
+     dava só 1.7:1 de contraste — o botão principal da página ficava quase
+     invisível no estado desativado, em vez de "ainda não, falta um passo". */
+  color: #453f38;
   cursor: not-allowed;
 }
 
@@ -705,6 +799,11 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   border-radius: 8px;
   padding: 16px 20px;
   scroll-margin-top: 12px;
+  /* Sem isto, um item flex (dentro de .lista-formatos) não encolhe abaixo
+     do tamanho do seu conteúdo — a tabela lá dentro (com min-width) acabava
+     por alargar este cartão, e com ele a página inteira, em vez de o
+     scroll ficar contido em .tabela-formatos-wrap como é suposto. */
+  min-width: 0;
 }
 
 /* Cabeçalho grande "Online"/"Offline" — marca a fronteira entre as
@@ -739,7 +838,7 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   color: var(--cor-texto-suave);
 }
 
-.grupo-publisher h2 {
+.grupo-publisher h4 {
   margin: 0 0 12px 0;
   font-size: 17px;
   font-weight: 600;
@@ -752,8 +851,17 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   font-size: 14px;
 }
 
+/* Contém o scroll horizontal DENTRO da tabela em ecrãs estreitos — sem
+   isto, uma tabela mais larga que o ecrã (muitas colunas, ou uma
+   Observação longa) empurrava a página inteira para o lado. */
+.tabela-formatos-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .tabela-formatos {
   width: 100%;
+  min-width: 460px;
   border-collapse: collapse;
   font-size: 14px;
 }
@@ -778,16 +886,31 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   background-color: var(--cor-destaque-suave);
 }
 
+/* Na tab "Construir Pedido" a linha toda é clicável (ver o listener de
+   clique em listaFormatos, app.js) — o cursor de "mão" deixa isso claro,
+   e o padding extra alarga a área de toque da checkbox para lá dos 16px
+   visíveis dela própria (abaixo do mínimo recomendado para ecrãs táteis). */
+#listaFormatos .tabela-formatos tbody tr {
+  cursor: pointer;
+}
+
 .coluna-checkbox {
   width: 28px;
-  padding-right: 0;
+  padding: 14px 10px;
 }
 
 .checkbox-formato {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   cursor: pointer;
   accent-color: var(--cor-destaque);
+}
+
+/* As Observações de algumas specs (ex.: TV/telepromoção) vão bem além dos
+   ~65 caracteres recomendados para leitura confortável — limitar a largura
+   da coluna faz o texto quebrar em linhas mais curtas, mesmo em ecrãs largos. */
+.coluna-observacoes {
+  max-width: 60ch;
 }
 
 .tabela-formatos a {
@@ -843,5 +966,90 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
 
 .input-duracao-outro[hidden] {
   display: none;
+}
+
+/*
+============================================
+11. RESPONSIVE (ecrãs estreitos — telemóvel/tablet pequeno)
+Antes desta secção não havia nenhuma @media query em todo o ficheiro: a
+barra lateral de 190px nunca colapsava, o que por si só empurrava a
+página inteira para o lado num ecrã de telemóvel (confirmado: 203px de
+overflow horizontal num viewport de 390px). A solução aqui é sobretudo
+"esconder" — o índice lateral duplica, em navegação, o que os botões de
+filtro por categoria já fazem (que continuam disponíveis e já eram
+responsivos, por usarem flex-wrap), por isso escondê-lo em ecrã pequeno
+não tira nenhuma funcionalidade real, só espaço que não há.
+============================================
+*/
+@media (max-width: 760px) {
+  .indice-publishers {
+    display: none;
+  }
+
+  .layout-app {
+    flex-direction: column;
+    /* .layout-app tem align-items:flex-start para a barra lateral (190px)
+       não esticar em altura no layout normal em linha — mas em coluna
+       (aqui) esse mesmo valor faz o conteúdo encolher para o tamanho do
+       seu conteúdo em vez de esticar à largura do ecrã, que é a causa raiz
+       do overflow horizontal em mobile: .conteudo-principal ficava tão
+       largo quanto o seu conteúdo mais largo (a tabela), e arrastava a
+       página toda consigo. */
+    align-items: stretch;
+  }
+
+  .cabecalho {
+    flex-wrap: wrap;
+    padding: 12px 16px;
+    gap: 12px;
+  }
+
+  .logo-havas {
+    height: 56px;
+    width: 56px;
+  }
+
+  .cabecalho h1 {
+    font-size: 22px;
+  }
+
+  .seletor-idioma {
+    margin-left: 0;
+  }
+
+  .barra-tabs {
+    padding: 0 16px;
+  }
+
+  .dados-campanha,
+  .aviso-discreto,
+  .resumo-campanha,
+  .barra-filtros,
+  .seletor-objetivo,
+  .area-exportar,
+  .area-estado,
+  .lista-formatos,
+  .sem-resultados {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .resumo-selecao h2,
+  .resumo-grupos {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .lista-formatos {
+    padding-top: 16px;
+  }
+
+  .grupo-publisher {
+    padding: 12px 14px;
+  }
+
+  #campoPesquisa {
+    min-width: 0;
+  }
 }
 
