@@ -72,21 +72,23 @@ templates/                  Reservado para uso futuro (atualmente vazio)
 
 ## Base de dados de formatos
 
-Os 505 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
+Os 508 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
 mapeados a partir da base real de specs da agência (269 formatos de
 publisher → 40 categorias "Digital2020" canónicas, mais os formatos
 Programmatic/DV360 adicionados depois, os 36 formatos de compra direta do
 publisher "Notícias Ilimitadas", os formatos WeTransfer via Azerion,
 Roblox e OLX, o publisher "Bauer" — Reino Unido, os 27 formatos de OOH —
 `Meio = "OOH"` — de MOP, DreamMedia, BIG Outdoors, JCDecaux e Táxi
-Advertising, e os 124 primeiros formatos de Imprensa — `Meio =
-"Imprensa"` — de Correio da Manhã (jornal diário + suplemento Mais Sport
-+ revistas semanais Boa Onda/VIDAS/Domingo), Destak, Jornal de Negócios,
-Record, Sábado (+ Sábado Viajante), TV Guia, Expresso (1º Caderno +
-Economia + Revista E) e Attitude). Colunas: **Meio**, **Canal**,
-**Fornecedor**, **Veículo**, **Grupo Digital2020**, **Formato**,
-**Dimensão**, **Aspect Ratio**, **Peso**, **Tipo de Ficheiro**, **Copies**,
-**Observações**, **Link**.
+Advertising, os 124 formatos de Imprensa — `Meio = "Imprensa"` — de
+Correio da Manhã (jornal diário + suplemento Mais Sport + revistas
+semanais Boa Onda/VIDAS/Domingo), Destak, Jornal de Negócios, Record,
+Sábado (+ Sábado Viajante), TV Guia, Expresso (1º Caderno + Economia +
+Revista E) e Attitude, e os 2 primeiros formatos de TV (`Meio = "TV"`,
+Spot normal em SD/IMX50 e HD/XDCAM HD422, entregue via Portal GoFastWay)
+mais o primeiro de Rádio (`Meio = "Rádio"`, Spot normal em MP4). Colunas:
+**Meio**, **Canal**, **Fornecedor**, **Veículo**, **Grupo Digital2020**,
+**Formato**, **Dimensão**, **Aspect Ratio**, **Peso**, **Tipo de
+Ficheiro**, **Copies**, **Observações**, **Link**.
 
 A coluna **Grupo Digital2020** é uma taxonomia exclusiva dos meios digitais
 (Internet/Programático) — fica sempre em branco nas linhas offline (OOH, e
@@ -146,10 +148,19 @@ meio **Imprensa**, com 124 formatos reais de jornais e revistas (Correio
 da Manhã, Destak, Jornal de Negócios, Record, Sábado, Sábado Viajante,
 TV Guia, Expresso e Attitude) — Página, Página Dupla, meias e quartos de
 página, rodapés, orelhas de capa e outros formatos especiais próprios de
-cada publicação (ver secção "Exportação para Excel" abaixo). Os
-restantes meios offline (TV, Rádio, Cinema) já têm a estrutura de
-exportação pronta (cada um com a sua própria folha), mas entram na base
-só quando houver dados reais para os mapear — nunca são inventados.
+cada publicação, e os meios **TV** e **Rádio**, cada um com um "Spot
+normal": TV entregue via Portal GoFastWay (`Fornecedor = "GoFastWay"`),
+em SD (IMX50, 720x576px) ou HD (XDCAM HD422, 1920x1080px), conforme as
+especificações técnicas oficiais da GoFastWay para entrega de ficheiros
+de spots de publicidade; Rádio em MP4/AAC — como não foi fornecida
+nenhuma tabela de specs de uma rádio ou plataforma de distribuição
+concreta, este formato usa valores genéricos de entrega (o mesmo padrão
+de loudness broadcast já usado para TV), sinalizados no campo
+Observações como "a confirmar sempre junto da rádio ou da central de
+meios antes de entregar" (ver secção "Exportação para Excel" abaixo). O
+meio offline restante (Cinema) já tem a estrutura de exportação pronta
+(a sua própria folha), mas entra na base só quando houver dados reais
+para o mapear — nunca é inventado.
 
 Alguns publishers de Imprensa têm mais que um **Veículo** distinto (ex.:
 "Correio da Manhã" cobre o jornal diário, o suplemento "Mais Sport" e as
@@ -223,3 +234,19 @@ O "meio" de cada formato vem do campo **Meio** da base (`Internet` e
 `ORDEM_MEIOS_EXCEL` e `VALOR_BASE_PARA_GRUPO_MEIO` em `app.js`). Um valor
 de Meio novo que ainda não esteja nesse mapeamento ganha na mesma a sua
 própria folha (com esse nome tal como vem da base), em vez de desaparecer.
+
+### Duração do Spot (TV/Rádio)
+
+Formatos de TV e Rádio têm uma característica que nenhum outro meio tem:
+o mesmo formato pode ser pedido com durações diferentes (15″, 20″, 30″ ou
+outra, ex.: um recorte de 15″ do spot principal de 30″ para um objetivo
+diferente). Por isso, na tab "Construir Pedido", qualquer formato de TV ou
+Rádio ganha uma coluna extra com um seletor de duração (15″/20″/30″/Outro
+— "Outro" mostra logo a seguir uma caixa de texto editável). A duração
+escolhida é guardada por objetivo, tal como a própria seleção (o mesmo
+"Spot TV" pode ter 30″ em Awareness e 15″ em Consideration), persiste ao
+trocar de idioma/filtro/objetivo e ao recarregar a página (localStorage),
+e aparece junto ao nome do formato no resumo da seleção e na coluna
+Formato do Excel exportado (ex.: "Spot TV (HD — XDCAM HD422) — 30″"). Sem
+nenhuma escolha explícita, assume 30″ (`DURACAO_OMISSAO` em `app.js`) — a
+duração mais comum — para nunca ficar por preencher.

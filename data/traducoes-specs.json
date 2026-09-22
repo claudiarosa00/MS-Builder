@@ -8965,5 +8965,53 @@
       "tipoFicheiro": "PDF, EPS ou TIFF en haute résolution de 400 DPI (minimum 300 DPI), CMYK, sans attribution de profil final",
       "observacoes": "Périodicité bimestrielle (janvier, mars, mai, juillet, septembre, novembre) ; magazine bilingue (portugais + anglais) ; distribution au Portugal et dans 22 autres pays ; pages doubles avec un décalage de 6mm vers le centre (3mm vers la gauche et 3mm vers la droite) pour garantir le repérage central. Texte vectorisé (converti en tracés) ; couleur exclusivement en noir — titres exceptés — doit être uniquement à 100% sur la plaque noire et laissée en blanc sur les autres plaques pour éviter les défauts de repérage (si noir plus soutenu, 100% noir + 70% cyan) ; accompagné d'une épreuve couleur ; matériaux livrés sur support numérique (CD/DVD) ou par e-mail."
     }
+  },
+  "GoFastWay|GoFastWay|Spot TV (SD — IMX50)": {
+    "en": {
+      "dimensao": "720x576px, 25 fps",
+      "tipoFicheiro": "MXF (OP-1a), IMX50 codec, 50 Mb/s (CBR), 4:2:2 chroma, interlaced (Interlaced UFF, 16:9FHA), .mxf extension",
+      "observacoes": "Mandatory file structure: the advertising content must start on the first video frame and end on the last — 0-frame pre-roll and post-roll, file duration = spot duration x 25 frames. Audio: PCM, 2 channels (stereo), 24 bit, 48 KHz, peak level -3dB TP max., loudness (integrated) -23 LUFS. Suggested file naming: <Pub ID>_<Spot Name>_<Duration>.mxf (e.g. PUB-2015-000345_Fiat 500X Sport Edition_30.mxf) — not mandatory, but recommended whenever possible. Delivery exclusively by a registered user through the GoFastWay Portal (www.gofastway.tv). All files go through automatic quality control (technical compliance with these specs + subjective video and audio review); in case of inconsistency, GoFastWay may request delivery of a corrected file."
+    },
+    "es": {
+      "dimensao": "720x576px, 25 fps",
+      "tipoFicheiro": "MXF (OP-1a), códec IMX50, 50 Mb/s (CBR), croma 4:2:2, entrelazado (Interlaced UFF, 16:9FHA), extensión .mxf",
+      "observacoes": "Estructura obligatoria del archivo: el contenido publicitario debe empezar en el primer fotograma de vídeo y terminar en el último — pre-roll y post-roll de 0 fotogramas, duración del archivo = duración del spot x 25 fotogramas. Audio: PCM, 2 canales (estéreo), 24 bit, 48 KHz, nivel de pico -3dB TP máx., sonoridad (integrada) -23 LUFS. Nomenclatura sugerida para el archivo: <Pub ID>_<Nombre del Spot>_<Duración>.mxf (ej.: PUB-2015-000345_Fiat 500X Sport Edition_30.mxf) — no es obligatoria, pero sí recomendada siempre que sea posible. Entrega exclusivamente por un usuario registrado a través del Portal GoFastWay (www.gofastway.tv). Todos los archivos pasan por un control de calidad automático (conformidad técnica con estas specs + análisis subjetivo de vídeo y audio); en caso de incoherencia, GoFastWay puede solicitar la entrega de un nuevo archivo corregido."
+    },
+    "fr": {
+      "dimensao": "720x576px, 25 fps",
+      "tipoFicheiro": "MXF (OP-1a), codec IMX50, 50 Mb/s (CBR), chroma 4:2:2, entrelacé (Interlaced UFF, 16:9FHA), extension .mxf",
+      "observacoes": "Structure obligatoire du fichier : le contenu publicitaire doit commencer à la première image vidéo et se terminer à la dernière — pre-roll et post-roll de 0 image, durée du fichier = durée du spot x 25 images. Audio : PCM, 2 canaux (stéréo), 24 bits, 48 KHz, niveau de crête -3dB TP max., sonie (intégrée) -23 LUFS. Nomenclature suggérée pour le fichier : <Pub ID>_<Nom du Spot>_<Durée>.mxf (ex. : PUB-2015-000345_Fiat 500X Sport Edition_30.mxf) — non obligatoire, mais recommandée dans la mesure du possible. Livraison exclusivement par un utilisateur enregistré via le Portail GoFastWay (www.gofastway.tv). Tous les fichiers passent par un contrôle qualité automatique (conformité technique à ces spécifications + analyse subjective de la vidéo et de l'audio) ; en cas d'incohérence, GoFastWay peut demander la livraison d'un nouveau fichier corrigé."
+    }
+  },
+  "GoFastWay|GoFastWay|Spot TV (HD — XDCAM HD422)": {
+    "en": {
+      "dimensao": "1920x1080px, 25 fps",
+      "tipoFicheiro": "MXF (OP-1a), XDCAM HD422 codec, 50 Mb/s min. (CBR), 4:2:2 chroma, interlaced (Interlaced UFF), .mxf extension",
+      "observacoes": "Mandatory file structure: the advertising content must start on the first video frame and end on the last — 0-frame pre-roll and post-roll, file duration = spot duration x 25 frames. Audio: PCM, 2 channels (stereo), 24 bit, 48 KHz, peak level -3dB TP max., loudness (integrated) -23 LUFS. Suggested file naming: <Pub ID>_<Spot Name>_<Duration>.mxf (e.g. PUB-2015-000345_Fiat 500X Sport Edition_30.mxf) — not mandatory, but recommended whenever possible. Delivery exclusively by a registered user through the GoFastWay Portal (www.gofastway.tv). All files go through automatic quality control (technical compliance with these specs + subjective video and audio review); in case of inconsistency, GoFastWay may request delivery of a corrected file."
+    },
+    "es": {
+      "dimensao": "1920x1080px, 25 fps",
+      "tipoFicheiro": "MXF (OP-1a), códec XDCAM HD422, 50 Mb/s mín. (CBR), croma 4:2:2, entrelazado (Interlaced UFF), extensión .mxf",
+      "observacoes": "Estructura obligatoria del archivo: el contenido publicitario debe empezar en el primer fotograma de vídeo y terminar en el último — pre-roll y post-roll de 0 fotogramas, duración del archivo = duración del spot x 25 fotogramas. Audio: PCM, 2 canales (estéreo), 24 bit, 48 KHz, nivel de pico -3dB TP máx., sonoridad (integrada) -23 LUFS. Nomenclatura sugerida para el archivo: <Pub ID>_<Nombre del Spot>_<Duración>.mxf (ej.: PUB-2015-000345_Fiat 500X Sport Edition_30.mxf) — no es obligatoria, pero sí recomendada siempre que sea posible. Entrega exclusivamente por un usuario registrado a través del Portal GoFastWay (www.gofastway.tv). Todos los archivos pasan por un control de calidad automático (conformidad técnica con estas specs + análisis subjetivo de vídeo y audio); en caso de incoherencia, GoFastWay puede solicitar la entrega de un nuevo archivo corregido."
+    },
+    "fr": {
+      "dimensao": "1920x1080px, 25 fps",
+      "tipoFicheiro": "MXF (OP-1a), codec XDCAM HD422, 50 Mb/s min. (CBR), chroma 4:2:2, entrelacé (Interlaced UFF), extension .mxf",
+      "observacoes": "Structure obligatoire du fichier : le contenu publicitaire doit commencer à la première image vidéo et se terminer à la dernière — pre-roll et post-roll de 0 image, durée du fichier = durée du spot x 25 images. Audio : PCM, 2 canaux (stéréo), 24 bits, 48 KHz, niveau de crête -3dB TP max., sonie (intégrée) -23 LUFS. Nomenclature suggérée pour le fichier : <Pub ID>_<Nom du Spot>_<Durée>.mxf (ex. : PUB-2015-000345_Fiat 500X Sport Edition_30.mxf) — non obligatoire, mais recommandée dans la mesure du possible. Livraison exclusivement par un utilisateur enregistré via le Portail GoFastWay (www.gofastway.tv). Tous les fichiers passent par un contrôle qualité automatique (conformité technique à ces spécifications + analyse subjective de la vidéo et de l'audio) ; en cas d'incohérence, GoFastWay peut demander la livraison d'un nouveau fichier corrigé."
+    }
+  },
+  "Rádio|Rádio|Spot Rádio": {
+    "en": {
+      "tipoFicheiro": "MP4 (AAC audio)",
+      "observacoes": "No specific distribution platform or radio station was indicated — generic delivery specs, always confirm with the radio station or media agency before delivering. AAC audio, 2 channels (stereo) or mono depending on the spot, 48 KHz, recommended minimum bit rate 320 kbps (CBR), loudness (integrated) -23 LUFS and peak level -3dB TP max. — the same broadcast loudness standard already used for TV."
+    },
+    "es": {
+      "tipoFicheiro": "MP4 (audio AAC)",
+      "observacoes": "No se indicó ninguna plataforma de distribución ni emisora de radio específica — especificaciones genéricas de entrega, a confirmar siempre con la emisora o la central de medios antes de entregar. Audio AAC, 2 canales (estéreo) o mono según el spot, 48 KHz, bit rate mínimo recomendado 320 kbps (CBR), sonoridad (integrada) -23 LUFS y nivel de pico -3dB TP máx. — el mismo estándar de sonoridad broadcast ya usado para TV."
+    },
+    "fr": {
+      "tipoFicheiro": "MP4 (audio AAC)",
+      "observacoes": "Aucune plateforme de distribution ni station de radio spécifique n'a été indiquée — spécifications génériques de livraison, à toujours confirmer auprès de la station ou de la centrale média avant la livraison. Audio AAC, 2 canaux (stéréo) ou mono selon le spot, 48 KHz, débit minimum recommandé 320 kbps (CBR), sonie (intégrée) -23 LUFS et niveau de crête -3dB TP max. — la même norme de sonie broadcast déjà utilisée pour la TV."
+    }
   }
 }

@@ -773,3 +773,30 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   white-space: nowrap;
 }
 
+/* Seletor de duração do spot (TV/Rádio) — select + caixa "Outro" editável,
+   só aparecem juntos quando "Outro" está escolhido. */
+.select-duracao {
+  padding: 5px 8px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 6px;
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  background-color: #ffffff;
+  color: var(--cor-texto);
+}
+
+.input-duracao-outro {
+  width: 90px;
+  margin-top: 6px;
+  padding: 5px 8px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 6px;
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  display: block;
+}
+
+.input-duracao-outro[hidden] {
+  display: none;
+}
+

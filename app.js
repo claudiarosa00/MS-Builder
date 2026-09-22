@@ -42,10 +42,10 @@ let todosFormatos = [];
 // Traduções das specs (Dimensão, Aspect Ratio, Peso, Tipo de Ficheiro,
 // Copies) para EN/ES/FR — ficheiro à parte do Excel (ver secção 5), para a
 // empresa que mantém a base não ter de se preocupar com idiomas. Chave:
-// "<Fornecedor>|<Formato>" (o texto original em português, tal como vem da
-// base). Uma linha sem tradução, ou um formato novo que a base ainda não
-// tenha, mostra sempre o texto original em português — nunca inventamos
-// uma tradução em runtime.
+// "<Fornecedor>|<Veículo>|<Formato>" (o texto original em português, tal
+// como vem da base — ver chaveTraducao). Uma linha sem tradução, ou um
+// formato novo que a base ainda não tenha, mostra sempre o texto original
+// em português — nunca inventamos uma tradução em runtime.
 let TRADUCOES_SPECS = {};
 
 // O pedido divide-se por objetivo de campanha: o mesmo formato pode ser
@@ -61,6 +61,41 @@ const CHAVE_TRADUCAO_OBJETIVO = {
   conversion: "objetivoConversion",
 };
 let objetivoAtivo = "awareness";
+
+// A duração do spot (TV/Rádio) é outra coisa que varia por seleção, não só
+// por objetivo — o mesmo "Spot TV" pode ser pedido em 30" para Awareness e
+// recortado a 15" para Consideration. Por isso guarda-se à parte, também
+// por objetivo, indexado pelo id do formato (só relevante para formatos de
+// TV/Rádio — ver formatoTemDuracao). Quando não há entrada, assume-se
+// DURACAO_OMISSAO (30", a duração mais comum), nunca fica por preencher.
+const DURACOES_PADRAO = ["15", "20", "30"];
+const DURACAO_OMISSAO = "30";
+const duracoesPorObjetivo = {
+  awareness: new Map(),
+  consideration: new Map(),
+  conversion: new Map(),
+};
+
+function formatoTemDuracao(formato) {
+  const grupo = grupoMeioDoFormato(formato);
+  return grupo === "TV" || grupo === "Rádio";
+}
+
+function duracaoDoFormato(formato, objetivo) {
+  return duracoesPorObjetivo[objetivo].get(formato.id) || DURACAO_OMISSAO;
+}
+
+// Texto do Formato já com a duração acrescentada (só para TV/Rádio) — usado
+// no resumo da seleção e na exportação para Excel, nunca na Biblioteca de
+// Formatos (que mostra o formato "em bruto", sem nada específico de um
+// pedido concreto).
+function textoFormatoComDuracao(formato, objetivo) {
+  const nomeFormato = textoTraduzido(formato, "formato") ?? "";
+  if (!formatoTemDuracao(formato)) {
+    return nomeFormato;
+  }
+  return `${nomeFormato} — ${duracaoDoFormato(formato, objetivo)}″`;
+}
 const selecoesPorObjetivo = {
   awareness: new Set(),
   consideration: new Set(),
@@ -132,6 +167,9 @@ const TRADUCOES = {
   contagemFormatos: { pt: " ({n} formatos)", en: " ({n} formats)", es: " ({n} formatos)", fr: " ({n} formats)" },
   colFormato: { pt: "Formato", en: "Format", es: "Formato", fr: "Format" },
   colVeiculo: { pt: "Veículo", en: "Vehicle", es: "Vehículo", fr: "Support" },
+  colDuracao: { pt: "Duração do Spot", en: "Spot Duration", es: "Duración del Spot", fr: "Durée du Spot" },
+  duracaoOutro: { pt: "Outro", en: "Other", es: "Otro", fr: "Autre" },
+  placeholderDuracaoOutro: { pt: "segundos", en: "seconds", es: "segundos", fr: "secondes" },
   colGrupoDigital2020: { pt: "Grupo Digital2020", en: "Digital2020 Group", es: "Grupo Digital2020", fr: "Groupe Digital2020" },
   colDimensao: { pt: "Dimensão", en: "Dimensions", es: "Dimensión", fr: "Dimensions" },
   colAspectRatio: { pt: "Aspect Ratio", en: "Aspect Ratio", es: "Aspect Ratio", fr: "Aspect Ratio" },
@@ -608,10 +646,14 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes) {
   // "Rodapé", ...) mas dimensões diferentes; sem a coluna não daria para
   // os distinguir. Para a maioria dos publishers (onde Veículo = Fornecedor)
   // a coluna nem aparece, para não ficar redundante.
+  // A Duração do Spot só faz sentido para TV/Rádio, e só na tab "Construir
+  // Pedido" (onde há uma seleção concreta a que a duração se aplica) — na
+  // Biblioteca de Formatos, que só mostra as specs "em bruto", não aparece.
   const opcoesComMeio = {
     ...opcoes,
     comGrupoDigital2020: grupoMeioDoFormato(formatosDoPublisher[0]) === "Digital",
     comVeiculo: formatosDoPublisher.some((f) => f.veiculo && f.veiculo !== nomePublisher),
+    comDuracao: opcoes.simplificado && formatoTemDuracao(formatosDoPublisher[0]),
   };
 
   const tabela = document.createElement("table");
@@ -634,6 +676,7 @@ function criarCabecalhoTabela(opcoes) {
   const colunaLink = opcoes.comLink ? `<th>${t("colFonte")}</th>` : "";
   const colunaGrupoDigital2020 = opcoes.comGrupoDigital2020 ? `<th>${t("colGrupoDigital2020")}</th>` : "";
   const colunaVeiculo = opcoes.comVeiculo ? `<th>${t("colVeiculo")}</th>` : "";
+  const colunaDuracao = opcoes.comDuracao ? `<th>${t("colDuracao")}</th>` : "";
 
   // Na tab "Construir Pedido" (simplificado) só mostramos o essencial para
   // escolher — nome do formato e o grupo Digital2020. As specs completas
@@ -646,6 +689,7 @@ function criarCabecalhoTabela(opcoes) {
         <th>${t("colFormato")}</th>
         ${colunaVeiculo}
         ${colunaGrupoDigital2020}
+        ${colunaDuracao}
       </tr>
     `;
     return cabecalho;
@@ -669,6 +713,27 @@ function criarCabecalhoTabela(opcoes) {
   return cabecalho;
 }
 
+// Select com as durações mais comuns (15"/20"/30") + "Outro" — quando
+// "Outro" está escolhido, aparece a seguir uma caixa de texto editável
+// (ver o listener de "select-duracao"/"input-duracao-outro" mais abaixo).
+// O valor mostrado vem sempre do objetivo ativo no momento (a mesma seleção
+// pode ter durações diferentes consoante o objetivo).
+function criarCelulaDuracao(formato) {
+  const duracaoAtual = duracaoDoFormato(formato, objetivoAtivo);
+  const ehOutro = !DURACOES_PADRAO.includes(duracaoAtual);
+  const opcoesPadrao = DURACOES_PADRAO
+    .map((valor) => `<option value="${valor}" ${!ehOutro && duracaoAtual === valor ? "selected" : ""}>${valor}″</option>`)
+    .join("");
+  return `
+    <select class="select-duracao" data-id="${formato.id}">
+      ${opcoesPadrao}
+      <option value="outro" ${ehOutro ? "selected" : ""}>${t("duracaoOutro")}</option>
+    </select>
+    <input type="text" class="input-duracao-outro" data-id="${formato.id}"
+      value="${ehOutro ? duracaoAtual : ""}" placeholder="${t("placeholderDuracaoOutro")}" ${ehOutro ? "" : "hidden"}>
+  `;
+}
+
 function criarLinhaFormato(formato, opcoes) {
   const linha = document.createElement("tr");
   // Marca a checkbox logo na criação se este formato já estiver selecionado
@@ -681,6 +746,7 @@ function criarLinhaFormato(formato, opcoes) {
     ? `<td><span class="etiqueta-dg2020">${formato.grupoDigital2020 ?? "—"}</span></td>`
     : "";
   const colunaVeiculo = opcoes.comVeiculo ? `<td>${formato.veiculo ?? "—"}</td>` : "";
+  const colunaDuracao = opcoes.comDuracao ? `<td>${criarCelulaDuracao(formato)}</td>` : "";
 
   if (opcoes.simplificado) {
     linha.innerHTML = `
@@ -688,6 +754,7 @@ function criarLinhaFormato(formato, opcoes) {
       <td>${textoTraduzido(formato, "formato") ?? ""}</td>
       ${colunaVeiculo}
       ${colunaGrupoDigital2020}
+      ${colunaDuracao}
     `;
     return linha;
   }
@@ -883,23 +950,62 @@ ativo no momento (selecoesPorObjetivo[objetivoAtivo]).
 ============================================
 */
 listaFormatos.addEventListener("change", (evento) => {
-  const checkbox = evento.target;
-  if (!checkbox.classList.contains("checkbox-formato")) {
+  const alvo = evento.target;
+
+  if (alvo.classList.contains("checkbox-formato")) {
+    const id = Number(alvo.dataset.id);
+    if (alvo.checked) {
+      selecoesPorObjetivo[objetivoAtivo].add(id);
+    } else {
+      selecoesPorObjetivo[objetivoAtivo].delete(id);
+    }
+    atualizarResumoSelecao();
     return;
   }
 
-  const id = Number(checkbox.dataset.id);
-  if (checkbox.checked) {
-    selecoesPorObjetivo[objetivoAtivo].add(id);
+  if (alvo.classList.contains("select-duracao")) {
+    mudarDuracaoSelect(alvo);
+  }
+});
+
+// A caixa "Outro" da duração usa o evento "input" (não "change") para
+// guardar enquanto se escreve, sem esperar que o campo perca o foco.
+listaFormatos.addEventListener("input", (evento) => {
+  const alvo = evento.target;
+  if (!alvo.classList.contains("input-duracao-outro")) {
+    return;
+  }
+  const id = Number(alvo.dataset.id);
+  const valor = alvo.value.trim();
+  if (valor) {
+    duracoesPorObjetivo[objetivoAtivo].set(id, valor);
   } else {
-    selecoesPorObjetivo[objetivoAtivo].delete(id);
+    duracoesPorObjetivo[objetivoAtivo].delete(id);
   }
   atualizarResumoSelecao();
 });
 
+function mudarDuracaoSelect(select) {
+  const id = Number(select.dataset.id);
+  const inputOutro = select.parentElement.querySelector(".input-duracao-outro");
+  if (select.value === "outro") {
+    inputOutro.hidden = false;
+    inputOutro.focus();
+    // Só guarda quando o utilizador escrever algo (ver listener "input"
+    // acima) — escolher "Outro" sozinho, sem preencher nada, ainda não é
+    // uma duração válida.
+    return;
+  }
+  inputOutro.hidden = true;
+  inputOutro.value = "";
+  duracoesPorObjetivo[objetivoAtivo].set(id, select.value);
+  atualizarResumoSelecao();
+}
+
 // Troca o objetivo ativo: a lista de formatos mantém-se (não se re-filtra
-// nem se re-desenha), só o estado das checkboxes muda, para refletir a
-// seleção já feita nesse objetivo.
+// nem se re-desenha), só o estado das checkboxes e das durações de
+// TV/Rádio mudam, para refletir a seleção já feita nesse objetivo (a mesma
+// seleção pode ter uma duração diferente consoante o objetivo).
 botoesObjetivo.forEach((botao) => {
   botao.addEventListener("click", () => {
     objetivoAtivo = botao.dataset.objetivo;
@@ -913,6 +1019,17 @@ function sincronizarCheckboxesComObjetivoAtivo() {
   const selecaoAtiva = selecoesPorObjetivo[objetivoAtivo];
   listaFormatos.querySelectorAll(".checkbox-formato").forEach((checkbox) => {
     checkbox.checked = selecaoAtiva.has(Number(checkbox.dataset.id));
+  });
+
+  const duracaoAtiva = duracoesPorObjetivo[objetivoAtivo];
+  listaFormatos.querySelectorAll(".select-duracao").forEach((select) => {
+    const id = Number(select.dataset.id);
+    const duracaoAtual = duracaoAtiva.get(id) || DURACAO_OMISSAO;
+    const ehOutro = !DURACOES_PADRAO.includes(duracaoAtual);
+    select.value = ehOutro ? "outro" : duracaoAtual;
+    const inputOutro = select.parentElement.querySelector(".input-duracao-outro");
+    inputOutro.hidden = !ehOutro;
+    inputOutro.value = ehOutro ? duracaoAtual : "";
   });
 }
 
@@ -985,7 +1102,7 @@ function atualizarResumoSelecao() {
           // Manhã" → "Boa Onda"), mostra-o também — senão duas seleções
           // diferentes podiam aparecer com o mesmo texto no resumo.
           const veiculo = f.veiculo && f.veiculo !== f.fornecedor ? ` (${f.veiculo})` : "";
-          return `<li>${f.fornecedor}${veiculo} — ${textoTraduzido(f, "formato")}${etiqueta}</li>`;
+          return `<li>${f.fornecedor}${veiculo} — ${textoFormatoComDuracao(f, objetivo)}${etiqueta}</li>`;
         })
         .join("");
       return `<li class="resumo-grupo-objetivo"><strong>${t(CHAVE_TRADUCAO_OBJETIVO[objetivo])}</strong><ul>${itensObjetivo}</ul></li>`;
@@ -1088,7 +1205,7 @@ function grupoMeioDoFormato(formato) {
 // Escreve uma secção completa (título do objetivo + cabeçalho da tabela +
 // uma linha por formato) a partir da linha indicada, e devolve a próxima
 // linha livre (já com uma linha em branco a separar da secção seguinte).
-function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSeccao, config) {
+function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSeccao, config, objetivo) {
   let linha = linhaInicio;
 
   folha.mergeCells(linha, 1, linha, 13);
@@ -1116,7 +1233,7 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
       indice + 1,
       canalExibicaoFormato(formato),
       formato.veiculo,
-      textoTraduzido(formato, "formato"),
+      textoFormatoComDuracao(formato, objetivo),
       formato.grupoDigital2020 || "—",
       textoTraduzido(formato, "dimensao") || t("naoEspecificado"),
       textoTraduzido(formato, "aspectRatio") || "—",
@@ -1207,7 +1324,7 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
     if (formatosDoObjetivo.length === 0) {
       return;
     }
-    linhaAtual = escreverSeccaoObjetivo(folha, linhaAtual, t(CHAVE_TRADUCAO_OBJETIVO[objetivo]), formatosDoObjetivo, config);
+    linhaAtual = escreverSeccaoObjetivo(folha, linhaAtual, t(CHAVE_TRADUCAO_OBJETIVO[objetivo]), formatosDoObjetivo, config, objetivo);
   });
 }
 
@@ -1323,10 +1440,23 @@ function guardarEstadoLocal() {
   try {
     const idParaChave = new Map(todosFormatos.map((f) => [f.id, chaveTraducao(f)]));
     const selecoes = {};
+    const duracoes = {};
     OBJETIVOS.forEach((objetivo) => {
       selecoes[objetivo] = [...selecoesPorObjetivo[objetivo]]
         .map((id) => idParaChave.get(id))
         .filter(Boolean);
+      // Só guarda durações de formatos que continuam selecionados nesse
+      // objetivo — uma duração "órfã" (de um formato entretanto desmarcado)
+      // não tem interesse em manter.
+      duracoes[objetivo] = {};
+      duracoesPorObjetivo[objetivo].forEach((duracao, id) => {
+        if (selecoesPorObjetivo[objetivo].has(id)) {
+          const chave = idParaChave.get(id);
+          if (chave) {
+            duracoes[objetivo][chave] = duracao;
+          }
+        }
+      });
     });
     localStorage.setItem(CHAVE_LOCALSTORAGE_PEDIDO, JSON.stringify({
       companhia: campoCompanhia.value,
@@ -1334,6 +1464,7 @@ function guardarEstadoLocal() {
       campanha: campoCampanha.value,
       objetivoAtivo,
       selecoes,
+      duracoes,
     }));
   } catch (erro) {
     // localStorage indisponível — nada a fazer, a app continua sem persistência.
@@ -1359,6 +1490,14 @@ function restaurarEstadoLocal() {
       const id = chaveParaId.get(chave);
       if (id !== undefined) {
         selecoesPorObjetivo[objetivo].add(id);
+      }
+    });
+
+    const duracoesGuardadas = (estadoGuardado.duracoes && estadoGuardado.duracoes[objetivo]) || {};
+    Object.entries(duracoesGuardadas).forEach(([chave, duracao]) => {
+      const id = chaveParaId.get(chave);
+      if (id !== undefined) {
+        duracoesPorObjetivo[objetivo].set(id, duracao);
       }
     });
   });
