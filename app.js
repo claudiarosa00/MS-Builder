@@ -163,8 +163,10 @@ function entregaEfetivaDoFormato(formato, objetivo) {
 
 // Morada e horário de entrega dos cartazes já produzidos, por concessionário
 // — texto fornecido pela própria Cláudia, mostrado tal como está (nunca
-// traduzido, tal como um nome próprio ou um endereço) junto à opção
-// "Entrega na Morada" de cada Mupi papel.
+// traduzido, tal como um nome próprio ou um endereço). Só sai no Excel
+// exportado (coluna "Morada de Entrega", ver moradaEntregaMupi em
+// COLUNAS_EXCEL_DISPONIVEIS) quando "Entrega na Morada" foi a opção
+// escolhida — não aparece no construtor, para não sobrecarregar a linha.
 const MORADA_ENTREGA_MUPI_PAPEL = {
   "JCDecaux": "Caso entreguem cartazes nas nossas instalações, os mesmos deverão ser acompanhados de uma impressão da campanha a afixar. A entrega dos cartazes deve ser efetuada das 07h00 às 12h00 e das 13h30 às 16h00 nas instalações da JCDecaux – Portão 1. Morada: Beco da Aviação, nº 1, Granja do Alpriate, 2625-607 Vialonga – Portugal.",
   "MOP": "Morada de entrega: R. Mário Castelhano, 42 - Armazém 7, Lux Parque - Queluz de Baixo, 2734-502 Barcarena. Horário: 8h-12h e 13h-17h. Tel: +351 214 355 485.",
@@ -916,10 +918,12 @@ function criarCelulaDuracao(formato) {
 // Escolha de entrega dos Mupis em papel (AF vs. morada do concessionário) —
 // ver formatoEhMupiPapel/entregaEfetivaDoFormato. Nenhuma das duas vem
 // marcada por omissão: escolher aqui é o que permite marcar a checkbox do
-// formato (ver o listener de "checkbox-formato").
+// formato (ver o listener de "checkbox-formato"). A morada em si não
+// aparece aqui (só no Excel exportado, ver moradaEntregaMupi em
+// COLUNAS_EXCEL_DISPONIVEIS) — pedido explícito, para não sobrecarregar
+// esta linha com um ícone de info.
 function criarCelulaEntregaMupi(formato) {
   const escolha = entregaEfetivaDoFormato(formato, objetivoAtivo);
-  const infoMorada = MORADA_ENTREGA_MUPI_PAPEL[formato.fornecedor] || "";
   return `
     <div class="grupo-entrega-mupi" data-id="${formato.id}">
       <label class="opcao-entrega-mupi">
@@ -929,7 +933,6 @@ function criarCelulaEntregaMupi(formato) {
       <label class="opcao-entrega-mupi">
         <input type="radio" class="radio-entrega-mupi" name="entrega-mupi-${formato.id}" data-id="${formato.id}" value="morada" ${escolha === "morada" ? "checked" : ""}>
         ${t("colEntregaMorada")}
-        ${infoMorada ? `<span class="aviso-objetivo-mini" tabindex="0" title="${infoMorada}" aria-label="${infoMorada}">ⓘ</span>` : ""}
       </label>
     </div>
   `;
