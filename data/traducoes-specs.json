@@ -6379,59 +6379,53 @@
   },
   "MOP|MOP|Outdoor 8x3": {
     "en": {
-      "dimensao": "Final artwork: 784x300mm (reduced scale). Actual size: 8000x3000mm. Visible area: 7950x2950mm.",
-      "tipoFicheiro": "120g blueback poster paper or 120g AFC; printed with U.V. inks; PDF (print quality), JPEG (for viewing) and an editable file.",
-      "observacoes": "Fonts in curves; images at 300 dpi; file in a version earlier than the software's current one; always CMYK (no Pantone/RGB); no relevant information near the trim margins. Delivery deadline: up to 5 business days before the campaign start. Posters delivered collated (in order) and folded — 14-sheet poster, order from last to first sheet, with the image facing up; overlap registration marks mandatory, with overlap margins of 4cm on the right side and 12.5cm at the bottom of the lower sheets (the paper has variable stretch). Quantities: April to September, +15% of the number of faces; October to March, +25%. Posters delivered and identified individually, and collated. Note: images with dark backgrounds or that require a lot of ink reduce installation quality. Send via WeTransfer/Hightail/Dropbox or the client's FTP; CD/DVD always with a color proof."
+      "dimensao": "Final artwork: 784x300mm (reduced scale) + 1mm bleed. Actual size: 8000x3000mm. Visible area: 7950x2950mm.",
+      "tipoFicheiro": "120g blueback poster paper or 120g AFC; U.V. ink printing; PDF (print quality), JPEG (for viewing) and editable file.",
+      "observacoes": "Fonts converted to outlines; images at 300 dpi; file in an earlier version of the program; always CMYK (no Pantone/RGB); no relevant information near the trim/cut margins. Delivery deadline: up to 5 business days before the campaign start. Posters delivered collated (ordered) and folded — 14-sheet poster, order from last sheet to first, with the image facing up; overlap/registration marks mandatory, with overlap margins of 4cm on the right side and 12.5cm at the bottom of the lower sheets (paper has variable stretch). Quantities: April to September, +15% of the number of faces; October to March, +25%. Posters delivered and labeled individually, and collated. Note: images with dark backgrounds or requiring a lot of ink reduce posting/installation quality. Send via WeTransfer/Hightail/Dropbox or the client's FTP; CD/DVD always with a color proof."
     },
     "es": {
-      "dimensao": "Arte final: 784x300mm (escala reducida). Medida real: 8000x3000mm. Área visible: 7950x2950mm.",
-      "tipoFicheiro": "Papel cartel 120g blueback o AFC 120g; impresión con tintas U.V.; PDF (calidad de impresión), JPEG (visualización) y archivo editable.",
-      "observacoes": "Fuentes en curvas; imágenes a 300 dpi; archivo en versión anterior del programa; siempre CMYK (sin Pantone/RGB); sin información relevante junto a los márgenes de corte. Plazo de entrega: hasta 5 días hábiles antes del inicio de la campaña. Carteles entregados intercalados (ordenados) y doblados — cartel de 14 hojas, orden de la última a la primera hoja, con la imagen hacia arriba; miras de solape obligatorias, con márgenes de solape de 4cm en el lado derecho y 12,5cm en el fondo de las hojas inferiores (el papel tiene estiramiento variable). Cantidades: Abril a Septiembre, +15% del nº de caras; Octubre a Marzo, +25%. Carteles entregados e identificados por unidad, e intercalados. Nota: las imágenes con fondos oscuros o que requieran mucha tinta reducen la calidad de la instalación. Envío mediante WeTransfer/Hightail/Dropbox o FTP del cliente; CD/DVD siempre con prueba de color."
+      "dimensao": "Arte final: 784x300mm (escala reducida) + 1mm de sangrado. Medida real: 8000x3000mm. Área visible: 7950x2950mm.",
+      "tipoFicheiro": "Papel cartel 120g blueback o AFC 120g; impresión en tintas U.V.; PDF (calidad de impresión), JPEG (visualización) y archivo editable.",
+      "observacoes": "Fuentes convertidas a curvas; imágenes a 300 dpi; archivo en versión anterior del programa; siempre CMYK (sin Pantone/RGB); sin información relevante junto a los márgenes de corte. Plazo de entrega: hasta 5 días hábiles antes del inicio de la campaña. Carteles entregados compaginados (ordenados) y doblados — cartel de 14 hojas, orden de la última a la primera hoja, con la imagen hacia arriba; marcas de registro/superposición obligatorias, con márgenes de superposición de 4cm en el lado derecho y 12,5cm en la parte inferior de las hojas inferiores (el papel tiene una distensión variable). Cantidades: de abril a septiembre, +15% del nº de caras; de octubre a marzo, +25%. Carteles entregados e identificados por unidad, y compaginados. Nota: las imágenes con fondos oscuros o que requieran mucha tinta reducen la calidad de la colocación. Envío vía WeTransfer/Hightail/Dropbox o FTP del cliente; CD/DVD siempre con prueba de color."
     },
     "fr": {
-      "dimensao": "Fichier final (BAT) : 784x300mm (échelle réduite). Taille réelle : 8000x3000mm. Zone visible : 7950x2950mm.",
+      "dimensao": "Fichier final (arte final) : 784x300mm (échelle réduite) + 1mm de fond perdu. Taille réelle : 8000x3000mm. Zone visible : 7950x2950mm.",
       "tipoFicheiro": "Papier affiche 120g blueback ou AFC 120g ; impression en encres U.V. ; PDF (qualité d'impression), JPEG (visualisation) et fichier modifiable.",
-      "observacoes": "Polices en courbes ; images à 300 dpi ; fichier dans une version antérieure du programme ; toujours en CMJN (sans Pantone/RVB) ; aucune information pertinente près des marges de coupe. Délai de livraison : jusqu'à 5 jours ouvrés avant le début de la campagne. Affiches livrées assemblées (dans l'ordre) et pliées — affiche de 14 feuilles, ordre de la dernière à la première feuille, image tournée vers le haut ; repères de recouvrement obligatoires, avec des marges de recouvrement de 4cm du côté droit et de 12,5cm en bas des feuilles inférieures (le papier a un allongement variable). Quantités : avril à septembre, +15% du nombre de faces ; octobre à mars, +25%. Affiches livrées et identifiées à l'unité, et assemblées. Remarque : les images à fonds sombres ou nécessitant beaucoup d'encre réduisent la qualité de la pose. Envoi via WeTransfer/Hightail/Dropbox ou FTP du client ; CD/DVD toujours accompagné d'une épreuve couleur."
+      "observacoes": "Texte vectorisé (polices converties en tracés) ; images à 300 dpi ; fichier dans une version antérieure du logiciel ; toujours en CMYK (sans Pantone/RGB) ; aucune information pertinente près des marges de coupe. Délai de livraison : jusqu'à 5 jours ouvrés avant le début de la campagne. Affiches livrées assemblées (dans l'ordre) et pliées — affiche de 14 feuilles, ordre de la dernière à la première feuille, image tournée vers le haut ; repères de recouvrement obligatoires, avec des marges de recouvrement de 4cm du côté droit et de 12,5cm en bas des feuilles inférieures (le papier a une distension variable). Quantités : avril à septembre, +15% du nombre de faces ; octobre à mars, +25%. Affiches livrées et identifiées à l'unité, et assemblées. Remarque : les images à fonds foncés ou nécessitant beaucoup d'encre réduisent la qualité de l'affichage. Envoi via WeTransfer/Hightail/Dropbox ou FTP du client ; CD/DVD toujours avec épreuve couleur."
     }
   },
   "MOP|MOP|Multibanco - Imagem": {
     "en": {
-      "dimensao": "3 available sizes: 640x417px, 800x522px or 1024x667px. 3 distinct moments: 1st moment 10s, 2nd moment 3s, 3rd moment 10s (you can use 1, 2 or 3 different images, or combine with video across the different moments).",
-      "peso": "Max. 1 MB",
-      "tipoFicheiro": "JPG or PNG, resolution equal to or higher than 72 dpi",
-      "observacoes": "Content may not be shown that explicitly and without context displays body parts normally kept covered; mentions monetary and payment financial institutions, political or union parties/associations, religious organizations; uses symbols/language that could be confused with the ATM's operation; or that, in the first advertising moment, shows any price without clearly identifying it as the advertiser's, product's or service's price. The advertising code applies to all other principles."
+      "dimensao": "3 sizes available (all three required): 640x417px, 800x522px or 1024x668px. 3 distinct moments: 1st moment 10s, 2nd moment 3s, 3rd moment 10s (you can use 1, 2 or 3 different images, or combine with video across the various moments).",
+      "tipoFicheiro": "JPG or PNG, resolution between 72 and 100 DPI",
+      "observacoes": "Size up to 1000kB/s (125KB/s). Color depth: 24 bits/pixel. Content that explicitly and without context shows body parts usually kept covered may not be presented; nor may it mention monetary and payment financial institutions, political parties/associations or trade unions, religious organizations; use symbols/language that could be confused with how the ATM operates; or, in the first advertising moment, show any price without clearly identifying it as a price of the advertiser, product or service. The advertising code applies to all other principles."
     },
     "es": {
-      "dimensao": "3 tamaños disponibles: 640x417px, 800x522px o 1024x667px. 3 momentos distintos: 1er momento 10s, 2º momento 3s, 3er momento 10s (se pueden usar 1, 2 o 3 imágenes diferentes, o combinar con vídeo en los distintos momentos).",
-      "peso": "Máx. 1 MB",
-      "tipoFicheiro": "JPG o PNG, resolución igual o superior a 72 dpi",
-      "observacoes": "No es posible presentar contenidos que muestren, de forma explícita y no contextualizada, partes del cuerpo habitualmente cubiertas; que mencionen instituciones financieras monetarias y de pago, partidos/asociaciones políticas o sindicales, organizaciones religiosas; que usen símbolos/lenguaje que puedan confundirse con el funcionamiento del cajero automático; o que, en el primer momento publicitario, muestren cualquier precio sin identificación clara de que se trata de un precio del anunciante, producto o servicio. Para todos los demás principios se aplica el código de publicidad."
+      "dimensao": "3 tamaños disponibles (los tres son obligatorios): 640x417px, 800x522px o 1024x668px. 3 momentos distintos: 1er momento 10s, 2º momento 3s, 3er momento 10s (se pueden usar 1, 2 o 3 imágenes diferentes, o combinar con vídeo en los distintos momentos).",
+      "tipoFicheiro": "JPG o PNG, resolución entre 72 y 100 DPI",
+      "observacoes": "Tamaño hasta 1000kB/s (125KB/s). Profundidad de color: 24 bits/píxel. No se pueden presentar contenidos que muestren, de forma explícita y sin contextualizar, partes del cuerpo habitualmente cubiertas; que mencionen instituciones financieras monetarias y de pago, partidos/asociaciones políticas o sindicales, organizaciones religiosas; que usen símbolos/lenguaje que puedan confundirse con el funcionamiento del cajero automático; o que, en el primer momento publicitario, muestren cualquier precio sin identificación clara de que se trata de un precio del anunciante, producto o servicio. Para todos los demás principios se aplica el código de la publicidad."
     },
     "fr": {
-      "dimensao": "3 tailles disponibles : 640x417px, 800x522px ou 1024x667px. 3 moments distincts : 1er moment 10s, 2e moment 3s, 3e moment 10s (possibilité d'utiliser 1, 2 ou 3 images différentes, ou de combiner avec de la vidéo selon les moments).",
-      "peso": "Max. 1 MB",
-      "tipoFicheiro": "JPG ou PNG, résolution égale ou supérieure à 72 dpi",
-      "observacoes": "Il n'est pas possible de présenter des contenus qui montrent, de manière explicite et non contextualisée, des parties du corps habituellement dissimulées ; qui mentionnent des institutions financières monétaires et de paiement, des partis/associations politiques ou syndicaux, des organisations religieuses ; qui utilisent des symboles/un langage pouvant être confondus avec le fonctionnement du distributeur automatique ; ou qui, dans le premier moment publicitaire, montrent un prix quelconque sans indication claire qu'il s'agit d'un prix de l'annonceur, du produit ou du service. Pour tous les autres principes, le code de la publicité s'applique."
+      "dimensao": "3 tailles disponibles (les trois sont obligatoires) : 640x417px, 800x522px ou 1024x668px. 3 moments distincts : 1er moment 10s, 2e moment 3s, 3e moment 10s (possibilité d'utiliser 1, 2 ou 3 images différentes, ou de combiner avec de la vidéo selon les moments).",
+      "tipoFicheiro": "JPG ou PNG, résolution entre 72 et 100 DPI",
+      "observacoes": "Taille jusqu'à 1000kB/s (125KB/s). Profondeur de couleur : 24 bits/pixel. Il n'est pas possible de présenter des contenus qui montrent, de façon explicite et hors contexte, des parties du corps habituellement couvertes ; qui mentionnent des institutions financières monétaires et de paiement, des partis/associations politiques ou syndicales, des organisations religieuses ; qui utilisent des symboles/un langage pouvant être confondus avec le fonctionnement du distributeur automatique ; ou qui, dans le premier moment publicitaire, affichent un prix quelconque sans indication claire qu'il s'agit d'un prix de l'annonceur, du produit ou du service. Pour tous les autres principes, le code de la publicité s'applique."
     }
   },
   "MOP|MOP|Multibanco - Vídeo": {
     "en": {
-      "dimensao": "2 available sizes: 640x392px or 800x496px. 3 distinct moments: 1st moment 5s, 2nd moment 2s, 3rd moment 5s (you can use 1, 2 or 3 different videos, or combine with images across the different moments; suggestion: end with a static image of the last frame).",
-      "peso": "Max. 1 MB",
-      "tipoFicheiro": "MPEG-1 or MP4",
-      "observacoes": "No audio channel. Frame rate: 24 frames/s. Color depth: 24 bits/pixel. Same content principles as the \"Multibanco - Imagem\" format."
+      "dimensao": "3 sizes available (all three required): 640x417px, 800x522px or 1024x668px. 3 distinct moments: 1st moment 10s, 2nd moment 3s, 3rd moment 10s (you can use 1, 2 or 3 different videos, or combine with images across the various moments; suggestion: end with a static image of the last frame).",
+      "tipoFicheiro": "MP4, resolution between 72 and 100 DPI",
+      "observacoes": "No audio channel. Average bitrate 1 Mb/s, maximum 8 Mb/s. Size up to 1000kB/s (125KB/s). Frame rate: 24 or 30 frames/s. Color depth: 24 bits/pixel. Same content principles as the \"Multibanco - Imagem\" format."
     },
     "es": {
-      "dimensao": "2 tamaños disponibles: 640x392px o 800x496px. 3 momentos distintos: 1er momento 5s, 2º momento 2s, 3er momento 5s (se pueden usar 1, 2 o 3 vídeos diferentes, o combinar con imágenes en los distintos momentos; sugerencia: terminar con la imagen estática del último frame).",
-      "peso": "Máx. 1 MB",
-      "tipoFicheiro": "MPEG-1 o MP4",
-      "observacoes": "Sin canal de audio. Frame rate: 24 frames/s. Profundidad de color: 24 bits/pixel. Mismos principios de contenido que el formato \"Multibanco - Imagen\"."
+      "dimensao": "3 tamaños disponibles (los tres son obligatorios): 640x417px, 800x522px o 1024x668px. 3 momentos distintos: 1er momento 10s, 2º momento 3s, 3er momento 10s (se pueden usar 1, 2 o 3 vídeos diferentes, o combinar con imágenes en los distintos momentos; sugerencia: terminar con la imagen estática del último frame).",
+      "tipoFicheiro": "MP4, resolución entre 72 y 100 DPI",
+      "observacoes": "Sin canal de audio. Bitrate medio 1 Mb/s, máximo 8 Mb/s. Tamaño hasta 1000kB/s (125KB/s). Frame rate: 24 o 30 frames/s. Profundidad de color: 24 bits/píxel. Mismos principios de contenido que el formato \"Multibanco - Imagem\"."
     },
     "fr": {
-      "dimensao": "2 tailles disponibles : 640x392px ou 800x496px. 3 moments distincts : 1er moment 5s, 2e moment 2s, 3e moment 5s (possibilité d'utiliser 1, 2 ou 3 vidéos différentes, ou de combiner avec des images selon les moments ; suggestion : terminer par l'image statique de la dernière frame).",
-      "peso": "Max. 1 MB",
-      "tipoFicheiro": "MPEG-1 ou MP4",
-      "observacoes": "Sans canal audio. Frame rate : 24 frames/s. Profondeur de couleur : 24 bits/pixel. Mêmes principes de contenu que le format « Multibanco - Imagem »."
+      "dimensao": "3 tailles disponibles (les trois sont obligatoires) : 640x417px, 800x522px ou 1024x668px. 3 moments distincts : 1er moment 10s, 2e moment 3s, 3e moment 10s (possibilité d'utiliser 1, 2 ou 3 vidéos différentes, ou de combiner avec des images selon les moments ; suggestion : terminer avec l'image statique de la dernière frame).",
+      "tipoFicheiro": "MP4, résolution entre 72 et 100 DPI",
+      "observacoes": "Sans piste audio. Bitrate moyen 1 Mb/s, maximum 8 Mb/s. Taille jusqu'à 1000kB/s (125KB/s). Frame rate : 24 ou 30 frames/s. Profondeur de couleur : 24 bits/pixel. Mêmes principes de contenu que le format « Multibanco - Imagem »."
     }
   },
   "MOP|MOP|Decorações Integrais e Grande Formato": {
@@ -6453,65 +6447,53 @@
   },
   "MOP|MOP|Grande Formato Digital Indoor 16x9": {
     "en": {
-      "dimensao": "1920x1080px. Can be used on 16x9 LED displays, triple-screen setups (3 screens) or Tomi Spot TV.",
-      "aspectRatio": "16:9",
-      "peso": "Max. 100 MB",
-      "tipoFicheiro": "MP4, H264 codec",
-      "observacoes": "Duration: 10 seconds (mandatory). Max. bitrate 6 Mbps. Frame rate 24 frames/s. On the 3-screen setup there is an actual 2.5cm gap between screens, which splits/cuts the image — this must be taken into account to avoid distorting phrases or relevant elements (break zones)."
+      "dimensao": "1920x1080px. Can be used on a 16x9 LED display, triple screen (3 screens) or Tomi Spot TV.",
+      "tipoFicheiro": "Video: MP4/MOV; Image: any format; Web: HTML/URL — H264 codec",
+      "observacoes": "Duration: multiples of 10 seconds, with a maximum of 1 minute. Max. bitrate 6 Mbps. Frame rate 30 frames/s. Maximum size: 100MB. On the 3-screen display there is an actual 2.5cm gap between screens, which splits/cuts the image — this must be taken into account to avoid distorting sentences or relevant elements (break/seam zones). This file can also be used on the 16x9 LED display, triple screen (3 screens) or Tomi Spot TV."
     },
     "es": {
       "dimensao": "1920x1080px. Puede utilizarse en soporte LED 16x9, pantalla triple (3 pantallas) o Tomi Spot TV.",
-      "aspectRatio": "16:9",
-      "peso": "Máx. 100 MB",
-      "tipoFicheiro": "MP4, códec H264",
-      "observacoes": "Duración: 10 segundos (obligatorio). Bitrate máx. 6 Mbps. Framerate 24 frames/s. En el soporte de 3 pantallas existe una separación real de 2,5cm entre pantallas, que divide/corta la imagen — debe tenerse en cuenta para no deformar frases o elementos relevantes (zonas de corte)."
+      "tipoFicheiro": "Vídeo: MP4/MOV; Imagen: cualquier formato; Web: HTML/URL — códec H264",
+      "observacoes": "Duración: múltiplos de 10 segundos, con un máximo de 1 minuto. Bitrate máx. 6 Mbps. Framerate 30 frames/s. Tamaño máximo: 100MB. En el soporte de 3 pantallas existe una separación real de 2,5cm entre pantallas, que divide/corta la imagen — debe tenerse en cuenta para no deformar frases o elementos relevantes (zonas de corte). Este archivo también puede utilizarse en el soporte LED 16x9, pantalla triple (3 pantallas) o Tomi Spot TV."
     },
     "fr": {
       "dimensao": "1920x1080px. Peut être utilisé sur support LED 16x9, écran triple (3 écrans) ou Tomi Spot TV.",
-      "aspectRatio": "16:9",
-      "peso": "Max. 100 MB",
-      "tipoFicheiro": "MP4, codec H264",
-      "observacoes": "Durée : 10 secondes (obligatoire). Bitrate max. 6 Mbps. Framerate 24 frames/s. Sur le support à 3 écrans, il existe une séparation réelle de 2,5cm entre les écrans, qui divise/coupe l'image — à prendre en compte pour ne pas déformer des phrases ou éléments importants (zones de rupture)."
+      "tipoFicheiro": "Vidéo : MP4/MOV ; Image : tout format ; Web : HTML/URL — codec H264",
+      "observacoes": "Durée : multiples de 10 secondes, avec un maximum de 1 minute. Bitrate max. 6 Mbps. Framerate 30 frames/s. Taille maximale : 100MB. Sur le support à 3 écrans, il existe une séparation réelle de 2,5cm entre les écrans, qui divise/coupe l'image — il faut en tenir compte pour ne pas déformer les phrases ou éléments importants (zones de rupture). Ce fichier peut également être utilisé sur le support LED 16x9, écran triple (3 écrans) ou Tomi Spot TV."
     }
   },
   "MOP|MOP|Mupi Digital": {
     "en": {
       "dimensao": "1080x1920px.",
-      "aspectRatio": "9:16",
-      "peso": "Max. 100 MB",
-      "tipoFicheiro": "MP4, H264 codec",
-      "observacoes": "Duration: 10 seconds (mandatory). Max. bitrate 6 Mbps. Frame rate 24 frames/s."
+      "tipoFicheiro": "Video: MP4/MOV; Image: any format; Web: HTML/URL — H264 codec",
+      "observacoes": "Duration: multiples of 10 seconds, with a maximum of 1 minute. Max. bitrate 6 Mbps. Frame rate 30 frames/s. Maximum size: 100MB. This file can be used on vertical digital formats: Mupi Digital or Tomi OOH."
     },
     "es": {
       "dimensao": "1080x1920px.",
-      "aspectRatio": "9:16",
-      "peso": "Máx. 100 MB",
-      "tipoFicheiro": "MP4, códec H264",
-      "observacoes": "Duración: 10 segundos (obligatorio). Bitrate máx. 6 Mbps. Framerate 24 frames/s."
+      "tipoFicheiro": "Vídeo: MP4/MOV; Imagen: cualquier formato; Web: HTML/URL — códec H264",
+      "observacoes": "Duración: múltiplos de 10 segundos, con un máximo de 1 minuto. Bitrate máx. 6 Mbps. Framerate 30 frames/s. Tamaño máximo: 100MB. Este archivo puede utilizarse en el soporte de los formatos digitales verticales: Mupi Digital o Tomi OOH."
     },
     "fr": {
       "dimensao": "1080x1920px.",
-      "aspectRatio": "9:16",
-      "peso": "Max. 100 MB",
-      "tipoFicheiro": "MP4, codec H264",
-      "observacoes": "Durée : 10 secondes (obligatoire). Bitrate max. 6 Mbps. Framerate 24 frames/s."
+      "tipoFicheiro": "Vidéo : MP4/MOV ; Image : tout format ; Web : HTML/URL — codec H264",
+      "observacoes": "Durée : multiples de 10 secondes, avec un maximum de 1 minute. Bitrate max. 6 Mbps. Framerate 30 frames/s. Taille maximale : 100MB. Ce fichier peut être utilisé sur le support des formats digitaux verticaux : Mupi Digital ou Tomi OOH."
     }
   },
   "MOP|MOP|Mupi": {
     "en": {
       "dimensao": "Final artwork: 234x348mm + 1mm bleed. Actual size: 1185x1750mm. Visible area: 1131x1667mm.",
-      "tipoFicheiro": "PDF (print quality), JPEG (for viewing) and an editable file",
-      "observacoes": "Fonts in curves; images at 300 dpi; file in a version earlier than the software's current one; always CMYK (no Pantone/RGB); no relevant information near the trim margins. Send via WeTransfer/Hightail/Dropbox or the client's FTP; CD/DVD always with a color proof."
+      "tipoFicheiro": "PDF (print quality), JPEG (for viewing) and editable file",
+      "observacoes": "Fonts converted to outlines; images at 300 dpi; file in an older version of the program; always CMYK (no Pantone/RGB); no relevant information near the trim/cut margins. Matte coated paper (COM) or Sunrise between 130-140g/m2; density up to 117µm. Delivery deadline: up to 5 business days before the campaign start. Quantities required: +25% beyond the contracted quantity. Screen printing or offset printing; digital printing (thermal, UV or similar inks) only accepted for runs up to 50 units. Posters delivered in rolls, separated by theme with no mixing — each roll may only contain one theme, with as many posters as possible; per theme, delivery in 6 rolls of 50 posters or, alternatively, 4 rolls of 38 + 4 rolls of 37. Rolls labeled with the Campaign name, Theme and Quantity. Send via WeTransfer/Hightail/Dropbox or the client's FTP (with username and password); CD/DVD always with a color proof."
     },
     "es": {
       "dimensao": "Arte final: 234x348mm + 1mm de sangrado. Medida real: 1185x1750mm. Área visible: 1131x1667mm.",
       "tipoFicheiro": "PDF (calidad de impresión), JPEG (visualización) y archivo editable",
-      "observacoes": "Fuentes en curvas; imágenes a 300 dpi; archivo en versión anterior del programa; siempre CMYK (sin Pantone/RGB); sin información relevante junto a los márgenes de corte. Envío mediante WeTransfer/Hightail/Dropbox o FTP del cliente; CD/DVD siempre con prueba de color."
+      "observacoes": "Fuentes convertidas a curvas; imágenes a 300 dpi; archivo en versión antigua del programa; siempre CMYK (sin Pantone/RGB); sin información relevante junto a los márgenes de corte. Papel estucado mate (COM) o Sunrise entre 130-140g/m2; densidad hasta 117µm. Plazo de entrega: hasta 5 días hábiles antes del inicio de la campaña. Cantidades requeridas: +25% además de la cantidad contratada. Impresión en serigrafía u offset; la impresión digital (tintas térmicas, UV o similares) solo se acepta hasta tiradas de 50 unidades. Carteles entregados en rollos, separados por tema y sin mezclas — cada rollo solo puede tener un tema, con el mayor número posible de carteles; por tema, entrega en 6 rollos de 50 carteles o, alternativamente, 4 rollos de 38 + 4 rollos de 37. Rollos identificados con el nombre de la Campaña, Tema y Cantidad. Envío vía WeTransfer/Hightail/Dropbox o FTP del cliente (con usuario y contraseña); CD/DVD siempre con prueba de color."
     },
     "fr": {
-      "dimensao": "Fichier final (BAT) : 234x348mm + 1mm de fond perdu. Taille réelle : 1185x1750mm. Zone visible : 1131x1667mm.",
+      "dimensao": "Fichier final (arte final) : 234x348mm + 1mm de fond perdu. Taille réelle : 1185x1750mm. Zone visible : 1131x1667mm.",
       "tipoFicheiro": "PDF (qualité d'impression), JPEG (visualisation) et fichier modifiable",
-      "observacoes": "Polices en courbes ; images à 300 dpi ; fichier dans une version antérieure du programme ; toujours en CMJN (sans Pantone/RVB) ; aucune information pertinente près des marges de coupe. Envoi via WeTransfer/Hightail/Dropbox ou FTP du client ; CD/DVD toujours accompagné d'une épreuve couleur."
+      "observacoes": "Texte vectorisé (polices converties en tracés) ; images à 300 dpi ; fichier dans une version antérieure du logiciel ; toujours en CMYK (sans Pantone/RGB) ; aucune information pertinente près des marges de coupe. Papier couché mat (COM) ou Sunrise entre 130-140g/m2 ; densité jusqu'à 117µm. Délai de livraison : jusqu'à 5 jours ouvrés avant le début de la campagne. Quantités requises : +25% au-delà de la quantité contractée. Impression en sérigraphie ou offset ; l'impression numérique (encres thermiques, UV ou similaires) n'est acceptée que pour des tirages allant jusqu'à 50 unités. Affiches livrées en rouleaux, séparées par thème et sans mélange — chaque rouleau ne peut contenir qu'un seul thème, avec le plus grand nombre possible d'affiches ; par thème, livraison en 6 rouleaux de 50 affiches ou, à défaut, 4 rouleaux de 38 + 4 rouleaux de 37. Rouleaux identifiés avec le nom de la Campagne, le Thème et la Quantité. Envoi via WeTransfer/Hightail/Dropbox ou FTP du client (avec identifiant et mot de passe) ; CD/DVD toujours avec épreuve couleur."
     }
   },
   "DreamMedia|DreamMedia|Outdoor 8x3": {
@@ -9012,6 +8994,261 @@
     "fr": {
       "tipoFicheiro": "MP4 (audio AAC)",
       "observacoes": "Aucune plateforme de distribution ni station de radio spécifique n'a été indiquée — spécifications génériques de livraison, à toujours confirmer auprès de la station ou de la centrale média avant la livraison. Audio AAC, 2 canaux (stéréo) ou mono selon le spot, 48 KHz, débit minimum recommandé 320 kbps (CBR), sonie (intégrée) -23 LUFS et niveau de crête -3dB TP max. — la même norme de sonie broadcast déjà utilisée pour la TV."
+    }
+  },
+  "MOP|MOP|4Plus": {
+    "en": {
+      "dimensao": "Final artwork: 394x140mm. Actual size: 4000x1500mm. Visible area: 3860x1360mm.",
+      "tipoFicheiro": "PDF (print quality), JPEG (for viewing) and editable file",
+      "observacoes": "Fonts converted to outlines; images at 300 dpi; file in an older version of the program; always CMYK (no Pantone/RGB); no relevant information near the trim/cut margins. Images at 100%, 150 DPI. 150g white paper; adhesive tape (to join the 2 sheets) 3M ref. 201E, 50mm; individually rolled packaging. Delivery by the Friday before the day the campaign starts. Quantities required: +10% beyond the contracted quantity. It is recommended that production always be done at Pinkplate (Parque Empresarial Primóvel - Ed. D1, Albarraque, 2635-395 Rio de Mouro; Tel. 21 9251800). Posters delivered individually and labeled. Send via WeTransfer/Hightail/Dropbox or the client's FTP (with username and password); CD/DVD always with a color proof."
+    },
+    "es": {
+      "dimensao": "Arte final: 394x140mm. Medida real: 4000x1500mm. Área visible: 3860x1360mm.",
+      "tipoFicheiro": "PDF (calidad de impresión), JPEG (visualización) y archivo editable",
+      "observacoes": "Fuentes convertidas a curvas; imágenes a 300 dpi; archivo en versión antigua del programa; siempre CMYK (sin Pantone/RGB); sin información relevante junto a los márgenes de corte. Imágenes al 100%, 150 DPI. Papel blanco 150g; cinta adhesiva (para unir las 2 hojas) 3M ref. 201E, 50mm; embalaje enrollado individualmente. Entrega hasta el viernes anterior al día en que comienza la campaña. Cantidades requeridas: +10% además de la cantidad contratada. Se aconseja que la producción se realice siempre en Pinkplate (Parque Empresarial Primóvel - Ed. D1, Albarraque, 2635-395 Rio de Mouro; Tel. 21 9251800). Carteles entregados por unidad e identificados. Envío vía WeTransfer/Hightail/Dropbox o FTP del cliente (con usuario y contraseña); CD/DVD siempre con prueba de color."
+    },
+    "fr": {
+      "dimensao": "Fichier final (arte final) : 394x140mm. Taille réelle : 4000x1500mm. Zone visible : 3860x1360mm.",
+      "tipoFicheiro": "PDF (qualité d'impression), JPEG (visualisation) et fichier modifiable",
+      "observacoes": "Texte vectorisé (polices converties en tracés) ; images à 300 dpi ; fichier dans une version antérieure du logiciel ; toujours en CMYK (sans Pantone/RGB) ; aucune information pertinente près des marges de coupe. Images à 100%, 150 DPI. Papier blanc 150g ; ruban adhésif (pour assembler les 2 feuilles) 3M réf. 201E, 50mm ; emballage enroulé individuellement. Livraison jusqu'au vendredi précédant le jour où débute la campagne. Quantités requises : +10% au-delà de la quantité contractée. Il est conseillé que la production soit toujours réalisée chez Pinkplate (Parque Empresarial Primóvel - Ed. D1, Albarraque, 2635-395 Rio de Mouro ; Tel. 21 9251800). Affiches livrées à l'unité et identifiées. Envoi via WeTransfer/Hightail/Dropbox ou FTP du client (avec identifiant et mot de passe) ; CD/DVD toujours avec épreuve couleur."
+    }
+  },
+  "MOP|MOP|Flashes": {
+    "en": {
+      "dimensao": "Final artwork: 370x270mm + 5mm bleed (front and back).",
+      "tipoFicheiro": "PDF (print quality), JPEG (for viewing) and editable file",
+      "observacoes": "Fonts converted to outlines; images at 300 dpi; file in an older version of the program; always CMYK (no Pantone/RGB); no relevant information near the trim/cut margins. 20mm must be left at the top for the fitting — this area must be free of relevant information and be an extension of the background (do not leave it blank/white, unless the creative's background is white). Self-extinguishing paper or self-extinguishing PVC (FLAMSTOP), 180g/m2, maximum thickness 0.8mm. Posters delivered already folded and with both sides fully glued. Quantities required: +15% over the number of positions. Delivery deadline: up to 5 business days before the campaign start."
+    },
+    "es": {
+      "dimensao": "Arte final: 370x270mm + 5mm de sangrado (anverso y reverso).",
+      "tipoFicheiro": "PDF (calidad de impresión), JPEG (visualización) y archivo editable",
+      "observacoes": "Fuentes convertidas a curvas; imágenes a 300 dpi; archivo en versión antigua del programa; siempre CMYK (sin Pantone/RGB); sin información relevante junto a los márgenes de corte. Debe dejarse 20mm en la parte superior para el encaje — esta área debe estar libre de información relevante y ser una prolongación del fondo (no dejar en blanco, a menos que el fondo de la creatividad lo sea). Papel autoextinguible o PVC autoextinguible (FLAMSTOP), 180g/m2, espesor máximo 0,8mm. Carteles entregados ya doblados y con las dos caras pegadas íntegramente. Cantidades requeridas: +15% respecto al número de posiciones. Plazo de entrega: hasta 5 días hábiles antes del inicio de la campaña."
+    },
+    "fr": {
+      "dimensao": "Fichier final (arte final) : 370x270mm + 5mm de fond perdu (recto et verso).",
+      "tipoFicheiro": "PDF (qualité d'impression), JPEG (visualisation) et fichier modifiable",
+      "observacoes": "Texte vectorisé (polices converties en tracés) ; images à 300 dpi ; fichier dans une version antérieure du logiciel ; toujours en CMYK (sans Pantone/RGB) ; aucune information pertinente près des marges de coupe. Il faut laisser 20mm en haut pour l'emboîtement — cette zone doit être libre de toute information pertinente et constituer un prolongement du fond (ne pas la laisser blanche, sauf si le fond de la création l'est). Papier auto-extinguible ou PVC auto-extinguible (FLAMSTOP), 180g/m2, épaisseur maximale 0,8mm. Affiches livrées déjà pliées et avec les deux faces entièrement collées. Quantités requises : +15% par rapport au nombre de positions. Délai de livraison : jusqu'à 5 jours ouvrés avant le début de la campagne."
+    }
+  },
+  "MOP|MOP|Backlight 4x3": {
+    "en": {
+      "dimensao": "Final artwork: 403x300mm + 1mm bleed.",
+      "tipoFicheiro": "PDF (print quality), JPEG (for viewing) and editable file",
+      "observacoes": "Fonts converted to outlines; images at 300 dpi; file in an older version of the program; always CMYK (no Pantone/RGB); no relevant information near the trim/cut margins. Production on backlight fabric in the desired format, with two options: rigid canvas for annual campaigns (reusable) or flexible fabric for short-term campaigns (non-reusable); finished fabrics with a welt around the edge for fastening and tensioning on PRISMAFLEX panels. When production of the materials is not MOP's responsibility, it must be done at the PRISMAFLEX print shop (Av. Dom Vicente Afonso Valente, 61, 2625-207 Póvoa de Santa Iria; Tel. +351 210 119 500; geral@prismaflex.pt)."
+    },
+    "es": {
+      "dimensao": "Arte final: 403x300mm + 1mm de sangrado.",
+      "tipoFicheiro": "PDF (calidad de impresión), JPEG (visualización) y archivo editable",
+      "observacoes": "Fuentes convertidas a curvas; imágenes a 300 dpi; archivo en versión antigua del programa; siempre CMYK (sin Pantone/RGB); sin información relevante junto a los márgenes de corte. Producción en tela backlight en el formato deseado, con dos posibilidades: lona rígida para campañas anuales (reutilizable) o tela flexible para campañas de corta duración (no reutilizable); telas acabadas con una costura perimetral para la fijación y el tensado en los paneles PRISMAFLEX. Cuando la producción de los materiales no sea responsabilidad de MOP, debe realizarse en la imprenta PRISMAFLEX (Av. Dom Vicente Afonso Valente, 61, 2625-207 Póvoa de Santa Iria; Tel. +351 210 119 500; geral@prismaflex.pt)."
+    },
+    "fr": {
+      "dimensao": "Fichier final (arte final) : 403x300mm + 1mm de fond perdu.",
+      "tipoFicheiro": "PDF (qualité d'impression), JPEG (visualisation) et fichier modifiable",
+      "observacoes": "Texte vectorisé (polices converties en tracés) ; images à 300 dpi ; fichier dans une version antérieure du logiciel ; toujours en CMYK (sans Pantone/RGB) ; aucune information pertinente près des marges de coupe. Production en toile backlight au format souhaité, avec deux possibilités : bâche rigide pour les campagnes annuelles (réutilisable) ou toile souple pour les campagnes de courte durée (non réutilisable) ; toiles finies avec un ourlet périphérique pour la fixation et la mise en tension sur les panneaux PRISMAFLEX. Lorsque la production des matériaux n'est pas de la responsabilité de MOP, elle doit être réalisée chez l'imprimeur PRISMAFLEX (Av. Dom Vicente Afonso Valente, 61, 2625-207 Póvoa de Santa Iria ; Tel. +351 210 119 500 ; geral@prismaflex.pt)."
+    }
+  },
+  "MOP|MOP|Backlight 8x3": {
+    "en": {
+      "dimensao": "Final artwork: 803x286mm + 1mm bleed.",
+      "tipoFicheiro": "PDF (print quality), JPEG (for viewing) and editable file",
+      "observacoes": "Fonts converted to outlines; images at 300 dpi; file in an older version of the program; always CMYK (no Pantone/RGB); no relevant information near the trim/cut margins. Production on backlight fabric in the desired format, with two options: rigid canvas for annual campaigns (reusable) or flexible fabric for short-term campaigns (non-reusable); finished fabrics with a welt around the edge for fastening and tensioning on PRISMAFLEX panels. When production of the materials is not MOP's responsibility, it must be done at the PRISMAFLEX print shop (Av. Dom Vicente Afonso Valente, 61, 2625-207 Póvoa de Santa Iria; Tel. +351 210 119 500; geral@prismaflex.pt)."
+    },
+    "es": {
+      "dimensao": "Arte final: 803x286mm + 1mm de sangrado.",
+      "tipoFicheiro": "PDF (calidad de impresión), JPEG (visualización) y archivo editable",
+      "observacoes": "Fuentes convertidas a curvas; imágenes a 300 dpi; archivo en versión antigua del programa; siempre CMYK (sin Pantone/RGB); sin información relevante junto a los márgenes de corte. Producción en tela backlight en el formato deseado, con dos posibilidades: lona rígida para campañas anuales (reutilizable) o tela flexible para campañas de corta duración (no reutilizable); telas acabadas con una costura perimetral para la fijación y el tensado en los paneles PRISMAFLEX. Cuando la producción de los materiales no sea responsabilidad de MOP, debe realizarse en la imprenta PRISMAFLEX (Av. Dom Vicente Afonso Valente, 61, 2625-207 Póvoa de Santa Iria; Tel. +351 210 119 500; geral@prismaflex.pt)."
+    },
+    "fr": {
+      "dimensao": "Fichier final (arte final) : 803x286mm + 1mm de fond perdu.",
+      "tipoFicheiro": "PDF (qualité d'impression), JPEG (visualisation) et fichier modifiable",
+      "observacoes": "Texte vectorisé (polices converties en tracés) ; images à 300 dpi ; fichier dans une version antérieure du logiciel ; toujours en CMYK (sans Pantone/RGB) ; aucune information pertinente près des marges de coupe. Production en toile backlight au format souhaité, avec deux possibilités : bâche rigide pour les campagnes annuelles (réutilisable) ou toile souple pour les campagnes de courte durée (non réutilisable) ; toiles finies avec un ourlet périphérique pour la fixation et la mise en tension sur les panneaux PRISMAFLEX. Lorsque la production des matériaux n'est pas de la responsabilité de MOP, elle doit être réalisée chez l'imprimeur PRISMAFLEX (Av. Dom Vicente Afonso Valente, 61, 2625-207 Póvoa de Santa Iria ; Tel. +351 210 119 500 ; geral@prismaflex.pt)."
+    }
+  },
+  "MOP|MOP|Backlight 10x5": {
+    "en": {
+      "dimensao": "Final artwork: 966x481mm + 1mm bleed.",
+      "tipoFicheiro": "PDF (print quality), JPEG (for viewing) and editable file",
+      "observacoes": "Fonts converted to outlines; images at 300 dpi; file in an older version of the program; always CMYK (no Pantone/RGB); no relevant information near the trim/cut margins. Production on backlight fabric in the desired format, with two options: rigid canvas for annual campaigns (reusable) or flexible fabric for short-term campaigns (non-reusable); finished fabrics with a welt around the edge for fastening and tensioning on PRISMAFLEX panels. When production of the materials is not MOP's responsibility, it must be done at the PRISMAFLEX print shop (Av. Dom Vicente Afonso Valente, 61, 2625-207 Póvoa de Santa Iria; Tel. +351 210 119 500; geral@prismaflex.pt)."
+    },
+    "es": {
+      "dimensao": "Arte final: 966x481mm + 1mm de sangrado.",
+      "tipoFicheiro": "PDF (calidad de impresión), JPEG (visualización) y archivo editable",
+      "observacoes": "Fuentes convertidas a curvas; imágenes a 300 dpi; archivo en versión antigua del programa; siempre CMYK (sin Pantone/RGB); sin información relevante junto a los márgenes de corte. Producción en tela backlight en el formato deseado, con dos posibilidades: lona rígida para campañas anuales (reutilizable) o tela flexible para campañas de corta duración (no reutilizable); telas acabadas con una costura perimetral para la fijación y el tensado en los paneles PRISMAFLEX. Cuando la producción de los materiales no sea responsabilidad de MOP, debe realizarse en la imprenta PRISMAFLEX (Av. Dom Vicente Afonso Valente, 61, 2625-207 Póvoa de Santa Iria; Tel. +351 210 119 500; geral@prismaflex.pt)."
+    },
+    "fr": {
+      "dimensao": "Fichier final (arte final) : 966x481mm + 1mm de fond perdu.",
+      "tipoFicheiro": "PDF (qualité d'impression), JPEG (visualisation) et fichier modifiable",
+      "observacoes": "Texte vectorisé (polices converties en tracés) ; images à 300 dpi ; fichier dans une version antérieure du logiciel ; toujours en CMYK (sans Pantone/RGB) ; aucune information pertinente près des marges de coupe. Production en toile backlight au format souhaité, avec deux possibilités : bâche rigide pour les campagnes annuelles (réutilisable) ou toile souple pour les campagnes de courte durée (non réutilisable) ; toiles finies avec un ourlet périphérique pour la fixation et la mise en tension sur les panneaux PRISMAFLEX. Lorsque la production des matériaux n'est pas de la responsabilité de MOP, elle doit être réalisée chez l'imprimeur PRISMAFLEX (Av. Dom Vicente Afonso Valente, 61, 2625-207 Póvoa de Santa Iria ; Tel. +351 210 119 500 ; geral@prismaflex.pt)."
+    }
+  },
+  "MOP|MOP|Backlight 12x5": {
+    "en": {
+      "dimensao": "Final artwork: 1211x481mm + 1mm bleed.",
+      "tipoFicheiro": "PDF (print quality), JPEG (for viewing) and editable file",
+      "observacoes": "Fonts converted to outlines; images at 300 dpi; file in an older version of the program; always CMYK (no Pantone/RGB); no relevant information near the trim/cut margins. Production on backlight fabric in the desired format, with two options: rigid canvas for annual campaigns (reusable) or flexible fabric for short-term campaigns (non-reusable); finished fabrics with a welt around the edge for fastening and tensioning on PRISMAFLEX panels. When production of the materials is not MOP's responsibility, it must be done at the PRISMAFLEX print shop (Av. Dom Vicente Afonso Valente, 61, 2625-207 Póvoa de Santa Iria; Tel. +351 210 119 500; geral@prismaflex.pt)."
+    },
+    "es": {
+      "dimensao": "Arte final: 1211x481mm + 1mm de sangrado.",
+      "tipoFicheiro": "PDF (calidad de impresión), JPEG (visualización) y archivo editable",
+      "observacoes": "Fuentes convertidas a curvas; imágenes a 300 dpi; archivo en versión antigua del programa; siempre CMYK (sin Pantone/RGB); sin información relevante junto a los márgenes de corte. Producción en tela backlight en el formato deseado, con dos posibilidades: lona rígida para campañas anuales (reutilizable) o tela flexible para campañas de corta duración (no reutilizable); telas acabadas con una costura perimetral para la fijación y el tensado en los paneles PRISMAFLEX. Cuando la producción de los materiales no sea responsabilidad de MOP, debe realizarse en la imprenta PRISMAFLEX (Av. Dom Vicente Afonso Valente, 61, 2625-207 Póvoa de Santa Iria; Tel. +351 210 119 500; geral@prismaflex.pt)."
+    },
+    "fr": {
+      "dimensao": "Fichier final (arte final) : 1211x481mm + 1mm de fond perdu.",
+      "tipoFicheiro": "PDF (qualité d'impression), JPEG (visualisation) et fichier modifiable",
+      "observacoes": "Texte vectorisé (polices converties en tracés) ; images à 300 dpi ; fichier dans une version antérieure du logiciel ; toujours en CMYK (sans Pantone/RGB) ; aucune information pertinente près des marges de coupe. Production en toile backlight au format souhaité, avec deux possibilités : bâche rigide pour les campagnes annuelles (réutilisable) ou toile souple pour les campagnes de courte durée (non réutilisable) ; toiles finies avec un ourlet périphérique pour la fixation et la mise en tension sur les panneaux PRISMAFLEX. Lorsque la production des matériaux n'est pas de la responsabilité de MOP, elle doit être réalisée chez l'imprimeur PRISMAFLEX (Av. Dom Vicente Afonso Valente, 61, 2625-207 Póvoa de Santa Iria ; Tel. +351 210 119 500 ; geral@prismaflex.pt)."
+    }
+  },
+  "MOP|MOP|Autocarro - Lateral Direita": {
+    "en": {
+      "dimensao": "Final artwork: 434x118mm + 3mm bleed. Actual size: 2170x588mm. Visible area: 2150x568mm.",
+      "tipoFicheiro": "PDF (print quality), JPEG (for viewing) and editable file",
+      "observacoes": "Fonts converted to outlines; images at 300 dpi; file in an older version of the program; always CMYK (no Pantone/RGB); no relevant information near the trim/cut margins. Mandatory material: PPA 3.5mm | 650g (direct printing). 2 sheets (central vertical cut), glued using an abutting/overlap system, with 3M tape ref. 8959 — also allowed as a single sheet at the full size. Delivery deadline: up to 2 business days before the campaign start. Quantities required: +5% over the number of faces, plus +5% for each extra week of display. When production of the materials is not MOP's responsibility, it must be done at the Pinkplate print shop (Parque Empresarial Primóvel - Ed. D1, Albarraque, 2635-395 Rio de Mouro; Tel. 21 9251800)."
+    },
+    "es": {
+      "dimensao": "Arte final: 434x118mm + 3mm de sangrado. Medida real: 2170x588mm. Área visible: 2150x568mm.",
+      "tipoFicheiro": "PDF (calidad de impresión), JPEG (visualización) y archivo editable",
+      "observacoes": "Fuentes convertidas a curvas; imágenes a 300 dpi; archivo en versión antigua del programa; siempre CMYK (sin Pantone/RGB); sin información relevante junto a los márgenes de corte. Material obligatorio: PPA 3,5mm | 650g (impresión directa). 2 hojas (corte vertical central), con pegado en sistema de solape/tope, usando cinta adhesiva 3M ref. 8959 — también se permite en una sola hoja en el formato total. Plazo de entrega: hasta 2 días hábiles antes del inicio de la campaña. Cantidades necesarias: +5% respecto al número de caras, y +5% por cada semana extra de circulación. Cuando la producción de los materiales no sea responsabilidad de MOP, debe realizarse en la imprenta Pinkplate (Parque Empresarial Primóvel - Ed. D1, Albarraque, 2635-395 Rio de Mouro; Tel. 21 9251800)."
+    },
+    "fr": {
+      "dimensao": "Fichier final (arte final) : 434x118mm + 3mm de fond perdu. Taille réelle : 2170x588mm. Zone visible : 2150x568mm.",
+      "tipoFicheiro": "PDF (qualité d'impression), JPEG (visualisation) et fichier modifiable",
+      "observacoes": "Texte vectorisé (polices converties en tracés) ; images à 300 dpi ; fichier dans une version antérieure du logiciel ; toujours en CMYK (sans Pantone/RGB) ; aucune information pertinente près des marges de coupe. Matériau obligatoire : PPA 3,5mm | 650g (impression directe). 2 feuilles (découpe verticale centrale), avec collage en système de recouvrement, à l'aide de ruban adhésif 3M réf. 8959 — également autorisé en une seule feuille au format total. Délai de livraison : jusqu'à 2 jours ouvrés avant le début de la campagne. Quantités nécessaires : +5% par rapport au nombre de faces, et +5% par semaine supplémentaire d'affichage. Lorsque la production des matériaux n'est pas de la responsabilité de MOP, elle doit être réalisée chez l'imprimeur Pinkplate (Parque Empresarial Primóvel - Ed. D1, Albarraque, 2635-395 Rio de Mouro ; Tel. 21 9251800)."
+    }
+  },
+  "MOP|MOP|Autocarro - Lateral Esquerda": {
+    "en": {
+      "dimensao": "Final artwork: 548x150mm + 3mm bleed. Actual size: 2740x750mm. Visible area: 2720x730mm.",
+      "tipoFicheiro": "PDF (print quality), JPEG (for viewing) and editable file",
+      "observacoes": "Fonts converted to outlines; images at 300 dpi; file in an older version of the program; always CMYK (no Pantone/RGB); no relevant information near the trim/cut margins. Mandatory material: PPA 3.5mm | 650g (direct printing). 2 sheets (central vertical cut), glued using an abutting/overlap system, with 3M tape ref. 8959 — also allowed as a single sheet at the full size. Delivery deadline: up to 2 business days before the campaign start. Quantities required: +5% over the number of faces, plus +5% for each extra week of display. When production of the materials is not MOP's responsibility, it must be done at the Pinkplate print shop (Parque Empresarial Primóvel - Ed. D1, Albarraque, 2635-395 Rio de Mouro; Tel. 21 9251800)."
+    },
+    "es": {
+      "dimensao": "Arte final: 548x150mm + 3mm de sangrado. Medida real: 2740x750mm. Área visible: 2720x730mm.",
+      "tipoFicheiro": "PDF (calidad de impresión), JPEG (visualización) y archivo editable",
+      "observacoes": "Fuentes convertidas a curvas; imágenes a 300 dpi; archivo en versión antigua del programa; siempre CMYK (sin Pantone/RGB); sin información relevante junto a los márgenes de corte. Material obligatorio: PPA 3,5mm | 650g (impresión directa). 2 hojas (corte vertical central), con pegado en sistema de solape/tope, usando cinta adhesiva 3M ref. 8959 — también se permite en una sola hoja en el formato total. Plazo de entrega: hasta 2 días hábiles antes del inicio de la campaña. Cantidades necesarias: +5% respecto al número de caras, y +5% por cada semana extra de circulación. Cuando la producción de los materiales no sea responsabilidad de MOP, debe realizarse en la imprenta Pinkplate (Parque Empresarial Primóvel - Ed. D1, Albarraque, 2635-395 Rio de Mouro; Tel. 21 9251800)."
+    },
+    "fr": {
+      "dimensao": "Fichier final (arte final) : 548x150mm + 3mm de fond perdu. Taille réelle : 2740x750mm. Zone visible : 2720x730mm.",
+      "tipoFicheiro": "PDF (qualité d'impression), JPEG (visualisation) et fichier modifiable",
+      "observacoes": "Texte vectorisé (polices converties en tracés) ; images à 300 dpi ; fichier dans une version antérieure du logiciel ; toujours en CMYK (sans Pantone/RGB) ; aucune information pertinente près des marges de coupe. Matériau obligatoire : PPA 3,5mm | 650g (impression directe). 2 feuilles (découpe verticale centrale), avec collage en système de recouvrement, à l'aide de ruban adhésif 3M réf. 8959 — également autorisé en une seule feuille au format total. Délai de livraison : jusqu'à 2 jours ouvrés avant le début de la campagne. Quantités nécessaires : +5% par rapport au nombre de faces, et +5% par semaine supplémentaire d'affichage. Lorsque la production des matériaux n'est pas de la responsabilité de MOP, elle doit être réalisée chez l'imprimeur Pinkplate (Parque Empresarial Primóvel - Ed. D1, Albarraque, 2635-395 Rio de Mouro ; Tel. 21 9251800)."
+    }
+  },
+  "MOP|MOP|Autocarro - Lateral Esquerda + Esquerda Especial": {
+    "en": {
+      "dimensao": "Left Side dimensions — Final artwork: 548x150mm + 3mm bleed, Actual size: 2740x750mm, Visible area: 2720x730mm. Special Left dimensions — Final artwork: 434x118mm + 3mm bleed, Actual size: 2170x588mm, Visible area: 2150x568mm.",
+      "tipoFicheiro": "PDF (print quality), JPEG (for viewing) and editable file",
+      "observacoes": "Fonts converted to outlines; images at 300 dpi; file in an older version of the program; always CMYK (no Pantone/RGB); no relevant information near the trim/cut margins. Mandatory material: PPA 3.5mm | 650g (direct printing). 2 sheets (central vertical cut), glued using an abutting/overlap system, with 3M tape ref. 8959 — also allowed as a single sheet at the full size. Delivery deadline: up to 2 business days before the campaign start. Quantities required: +5% over the number of faces, plus +5% for each extra week of display. When production of the materials is not MOP's responsibility, it must be done at the Pinkplate print shop (Parque Empresarial Primóvel - Ed. D1, Albarraque, 2635-395 Rio de Mouro; Tel. 21 9251800)."
+    },
+    "es": {
+      "dimensao": "Dimensiones Lateral Izquierda — Arte final: 548x150mm + 3mm de sangrado, Medida real: 2740x750mm, Área visible: 2720x730mm. Dimensiones Izquierda Especial — Arte final: 434x118mm + 3mm de sangrado, Medida real: 2170x588mm, Área visible: 2150x568mm.",
+      "tipoFicheiro": "PDF (calidad de impresión), JPEG (visualización) y archivo editable",
+      "observacoes": "Fuentes convertidas a curvas; imágenes a 300 dpi; archivo en versión antigua del programa; siempre CMYK (sin Pantone/RGB); sin información relevante junto a los márgenes de corte. Material obligatorio: PPA 3,5mm | 650g (impresión directa). 2 hojas (corte vertical central), con pegado en sistema de solape/tope, usando cinta adhesiva 3M ref. 8959 — también se permite en una sola hoja en el formato total. Plazo de entrega: hasta 2 días hábiles antes del inicio de la campaña. Cantidades necesarias: +5% respecto al número de caras, y +5% por cada semana extra de circulación. Cuando la producción de los materiales no sea responsabilidad de MOP, debe realizarse en la imprenta Pinkplate (Parque Empresarial Primóvel - Ed. D1, Albarraque, 2635-395 Rio de Mouro; Tel. 21 9251800)."
+    },
+    "fr": {
+      "dimensao": "Dimensions Côté gauche — Fichier final (arte final) : 548x150mm + 3mm de fond perdu, Taille réelle : 2740x750mm, Zone visible : 2720x730mm. Dimensions Gauche spéciale — Fichier final (arte final) : 434x118mm + 3mm de fond perdu, Taille réelle : 2170x588mm, Zone visible : 2150x568mm.",
+      "tipoFicheiro": "PDF (qualité d'impression), JPEG (visualisation) et fichier modifiable",
+      "observacoes": "Texte vectorisé (polices converties en tracés) ; images à 300 dpi ; fichier dans une version antérieure du logiciel ; toujours en CMYK (sans Pantone/RGB) ; aucune information pertinente près des marges de coupe. Matériau obligatoire : PPA 3,5mm | 650g (impression directe). 2 feuilles (découpe verticale centrale), avec collage en système de recouvrement, à l'aide de ruban adhésif 3M réf. 8959 — également autorisé en une seule feuille au format total. Délai de livraison : jusqu'à 2 jours ouvrés avant le début de la campagne. Quantités nécessaires : +5% par rapport au nombre de faces, et +5% par semaine supplémentaire d'affichage. Lorsque la production des matériaux n'est pas de la responsabilité de MOP, elle doit être réalisée chez l'imprimeur Pinkplate (Parque Empresarial Primóvel - Ed. D1, Albarraque, 2635-395 Rio de Mouro ; Tel. 21 9251800)."
+    }
+  },
+  "MOP|MOP|Autocarro - Retaguarda": {
+    "en": {
+      "dimensao": "Final artwork: 300x96mm + 1mm bleed. Actual size: 1500x478mm. Visible area: 2150x568mm.",
+      "tipoFicheiro": "PDF (print quality), JPEG (for viewing) and editable file",
+      "observacoes": "Fonts converted to outlines; images at 300 dpi; file in an older version of the program; always CMYK (no Pantone/RGB); no relevant information near the trim/cut margins. Mandatory material: PPA 3.5mm | 650g (direct printing). 2 sheets (central vertical cut), glued using an abutting/overlap system, with 3M tape ref. 8959 — also allowed as a single sheet at the full size. Delivery deadline: up to 2 business days before the campaign start. Quantities required: +5% over the number of faces, plus +5% for each extra week of display. When production of the materials is not MOP's responsibility, it must be done at the Pinkplate print shop (Parque Empresarial Primóvel - Ed. D1, Albarraque, 2635-395 Rio de Mouro; Tel. 21 9251800)."
+    },
+    "es": {
+      "dimensao": "Arte final: 300x96mm + 1mm de sangrado. Medida real: 1500x478mm. Área visible: 2150x568mm.",
+      "tipoFicheiro": "PDF (calidad de impresión), JPEG (visualización) y archivo editable",
+      "observacoes": "Fuentes convertidas a curvas; imágenes a 300 dpi; archivo en versión antigua del programa; siempre CMYK (sin Pantone/RGB); sin información relevante junto a los márgenes de corte. Material obligatorio: PPA 3,5mm | 650g (impresión directa). 2 hojas (corte vertical central), con pegado en sistema de solape/tope, usando cinta adhesiva 3M ref. 8959 — también se permite en una sola hoja en el formato total. Plazo de entrega: hasta 2 días hábiles antes del inicio de la campaña. Cantidades necesarias: +5% respecto al número de caras, y +5% por cada semana extra de circulación. Cuando la producción de los materiales no sea responsabilidad de MOP, debe realizarse en la imprenta Pinkplate (Parque Empresarial Primóvel - Ed. D1, Albarraque, 2635-395 Rio de Mouro; Tel. 21 9251800)."
+    },
+    "fr": {
+      "dimensao": "Fichier final (arte final) : 300x96mm + 1mm de fond perdu. Taille réelle : 1500x478mm. Zone visible : 2150x568mm.",
+      "tipoFicheiro": "PDF (qualité d'impression), JPEG (visualisation) et fichier modifiable",
+      "observacoes": "Texte vectorisé (polices converties en tracés) ; images à 300 dpi ; fichier dans une version antérieure du logiciel ; toujours en CMYK (sans Pantone/RGB) ; aucune information pertinente près des marges de coupe. Matériau obligatoire : PPA 3,5mm | 650g (impression directe). 2 feuilles (découpe verticale centrale), avec collage en système de recouvrement, à l'aide de ruban adhésif 3M réf. 8959 — également autorisé en une seule feuille au format total. Délai de livraison : jusqu'à 2 jours ouvrés avant le début de la campagne. Quantités nécessaires : +5% par rapport au nombre de faces, et +5% par semaine supplémentaire d'affichage. Lorsque la production des matériaux n'est pas de la responsabilité de MOP, elle doit être réalisée chez l'imprimeur Pinkplate (Parque Empresarial Primóvel - Ed. D1, Albarraque, 2635-395 Rio de Mouro ; Tel. 21 9251800)."
+    }
+  },
+  "MOP|MOP|3 Ecrãs": {
+    "en": {
+      "dimensao": "1920x1080px.",
+      "tipoFicheiro": "Video: MP4/MOV; Image: any format; Web: HTML/URL — H264 codec",
+      "observacoes": "Duration: 10 seconds (mandatory). Max. bitrate 6 Mbps. Frame rate 30 frames/s. Maximum size: 100MB. There is an actual 2.5cm gap (actual size) at the junction between the three screens, which splits and cuts the overall image — this must be taken into account to avoid distorting relevant sentences or elements (break/seam zones)."
+    },
+    "es": {
+      "dimensao": "1920x1080px.",
+      "tipoFicheiro": "Vídeo: MP4/MOV; Imagen: cualquier formato; Web: HTML/URL — códec H264",
+      "observacoes": "Duración: 10 segundos (obligatorio). Bitrate máx. 6 Mbps. Framerate 30 frames/s. Tamaño máximo: 100MB. Existe una separación real de 2,5cm (medida real) en la unión entre las tres pantallas, que divide y corta la imagen total — debe tenerse en cuenta para evitar que frases o elementos relevantes queden deformados (zonas de corte)."
+    },
+    "fr": {
+      "dimensao": "1920x1080px.",
+      "tipoFicheiro": "Vidéo : MP4/MOV ; Image : tout format ; Web : HTML/URL — codec H264",
+      "observacoes": "Durée : 10 secondes (obligatoire). Bitrate max. 6 Mbps. Framerate 30 frames/s. Taille maximale : 100MB. Il existe une séparation réelle de 2,5cm (taille réelle) à la jonction entre les trois écrans, qui divise et coupe l'image totale — il faut en tenir compte pour éviter que des phrases ou des éléments importants ne soient déformés (zones de rupture)."
+    }
+  },
+  "MOP|MOP|4x3 Digital": {
+    "en": {
+      "dimensao": "1536x1152px (in a 4x3 ratio, up to 3840x2880px).",
+      "tipoFicheiro": "Video: MP4/MOV; Image: any format; Web: HTML/URL — H264 codec",
+      "observacoes": "Duration: 10 seconds. Maximum bitrate 6 Mbps. Frame rate 30 frames/s. Maximum size: 100MB. Native compression."
+    },
+    "es": {
+      "dimensao": "1536x1152px (en proporción 4x3, hasta 3840x2880px).",
+      "tipoFicheiro": "Vídeo: MP4/MOV; Imagen: cualquier formato; Web: HTML/URL — códec H264",
+      "observacoes": "Duración: 10 segundos. Bitrate máximo 6 Mbps. Framerate 30 frames/s. Tamaño máximo: 100MB. Compresión nativa."
+    },
+    "fr": {
+      "dimensao": "1536x1152px (dans le ratio 4x3, jusqu'à 3840x2880px).",
+      "tipoFicheiro": "Vidéo : MP4/MOV ; Image : tout format ; Web : HTML/URL — codec H264",
+      "observacoes": "Durée : 10 secondes. Bitrate maximum 6 Mbps. Framerate 30 frames/s. Taille maximale : 100MB. Compression native."
+    }
+  },
+  "MOP|MOP|Tomi PhotoFun": {
+    "en": {
+      "dimensao": "1080x810px.",
+      "tipoFicheiro": "PNG",
+      "observacoes": "Color depth: 8 bits or higher. Must always have an empty content space of 125x125px for the TOMI logo in the corner of the frame. Since it is impossible to take a photo without the mirror effect with a front-facing camera, the mirrored frame must always be submitted."
+    },
+    "es": {
+      "dimensao": "1080x810px.",
+      "tipoFicheiro": "PNG",
+      "observacoes": "Profundidad de color: 8 bits o superior. Debe tener siempre un espacio vacío de contenido de 125x125px para el logotipo TOMI en la esquina del marco. Como es imposible tomar una fotografía sin el efecto espejo con una cámara frontal, siempre es necesario el envío del marco espejado."
+    },
+    "fr": {
+      "dimensao": "1080x810px.",
+      "tipoFicheiro": "PNG",
+      "observacoes": "Profondeur de couleur : 8 bits ou plus. Il doit toujours y avoir un espace vide de contenu de 125x125px pour le logo TOMI dans le coin du cadre. Comme il est impossible de prendre une photo sans effet miroir avec une caméra frontale, l'envoi du cadre miroir est toujours nécessaire."
+    }
+  },
+  "MOP|MOP|Tomi Sport TV": {
+    "en": {
+      "dimensao": "1080x1920px.",
+      "tipoFicheiro": "MP4 (no background/alpha), H264 codec",
+      "observacoes": "Duration: multiples of 5 seconds. Maximum bitrate 6 Mbps. Maximum size: 100MB."
+    },
+    "es": {
+      "dimensao": "1080x1920px.",
+      "tipoFicheiro": "MP4 (sin fondo), códec H264",
+      "observacoes": "Duración: múltiplos de 5 segundos. Bitrate máximo 6 Mbps. Tamaño máximo: 100MB."
+    },
+    "fr": {
+      "dimensao": "1080x1920px.",
+      "tipoFicheiro": "MP4 (sans fond), codec H264",
+      "observacoes": "Durée : multiples de 5 secondes. Bitrate maximum 6 Mbps. Taille maximale : 100MB."
+    }
+  },
+  "MOP|MOP|LED Galp": {
+    "en": {
+      "dimensao": "840x336px.",
+      "tipoFicheiro": "Video: MP4/MOV; Image: any format; Web: HTML/URL — H264 codec",
+      "observacoes": "Duration: 10 seconds (mandatory). Maximum bitrate 6 Mbps. Frame rate 30 frames/s. Maximum size: 100MB."
+    },
+    "es": {
+      "dimensao": "840x336px.",
+      "tipoFicheiro": "Vídeo: MP4/MOV; Imagen: cualquier formato; Web: HTML/URL — códec H264",
+      "observacoes": "Duración: 10 segundos (obligatorio). Bitrate máximo 6 Mbps. Framerate 30 frames/s. Tamaño máximo: 100MB."
+    },
+    "fr": {
+      "dimensao": "840x336px.",
+      "tipoFicheiro": "Vidéo : MP4/MOV ; Image : tout format ; Web : HTML/URL — codec H264",
+      "observacoes": "Durée : 10 secondes (obligatoire). Bitrate maximum 6 Mbps. Framerate 30 frames/s. Taille maximale : 100MB."
     }
   }
 }
