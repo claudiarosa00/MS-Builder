@@ -31,6 +31,10 @@ const botaoLimparFiltros = document.getElementById("botaoLimparFiltros");
 const botoesObjetivo = document.querySelectorAll(".objetivo-botao");
 const botaoVoltarTopo = document.getElementById("botaoVoltarTopo");
 const notificacaoToast = document.getElementById("notificacaoToast");
+const modalConfirmacao = document.getElementById("modalConfirmacao");
+const modalConfirmacaoTexto = document.getElementById("modalConfirmacaoTexto");
+const modalBotaoCancelar = document.getElementById("modalBotaoCancelar");
+const modalBotaoConfirmar = document.getElementById("modalBotaoConfirmar");
 const mensagensSemResultados = {
   construir: document.getElementById("semResultadosConstruir"),
   specs: document.getElementById("semResultadosSpecs"),
@@ -161,6 +165,8 @@ const TRADUCOES = {
   avisoObjetivo: { pt: "Cada objetivo tem a sua própria seleção — o mesmo formato pode ser pedido em mais do que um.", en: "Each objective has its own selection — the same format can be requested for more than one.", es: "Cada objetivo tiene su propia selección — el mismo formato puede pedirse en más de uno.", fr: "Chaque objectif a sa propre sélection — le même format peut être demandé pour plusieurs objectifs." },
   avisoPersistencia: { pt: "A tua seleção fica guardada neste dispositivo, mesmo que recarregues a página.", en: "Your selection stays saved on this device, even if you reload the page.", es: "Tu selección queda guardada en este dispositivo, aunque recargues la página.", fr: "Ta sélection reste enregistrée sur cet appareil, même si tu recharges la page." },
   confirmarLimparSelecao: { pt: "Limpar os {n} formatos selecionados nos 3 objetivos? Esta ação não pode ser desfeita.", en: "Clear the {n} selected formats across all 3 objectives? This action cannot be undone.", es: "¿Borrar los {n} formatos seleccionados en los 3 objetivos? Esta acción no se puede deshacer.", fr: "Effacer les {n} formats sélectionnés dans les 3 objectifs ? Cette action est irréversible." },
+  modalCancelar: { pt: "Cancelar", en: "Cancel", es: "Cancelar", fr: "Annuler" },
+  modalConfirmar: { pt: "Confirmar", en: "Confirm", es: "Confirmar", fr: "Confirmer" },
   indiceAriaLabel: { pt: "Índice de publishers", en: "Publisher index", es: "Índice de editores", fr: "Index des éditeurs" },
   excelValorMeioDigital: { pt: "Digital", en: "Digital", es: "Digital", fr: "Numérique" },
   meioOOH: { pt: "OOH", en: "OOH", es: "OOH", fr: "OOH" },
@@ -1253,16 +1259,66 @@ botaoSelecionarTodos.addEventListener("click", () => {
   atualizarResumoSelecao();
 });
 
+// Janela de confirmação própria (em vez de window.confirm()) — devolve uma
+// Promise<boolean>, resolvida a true/false consoante o botão premido, Escape
+// ou clique fora da caixa. Necessária porque esta página também corre
+// dentro do visualizador de Artifacts da Claude, que bloqueia diálogos
+// nativos do browser (window.confirm() aí devolve sempre "cancelado" sem
+// sequer aparecer nada — foi por isto que "Limpar seleção" parecia
+// avariado nessa pré-visualização).
+function confirmarAcao(mensagem) {
+  return new Promise((resolve) => {
+    modalConfirmacaoTexto.textContent = mensagem;
+    modalConfirmacao.hidden = false;
+    const elementoComFocoAntes = document.activeElement;
+    // Foca o "Cancelar", não o "Confirmar" — para premir Enter sem pensar
+    // nunca confirmar sozinho uma ação destrutiva.
+    modalBotaoCancelar.focus();
+
+    function concluir(resultado) {
+      modalConfirmacao.hidden = true;
+      modalBotaoConfirmar.removeEventListener("click", aoConfirmar);
+      modalBotaoCancelar.removeEventListener("click", aoCancelar);
+      modalConfirmacao.removeEventListener("keydown", aoTeclado);
+      modalConfirmacao.removeEventListener("click", aoCliqueFundo);
+      if (elementoComFocoAntes && typeof elementoComFocoAntes.focus === "function") {
+        elementoComFocoAntes.focus();
+      }
+      resolve(resultado);
+    }
+    function aoConfirmar() {
+      concluir(true);
+    }
+    function aoCancelar() {
+      concluir(false);
+    }
+    function aoTeclado(evento) {
+      if (evento.key === "Escape") {
+        concluir(false);
+      }
+    }
+    function aoCliqueFundo(evento) {
+      if (evento.target === modalConfirmacao) {
+        concluir(false);
+      }
+    }
+    modalBotaoConfirmar.addEventListener("click", aoConfirmar);
+    modalBotaoCancelar.addEventListener("click", aoCancelar);
+    modalConfirmacao.addEventListener("keydown", aoTeclado);
+    modalConfirmacao.addEventListener("click", aoCliqueFundo);
+  });
+}
+
 // Esvazia a seleção dos TRÊS objetivos (é um "recomeçar o pedido do zero"),
 // não só a do objetivo ativo no momento — por isso pede confirmação: sem
 // isto, um clique por engano ao lado de "Selecionar todos"/"Exportar"
 // apagava um pedido inteiro sem hipótese de recuperação.
-botaoLimparSelecao.addEventListener("click", () => {
+botaoLimparSelecao.addEventListener("click", async () => {
   const total = totalFormatosSelecionados();
   if (total === 0) {
     return;
   }
-  const confirmado = window.confirm(formatar("confirmarLimparSelecao", { n: total }));
+  const confirmado = await confirmarAcao(formatar("confirmarLimparSelecao", { n: total }));
   if (!confirmado) {
     return;
   }

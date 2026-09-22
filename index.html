@@ -205,6 +205,21 @@
   <!-- Notificação flutuante (ex.: confirmação depois de exportar) -->
   <div id="notificacaoToast" class="notificacao-toast" role="status" aria-live="polite" hidden></div>
 
+  <!-- Confirmação para ações destrutivas (ex.: "Limpar seleção") — janela
+       própria em HTML/CSS, em vez de window.confirm(): esta página também
+       corre dentro do visualizador de Artifacts da Claude, que bloqueia
+       diálogos nativos do browser (o confirm() ficava sempre a devolver
+       "cancelado" sem sequer aparecer, fazendo o botão parecer avariado). -->
+  <div id="modalConfirmacao" class="modal-fundo" hidden>
+    <div class="modal-caixa" role="alertdialog" aria-modal="true" aria-labelledby="modalConfirmacaoTexto">
+      <p id="modalConfirmacaoTexto"></p>
+      <div class="modal-acoes">
+        <button type="button" id="modalBotaoCancelar" class="botao-limpar" data-i18n="modalCancelar">Cancelar</button>
+        <button type="button" id="modalBotaoConfirmar" class="modal-botao-confirmar" data-i18n="modalConfirmar">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Biblioteca ExcelJS (ficheiro local, não precisa de internet) -->
   <script src="lib/exceljs.min.js"></script>
   <script src="app.js"></script>

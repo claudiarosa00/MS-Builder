@@ -507,6 +507,64 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   display: none;
 }
 
+/* Janela de confirmação própria (ver confirmarAcao em app.js) — usada em
+   vez de window.confirm() porque esta página também corre dentro do
+   visualizador de Artifacts da Claude, que bloqueia diálogos nativos do
+   browser. */
+.modal-fundo {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 200;
+}
+
+.modal-fundo[hidden] {
+  display: none;
+}
+
+.modal-caixa {
+  background-color: var(--cor-fundo-cartao);
+  border-radius: 10px;
+  padding: 24px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+}
+
+.modal-caixa p {
+  margin: 0 0 20px 0;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--cor-texto);
+}
+
+.modal-acoes {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 18px;
+}
+
+.modal-botao-confirmar {
+  background-color: var(--cor-destaque-escuro);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 9px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--fonte-base);
+  cursor: pointer;
+}
+
+.modal-botao-confirmar:hover {
+  background-color: var(--cor-destaque);
+}
+
 .sem-resultados {
   margin: 24px 32px 0 32px;
   padding: 16px 20px;
