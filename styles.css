@@ -150,13 +150,6 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   letter-spacing: 0.02em;
 }
 
-.subtitulo-longo {
-  margin: 6px 0 0 0;
-  font-size: 12.5px;
-  color: #8f8b87;
-  max-width: 46ch;
-}
-
 /*
 ============================================
 3. TABS (Construir Pedido / Base de Specs)

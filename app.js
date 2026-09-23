@@ -212,7 +212,6 @@ que substitui marcadores como {n} pelo valor indicado.
 */
 const TRADUCOES = {
   subtitulo: { pt: "Construtor de Specs Criativas", en: "Creative Specs Builder", es: "Generador de Especificaciones Creativas", fr: "Générateur de Spécifications Créatives" },
-  subtituloLongo: { pt: "Escolhe os formatos do pedido e exporta as specs completas para Excel.", en: "Choose the formats for the request and export the full specs to Excel.", es: "Elige los formatos del pedido y exporta las especificaciones completas a Excel.", fr: "Choisis les formats de la demande et exporte les spécifications complètes vers Excel." },
   linkSaltarConteudo: { pt: "Saltar para o formulário do pedido", en: "Skip to the request form", es: "Saltar al formulario del pedido", fr: "Passer au formulaire de la demande" },
   avisoClienteCampanha: { pt: "Cliente e Campanha aparecem no nome do ficheiro Excel exportado.", en: "Client and Campaign appear in the exported Excel file's name.", es: "Cliente y Campaña aparecen en el nombre del archivo Excel exportado.", fr: "Client et Campagne apparaissent dans le nom du fichier Excel exporté." },
   avisoObjetivo: { pt: "Cada objetivo tem a sua própria seleção — o mesmo formato pode ser pedido em mais do que um.", en: "Each objective has its own selection — the same format can be requested for more than one.", es: "Cada objetivo tiene su propia selección — el mismo formato puede pedirse en más de uno.", fr: "Chaque objectif a sa propre sélection — le même format peut être demandé pour plusieurs objectifs." },
