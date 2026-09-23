@@ -957,6 +957,14 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   accent-color: var(--cor-destaque);
 }
 
+/* Mupi de papel sem entrega escolhida — pista discreta de que a checkbox
+   está "condicionada" (ver criarLinhaFormato/mudarEntregaMupi), sem texto
+   extra permanente na linha. */
+.checkbox-formato--pendente {
+  cursor: help;
+  opacity: 0.55;
+}
+
 /* As Observações de algumas specs (ex.: TV/telepromoção) vão bem além dos
    ~65 caracteres recomendados para leitura confortável — limitar a largura
    da coluna faz o texto quebrar em linhas mais curtas, mesmo em ecrãs largos. */
@@ -1039,7 +1047,11 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
 }
 
 .opcao-entrega-mupi input[type="radio"] {
+  width: 18px;
+  height: 18px;
   cursor: pointer;
+  accent-color: var(--cor-destaque);
+  flex-shrink: 0;
 }
 
 /* Contador +/- do número de temas/criatividades (TV/Rádio/OOH). */

@@ -224,8 +224,8 @@ const TRADUCOES = {
   avisoEscolherEntregaMupi: { pt: "Escolhe primeiro onde entregar este mupi de papel.", en: "Choose where to deliver this paper mupi first.", es: "Elige primero dónde entregar este mupi de papel.", fr: "Choisis d'abord où livrer ce mupi papier." },
   avisoMupisSaltadosSelecionarTodos: { pt: "{n} mupi(s) de papel ficaram por selecionar — falta escolher onde entregar.", en: "{n} paper mupi(s) were left unselected — delivery choice still missing.", es: "{n} mupi(s) de papel quedaron sin seleccionar — falta elegir dónde entregar.", fr: "{n} mupi(s) papier n'ont pas été sélectionnés — choix de livraison manquant." },
   colTemasBuilder: { pt: "Temas", en: "Themes", es: "Temas", fr: "Thèmes" },
-  temasDiminuir: { pt: "Diminuir número de temas", en: "Decrease number of themes", es: "Disminuir número de temas", fr: "Diminuer le nombre de thèmes" },
-  temasAumentar: { pt: "Aumentar número de temas", en: "Increase number of themes", es: "Aumentar número de temas", fr: "Augmenter le nombre de thèmes" },
+  temasDiminuir: { pt: "Diminuir número de temas de {formato}", en: "Decrease number of themes for {formato}", es: "Disminuir número de temas de {formato}", fr: "Diminuer le nombre de thèmes de {formato}" },
+  temasAumentar: { pt: "Aumentar número de temas de {formato}", en: "Increase number of themes for {formato}", es: "Aumentar número de temas de {formato}", fr: "Augmenter le nombre de thèmes de {formato}" },
   temaNumero: { pt: "Tema {n}", en: "Theme {n}", es: "Tema {n}", fr: "Thème {n}" },
   resumoNumeroTemas: { pt: "{n} temas", en: "{n} themes", es: "{n} temas", fr: "{n} thèmes" },
   modalCancelar: { pt: "Cancelar", en: "Cancel", es: "Cancelar", fr: "Annuler" },
@@ -921,10 +921,16 @@ function criarCelulaDuracao(formato) {
 // aparece aqui (só no Excel exportado, ver moradaEntregaMupi em
 // COLUNAS_EXCEL_DISPONIVEIS) — pedido explícito, para não sobrecarregar
 // esta linha com um ícone de info.
-function criarCelulaEntregaMupi(formato) {
+//
+// role="radiogroup" + aria-labelledby a apontar para o nome do formato:
+// sem isto, um leitor de ecrã anuncia "Entrega AF"/"Entrega na Morada"
+// repetido em cada Mupi de papel, sem dizer a que formato pertence cada
+// grupo — o mesmo problema que a checkbox de formato já resolve com
+// aria-labelledby (ver auditoria de acessibilidade, ronda 2).
+function criarCelulaEntregaMupi(formato, idNomeFormato) {
   const escolha = entregaEfetivaDoFormato(formato, objetivoAtivo);
   return `
-    <div class="grupo-entrega-mupi" data-id="${formato.id}">
+    <div class="grupo-entrega-mupi" data-id="${formato.id}" role="radiogroup" aria-labelledby="${idNomeFormato}">
       <label class="opcao-entrega-mupi">
         <input type="radio" class="radio-entrega-mupi" name="entrega-mupi-${formato.id}" data-id="${formato.id}" value="af" ${escolha === "af" ? "checked" : ""}>
         ${t("colEntregaAF")}
@@ -940,14 +946,18 @@ function criarCelulaEntregaMupi(formato) {
 // Contador +/- do número de temas/criatividades (TV/Rádio/OOH) — ver
 // MEIOS_COM_TEMA/contagemTemasDoFormato. Só a quantidade é escolhida aqui;
 // os nomes de cada tema ("Tema 1", "Tema 2", ...) ficam por preencher à
-// mão no Excel exportado.
-function criarCelulaTemas(formato) {
+// mão no Excel exportado. O nome do formato entra no próprio aria-label
+// dos botões (não há aqui nenhum elemento "nome" a que apontar via
+// aria-labelledby, ao contrário da Entrega) — sem isto, os botões de
+// TODAS as linhas de TV/Rádio/OOH soariam exatamente iguais a quem usa
+// leitor de ecrã. O valor tem aria-live para anunciar a mudança ao clicar.
+function criarCelulaTemas(formato, nomeFormatoTexto) {
   const contagem = contagemTemasDoFormato(formato, objetivoAtivo);
   return `
     <div class="grupo-temas" data-id="${formato.id}">
-      <button type="button" class="botao-tema-menos" data-id="${formato.id}" aria-label="${t("temasDiminuir")}" ${contagem <= 1 ? "disabled" : ""}>−</button>
-      <span class="valor-temas" data-id="${formato.id}">${contagem}</span>
-      <button type="button" class="botao-tema-mais" data-id="${formato.id}" aria-label="${t("temasAumentar")}" ${contagem >= LIMITE_MAXIMO_TEMAS ? "disabled" : ""}>+</button>
+      <button type="button" class="botao-tema-menos" data-id="${formato.id}" aria-label="${formatar("temasDiminuir", { formato: nomeFormatoTexto })}" ${contagem <= 1 ? "disabled" : ""}>−</button>
+      <span class="valor-temas" data-id="${formato.id}" aria-live="polite">${contagem}</span>
+      <button type="button" class="botao-tema-mais" data-id="${formato.id}" aria-label="${formatar("temasAumentar", { formato: nomeFormatoTexto })}" ${contagem >= LIMITE_MAXIMO_TEMAS ? "disabled" : ""}>+</button>
     </div>
   `;
 }
@@ -959,11 +969,21 @@ function criarLinhaFormato(formato, opcoes) {
   // não selecionada", repetido em cada linha, sem dizer a que formato
   // corresponde (ver auditoria de acessibilidade).
   const idNomeFormato = `formato-nome-${opcoes.prefixoId}-${formato.id}`;
+  // Nome do formato na língua atual — usado tanto na célula do nome como
+  // para dar contexto (a que formato pertence) aos controlos de Entrega/
+  // Temas mais abaixo, que de outro modo soariam todos iguais para quem
+  // usa leitor de ecrã (ver auditoria de acessibilidade).
+  const nomeFormatoTexto = textoTraduzido(formato, "formato") ?? "";
   // Marca a checkbox logo na criação se este formato já estiver selecionado
   // (importante para a lista continuar correta depois de trocar de idioma
   // ou de filtro, que voltam a desenhar as linhas do zero).
+  // Um Mupi de papel sem entrega ainda escolhida ganha uma pista visual
+  // discreta (cursor "help" + opacidade reduzida) em vez de texto extra —
+  // sem isto, a única forma de descobrir a regra era tentar marcar e ver
+  // o toast (ver auditoria de acessibilidade, ronda 2).
+  const entregaPendente = formatoEhMupiPapel(formato) && !entregaEfetivaDoFormato(formato, objetivoAtivo);
   const colunaCheckbox = opcoes.comCheckbox
-    ? `<td class="coluna-checkbox"><input type="checkbox" class="checkbox-formato" data-id="${formato.id}" aria-labelledby="${idNomeFormato}" ${selecoesPorObjetivo[objetivoAtivo].has(formato.id) ? "checked" : ""}></td>`
+    ? `<td class="coluna-checkbox"><input type="checkbox" class="checkbox-formato${entregaPendente ? " checkbox-formato--pendente" : ""}" data-id="${formato.id}" aria-labelledby="${idNomeFormato}" ${selecoesPorObjetivo[objetivoAtivo].has(formato.id) ? "checked" : ""}></td>`
     : "";
   const colunaGrupoDigital2020 = opcoes.comGrupoDigital2020
     ? `<td><span class="etiqueta-dg2020">${formato.grupoDigital2020 ?? "—"}</span></td>`
@@ -981,16 +1001,16 @@ function criarLinhaFormato(formato, opcoes) {
   // mas cada linha decide por si própria se mostra o seletor — um bloco de
   // OOH pode misturar Mupi papel com outros formatos sem essa noção.
   const colunaEntregaMupi = opcoes.comEntregaMupi
-    ? `<td>${formatoEhMupiPapel(formato) ? criarCelulaEntregaMupi(formato) : "—"}</td>`
+    ? `<td>${formatoEhMupiPapel(formato) ? criarCelulaEntregaMupi(formato, idNomeFormato) : "—"}</td>`
     : "";
   // Os Temas aplicam-se a qualquer formato do meio (não há exceção por
   // linha, ao contrário de Duração/Entrega).
-  const colunaTemas = opcoes.comTemas ? `<td>${criarCelulaTemas(formato)}</td>` : "";
+  const colunaTemas = opcoes.comTemas ? `<td>${criarCelulaTemas(formato, nomeFormatoTexto)}</td>` : "";
 
   if (opcoes.simplificado) {
     linha.innerHTML = `
       ${colunaCheckbox}
-      <td id="${idNomeFormato}">${textoTraduzido(formato, "formato") ?? ""}</td>
+      <td id="${idNomeFormato}">${nomeFormatoTexto}</td>
       ${colunaVeiculo}
       ${colunaGrupoDigital2020}
       ${colunaDuracao}
@@ -1003,7 +1023,6 @@ function criarLinhaFormato(formato, opcoes) {
   // aria-label com o nome do formato: sem isto, uma pessoa a navegar pela
   // lista de links do leitor de ecrã só ouviria "Ver specs" repetido,
   // dezenas de vezes, sem saber a que formato cada link pertence.
-  const nomeFormatoTexto = textoTraduzido(formato, "formato") ?? "";
   const colunaLink = opcoes.comLink
     ? `<td>${formato.link ? `<a href="${formato.link}" target="_blank" rel="noopener" aria-label="${formatar("verSpecsLinkComNome", { formato: nomeFormatoTexto })}">${t("verSpecsLink")}</a>` : "—"}</td>`
     : "";
@@ -1265,7 +1284,7 @@ listaFormatos.addEventListener("click", (evento) => {
     return;
   }
   const celula = evento.target.closest("td");
-  if (!celula || celula.classList.contains("coluna-checkbox") || celula.querySelector(".grupo-duracao") || celula.querySelector(".grupo-entrega-mupi")) {
+  if (!celula || celula.classList.contains("coluna-checkbox") || celula.querySelector(".grupo-duracao") || celula.querySelector(".grupo-entrega-mupi") || celula.querySelector(".grupo-temas")) {
     return;
   }
   const linha = celula.closest("tr");
@@ -1343,9 +1362,15 @@ listaFormatos.addEventListener("change", (evento) => {
 function mudarEntregaMupi(radio) {
   const id = Number(radio.dataset.id);
   entregaMupiPorObjetivo[objetivoAtivo].set(id, radio.value);
+  const checkbox = listaFormatos.querySelector(`.checkbox-formato[data-id="${id}"]`);
+  // Assim que há uma entrega escolhida, a checkbox deixa de estar
+  // "condicionada" — tira a pista visual, quer o formato fique marcado
+  // agora quer já estivesse.
+  if (checkbox) {
+    checkbox.classList.remove("checkbox-formato--pendente");
+  }
   if (!selecoesPorObjetivo[objetivoAtivo].has(id)) {
     selecoesPorObjetivo[objetivoAtivo].add(id);
-    const checkbox = listaFormatos.querySelector(`.checkbox-formato[data-id="${id}"]`);
     if (checkbox) {
       checkbox.checked = true;
     }
@@ -1432,7 +1457,14 @@ botoesObjetivo.forEach((botao) => {
 function sincronizarCheckboxesComObjetivoAtivo() {
   const selecaoAtiva = selecoesPorObjetivo[objetivoAtivo];
   listaFormatos.querySelectorAll(".checkbox-formato").forEach((checkbox) => {
-    checkbox.checked = selecaoAtiva.has(Number(checkbox.dataset.id));
+    const id = Number(checkbox.dataset.id);
+    checkbox.checked = selecaoAtiva.has(id);
+    // A escolha de entrega dos Mupis papel é por objetivo (tal como a
+    // duração) — a pista visual de "condicionada" tem de ser recalculada
+    // ao trocar de objetivo, não só na criação da linha.
+    const formato = todosFormatos.find((f) => f.id === id);
+    const pendente = formato && formatoEhMupiPapel(formato) && !entregaEfetivaDoFormato(formato, objetivoAtivo);
+    checkbox.classList.toggle("checkbox-formato--pendente", pendente);
   });
 
   listaFormatos.querySelectorAll(".grupo-duracao").forEach((grupo) => {
