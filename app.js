@@ -213,9 +213,12 @@ que substitui marcadores como {n} pelo valor indicado.
 const TRADUCOES = {
   subtitulo: { pt: "Construtor de Specs Criativas", en: "Creative Specs Builder", es: "Generador de Especificaciones Creativas", fr: "Générateur de Spécifications Créatives" },
   linkSaltarConteudo: { pt: "Saltar para o formulário do pedido", en: "Skip to the request form", es: "Saltar al formulario del pedido", fr: "Passer au formulaire de la demande" },
-  avisoClienteCampanha: { pt: "Cliente e Campanha aparecem no nome do ficheiro Excel exportado.", en: "Client and Campaign appear in the exported Excel file's name.", es: "Cliente y Campaña aparecen en el nombre del archivo Excel exportado.", fr: "Client et Campagne apparaissent dans le nom du fichier Excel exporté." },
   avisoObjetivo: { pt: "Cada objetivo tem a sua própria seleção — o mesmo formato pode ser pedido em mais do que um.", en: "Each objective has its own selection — the same format can be requested for more than one.", es: "Cada objetivo tiene su propia selección — el mismo formato puede pedirse en más de uno.", fr: "Chaque objectif a sa propre sélection — le même format peut être demandé pour plusieurs objectifs." },
   avisoPersistencia: { pt: "A tua seleção fica guardada neste dispositivo, mesmo que recarregues a página.", en: "Your selection stays saved on this device, even if you reload the page.", es: "Tu selección queda guardada en este dispositivo, aunque recargues la página.", fr: "Ta sélection reste enregistrée sur cet appareil, même si tu recharges la page." },
+  // Duas versões (singular/plural) para a concordância ficar correta com
+  // n=1 — "os 1 formatos" está gramaticalmente errado (ver auditoria UX
+  // global). formatarContagem() escolhe a chave certa consoante o n.
+  confirmarLimparSelecaoUm: { pt: "Limpar o {n} formato selecionado nos 3 objetivos? Esta ação não pode ser desfeita.", en: "Clear the {n} selected format across all 3 objectives? This action cannot be undone.", es: "¿Borrar el {n} formato seleccionado en los 3 objetivos? Esta acción no se puede deshacer.", fr: "Effacer le {n} format sélectionné dans les 3 objectifs ? Cette action est irréversible." },
   confirmarLimparSelecao: { pt: "Limpar os {n} formatos selecionados nos 3 objetivos? Esta ação não pode ser desfeita.", en: "Clear the {n} selected formats across all 3 objectives? This action cannot be undone.", es: "¿Borrar los {n} formatos seleccionados en los 3 objetivos? Esta acción no se puede deshacer.", fr: "Effacer les {n} formats sélectionnés dans les 3 objectifs ? Cette action est irréversible." },
   colEntrega: { pt: "Entrega", en: "Delivery", es: "Entrega", fr: "Livraison" },
   colEntregaAF: { pt: "Entrega AF", en: "AF Delivery", es: "Entrega AF", fr: "Livraison AF" },
@@ -270,6 +273,7 @@ const TRADUCOES = {
   resumoCampanhaTexto: { pt: "A preparar pedido para: {cliente} — {campanha}", en: "Preparing request for: {cliente} — {campanha}", es: "Preparando la solicitud para: {cliente} — {campanha}", fr: "Préparation de la demande pour : {cliente} — {campanha}" },
   clientePorPreencher: { pt: "(cliente por preencher)", en: "(client pending)", es: "(cliente por completar)", fr: "(client à renseigner)" },
   campanhaPorPreencher: { pt: "(campanha por preencher)", en: "(campaign pending)", es: "(campaña por completar)", fr: "(campagne à renseigner)" },
+  contagemFormatoUm: { pt: " ({n} formato)", en: " ({n} format)", es: " ({n} formato)", fr: " ({n} format)" },
   contagemFormatos: { pt: " ({n} formatos)", en: " ({n} formats)", es: " ({n} formatos)", fr: " ({n} formats)" },
   colFormato: { pt: "Formato", en: "Format", es: "Formato", fr: "Format" },
   colVeiculo: { pt: "Veículo", en: "Vehicle", es: "Vehículo", fr: "Support" },
@@ -319,6 +323,14 @@ function formatar(chave, valores) {
     texto = texto.replace(`{${marcador}}`, valor);
   }
   return texto;
+}
+
+// Como formatar(), mas escolhe entre duas chaves (singular/plural) consoante
+// valores.n — sem isto, frases como "({n} formatos)" saem gramaticalmente
+// erradas com n=1 ("1 formatos") em todas as línguas (ver auditoria UX
+// global). chaveSingular é só usada quando n === 1.
+function formatarContagem(chaveSingular, chavePlural, valores) {
+  return formatar(valores.n === 1 ? chaveSingular : chavePlural, valores);
 }
 
 // Devolve o valor de um campo de specs (dimensao, aspectRatio, peso,
@@ -759,7 +771,7 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes) {
   titulo.textContent = nomePublisher;
   const contagem = document.createElement("span");
   contagem.className = "contagem";
-  contagem.textContent = formatar("contagemFormatos", { n: formatosDoPublisher.length });
+  contagem.textContent = formatarContagem("contagemFormatoUm", "contagemFormatos", { n: formatosDoPublisher.length });
   titulo.appendChild(contagem);
   bloco.appendChild(titulo);
 
@@ -1587,7 +1599,7 @@ botaoLimparSelecao.addEventListener("click", async () => {
   if (total === 0) {
     return;
   }
-  const confirmado = await confirmarAcao(formatar("confirmarLimparSelecao", { n: total }));
+  const confirmado = await confirmarAcao(formatarContagem("confirmarLimparSelecaoUm", "confirmarLimparSelecao", { n: total }));
   if (!confirmado) {
     return;
   }

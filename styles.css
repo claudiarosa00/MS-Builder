@@ -625,13 +625,6 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   color: var(--cor-texto);
 }
 
-.aviso-discreto {
-  margin: 6px 32px 0 32px;
-  padding: 0;
-  font-size: 12px;
-  color: var(--cor-texto-suave);
-}
-
 .resumo-campanha {
   padding: 8px 32px 0 32px;
   margin: 0;
@@ -1147,7 +1140,6 @@ não tira nenhuma funcionalidade real, só espaço que não há.
   }
 
   .dados-campanha,
-  .aviso-discreto,
   .resumo-campanha,
   .barra-filtros,
   .seletor-objetivo,
