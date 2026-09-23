@@ -68,6 +68,19 @@ data/traducoes-specs.json   Traduções EN/ES/FR das specs (ver secção
                             "Traduções das specs" abaixo) — ficheiro à
                             parte do Excel, opcional (a app funciona sem
                             ele, só mostra tudo em português)
+data/CSBuilder_Base_Formatos.xlsx
+                            Cópia de referência de toda a base, gerada por
+                            scripts/gerar_base_completa.py — um separador
+                            por meio (Digital/OOH/TV/Rádio/Imprensa), com
+                            as mesmas colunas que a Biblioteca de Formatos
+                            mostra no HTML. Não é lida pela app; é só para
+                            consulta/partilha fora da ferramenta
+scripts/gerar_base_completa.py
+                            Gera o ficheiro acima a partir de
+                            data/base-formatos.xlsx — correr sempre que a
+                            base for atualizada e for preciso refrescar a
+                            cópia de referência: "python3 scripts/
+                            gerar_base_completa.py"
 lib/exceljs.min.js          Biblioteca ExcelJS (versão 4.4.0), usada tanto
                             para ler esta base como para gerar o .xlsx
                             exportado, ambos diretamente no browser
