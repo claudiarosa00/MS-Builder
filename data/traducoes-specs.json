@@ -9312,5 +9312,73 @@
       "tipoFicheiro": "QuickTime (.MOV), ProRes 4444 (avec canal Alpha) ou ProRes 422 (sans Alpha), 1080i entrelacé (Upper/odd Field First), 25 fps",
       "observacoes": "Contenu publicitaire occupant au maximum 25% de l'écran, diffusé simultanément avec des programmes de divertissement, de sport et magazine. Durée 10″, entrée et sortie incluses dans ces 10″. Sans son. Le mot \"PUBLICIDADE\" doit rester lisible et dans la Safe Area pendant toute la diffusion. Il entre par la droite de l'écran sur TVI et par la gauche sur CNN Portugal. Safe Area générale : 96px horizontaux / 54px verticaux depuis le bord ; Title Safe Area : 192px horizontaux / 108px verticaux — aucune information pertinente ne doit sortir de ces zones."
     }
+  },
+  "DreamMedia|DreamMedia|Mupi Papel": {
+    "en": {
+      "dimensao": "Total area: 118.5x175cm. Advertising area: 116x171cm.",
+      "tipoFicheiro": "Closed file: JPG, TIFF or PDF, at 10% of actual size, at 300 dpi. Editable format: text converted to curves (outlines) or fonts supplied. Files ready for printing in CMYK — Pantone not accepted.",
+      "observacoes": "Paper: matte coated (COM) or Sunrise, between 130 and 140 g/m². Density up to 117µm. Delivery deadline: up to 5 business days before the campaign start. Quantities required: 10% more than the contracted quantity. The final artwork must not contain important information near the trim margins."
+    },
+    "es": {
+      "dimensao": "Área total: 118,5x175cm. Área publicitaria: 116x171cm.",
+      "tipoFicheiro": "Archivo cerrado: JPG, TIFF o PDF, al 10% del tamaño real, a 300 dpi. Formato editable: textos convertidos en curvas (contornos) o fuentes proporcionadas. Archivos listos para impresión en CMYK — no se acepta Pantone.",
+      "observacoes": "Papel: estucado mate (COM) o Sunrise, entre 130 y 140 g/m². Densidad hasta 117µm. Plazo de entrega: hasta 5 días hábiles antes del inicio de la campaña. Cantidades requeridas: 10% más además de la cantidad contratada. El arte final no debe contener información relevante junto a los márgenes de corte."
+    },
+    "fr": {
+      "dimensao": "Zone totale : 118,5x175cm. Zone publicitaire : 116x171cm.",
+      "tipoFicheiro": "Fichier verrouillé : JPG, TIFF ou PDF, à 10% de la taille réelle, à 300 dpi. Format modifiable : textes convertis en courbes (contours vectorisés) ou polices fournies. Fichiers prêts pour l'impression en CMJN — le Pantone n'est pas accepté.",
+      "observacoes": "Papier : couché mat (COM) ou Sunrise, entre 130 et 140 g/m². Densité jusqu'à 117µm. Délai de livraison : jusqu'à 5 jours ouvrés avant le début de la campagne. Quantités requises : 10% de plus que la quantité contractée. Le fichier final ne doit pas contenir d'informations importantes près des marges de coupe."
+    }
+  },
+  "DreamMedia|DreamMedia|Carris Metropolitana": {
+    "en": {
+      "dimensao": "3 mandatory sizes, to fit all bus sizes: 1590x535mm, 1440x640mm, 2210x640mm.",
+      "tipoFicheiro": "Mandatory material: PPA 3.5mm - 650g (direct print), vertical honeycomb cells. Panels longer than 200cm are supplied in 2 sheets joined with an overlap system, using 3M tape ref. 8959 — a single sheet is also allowed. Scale: actual size. Resolution: 300 dpi. Colours: CMYK — Pantone not accepted (RGB files are converted). Fonts converted to curves (outlines). Format: editable PDF, saved in a version earlier than the one used to create it. Images embedded at 300dpi in the final file.",
+      "observacoes": "40mm safety margin all around (text, logos and critical images). 5mm bleed all around for trimming and adjustment. Background elements (colours, continuous images or textures) must fill the total area including bleed. Final artwork delivery: 6 business days before the first day of implementation — all 3 sizes must be supplied. Implementation: Areas 1 and 2 start on Wednesday; Areas 3 and 4 start on Thursday."
+    },
+    "es": {
+      "dimensao": "3 medidas obligatorias, para adaptación a todos los tamaños de autobús: 1590x535mm, 1440x640mm, 2210x640mm.",
+      "tipoFicheiro": "Material obligatorio: PPA 3,5mm - 650g (impresión directa), alvéolos en vertical. Las placas de más de 200cm de largo se entregan en 2 hojas con unión por solape (cinta 3M ref. 8959) — también se permite en una sola hoja. Escala: tamaño real. Resolución: 300 dpi. Colores: CMYK — no se acepta Pantone (los archivos en RGB se convierten). Fuentes convertidas en curvas (contornos). Formato: PDF editable, guardado en una versión anterior a la utilizada para crearlo. Imágenes incorporadas a 300dpi en el archivo final.",
+      "observacoes": "Margen de seguridad de 40mm en todo el contorno (textos, logotipos e imágenes críticas). Sangrado de 5mm en todo el contorno para corte y ajuste. Los elementos de fondo (colores, imágenes continuas o texturas) deben ocupar el área total con sangrado. Entrega de artes finales: 6 días hábiles antes del primer día de implementación — es obligatorio entregar las 3 medidas. Implementación: Áreas 1 y 2 entran el miércoles; Áreas 3 y 4 entran el jueves."
+    },
+    "fr": {
+      "dimensao": "3 formats obligatoires, pour l'adaptation à toutes les tailles de bus : 1590x535mm, 1440x640mm, 2210x640mm.",
+      "tipoFicheiro": "Matériau obligatoire : PPA 3,5mm - 650g (impression directe), alvéoles à la verticale. Les panneaux de plus de 200cm de long sont fournis en 2 feuilles avec collage par recouvrement (ruban adhésif 3M réf. 8959) — une seule feuille est également acceptée. Échelle : taille réelle. Résolution : 300 dpi. Couleurs : CMJN — le Pantone n'est pas accepté (les fichiers RVB sont convertis). Polices converties en courbes (contours vectorisés). Format : PDF modifiable, enregistré dans une version antérieure à celle utilisée pour le créer. Images incorporées à 300dpi dans le fichier final.",
+      "observacoes": "Marge de sécurité de 40mm tout autour (textes, logos et images critiques). Fond perdu de 5mm tout autour pour la coupe et l'ajustement. Les éléments de fond (couleurs, images continues ou textures) doivent occuper toute la zone avec le fond perdu. Livraison des fichiers finaux : 6 jours ouvrés avant le premier jour d'implémentation — les 3 formats doivent obligatoirement être fournis. Implémentation : Zones 1 et 2 démarrent le mercredi ; Zones 3 et 4 démarrent le jeudi."
+    }
+  },
+  "DreamMedia|DreamMedia|Citie Premium": {
+    "en": {
+      "dimensao": "2.40x1.70m.",
+      "tipoFicheiro": "Closed file: JPG, TIFF or PDF, at 10% of actual size, at 300 dpi. Editable format: text converted to curves (outlines) or fonts supplied.",
+      "observacoes": "Bleed: 10cm all around (must not contain important information). Files supplied in CMYK, ready for printing — RGB files are converted to CMYK, and colours may change as a result."
+    },
+    "es": {
+      "dimensao": "2,40x1,70m.",
+      "tipoFicheiro": "Archivo cerrado: JPG, TIFF o PDF, al 10% del tamaño real, a 300 dpi. Formato editable: textos convertidos en curvas (contornos) o fuentes proporcionadas.",
+      "observacoes": "Sangrado: 10cm en todo el contorno (no debe contener información importante). Archivos entregados en CMYK, listos para impresión — los archivos en RGB se convierten a CMYK, pudiendo los colores sufrir alteraciones."
+    },
+    "fr": {
+      "dimensao": "2,40x1,70m.",
+      "tipoFicheiro": "Fichier verrouillé : JPG, TIFF ou PDF, à 10% de la taille réelle, à 300 dpi. Format modifiable : textes convertis en courbes (contours vectorisés) ou polices fournies.",
+      "observacoes": "Fond perdu : 10cm tout autour (ne doit contenir aucune information importante). Fichiers fournis en CMJN, prêts pour l'impression — les fichiers en RVB sont convertis en CMJN, ce qui peut entraîner des altérations de couleur."
+    }
+  },
+  "DreamMedia|DreamMedia|Power Street": {
+    "en": {
+      "dimensao": "1080x1920px (Full HD).",
+      "tipoFicheiro": "Finished video: .MOV or .MP4 (MP4 preferred), RGB, 30fps or 60fps. Open production files also accepted: Adobe Photoshop (1080x1920px, open layers, RGB, 72dpi, fonts as curves) or Adobe Illustrator/After Effects (1080x1920px, fonts as curves, images rasterised in the file).",
+      "observacoes": "Duration: 10″. For ads/videos with overlaid text, also send the clean images/videos, so the text can be applied and edited separately. Safety margin: 30px. Delivery deadline: 72 hours before the campaign start. Send to digital@dreammedia.pt (via WeTransfer/Dropbox/Google Drive if over 15Mb)."
+    },
+    "es": {
+      "dimensao": "1080x1920px (Full HD).",
+      "tipoFicheiro": "Vídeo terminado: .MOV o .MP4 (MP4 preferente), RGB, 30fps o 60fps. También se aceptan materiales abiertos para producción: Adobe Photoshop (1080x1920px, capas abiertas, RGB, 72dpi, fuentes en curvas) o Adobe Illustrator/After Effects (1080x1920px, fuentes en curvas, imágenes rasterizadas en el archivo).",
+      "observacoes": "Duración: 10″. En anuncios/vídeos con textos superpuestos, enviar también las imágenes/vídeos limpios, para que la inclusión de los textos se aplique y edite aparte. Margen de seguridad: 30px. Plazo de entrega: 72 horas antes del inicio de la campaña. Enviar a digital@dreammedia.pt (vía WeTransfer/Dropbox/Google Drive si supera los 15Mb)."
+    },
+    "fr": {
+      "dimensao": "1080x1920px (Full HD).",
+      "tipoFicheiro": "Vidéo finalisée : .MOV ou .MP4 (MP4 de préférence), RVB, 30fps ou 60fps. Fichiers de production ouverts également acceptés : Adobe Photoshop (1080x1920px, calques ouverts, RVB, 72dpi, polices en courbes) ou Adobe Illustrator/After Effects (1080x1920px, polices en courbes, images vectorisées dans le fichier).",
+      "observacoes": "Durée : 10″. Pour les publicités/vidéos avec textes superposés, envoyer également les images/vidéos sans texte, afin que l'ajout des textes soit appliqué et modifié séparément. Marge de sécurité : 30px. Délai de livraison : 72 heures avant le début de la campagne. À envoyer à digital@dreammedia.pt (via WeTransfer/Dropbox/Google Drive si le fichier dépasse 15Mo)."
+    }
   }
 }
