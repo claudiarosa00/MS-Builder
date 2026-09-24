@@ -1930,7 +1930,7 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
   celulaTitulo.value = tituloSeccao;
   celulaTitulo.font = { name: "Arial Nova", size: 12, bold: true, color: { argb: "FFFFFFFF" } };
   celulaTitulo.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF1A1A1A" } };
-  celulaTitulo.alignment = { vertical: "middle", horizontal: "center" };
+  celulaTitulo.alignment = { vertical: "middle", horizontal: "left" };
   linha += 1;
 
   const colunas = ["#", ...colunasChaves.map((chave) => COLUNAS_EXCEL_DISPONIVEIS[chave].titulo(grupoMeio))];
@@ -1939,13 +1939,18 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
     celula.value = titulo;
     celula.font = { name: "Arial Nova", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
     celula.fill = { type: "pattern", pattern: "solid", fgColor: { argb: config.corCabecalho } };
-    celula.alignment = { vertical: "middle", horizontal: "center", wrapText: true };
+    celula.alignment = { vertical: "middle", wrapText: true };
     celula.border = ESTILO_BORDA_COMPLETA;
   });
   linha += 1;
 
   const indiceColunaLink = colunasChaves.indexOf("link");
   const indiceColunaTema = colunasChaves.indexOf("temaCriativo");
+  // As colunas de "X" (Entrega AF / Entrega na Morada) ficam centradas na
+  // horizontal, em vez de alinhadas à esquerda como o resto do texto — um
+  // "X" solto lê-se pior encostado ao canto da célula. Todas as células
+  // (incluindo estas) ficam sempre centradas na vertical.
+  const COLUNAS_CENTRADAS = new Set(["entregaAF", "entregaMorada"]);
 
   // Um formato de TV/Rádio com mais que uma duração escolhida é, na
   // prática, mais que um spot pedido — cada duração ganha a sua própria
@@ -1981,9 +1986,10 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
         return COLUNAS_EXCEL_DISPONIVEIS[chave].valor(grupo.formato, objetivo, grupo.duracao, temaIndice);
       });
       linhaFormato.values = [indiceDentroGrupo === 0 ? indiceGrupo + 1 : "", ...valoresColunas];
-      linhaFormato.eachCell({ includeEmpty: true }, (celula) => {
+      linhaFormato.eachCell({ includeEmpty: true }, (celula, indiceColunaExcel) => {
+        const centrada = COLUNAS_CENTRADAS.has(colunasChaves[indiceColunaExcel - 2]);
         celula.font = { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } };
-        celula.alignment = { vertical: "middle", horizontal: "center", wrapText: true };
+        celula.alignment = { vertical: "middle", horizontal: centrada ? "center" : undefined, wrapText: true };
         celula.border = ESTILO_BORDA_COMPLETA;
       });
       // O texto do link fica na cor de destaque, sublinhado, para
@@ -2003,7 +2009,8 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
           continue;
         }
         folha.mergeCells(linhaInicioGrupo, coluna, linhaAtual - 1, coluna);
-        folha.getCell(linhaInicioGrupo, coluna).alignment = { vertical: "middle", horizontal: "center", wrapText: true };
+        const centrada = coluna === 1 || COLUNAS_CENTRADAS.has(colunasChaves[coluna - 2]);
+        folha.getCell(linhaInicioGrupo, coluna).alignment = { vertical: "middle", horizontal: centrada ? "center" : undefined, wrapText: true };
       }
     }
   });
