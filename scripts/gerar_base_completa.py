@@ -48,7 +48,7 @@ COLUNAS_BASE = ["Fornecedor", "Veículo", "Formato", "Dimensão", "Aspect Ratio"
 LARGURAS = {
     "Fornecedor": 22, "Veículo": 22, "Grupo Digital2020": 18, "Formato": 30,
     "Dimensão": 45, "Aspect Ratio": 14, "Peso": 18, "Tipo de Ficheiro": 24,
-    "Copies": 40, "Entrega": 16, "Observações": 45, "Link": 40,
+    "Copies": 40, "Entrega": 22, "Observações": 45, "Link": 40,
 }
 
 wb = openpyxl.Workbook()
@@ -94,7 +94,12 @@ for meio in ORDEM_MEIOS:
     for row in linhas:
         for i, nome_coluna in enumerate(colunas, start=1):
             if nome_coluna == "Entrega":
-                valor = "GoFastWay"
+                celula = folha.cell(row=linha_atual, column=i, value="GoFastWay\nwww.gofastway.tv")
+                celula.hyperlink = "http://www.gofastway.tv"
+                celula.font = Font(size=10, color="1155CC", underline="single")
+                celula.alignment = ALINHAMENTO
+                celula.border = BORDA_COMPLETA
+                continue
             elif nome_coluna == "Link":
                 link = row[idx["Link"]]
                 if link:

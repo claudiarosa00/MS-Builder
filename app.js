@@ -98,6 +98,51 @@ function formatoTemDuracao(formato) {
   return (formato.formato || "").toLowerCase().includes("spot");
 }
 
+// Os "Spot TV" com mais que uma variante técnica na base (hoje SD e HD,
+// ver README) são a mesma decisão de pedido — só muda a codificação de
+// vídeo entregue — por isso, no construtor, aparecem como uma única linha
+// "Spot TV" (ver agruparSpotTVSeConstrutor): marcar/desmarcar essa linha,
+// ou mudar a Duração ou o número de Temas, aplica-se a todas as variantes
+// do grupo ao mesmo tempo (ver garantirEstadoDuracao, mudarContagemTemas e
+// o listener de checkbox-formato), e cada variante continua a gerar a sua
+// própria linha no Excel exportado. A Biblioteca de Formatos continua a
+// mostrar cada variante técnica separadamente, com as suas specs próprias
+// — só o construtor (opcoes.simplificado) é que agrupa.
+// Construído uma vez, quando a base carrega; representante = o id mais
+// baixo do grupo (mantém a ordem de leitura previsível).
+let GRUPOS_FORMATO_TV = new Map(); // id -> { representante, ids: [...] }
+
+function construirGruposFormatoTV(formatos) {
+  const porVariante = new Map(); // "fornecedor|veiculo" -> ids de "Spot TV (...)"
+  formatos.forEach((formato) => {
+    if (grupoMeioDoFormato(formato) !== "TV" || !/^Spot TV \(/.test(formato.formato || "")) {
+      return;
+    }
+    const chave = `${formato.fornecedor}|${formato.veiculo}`;
+    if (!porVariante.has(chave)) {
+      porVariante.set(chave, []);
+    }
+    porVariante.get(chave).push(formato.id);
+  });
+  const grupos = new Map();
+  porVariante.forEach((ids) => {
+    if (ids.length < 2) {
+      return;
+    }
+    const representante = Math.min(...ids);
+    ids.forEach((id) => grupos.set(id, { representante, ids: [...ids] }));
+  });
+  return grupos;
+}
+
+// Todos os ids "irmãos" deste formato (incluindo ele próprio) — só mais
+// que um quando faz parte de um grupo Spot TV SD/HD (ver
+// GRUPOS_FORMATO_TV); nos restantes casos é sempre só [formato.id].
+function idsDoGrupoFormato(id) {
+  const grupo = GRUPOS_FORMATO_TV.get(id);
+  return grupo ? grupo.ids : [id];
+}
+
 // Estado de duração para leitura (renderização) — nunca cria/guarda nada,
 // devolve o valor por omissão (só 30") quando ainda não há escolha explícita.
 function estadoDuracaoOuOmissao(formato, objetivo) {
@@ -109,11 +154,13 @@ function estadoDuracaoOuOmissao(formato, objetivo) {
 // de um evento do utilizador, nunca da renderização.
 function garantirEstadoDuracao(formato, objetivo) {
   const mapa = duracoesPorObjetivo[objetivo];
-  let estado = mapa.get(formato.id);
-  if (!estado) {
-    estado = { padrao: new Set([DURACAO_OMISSAO]), outroAtivo: false, outroValor: "" };
-    mapa.set(formato.id, estado);
-  }
+  const estado = mapa.get(formato.id) || { padrao: new Set([DURACAO_OMISSAO]), outroAtivo: false, outroValor: "" };
+  // Todos os ids do grupo (ver GRUPOS_FORMATO_TV) passam a apontar para o
+  // MESMO objeto — mutar um propaga automaticamente aos outros. Reaplicado
+  // sempre (não só na primeira vez) para também corrigir o caso de o
+  // estado ter sido restaurado do localStorage com um objeto por id (ver
+  // restaurarEstadoLocal), que ainda não estão "ligados" entre si.
+  idsDoGrupoFormato(formato.id).forEach((id) => mapa.set(id, estado));
   return estado;
 }
 
@@ -172,6 +219,14 @@ const MORADA_ENTREGA_MUPI_PAPEL = {
   "MOP": "Morada de entrega: R. Mário Castelhano, 42 - Armazém 7, Lux Parque - Queluz de Baixo, 2734-502 Barcarena. Horário: 8h-12h e 13h-17h. Tel: +351 214 355 485.",
   "DreamMedia": "Morada de entrega: Rua Manuel da Maia, nº 4, 2680-186 Loures. Horário: 8h-12h e 13h-17h.",
 };
+
+// Link do Portal GoFastWay (ver especificações técnicas oficiais da
+// GoFastWay, secção 1 "Introdução") — tal como a própria palavra
+// "GoFastWay", é um valor fixo que aparece sempre a seguir a ela, tanto
+// na Biblioteca de Formatos como no Excel exportado (ver entregaTV em
+// COLUNAS_EXCEL_DISPONIVEIS).
+const LINK_GOFASTWAY = "http://www.gofastway.tv";
+const TEXTO_LINK_GOFASTWAY = "www.gofastway.tv";
 
 // Pedir o mesmo formato para vários temas/criatividades diferentes (TV,
 // Rádio e OOH) é, tal como a duração, mais que um pedido de facto — cada
@@ -565,6 +620,7 @@ async function carregarFormatos() {
     // porque a lista não muda depois de carregada). É este id que as
     // checkboxes vão usar para dizer qual formato foi selecionado.
     todosFormatos = formatos.map((formato, indice) => ({ ...formato, id: indice }));
+    GRUPOS_FORMATO_TV = construirGruposFormatoTV(todosFormatos);
 
     // Traduções das specs (EN/ES/FR): se o ficheiro não existir ou vier
     // inválido, a app continua a funcionar normalmente — só mostra o texto
@@ -683,6 +739,27 @@ function categoriaDoPublisher(nomePublisher, formatosDoPublisher) {
   return "Compra Direta";
 }
 
+// No construtor (opcoes.simplificado), substitui cada grupo Spot TV
+// SD/HD (ver GRUPOS_FORMATO_TV) pela sua linha representante, com o
+// nome genérico "Spot TV" em vez da variante técnica — marcar essa
+// linha seleciona as duas (ver o listener de checkbox-formato). Não se
+// aplica à Biblioteca de Formatos, que continua a mostrar cada
+// variante separadamente.
+function agruparSpotTVSeConstrutor(formatosOrdenados, opcoes) {
+  if (!opcoes.simplificado) {
+    return formatosOrdenados;
+  }
+  return formatosOrdenados
+    .filter((formato) => {
+      const grupo = GRUPOS_FORMATO_TV.get(formato.id);
+      return !grupo || grupo.representante === formato.id;
+    })
+    .map((formato) => {
+      const grupo = GRUPOS_FORMATO_TV.get(formato.id);
+      return grupo ? { ...formato, formato: "Spot TV" } : formato;
+    });
+}
+
 /*
 ============================================
 7. DESENHAR OS FORMATOS NO ECRÃ
@@ -723,14 +800,17 @@ function mostrarFormatosAgrupados(contentor, formatos, opcoes) {
     // pelo Veículo (relevante nos publishers com vários, ex.: "Correio da
     // Manhã" ou "TVI"/"CNN Portugal"; nos restantes, onde Veículo = Fornecedor
     // em todas as linhas, este critério não muda nada), depois pelo Formato.
-    const formatosDoPublisher = [...grupos[nomePublisher]].sort((a, b) => {
-      const veiculoA = a.veiculo || "";
-      const veiculoB = b.veiculo || "";
-      if (veiculoA !== veiculoB) {
-        return veiculoA.localeCompare(veiculoB, "pt");
-      }
-      return (a.formato || "").localeCompare(b.formato || "", "pt");
-    });
+    const formatosDoPublisher = agruparSpotTVSeConstrutor(
+      [...grupos[nomePublisher]].sort((a, b) => {
+        const veiculoA = a.veiculo || "";
+        const veiculoB = b.veiculo || "";
+        if (veiculoA !== veiculoB) {
+          return veiculoA.localeCompare(veiculoB, "pt");
+        }
+        return (a.formato || "").localeCompare(b.formato || "", "pt");
+      }),
+      opcoes
+    );
     const categoria = categoriaDoPublisher(nomePublisher, formatosDoPublisher);
     if (categoria !== categoriaAnterior) {
       const grupoOnlineOffline = CATEGORIAS_ONLINE.has(categoria) ? "online" : "offline";
@@ -1044,8 +1124,11 @@ function criarLinhaFormato(formato, opcoes) {
   const colunaCopies = opcoes.comCopies ? `<td>${textoTraduzido(formato, "copies") || "—"}</td>` : "";
   // A Entrega de TV é sempre "GoFastWay" — não vem da base, é um valor
   // fixo (ver entregaTV em COLUNAS_EXCEL_DISPONIVEIS, a mesma ideia usada
-  // aqui na Biblioteca de Formatos).
-  const colunaEntregaTV = opcoes.comEntregaTV ? `<td>GoFastWay</td>` : "";
+  // aqui na Biblioteca de Formatos), com o link do Portal GoFastWay
+  // (ver LINK_GOFASTWAY) por baixo.
+  const colunaEntregaTV = opcoes.comEntregaTV
+    ? `<td>GoFastWay<br><a href="${LINK_GOFASTWAY}" target="_blank" rel="noopener">${TEXTO_LINK_GOFASTWAY}</a></td>`
+    : "";
   linha.innerHTML = `
     ${colunaCheckbox}
     <td id="${idNomeFormato}">${nomeFormatoTexto}</td>
@@ -1321,7 +1404,7 @@ function mudarContagemTemas(botao) {
   if (novo === atual) {
     return;
   }
-  temasPorObjetivo[objetivoAtivo].set(id, novo);
+  idsDoGrupoFormato(id).forEach((idGrupo) => temasPorObjetivo[objetivoAtivo].set(idGrupo, novo));
   const grupo = botao.closest(".grupo-temas");
   grupo.querySelector(".valor-temas").textContent = novo;
   grupo.querySelector(".botao-tema-menos").disabled = novo <= 1;
@@ -1345,9 +1428,9 @@ listaFormatos.addEventListener("change", (evento) => {
         mostrarNotificacao(t("avisoEscolherEntregaMupi"));
         return;
       }
-      selecoesPorObjetivo[objetivoAtivo].add(id);
+      idsDoGrupoFormato(id).forEach((idGrupo) => selecoesPorObjetivo[objetivoAtivo].add(idGrupo));
     } else {
-      selecoesPorObjetivo[objetivoAtivo].delete(id);
+      idsDoGrupoFormato(id).forEach((idGrupo) => selecoesPorObjetivo[objetivoAtivo].delete(idGrupo));
     }
     atualizarResumoSelecao();
     return;
@@ -1533,7 +1616,7 @@ botaoSelecionarTodos.addEventListener("click", () => {
       return;
     }
     checkbox.checked = true;
-    selecaoAtiva.add(id);
+    idsDoGrupoFormato(id).forEach((idGrupo) => selecaoAtiva.add(idGrupo));
   });
   if (mupisPorEscolher > 0) {
     mostrarNotificacao(formatar("avisoMupisSaltadosSelecionarTodos", { n: mupisPorEscolher }));
@@ -1846,11 +1929,12 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
   // Os formatos de TV são sempre enviados via GoFastWay — valor fixo,
   // igual em todas as linhas (ver também colEntrega na Biblioteca de
   // Formatos, para TV, e o CABECALHOS_BASE_EXCEL — isto não vem da base,
-  // é sempre o mesmo texto).
+  // é sempre o mesmo texto), com o link do Portal GoFastWay por baixo
+  // (ver LINK_GOFASTWAY).
   entregaTV: {
-    largura: 16,
+    largura: 22,
     titulo: () => t("colEntrega"),
-    valor: () => "GoFastWay",
+    valor: () => ({ text: `GoFastWay\n${TEXTO_LINK_GOFASTWAY}`, hyperlink: LINK_GOFASTWAY }),
   },
   dimensao: {
     largura: 45,
@@ -2326,6 +2410,16 @@ function restaurarEstadoLocal() {
       const id = chaveParaId.get(chave);
       if (id !== undefined && Number.isInteger(contagem) && contagem >= 1) {
         temasPorObjetivo[objetivo].set(id, contagem);
+      }
+    });
+
+    // Um pedido guardado antes de o Spot TV SD/HD passar a ser uma única
+    // linha no construtor pode ter só uma das duas variantes selecionada
+    // — alinha com o novo comportamento (ver GRUPOS_FORMATO_TV): se
+    // alguma delas estava selecionada, as duas passam a estar.
+    GRUPOS_FORMATO_TV.forEach((grupo) => {
+      if (grupo.ids.some((id) => selecoesPorObjetivo[objetivo].has(id))) {
+        grupo.ids.forEach((id) => selecoesPorObjetivo[objetivo].add(id));
       }
     });
   });
