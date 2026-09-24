@@ -2073,9 +2073,17 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
   // diferentes. Objetivos sem nenhum formato deste meio não geram secção. ---
   let linhaAtual = 10;
   OBJETIVOS.forEach((objetivo) => {
-    const formatosDoObjetivo = todosFormatos.filter(
-      (f) => selecoesPorObjetivo[objetivo].has(f.id) && grupoMeioDoFormato(f) === grupoMeio
-    );
+    // Dentro de cada objetivo, as linhas ficam por ordem alfabética do
+    // canal (a coluna "Plataforma" — Canal em TV, Concessionário em OOH,
+    // Estação em Rádio, Título em Imprensa, ver COLUNAS_EXCEL_DISPONIVEIS.
+    // plataforma), com o Formato como desempate — nomes próprios, por isso
+    // comparados sempre em português, independentemente do idioma ativo.
+    const formatosDoObjetivo = todosFormatos
+      .filter((f) => selecoesPorObjetivo[objetivo].has(f.id) && grupoMeioDoFormato(f) === grupoMeio)
+      .sort((a, b) =>
+        (a.veiculo || "").localeCompare(b.veiculo || "", "pt") ||
+        (a.formato || "").localeCompare(b.formato || "", "pt")
+      );
     if (formatosDoObjetivo.length === 0) {
       return;
     }
