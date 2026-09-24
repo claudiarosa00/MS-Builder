@@ -300,6 +300,7 @@ const TRADUCOES = {
   canalSocialMedia: { pt: "Social Media", en: "Social Media", es: "Social Media", fr: "Social Media" },
   canalGoogle: { pt: "Google", en: "Google", es: "Google", fr: "Google" },
   canalProgramatico: { pt: "Programático", en: "Programmatic", es: "Programática", fr: "Programmatique" },
+  colDataInicioCampanha: { pt: "Data de Início da Campanha", en: "Campaign Start Date", es: "Fecha de Inicio de la Campaña", fr: "Date de Début de la Campagne" },
   colDataEntrega: { pt: "Data de entrega", en: "Delivery Date", es: "Fecha de entrega", fr: "Date de livraison" },
   naoEspecificado: { pt: "não especificado", en: "not specified", es: "no especificado", fr: "non spécifié" },
   verSpecsLink: { pt: "Ver specs ↗", en: "View specs ↗", es: "Ver especificaciones ↗", fr: "Voir les spécifications ↗" },
@@ -1886,6 +1887,14 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
     titulo: () => t("colLink"),
     valor: (formato) => (formato.link ? { text: formato.link, hyperlink: formato.link } : ""),
   },
+  // Tal como a Data de Entrega, não vem da base nem é escolhida no
+  // construtor — fica sempre em branco, para o utilizador preencher à mão
+  // no Excel exportado.
+  dataInicioCampanha: {
+    largura: 20,
+    titulo: () => t("colDataInicioCampanha"),
+    valor: () => "",
+  },
   dataEntrega: {
     largura: 20,
     titulo: () => t("colDataEntrega"),
@@ -1898,12 +1907,12 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
 // um conceito só de Digital), etc. Um meio sem entrada aqui usa o
 // conjunto completo do Digital.
 const COLUNAS_POR_MEIO_EXCEL = {
-  "Digital": ["canal", "plataforma", "formato", "tema", "dimensao", "aspectRatio", "peso", "tipoFicheiro", "copies", "observacoes", "link", "dataEntrega"],
-  "OOH": ["plataforma", "formato", "temaCriativo", "dimensao", "aspectRatio", "tipoFicheiro", "entregaAF", "entregaMorada", "moradaEntregaMupi", "observacoes", "dataEntrega"],
-  "TV": ["plataforma", "formato", "secundagem", "temaCriativo", "dimensao", "aspectRatio", "tipoFicheiro", "entregaTV", "observacoes", "dataEntrega"],
-  "Rádio": ["plataforma", "formato", "secundagem", "temaCriativo", "tipoFicheiro", "observacoes", "dataEntrega"],
-  "Cinema": ["plataforma", "formato", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes", "dataEntrega"],
-  "Imprensa": ["plataforma", "formato", "dimensao", "tipoFicheiro", "observacoes", "dataEntrega"],
+  "Digital": ["canal", "plataforma", "formato", "tema", "dimensao", "aspectRatio", "peso", "tipoFicheiro", "copies", "observacoes", "link", "dataInicioCampanha", "dataEntrega"],
+  "OOH": ["plataforma", "formato", "temaCriativo", "dimensao", "aspectRatio", "tipoFicheiro", "entregaAF", "entregaMorada", "moradaEntregaMupi", "observacoes", "dataInicioCampanha", "dataEntrega"],
+  "TV": ["plataforma", "formato", "secundagem", "temaCriativo", "dimensao", "aspectRatio", "tipoFicheiro", "entregaTV", "observacoes", "dataInicioCampanha", "dataEntrega"],
+  "Rádio": ["plataforma", "formato", "secundagem", "temaCriativo", "tipoFicheiro", "observacoes", "dataInicioCampanha", "dataEntrega"],
+  "Cinema": ["plataforma", "formato", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes", "dataInicioCampanha", "dataEntrega"],
+  "Imprensa": ["plataforma", "formato", "dimensao", "tipoFicheiro", "observacoes", "dataInicioCampanha", "dataEntrega"],
 };
 
 // Escreve uma secção completa (título do objetivo + cabeçalho da tabela +
