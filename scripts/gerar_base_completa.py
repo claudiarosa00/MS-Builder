@@ -57,7 +57,7 @@ wb.remove(wb.active)
 FONTE_CABECALHO = Font(bold=True, color="FFFFFF")
 FUNDO_CABECALHO = PatternFill("solid", fgColor="1A1A1A")
 FONTE_CELULA = Font(size=10)
-ALINHAMENTO = Alignment(vertical="top", wrap_text=True)
+ALINHAMENTO = Alignment(vertical="center", horizontal="center", wrap_text=True)
 
 # Grelha cinzenta clara — mesma cor/estilo já usado no Excel do pedido
 # (ver ESTILO_BORDA_COMPLETA em app.js), para as duas exportações ficarem
@@ -86,7 +86,7 @@ for meio in ORDEM_MEIOS:
         celula = folha.cell(row=1, column=i, value=nome_coluna)
         celula.font = FONTE_CABECALHO
         celula.fill = FUNDO_CABECALHO
-        celula.alignment = Alignment(vertical="center")
+        celula.alignment = Alignment(vertical="center", horizontal="center")
         celula.border = BORDA_COMPLETA
         folha.column_dimensions[get_column_letter(i)].width = LARGURAS.get(nome_coluna, 20)
 

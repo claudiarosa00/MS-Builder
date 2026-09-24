@@ -1807,12 +1807,12 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
     // duracao vem de escreverSeccaoObjetivo, que gera uma linha por cada
     // duração escolhida (só para formatos de TV/Rádio) — ver
     // duracoesEfetivasDoFormato.
-    valor: (formato, objetivo, duracao) => (duracao ? `${duracao}″` : "—"),
+    valor: (formato, objetivo, duracao) => (duracao ? `${duracao}″` : ""),
   },
   tema: {
     largura: 16,
     titulo: () => t("colTema"),
-    valor: (formato) => formato.grupoDigital2020 || "—",
+    valor: (formato) => formato.grupoDigital2020 || "",
   },
   // Diferente da coluna "tema" acima (essa é o Grupo Digital2020, só do
   // Digital) — esta é o tema/criatividade escolhido no construtor para
@@ -1821,7 +1821,7 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
   temaCriativo: {
     largura: 16,
     titulo: () => t("colTema"),
-    valor: (formato, objetivo, duracao, temaIndice) => (temaIndice ? formatar("temaNumero", { n: temaIndice }) : "—"),
+    valor: (formato, objetivo, duracao, temaIndice) => (temaIndice ? formatar("temaNumero", { n: temaIndice }) : ""),
   },
   entregaAF: {
     largura: 14,
@@ -1854,37 +1854,37 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
   dimensao: {
     largura: 45,
     titulo: () => t("colDimensao"),
-    valor: (formato) => textoTraduzido(formato, "dimensao") || t("naoEspecificado"),
+    valor: (formato) => textoTraduzido(formato, "dimensao") || "",
   },
   aspectRatio: {
     largura: 14,
     titulo: () => t("colAspectRatio"),
-    valor: (formato) => textoTraduzido(formato, "aspectRatio") || "—",
+    valor: (formato) => textoTraduzido(formato, "aspectRatio") || "",
   },
   peso: {
     largura: 16,
     titulo: () => t("colPeso"),
-    valor: (formato) => textoTraduzido(formato, "peso") || t("naoEspecificado"),
+    valor: (formato) => textoTraduzido(formato, "peso") || "",
   },
   tipoFicheiro: {
     largura: 22,
     titulo: () => t("colTipoFicheiro"),
-    valor: (formato) => textoTraduzido(formato, "tipoFicheiro") || t("naoEspecificado"),
+    valor: (formato) => textoTraduzido(formato, "tipoFicheiro") || "",
   },
   copies: {
     largura: 40,
     titulo: () => t("colCopies"),
-    valor: (formato) => textoTraduzido(formato, "copies") || "—",
+    valor: (formato) => textoTraduzido(formato, "copies") || "",
   },
   observacoes: {
     largura: 40,
     titulo: () => t("colObservacoes"),
-    valor: (formato) => textoTraduzido(formato, "observacoes") || "—",
+    valor: (formato) => textoTraduzido(formato, "observacoes") || "",
   },
   link: {
     largura: 40,
     titulo: () => t("colLink"),
-    valor: (formato) => (formato.link ? { text: formato.link, hyperlink: formato.link } : t("naoEspecificado")),
+    valor: (formato) => (formato.link ? { text: formato.link, hyperlink: formato.link } : ""),
   },
   dataEntrega: {
     largura: 20,
@@ -1921,7 +1921,7 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
   celulaTitulo.value = tituloSeccao;
   celulaTitulo.font = { name: "Arial Nova", size: 12, bold: true, color: { argb: "FFFFFFFF" } };
   celulaTitulo.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF1A1A1A" } };
-  celulaTitulo.alignment = { vertical: "middle", horizontal: "left" };
+  celulaTitulo.alignment = { vertical: "middle", horizontal: "center" };
   linha += 1;
 
   const colunas = ["#", ...colunasChaves.map((chave) => COLUNAS_EXCEL_DISPONIVEIS[chave].titulo(grupoMeio))];
@@ -1930,17 +1930,13 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
     celula.value = titulo;
     celula.font = { name: "Arial Nova", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
     celula.fill = { type: "pattern", pattern: "solid", fgColor: { argb: config.corCabecalho } };
-    celula.alignment = { vertical: "middle", wrapText: true };
+    celula.alignment = { vertical: "middle", horizontal: "center", wrapText: true };
     celula.border = ESTILO_BORDA_COMPLETA;
   });
   linha += 1;
 
   const indiceColunaLink = colunasChaves.indexOf("link");
   const indiceColunaTema = colunasChaves.indexOf("temaCriativo");
-  // As colunas de "X" (Entrega AF / Entrega na Morada) ficam centradas,
-  // em vez de alinhadas à esquerda como o resto do texto — um "X" solto
-  // lê-se pior encostado ao canto da célula.
-  const COLUNAS_CENTRADAS = new Set(["entregaAF", "entregaMorada"]);
 
   // Um formato de TV/Rádio com mais que uma duração escolhida é, na
   // prática, mais que um spot pedido — cada duração ganha a sua própria
@@ -1976,12 +1972,9 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
         return COLUNAS_EXCEL_DISPONIVEIS[chave].valor(grupo.formato, objetivo, grupo.duracao, temaIndice);
       });
       linhaFormato.values = [indiceDentroGrupo === 0 ? indiceGrupo + 1 : "", ...valoresColunas];
-      linhaFormato.eachCell({ includeEmpty: true }, (celula, indiceColunaExcel) => {
-        const centrada = COLUNAS_CENTRADAS.has(colunasChaves[indiceColunaExcel - 2]);
+      linhaFormato.eachCell({ includeEmpty: true }, (celula) => {
         celula.font = { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } };
-        celula.alignment = centrada
-          ? { vertical: "middle", horizontal: "center", wrapText: true }
-          : { vertical: "top", wrapText: true };
+        celula.alignment = { vertical: "middle", horizontal: "center", wrapText: true };
         celula.border = ESTILO_BORDA_COMPLETA;
       });
       // O texto do link fica na cor de destaque, sublinhado, para
@@ -2001,8 +1994,7 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
           continue;
         }
         folha.mergeCells(linhaInicioGrupo, coluna, linhaAtual - 1, coluna);
-        const centrada = coluna === 1 || COLUNAS_CENTRADAS.has(colunasChaves[coluna - 2]);
-        folha.getCell(linhaInicioGrupo, coluna).alignment = { vertical: "middle", wrapText: true, horizontal: centrada ? "center" : undefined };
+        folha.getCell(linhaInicioGrupo, coluna).alignment = { vertical: "middle", horizontal: "center", wrapText: true };
       }
     }
   });
