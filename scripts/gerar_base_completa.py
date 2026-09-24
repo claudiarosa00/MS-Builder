@@ -1,13 +1,10 @@
 """
 Gera uma base de formatos em Excel, 1 meio por separador (Digital, OOH,
-TV, Rádio, Imprensa), com exatamente as colunas que aparecem na
+TV, Rádio, Cinema, Imprensa), com exatamente as colunas que aparecem na
 Biblioteca de Formatos do CSBuilder (ver criarCabecalhoTabela em app.js):
 Fornecedor, Veículo, Grupo Digital2020 (só Digital), Formato, Dimensão,
 Aspect Ratio, Peso, Tipo de Ficheiro, Copies (só Digital), Entrega (só
 TV, sempre "GoFastWay"), Observações, Link.
-
-Cinema fica de fora porque não existe atualmente nenhum formato desse
-meio na base (nada aparece na Biblioteca de Formatos para Cinema hoje).
 """
 import os
 import openpyxl
@@ -28,9 +25,10 @@ MAPA_MEIO = {
     "TV": "TV",
     "RÁDIO": "Rádio",
     "RADIO": "Rádio",
+    "CINEMA": "Cinema",
     "IMPRENSA": "Imprensa",
 }
-ORDEM_MEIOS = ["Digital", "OOH", "TV", "Rádio", "Imprensa"]
+ORDEM_MEIOS = ["Digital", "OOH", "TV", "Rádio", "Cinema", "Imprensa"]
 
 wb_origem = openpyxl.load_workbook(ORIGEM, data_only=True)
 ws_origem = wb_origem.active

@@ -9380,5 +9380,42 @@
       "tipoFicheiro": "Vidéo finalisée : .MOV ou .MP4 (MP4 de préférence), RVB, 30fps ou 60fps. Fichiers de production ouverts également acceptés : Adobe Photoshop (1080x1920px, calques ouverts, RVB, 72dpi, polices en courbes) ou Adobe Illustrator/After Effects (1080x1920px, polices en courbes, images vectorisées dans le fichier).",
       "observacoes": "Durée : 10″. Pour les publicités/vidéos avec textes superposés, envoyer également les images/vidéos sans texte, afin que l'ajout des textes soit appliqué et modifié séparément. Marge de sécurité : 30px. Délai de livraison : 72 heures avant le début de la campagne. À envoyer à digital@dreammedia.pt (via WeTransfer/Dropbox/Google Drive si le fichier dépasse 15Mo)."
     }
+  },
+  "VS2.0|VS2.0|Publicidade Cinema 2D": {
+    "en": {
+      "dimensao": "Preferred image format: FLAT 1.85 — 1998x1080px.",
+      "tipoFicheiro": "DATA files: sequence of DPX 10-bit files at 24fps, or a sequence of TIFF files in RGB. Video files: QuickTime ProRes at 25fps or 24fps, with 5.1 or 2.0 audio synced to the picture.",
+      "observacoes": "Audio: 6 channels (5.1) or 2 channels (stereo); WAV files at 24-bit; 48KHz sampling; reference level -20dBFS; 24fps speed. Mastered in Dolby Digital Cinema (VS2.0, certified partner). Questions: bruno.figueiredo@vs2.pt."
+    },
+    "es": {
+      "dimensao": "Formato de imagen preferente: FLAT 1.85 — 1998x1080px.",
+      "tipoFicheiro": "Archivos DATA: secuencia de archivos DPX 10-bit a 24fps, o secuencia de archivos TIFF en RGB. Archivos de vídeo: QuickTime ProRes a 25fps o 24fps, con audio 5.1 o 2.0 sincronizado con la imagen.",
+      "observacoes": "Audio: 6 canales (5.1) o 2 canales (estéreo); archivos WAV a 24-bit; muestreo 48KHz; nivel de referencia -20dBFS; velocidad 24fps. Masterización en Dolby Digital Cinema (VS2.0, certified partner). Dudas: bruno.figueiredo@vs2.pt."
+    },
+    "fr": {
+      "dimensao": "Format d'image préférentiel : FLAT 1.85 — 1998x1080px.",
+      "tipoFicheiro": "Fichiers DATA : séquence de fichiers DPX 10-bit à 24fps, ou séquence de fichiers TIFF en RVB. Fichiers vidéo : QuickTime ProRes à 25fps ou 24fps, avec audio 5.1 ou 2.0 synchronisé à l'image.",
+      "observacoes": "Audio : 6 canaux (5.1) ou 2 canaux (stéréo) ; fichiers WAV en 24-bit ; échantillonnage 48KHz ; niveau de référence -20dBFS ; vitesse 24fps. Masterisé en Dolby Digital Cinema (VS2.0, certified partner). Questions : bruno.figueiredo@vs2.pt."
+    }
+  },
+  "VS2.0|VS2.0|Publicidade Cinema 3D": {
+    "en": {
+      "dimensao": "Image format: FLAT 1.85 — 1998x1080px, or SCOPE 2.39 — 2048x858px (uses more of the screen).",
+      "aspectRatio": "1.85:1 (FLAT) or 2.39:1 (SCOPE)",
+      "tipoFicheiro": "DATA files: two separate files (Left eye + Right eye) in sequence, in TIFF RGB 16-bit data format, or DPX 10-bit files — both at 24fps.",
+      "observacoes": "Audio: 6 channels (5.1) or 2 channels (stereo); WAV files at 24-bit; 48KHz sampling; reference level -20dBFS; 24fps speed. Mastered in Dolby Digital Cinema (VS2.0, certified partner). Questions: bruno.figueiredo@vs2.pt."
+    },
+    "es": {
+      "dimensao": "Formato de imagen: FLAT 1.85 — 1998x1080px, o SCOPE 2.39 — 2048x858px (mayor aprovechamiento de la pantalla).",
+      "aspectRatio": "1.85:1 (FLAT) o 2.39:1 (SCOPE)",
+      "tipoFicheiro": "Archivos DATA: dos archivos separados (Left eye + Right eye) en secuencia, en formato TIFF RGB 16-bit data, o archivos DPX 10-bit — ambos a 24fps.",
+      "observacoes": "Audio: 6 canales (5.1) o 2 canales (estéreo); archivos WAV a 24-bit; muestreo 48KHz; nivel de referencia -20dBFS; velocidad 24fps. Masterización en Dolby Digital Cinema (VS2.0, certified partner). Dudas: bruno.figueiredo@vs2.pt."
+    },
+    "fr": {
+      "dimensao": "Format d'image : FLAT 1.85 — 1998x1080px, ou SCOPE 2.39 — 2048x858px (exploitation maximale de l'écran).",
+      "aspectRatio": "1.85:1 (FLAT) ou 2.39:1 (SCOPE)",
+      "tipoFicheiro": "Fichiers DATA : deux fichiers séparés (Left eye + Right eye) en séquence, au format TIFF RVB 16-bit data, ou fichiers DPX 10-bit — les deux à 24fps.",
+      "observacoes": "Audio : 6 canaux (5.1) ou 2 canaux (stéréo) ; fichiers WAV en 24-bit ; échantillonnage 48KHz ; niveau de référence -20dBFS ; vitesse 24fps. Masterisé en Dolby Digital Cinema (VS2.0, certified partner). Questions : bruno.figueiredo@vs2.pt."
+    }
   }
 }

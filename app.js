@@ -1164,14 +1164,14 @@ filtro, de idioma, de tab).
 */
 const categoriasIndiceExpandidas = new Set();
 
-// TV e Rádio não têm o botão recolhível ▸ — nenhum formato desses meios
-// fica associado a um canal ou estação em concreto (ver README), por isso
-// há sempre um único publisher lá dentro ("TV"/"Rádio"), e nesse caso o
-// próprio nome da categoria já é o link direto para essa secção (ver mais
-// abaixo). Se um dia passar a haver mais que um publisher nestas
-// categorias, cai-se de volta na lista de links sempre visível (sem
-// dropdown, mas sem um único link direto).
-const CATEGORIAS_SEM_DROPDOWN_INDICE = new Set(["TV", "Rádio"]);
+// TV, Rádio e Cinema não têm o botão recolhível ▸ — nenhum formato destes
+// meios fica associado a um canal, estação ou exibidor em concreto (ver
+// README), por isso há sempre um único publisher lá dentro ("TV"/"Rádio"/
+// "VS2.0"), e nesse caso o próprio nome da categoria já é o link direto
+// para essa secção (ver mais abaixo). Se um dia passar a haver mais que um
+// publisher nestas categorias, cai-se de volta na lista de links sempre
+// visível (sem dropdown, mas sem um único link direto).
+const CATEGORIAS_SEM_DROPDOWN_INDICE = new Set(["TV", "Rádio", "Cinema"]);
 
 function atualizarIndicePublishers() {
   const painelAtivo = paineisTab[tabAtiva];
