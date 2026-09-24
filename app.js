@@ -2074,16 +2074,27 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
   let linhaAtual = 10;
   OBJETIVOS.forEach((objetivo) => {
     // Dentro de cada objetivo, as linhas ficam por ordem alfabética do
-    // canal (a coluna "Plataforma" — Canal em TV, Concessionário em OOH,
-    // Estação em Rádio, Título em Imprensa, ver COLUNAS_EXCEL_DISPONIVEIS.
-    // plataforma), com o Formato como desempate — nomes próprios, por isso
-    // comparados sempre em português, independentemente do idioma ativo.
+    // Canal — em Digital, a coluna "Canal" propriamente dita (Social
+    // Media/Google/Programático/Internet, ver canalExibicaoFormato), que é
+    // diferente da coluna "Plataforma/Publisher" (Facebook/DV360/...); nos
+    // restantes meios, que não têm essa distinção, usa-se a única coluna de
+    // plataforma que têm (Concessionário/Canal/Estação/Título). O Veículo e
+    // depois o Formato servem de desempate. Nomes próprios e o texto do
+    // Canal exibido são comparados sempre em português — este último
+    // porque é o mesmo texto que sai impresso nessa coluna, e queremos que
+    // a ordem visual bata certo com o texto, seja qual for o idioma ativo.
     const formatosDoObjetivo = todosFormatos
       .filter((f) => selecoesPorObjetivo[objetivo].has(f.id) && grupoMeioDoFormato(f) === grupoMeio)
-      .sort((a, b) =>
-        (a.veiculo || "").localeCompare(b.veiculo || "", "pt") ||
-        (a.formato || "").localeCompare(b.formato || "", "pt")
-      );
+      .sort((a, b) => {
+        const canalComparado = grupoMeio === "Digital"
+          ? canalExibicaoFormato(a).localeCompare(canalExibicaoFormato(b), "pt")
+          : 0;
+        return (
+          canalComparado ||
+          (a.veiculo || "").localeCompare(b.veiculo || "", "pt") ||
+          (a.formato || "").localeCompare(b.formato || "", "pt")
+        );
+      });
     if (formatosDoObjetivo.length === 0) {
       return;
     }
