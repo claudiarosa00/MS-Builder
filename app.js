@@ -1899,19 +1899,22 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
     // duracoesEfetivasDoFormato.
     valor: (formato, objetivo, duracao) => (duracao ? `${duracao}″` : ""),
   },
+  // A coluna Tema fica sempre em branco no Excel exportado, em todos os
+  // meios — quer no Digital (onde antes vinha preenchida com o Grupo
+  // Digital2020) quer no OOH/TV/Rádio (onde antes vinha "Tema 1"/"Tema 2"
+  // por cada linha gerada, ver MEIOS_COM_TEMA/contagemTemasDoFormato) —
+  // para o utilizador escrever o tema/criatividade real à mão. As linhas
+  // continuam a ser geradas uma por cada tema escolhido no construtor
+  // (ver escreverSeccaoObjetivo); só o texto automático deixou de sair.
   tema: {
     largura: 16,
     titulo: () => t("colTema"),
-    valor: (formato) => formato.grupoDigital2020 || "",
+    valor: () => "",
   },
-  // Diferente da coluna "tema" acima (essa é o Grupo Digital2020, só do
-  // Digital) — esta é o tema/criatividade escolhido no construtor para
-  // TV/Rádio/OOH (ver MEIOS_COM_TEMA/contagemTemasDoFormato), com o mesmo
-  // rótulo de coluna "Tema" porque cada uma só existe numa folha diferente.
   temaCriativo: {
     largura: 16,
     titulo: () => t("colTema"),
-    valor: (formato, objetivo, duracao, temaIndice) => (temaIndice ? formatar("temaNumero", { n: temaIndice }) : ""),
+    valor: () => "",
   },
   entregaAF: {
     largura: 14,
