@@ -9468,5 +9468,127 @@
       "tipoFicheiro": "TIFF ou JPEG — il est également conseillé d'envoyer un PDF modifiable.",
       "observacoes": "Couleur : mode RVB. Polices converties en courbes (fichiers vectoriels) ou police envoyée avec le fichier. Résolution : 100 dpi."
     }
+  },
+  "Unimidia|Unimidia|Mupi Digital | Universidades": {
+    "en": {
+      "dimensao": "Total size: 1080x1920px. Visible area: 1080x1920px.",
+      "peso": "Max. 10MB (video produced by the client).",
+      "tipoFicheiro": "Produced by Unimidia (layered artwork): .psd, .ai or .indd, photos/images with a resolution above 150dpi, text converted to outlines — subject to quotation. Produced by the client (finished video): .avi, .mp4, .mov, .mpeg, .mpg or .jpeg, 1080x1920px resolution, 25 frames per second, in vertical format.",
+      "observacoes": "Maximum duration: 10 seconds. Artwork must be in Portuguese. Material will only be displayed after the artwork has been approved by Unimidia. Delivery deadline: 15 days before the campaign start if produced by Unimidia (subject to quotation), or 2 business days before if produced by the client. Files sent by email to universidades@unimidia.pt."
+    },
+    "es": {
+      "dimensao": "Tamaño total: 1080x1920px. Área visible: 1080x1920px.",
+      "peso": "Máx. 10MB (vídeo producido por el cliente).",
+      "tipoFicheiro": "Producido por Unimidia (material por capas): .psd, .ai o .indd, fotografías/imágenes con resolución superior a 150dpi, texto convertido en curvas — sujeto a presupuesto. Producido por el cliente (vídeo terminado): .avi, .mp4, .mov, .mpeg, .mpg o .jpeg, resolución 1080x1920px, 25 fotogramas por segundo, en formato vertical.",
+      "observacoes": "Duración máxima: 10 segundos. La creatividad debe estar en portugués. El material solo se emitirá tras la validación de la creatividad por parte de Unimidia. Plazo de entrega: 15 días antes del inicio de la campaña si lo produce Unimidia (sujeto a presupuesto), o 2 días hábiles antes si lo produce el cliente. Archivos enviados por correo a universidades@unimidia.pt."
+    },
+    "fr": {
+      "dimensao": "Taille totale : 1080x1920px. Zone visible : 1080x1920px.",
+      "peso": "Max. 10 Mo (vidéo produite par le client).",
+      "tipoFicheiro": "Produit par Unimidia (fichier en calques) : .psd, .ai ou .indd, photos/images avec une résolution supérieure à 150dpi, texte converti en courbes — sur devis. Produit par le client (vidéo finalisée) : .avi, .mp4, .mov, .mpeg, .mpg ou .jpeg, résolution 1080x1920px, 25 images par seconde, au format vertical.",
+      "observacoes": "Durée maximale : 10 secondes. Le contenu doit être en portugais. La diffusion du matériel ne débutera qu'après validation du contenu par Unimidia. Délai de livraison : 15 jours avant le début de la campagne si produit par Unimidia (sur devis), ou 2 jours ouvrés avant si produit par le client. Fichiers envoyés par e-mail à universidades@unimidia.pt."
+    }
+  },
+  "Spreading|Spreading|Táxi Açores - Lateral Direita": {
+    "en": {
+      "dimensao": "Cutting die: 1650x750mm. Visible area varies depending on the vehicle's year/model.",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 or PDF. EPS or TIFF files.",
+      "observacoes": "Final artwork saved in CMYK, with a minimum resolution of 300 dpi and maximum of 450 dpi, at least at 50% of the intended size. Text converted to outlines, accompanied by a colour proof. Final artwork delivery deadline: up to 6 business days before the action/campaign — Spreading is not liable for any delay to production or to the campaign/action if this deadline is not met. Allow a safety margin around the visible limits, to avoid losing vital information."
+    },
+    "es": {
+      "dimensao": "Troquel: 1650x750mm. El área visible varía según el año/modelo del vehículo.",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 o PDF. Archivos EPS o TIFF.",
+      "observacoes": "Artes finales grabadas en CMYK, con resolución mínima de 300 dpi y máxima de 450 dpi, al menos al 50% del tamaño previsto. Textos convertidos en curvas, acompañados de prueba de color. Plazo de entrega de las artes finales: hasta 6 días hábiles antes de la acción/campaña — Spreading no se responsabiliza de ningún retraso en la producción/campaña si no se cumple este plazo. Considerar un margen de seguridad sobre los límites visibles, para evitar la pérdida de información vital."
+    },
+    "fr": {
+      "dimensao": "Découpe : 1650x750mm. La zone visible varie selon l'année/le modèle du véhicule.",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 ou PDF. Fichiers EPS ou TIFF.",
+      "observacoes": "Fichiers finaux enregistrés en CMJN, avec une résolution minimale de 300 dpi et maximale de 450 dpi, à au moins 50% de la taille prévue. Textes convertis en courbes, accompagnés d'une épreuve couleur. Délai de livraison des fichiers finaux : jusqu'à 6 jours ouvrés avant l'action/la campagne — Spreading décline toute responsabilité en cas de retard sur la production ou la campagne/action si ce délai n'est pas respecté. Prévoir une marge de sécurité autour des limites visibles, afin d'éviter la perte d'informations essentielles."
+    }
+  },
+  "Spreading|Spreading|Táxi Doorcover - Lateral Direita": {
+    "en": {
+      "dimensao": "Cutting die: 2200x750mm. Visible area varies depending on the vehicle's year/model.",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 or PDF. EPS or TIFF files.",
+      "observacoes": "Final artwork saved in CMYK, with a minimum resolution of 300 dpi and maximum of 450 dpi, at least at 50% of the intended size. Text converted to outlines, accompanied by a colour proof. Final artwork delivery deadline: up to 6 business days before the action/campaign — Spreading is not liable for any delay to production or to the campaign/action if this deadline is not met. 5 to 10cm safety margin around the visible limits; allow the same margin near the door handles."
+    },
+    "es": {
+      "dimensao": "Troquel: 2200x750mm. El área visible varía según el año/modelo del vehículo.",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 o PDF. Archivos EPS o TIFF.",
+      "observacoes": "Artes finales grabadas en CMYK, con resolución mínima de 300 dpi y máxima de 450 dpi, al menos al 50% del tamaño previsto. Textos convertidos en curvas, acompañados de prueba de color. Plazo de entrega de las artes finales: hasta 6 días hábiles antes de la acción/campaña — Spreading no se responsabiliza de ningún retraso en la producción/campaña si no se cumple este plazo. Margen de seguridad de 5 a 10cm sobre los límites visibles; considerar el mismo margen junto a las manijas de las puertas."
+    },
+    "fr": {
+      "dimensao": "Découpe : 2200x750mm. La zone visible varie selon l'année/le modèle du véhicule.",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 ou PDF. Fichiers EPS ou TIFF.",
+      "observacoes": "Fichiers finaux enregistrés en CMJN, avec une résolution minimale de 300 dpi et maximale de 450 dpi, à au moins 50% de la taille prévue. Textes convertis en courbes, accompagnés d'une épreuve couleur. Délai de livraison des fichiers finaux : jusqu'à 6 jours ouvrés avant l'action/la campagne — Spreading décline toute responsabilité en cas de retard sur la production ou la campagne/action si ce délai n'est pas respecté. Marge de sécurité de 5 à 10cm autour des limites visibles ; prévoir la même marge près des poignées de porte."
+    }
+  },
+  "Spreading|Spreading|Táxi Indoor - Flyer": {
+    "en": {
+      "dimensao": "Height (no margin): 20cm. Width (no margin): 10cm.",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 or PDF. PDF, EPS or TIFF files.",
+      "observacoes": "Final artwork saved in CMYK, with a minimum resolution of 300 dpi and maximum of 450 dpi, at least at 50% of the intended size. Text converted to outlines, accompanied by a colour proof. Final artwork delivery deadline: up to 6 business days before the action/campaign — Spreading is not liable for any delay to production or to the campaign/action if this deadline is not met."
+    },
+    "es": {
+      "dimensao": "Altura (sin margen): 20cm. Anchura (sin margen): 10cm.",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 o PDF. Archivos PDF, EPS o TIFF.",
+      "observacoes": "Artes finales grabadas en CMYK, con resolución mínima de 300 dpi y máxima de 450 dpi, al menos al 50% del tamaño previsto. Textos convertidos en curvas, acompañados de prueba de color. Plazo de entrega de las artes finales: hasta 6 días hábiles antes de la acción/campaña — Spreading no se responsabiliza de ningún retraso en la producción/campaña si no se cumple este plazo."
+    },
+    "fr": {
+      "dimensao": "Hauteur (sans marge) : 20cm. Largeur (sans marge) : 10cm.",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 ou PDF. Fichiers PDF, EPS ou TIFF.",
+      "observacoes": "Fichiers finaux enregistrés en CMJN, avec une résolution minimale de 300 dpi et maximale de 450 dpi, à au moins 50% de la taille prévue. Textes convertis en courbes, accompagnés d'une épreuve couleur. Délai de livraison des fichiers finaux : jusqu'à 6 jours ouvrés avant l'action/la campagne — Spreading décline toute responsabilité en cas de retard sur la production ou la campagne/action si ce délai n'est pas respecté."
+    }
+  },
+  "Spreading|Spreading|Táxi Indoor - Banner": {
+    "en": {
+      "dimensao": "Print size: 34x12.6cm (width x height). Visible area: 37.5x15cm (width x height).",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 or PDF. PDF, EPS or TIFF files.",
+      "observacoes": "Final artwork saved in CMYK, with a minimum resolution of 300 dpi and maximum of 450 dpi, at least at 50% of the intended size. Text converted to outlines, accompanied by a colour proof. Final artwork delivery deadline: up to 6 business days before the action/campaign — Spreading is not liable for any delay to production or to the campaign/action if this deadline is not met."
+    },
+    "es": {
+      "dimensao": "Impresión: 34x12,6cm (ancho x alto). Área visible: 37,5x15cm (ancho x alto).",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 o PDF. Archivos PDF, EPS o TIFF.",
+      "observacoes": "Artes finales grabadas en CMYK, con resolución mínima de 300 dpi y máxima de 450 dpi, al menos al 50% del tamaño previsto. Textos convertidos en curvas, acompañados de prueba de color. Plazo de entrega de las artes finales: hasta 6 días hábiles antes de la acción/campaña — Spreading no se responsabiliza de ningún retraso en la producción/campaña si no se cumple este plazo."
+    },
+    "fr": {
+      "dimensao": "Impression : 34x12,6cm (largeur x hauteur). Zone visible : 37,5x15cm (largeur x hauteur).",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 ou PDF. Fichiers PDF, EPS ou TIFF.",
+      "observacoes": "Fichiers finaux enregistrés en CMJN, avec une résolution minimale de 300 dpi et maximale de 450 dpi, à au moins 50% de la taille prévue. Textes convertis en courbes, accompagnés d'une épreuve couleur. Délai de livraison des fichiers finaux : jusqu'à 6 jours ouvrés avant l'action/la campagne — Spreading décline toute responsabilité en cas de retard sur la production ou la campagne/action si ce délai n'est pas respecté."
+    }
+  },
+  "Spreading|Spreading|Táxi Açores - Lateral Esquerda": {
+    "en": {
+      "dimensao": "Cutting die: 1650x750mm. Visible area varies depending on the vehicle's year/model.",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 or PDF. EPS or TIFF files.",
+      "observacoes": "Final artwork saved in CMYK, with a minimum resolution of 300 dpi and maximum of 450 dpi, at least at 50% of the intended size. Text converted to outlines, accompanied by a colour proof. Final artwork delivery deadline: up to 6 business days before the action/campaign — Spreading is not liable for any delay to production or to the campaign/action if this deadline is not met. Allow a safety margin around the visible limits, to avoid losing vital information."
+    },
+    "es": {
+      "dimensao": "Troquel: 1650x750mm. El área visible varía según el año/modelo del vehículo.",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 o PDF. Archivos EPS o TIFF.",
+      "observacoes": "Artes finales grabadas en CMYK, con resolución mínima de 300 dpi y máxima de 450 dpi, al menos al 50% del tamaño previsto. Textos convertidos en curvas, acompañados de prueba de color. Plazo de entrega de las artes finales: hasta 6 días hábiles antes de la acción/campaña — Spreading no se responsabiliza de ningún retraso en la producción/campaña si no se cumple este plazo. Considerar un margen de seguridad sobre los límites visibles, para evitar la pérdida de información vital."
+    },
+    "fr": {
+      "dimensao": "Découpe : 1650x750mm. La zone visible varie selon l'année/le modèle du véhicule.",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 ou PDF. Fichiers EPS ou TIFF.",
+      "observacoes": "Fichiers finaux enregistrés en CMJN, avec une résolution minimale de 300 dpi et maximale de 450 dpi, à au moins 50% de la taille prévue. Textes convertis en courbes, accompagnés d'une épreuve couleur. Délai de livraison des fichiers finaux : jusqu'à 6 jours ouvrés avant l'action/la campagne — Spreading décline toute responsabilité en cas de retard sur la production ou la campagne/action si ce délai n'est pas respecté. Prévoir une marge de sécurité autour des limites visibles, afin d'éviter la perte d'informations essentielles."
+    }
+  },
+  "Spreading|Spreading|Táxi Doorcover - Lateral Esquerda": {
+    "en": {
+      "dimensao": "Cutting die: 2200x750mm. Visible area varies depending on the vehicle's year/model.",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 or PDF. EPS or TIFF files.",
+      "observacoes": "Final artwork saved in CMYK, with a minimum resolution of 300 dpi and maximum of 450 dpi, at least at 50% of the intended size. Text converted to outlines, accompanied by a colour proof. Final artwork delivery deadline: up to 6 business days before the action/campaign — Spreading is not liable for any delay to production or to the campaign/action if this deadline is not met. 5 to 10cm safety margin around the visible limits; allow the same margin near the door handles."
+    },
+    "es": {
+      "dimensao": "Troquel: 2200x750mm. El área visible varía según el año/modelo del vehículo.",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 o PDF. Archivos EPS o TIFF.",
+      "observacoes": "Artes finales grabadas en CMYK, con resolución mínima de 300 dpi y máxima de 450 dpi, al menos al 50% del tamaño previsto. Textos convertidos en curvas, acompañados de prueba de color. Plazo de entrega de las artes finales: hasta 6 días hábiles antes de la acción/campaña — Spreading no se responsabiliza de ningún retraso en la producción/campaña si no se cumple este plazo. Margen de seguridad de 5 a 10cm sobre los límites visibles; considerar el mismo margen junto a las manijas de las puertas."
+    },
+    "fr": {
+      "dimensao": "Découpe : 2200x750mm. La zone visible varie selon l'année/le modèle du véhicule.",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 ou PDF. Fichiers EPS ou TIFF.",
+      "observacoes": "Fichiers finaux enregistrés en CMJN, avec une résolution minimale de 300 dpi et maximale de 450 dpi, à au moins 50% de la taille prévue. Textes convertis en courbes, accompagnés d'une épreuve couleur. Délai de livraison des fichiers finaux : jusqu'à 6 jours ouvrés avant l'action/la campagne — Spreading décline toute responsabilité en cas de retard sur la production ou la campagne/action si ce délai n'est pas respecté. Marge de sécurité de 5 à 10cm autour des limites visibles ; prévoir la même marge près des poignées de porte."
+    }
   }
 }
