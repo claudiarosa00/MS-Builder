@@ -9590,5 +9590,56 @@
       "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 ou PDF. Fichiers EPS ou TIFF.",
       "observacoes": "Fichiers finaux enregistrés en CMJN, avec une résolution minimale de 300 dpi et maximale de 450 dpi, à au moins 50% de la taille prévue. Textes convertis en courbes, accompagnés d'une épreuve couleur. Délai de livraison des fichiers finaux : jusqu'à 6 jours ouvrés avant l'action/la campagne — Spreading décline toute responsabilité en cas de retard sur la production ou la campagne/action si ce délai n'est pas respecté. Marge de sécurité de 5 à 10cm autour des limites visibles ; prévoir la même marge près des poignées de porte."
     }
+  },
+  "Shine Care|Shine Care|Mupi Digital": {
+    "en": {
+      "dimensao": "1080x1920px.",
+      "tipoFicheiro": "MP4.",
+      "observacoes": "Duration: 10 seconds. Frame rate: 30 frames per second. Digital mupi network in hospitals and clinics."
+    },
+    "es": {
+      "dimensao": "1080x1920px.",
+      "tipoFicheiro": "MP4.",
+      "observacoes": "Duración: 10 segundos. Frame rate: 30 fotogramas por segundo. Red de mupis digitales en hospitales y clínicas."
+    },
+    "fr": {
+      "dimensao": "1080x1920px.",
+      "tipoFicheiro": "MP4.",
+      "observacoes": "Durée : 10 secondes. Fréquence d'images : 30 images par seconde. Réseau de mupis digitaux en hôpitaux et cliniques."
+    }
+  },
+  "Media Play|Media Play|Ecrã Horizontal": {
+    "en": {
+      "dimensao": "1920x1080px.",
+      "tipoFicheiro": "Video: MP4, H.264 codec, constant frame rate up to 30fps, bitrate up to 3000 Kbps (1500-2500 Kbps recommended for real-image video; around 600 Kbps for animations or still images), Baseline or Main encoder profile, encoder level between 3.0 and 4.2 (3.2 recommended). Static: JPEG (preferred) or PNG.",
+      "observacoes": "Video duration: 10 seconds. Both video creatives (10 seconds) and static creatives are accepted, depending on the advertiser's available materials. Digital advertising network in pharmacies."
+    },
+    "es": {
+      "dimensao": "1920x1080px.",
+      "tipoFicheiro": "Vídeo: MP4, códec H.264, frame rate constante hasta 30fps, bitrate hasta 3000 Kbps (recomendado 1500-2500 Kbps para vídeo con imagen real; unos 600 Kbps para animaciones o imágenes estáticas), perfil de codificación Baseline o Main, nivel de codificación entre 3.0 y 4.2 (recomendado 3.2). Estático: JPEG (preferente) o PNG.",
+      "observacoes": "Duración del vídeo: 10 segundos. Se aceptan tanto creatividades en vídeo (10 segundos) como creatividades estáticas, según los materiales disponibles del anunciante. Red de publicidad digital en farmacias."
+    },
+    "fr": {
+      "dimensao": "1920x1080px.",
+      "tipoFicheiro": "Vidéo : MP4, codec H.264, fréquence d'images constante jusqu'à 30fps, débit binaire jusqu'à 3000 Kbps (1500-2500 Kbps recommandé pour une vidéo en image réelle ; environ 600 Kbps pour des animations ou images fixes), profil d'encodage Baseline ou Main, niveau d'encodage entre 3.0 et 4.2 (3.2 recommandé). Statique : JPEG (de préférence) ou PNG.",
+      "observacoes": "Durée de la vidéo : 10 secondes. Les créations vidéo (10 secondes) et les créations statiques sont acceptées, selon les supports disponibles de l'annonceur. Réseau publicitaire digital en pharmacies."
+    }
+  },
+  "Media Play|Media Play|Ecrã Vertical": {
+    "en": {
+      "dimensao": "1080x1920px.",
+      "tipoFicheiro": "Video: MP4, H.264 codec, constant frame rate up to 30fps, bitrate up to 3000 Kbps (1500-2500 Kbps recommended for real-image video; around 600 Kbps for animations or still images), Baseline or Main encoder profile, encoder level between 3.0 and 4.2 (3.2 recommended). Static: JPEG (preferred) or PNG.",
+      "observacoes": "Video duration: 10 seconds. Both video creatives (10 seconds) and static creatives are accepted, depending on the advertiser's available materials. Digital advertising network in pharmacies."
+    },
+    "es": {
+      "dimensao": "1080x1920px.",
+      "tipoFicheiro": "Vídeo: MP4, códec H.264, frame rate constante hasta 30fps, bitrate hasta 3000 Kbps (recomendado 1500-2500 Kbps para vídeo con imagen real; unos 600 Kbps para animaciones o imágenes estáticas), perfil de codificación Baseline o Main, nivel de codificación entre 3.0 y 4.2 (recomendado 3.2). Estático: JPEG (preferente) o PNG.",
+      "observacoes": "Duración del vídeo: 10 segundos. Se aceptan tanto creatividades en vídeo (10 segundos) como creatividades estáticas, según los materiales disponibles del anunciante. Red de publicidad digital en farmacias."
+    },
+    "fr": {
+      "dimensao": "1080x1920px.",
+      "tipoFicheiro": "Vidéo : MP4, codec H.264, fréquence d'images constante jusqu'à 30fps, débit binaire jusqu'à 3000 Kbps (1500-2500 Kbps recommandé pour une vidéo en image réelle ; environ 600 Kbps pour des animations ou images fixes), profil d'encodage Baseline ou Main, niveau d'encodage entre 3.0 et 4.2 (3.2 recommandé). Statique : JPEG (de préférence) ou PNG.",
+      "observacoes": "Durée de la vidéo : 10 secondes. Les créations vidéo (10 secondes) et les créations statiques sont acceptées, selon les supports disponibles de l'annonceur. Réseau publicitaire digital en pharmacies."
+    }
   }
 }
