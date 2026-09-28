@@ -9641,5 +9641,47 @@
       "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 ou PDF. Fichiers PDF, EPS ou TIFF.",
       "observacoes": "Fichiers finaux enregistrés en CMJN, avec une résolution minimale de 300 dpi et maximale de 450 dpi, à au moins 50% de la taille prévue. Textes convertis en courbes, accompagnés d'une épreuve couleur. Délai de livraison des fichiers finaux : jusqu'à 6 jours ouvrés avant l'action/la campagne — Spreading décline toute responsabilité en cas de retard sur la production ou la campagne/action si ce délai n'est pas respecté."
     }
+  },
+  "Tequilha|Tequilha|Mupis Digitais": {
+    "en": {
+      "dimensao": "Freestanding mupi (self-supporting structure): 202cm total height, 73cm width. 50″ screen, with a 107cm visible height, positioned 83.5cm from the ground; 11cm margin at the top and 7cm margins on the sides of the screen.",
+      "tipoFicheiro": "Content: 1080x1920px, MP4."
+    },
+    "es": {
+      "dimensao": "Mupi de pie (estructura autónoma): 202cm de altura total, 73cm de anchura. Pantalla de 50″, con 107cm de altura visible, situada a 83,5cm del suelo; márgenes de 11cm (superior) y 7cm (laterales de la pantalla).",
+      "tipoFicheiro": "Contenido: 1080x1920px, MP4."
+    },
+    "fr": {
+      "dimensao": "Mupi sur pied (structure autonome) : 202cm de hauteur totale, 73cm de largeur. Écran de 50″, avec 107cm de hauteur visible, positionné à 83,5cm du sol ; marges de 11cm (en haut) et 7cm (sur les côtés de l'écran).",
+      "tipoFicheiro": "Contenu : 1080x1920px, MP4."
+    }
+  },
+  "Tequilha|Tequilha|Mupis Tradicionais": {
+    "en": {
+      "dimensao": "80cm (width) x 120cm (height). Total area = visible area."
+    },
+    "es": {
+      "dimensao": "80cm (ancho) x 120cm (alto). Área total = área visible."
+    },
+    "fr": {
+      "dimensao": "80cm (largeur) x 120cm (hauteur). Zone totale = zone visible."
+    }
+  },
+  "Tequilha|Tequilha|Ecrãs de Cinema Universidades": {
+    "en": {
+      "dimensao": "50″ screen.",
+      "tipoFicheiro": "Content: 1920x1080px, MP4.",
+      "observacoes": "These screens play film trailers; between trailers, they show TV spots from partners, including Tequilha."
+    },
+    "es": {
+      "dimensao": "Pantalla de 50″.",
+      "tipoFicheiro": "Contenido: 1920x1080px, MP4.",
+      "observacoes": "Estas pantallas emiten trailers de películas; entre los trailers, emiten spots de TV de los socios, incluida Tequilha."
+    },
+    "fr": {
+      "dimensao": "Écran de 50″.",
+      "tipoFicheiro": "Contenu : 1920x1080px, MP4.",
+      "observacoes": "Ces écrans diffusent des bandes-annonces de films ; entre les bandes-annonces, ils diffusent des spots TV de partenaires, dont Tequilha."
+    }
   }
 }

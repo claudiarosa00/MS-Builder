@@ -192,8 +192,14 @@ const selecoesPorObjetivo = {
 // depois de esta escolha estar feita (ver o listener de "checkbox-formato").
 // Guarda-se por objetivo, tal como a duração — a mesma pergunta pode ter
 // respostas diferentes consoante o objetivo da campanha.
+// Restrito aos concessionários com morada conhecida (ver
+// MORADA_ENTREGA_MUPI_PAPEL, mais abaixo) — sem isso, o nome de um formato
+// de outro fornecedor que apenas contenha "mupi" (ex.: "Mupis Digitais" ou
+// "Mupis Tradicionais" da Tequilha, sem esta escolha de entrega) ficava
+// bloqueado sem motivo, exigindo uma escolha AF/morada que nem chega a
+// fazer sentido para esse fornecedor.
 function formatoEhMupiPapel(formato) {
-  if (grupoMeioDoFormato(formato) !== "OOH") {
+  if (grupoMeioDoFormato(formato) !== "OOH" || !(formato.fornecedor in MORADA_ENTREGA_MUPI_PAPEL)) {
     return false;
   }
   const nome = (formato.formato || "").toLowerCase();
