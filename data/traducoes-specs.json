@@ -9571,6 +9571,40 @@
       "observacoes": "Fichiers finaux enregistrés en CMJN, avec une résolution minimale de 300 dpi et maximale de 450 dpi, à au moins 50% de la taille prévue. Textes convertis en courbes, accompagnés d'une épreuve couleur. Délai de livraison des fichiers finaux : jusqu'à 6 jours ouvrés avant l'action/la campagne — Spreading décline toute responsabilité en cas de retard sur la production ou la campagne/action si ce délai n'est pas respecté. Marge de sécurité de 5 à 10cm autour des limites visibles ; prévoir la même marge près des poignées de porte."
     }
   },
+  "Unimidia/Spreading|Spreading|Táxi Doorcover Madeira - Lateral Direita": {
+    "en": {
+      "dimensao": "Scale 1/10. Visible area varies depending on the vehicle's year/model (Madeira taxis).",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 or PDF. EPS or TIFF files.",
+      "observacoes": "Final artwork saved in CMYK, with a minimum resolution of 300 dpi and maximum of 450 dpi, at least at 50% of the intended size. Text converted to outlines, accompanied by a colour proof. Final artwork delivery deadline: up to 6 business days before the action/campaign — Spreading is not liable for any delay to production or to the campaign/action if this deadline is not met. 5 to 10cm safety margin around the visible limits; allow the same margin near the door handles."
+    },
+    "es": {
+      "dimensao": "Escala 1/10. El área visible varía según el año/modelo del vehículo (taxis de Madeira).",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 o PDF. Archivos EPS o TIFF.",
+      "observacoes": "Artes finales grabadas en CMYK, con resolución mínima de 300 dpi y máxima de 450 dpi, al menos al 50% del tamaño previsto. Textos convertidos en curvas, acompañados de prueba de color. Plazo de entrega de las artes finales: hasta 6 días hábiles antes de la acción/campaña — Spreading no se responsabiliza de ningún retraso en la producción/campaña si no se cumple este plazo. Margen de seguridad de 5 a 10cm sobre los límites visibles; considerar el mismo margen junto a las manijas de las puertas."
+    },
+    "fr": {
+      "dimensao": "Échelle 1/10. La zone visible varie selon l'année/le modèle du véhicule (taxis de Madère).",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 ou PDF. Fichiers EPS ou TIFF.",
+      "observacoes": "Fichiers finaux enregistrés en CMJN, avec une résolution minimale de 300 dpi et maximale de 450 dpi, à au moins 50% de la taille prévue. Textes convertis en courbes, accompagnés d'une épreuve couleur. Délai de livraison des fichiers finaux : jusqu'à 6 jours ouvrés avant l'action/la campagne — Spreading décline toute responsabilité en cas de retard sur la production ou la campagne/action si ce délai n'est pas respecté. Marge de sécurité de 5 à 10cm autour des limites visibles ; prévoir la même marge près des poignées de porte."
+    }
+  },
+  "Unimidia/Spreading|Spreading|Táxi Doorcover Madeira - Lateral Esquerda": {
+    "en": {
+      "dimensao": "Scale 1/10. Visible area varies depending on the vehicle's year/model (Madeira taxis).",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 or PDF. EPS or TIFF files.",
+      "observacoes": "Final artwork saved in CMYK, with a minimum resolution of 300 dpi and maximum of 450 dpi, at least at 50% of the intended size. Text converted to outlines, accompanied by a colour proof. Final artwork delivery deadline: up to 6 business days before the action/campaign — Spreading is not liable for any delay to production or to the campaign/action if this deadline is not met. 5 to 10cm safety margin around the visible limits; allow the same margin near the door handles."
+    },
+    "es": {
+      "dimensao": "Escala 1/10. El área visible varía según el año/modelo del vehículo (taxis de Madeira).",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 o PDF. Archivos EPS o TIFF.",
+      "observacoes": "Artes finales grabadas en CMYK, con resolución mínima de 300 dpi y máxima de 450 dpi, al menos al 50% del tamaño previsto. Textos convertidos en curvas, acompañados de prueba de color. Plazo de entrega de las artes finales: hasta 6 días hábiles antes de la acción/campaña — Spreading no se responsabiliza de ningún retraso en la producción/campaña si no se cumple este plazo. Margen de seguridad de 5 a 10cm sobre los límites visibles; considerar el mismo margen junto a las manijas de las puertas."
+    },
+    "fr": {
+      "dimensao": "Échelle 1/10. La zone visible varie selon l'année/le modèle du véhicule (taxis de Madère).",
+      "tipoFicheiro": "InDesign CS3, Illustrator CS3, Photoshop CS3 ou PDF. Fichiers EPS ou TIFF.",
+      "observacoes": "Fichiers finaux enregistrés en CMJN, avec une résolution minimale de 300 dpi et maximale de 450 dpi, à au moins 50% de la taille prévue. Textes convertis en courbes, accompagnés d'une épreuve couleur. Délai de livraison des fichiers finaux : jusqu'à 6 jours ouvrés avant l'action/la campagne — Spreading décline toute responsabilité en cas de retard sur la production ou la campagne/action si ce délai n'est pas respecté. Marge de sécurité de 5 à 10cm autour des limites visibles ; prévoir la même marge près des poignées de porte."
+    }
+  },
   "Unimidia/Spreading|Spreading|Táxi Indoor - Flyer": {
     "en": {
       "dimensao": "Height (no margin): 20cm. Width (no margin): 10cm.",
