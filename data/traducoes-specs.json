@@ -9417,5 +9417,56 @@
       "tipoFicheiro": "Fichiers DATA : deux fichiers séparés (Left eye + Right eye) en séquence, au format TIFF RVB 16-bit data, ou fichiers DPX 10-bit — les deux à 24fps.",
       "observacoes": "Audio : 6 canaux (5.1) ou 2 canaux (stéréo) ; fichiers WAV en 24-bit ; échantillonnage 48KHz ; niveau de référence -20dBFS ; vitesse 24fps. Masterisé en Dolby Digital Cinema (VS2.0, certified partner). Questions : bruno.figueiredo@vs2.pt."
     }
+  },
+  "3D Lab|3D Lab|Grande Formato": {
+    "en": {
+      "dimensao": "Scale 1:10.",
+      "tipoFicheiro": "TIFF or JPEG — it is also advisable to send an editable PDF.",
+      "observacoes": "Colour: CMYK mode. Fonts converted to curves (vector files) or the font sent along with the file. Resolution: 450 dpi."
+    },
+    "es": {
+      "dimensao": "Escala 1:10.",
+      "tipoFicheiro": "TIFF o JPEG — también es recomendable enviar un PDF editable.",
+      "observacoes": "Color: modo CMYK. Fuentes convertidas en curvas (archivos vectoriales) o fuente enviada junto con el archivo. Resolución: 450 dpi."
+    },
+    "fr": {
+      "dimensao": "Échelle 1:10.",
+      "tipoFicheiro": "TIFF ou JPEG — il est également conseillé d'envoyer un PDF modifiable.",
+      "observacoes": "Couleur : mode CMJN. Polices converties en courbes (fichiers vectoriels) ou police envoyée avec le fichier. Résolution : 450 dpi."
+    }
+  },
+  "3D Lab|3D Lab|Rede Highway": {
+    "en": {
+      "dimensao": "10.15x5.15m. Scale 1:10.",
+      "tipoFicheiro": "TIFF or JPEG — it is also advisable to send an editable PDF.",
+      "observacoes": "Colour: CMYK mode. Fonts converted to curves (vector files) or the font sent along with the file. Resolution: 450 dpi."
+    },
+    "es": {
+      "dimensao": "10,15x5,15m. Escala 1:10.",
+      "tipoFicheiro": "TIFF o JPEG — también es recomendable enviar un PDF editable.",
+      "observacoes": "Color: modo CMYK. Fuentes convertidas en curvas (archivos vectoriales) o fuente enviada junto con el archivo. Resolución: 450 dpi."
+    },
+    "fr": {
+      "dimensao": "10,15x5,15m. Échelle 1:10.",
+      "tipoFicheiro": "TIFF ou JPEG — il est également conseillé d'envoyer un PDF modifiable.",
+      "observacoes": "Couleur : mode CMJN. Polices converties en courbes (fichiers vectoriels) ou police envoyée avec le fichier. Résolution : 450 dpi."
+    }
+  },
+  "3D Lab|3D Lab|Rede LED": {
+    "en": {
+      "dimensao": "Scale 1:10.",
+      "tipoFicheiro": "TIFF or JPEG — it is also advisable to send an editable PDF.",
+      "observacoes": "Colour: RGB mode. Fonts converted to curves (vector files) or the font sent along with the file. Resolution: 100 dpi."
+    },
+    "es": {
+      "dimensao": "Escala 1:10.",
+      "tipoFicheiro": "TIFF o JPEG — también es recomendable enviar un PDF editable.",
+      "observacoes": "Color: modo RGB. Fuentes convertidas en curvas (archivos vectoriales) o fuente enviada junto con el archivo. Resolución: 100 dpi."
+    },
+    "fr": {
+      "dimensao": "Échelle 1:10.",
+      "tipoFicheiro": "TIFF ou JPEG — il est également conseillé d'envoyer un PDF modifiable.",
+      "observacoes": "Couleur : mode RVB. Polices converties en courbes (fichiers vectoriels) ou police envoyée avec le fichier. Résolution : 100 dpi."
+    }
   }
 }
