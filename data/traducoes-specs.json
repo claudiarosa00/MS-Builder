@@ -4159,19 +4159,19 @@
       "dimensao": "Recommended 1920x1080; skippable after 5s; no fixed maximum duration",
       "aspectRatio": "16:9 or 9:16",
       "peso": "Hosted on YouTube (no file size limit from Google Ads)",
-      "tipoFicheiro": "MP4, MOV (uploaded via YouTube)"
+      "tipoFicheiro": "MP4, MOV (send the link to the video uploaded to the YouTube channel)"
     },
     "es": {
       "dimensao": "Recomendado 1920x1080; se puede saltar a partir de los 5s; sin duración máxima fija",
       "aspectRatio": "16:9 o 9:16",
       "peso": "Alojado en YouTube (sin límite de peso de Google Ads)",
-      "tipoFicheiro": "MP4, MOV (subida vía YouTube)"
+      "tipoFicheiro": "MP4, MOV (enviar el enlace del vídeo subido al canal de YouTube)"
     },
     "fr": {
       "dimensao": "Recommandé 1920x1080 ; désactivable après 5s ; sans durée maximale fixe",
       "aspectRatio": "16:9 ou 9:16",
       "peso": "Hébergé sur YouTube (sans limite de poids Google Ads)",
-      "tipoFicheiro": "MP4, MOV (upload via YouTube)"
+      "tipoFicheiro": "MP4, MOV (envoyer le lien de la vidéo téléchargée sur la chaîne YouTube)"
     }
   },
   "Google Vídeo/YouTube|YouTube|Non-skippable In-Stream (standard)": {
@@ -4179,19 +4179,19 @@
       "dimensao": "Recommended 1920x1080; 7 to 15 seconds; non-skippable",
       "aspectRatio": "16:9 or 9:16",
       "peso": "Hosted on YouTube",
-      "tipoFicheiro": "MP4, MOV"
+      "tipoFicheiro": "MP4, MOV (send the link to the video uploaded to the YouTube channel)"
     },
     "es": {
       "dimensao": "Recomendado 1920x1080; 7 a 15 segundos; no se puede saltar",
       "aspectRatio": "16:9 o 9:16",
       "peso": "Alojado en YouTube",
-      "tipoFicheiro": "MP4, MOV"
+      "tipoFicheiro": "MP4, MOV (enviar el enlace del vídeo subido al canal de YouTube)"
     },
     "fr": {
       "dimensao": "Recommandé 1920x1080 ; 7 à 15 secondes ; non désactivable",
       "aspectRatio": "16:9 ou 9:16",
       "peso": "Hébergé sur YouTube",
-      "tipoFicheiro": "MP4, MOV"
+      "tipoFicheiro": "MP4, MOV (envoyer le lien de la vidéo téléchargée sur la chaîne YouTube)"
     }
   },
   "Google Vídeo/YouTube|YouTube|Bumper": {
@@ -4199,38 +4199,38 @@
       "dimensao": "Recommended 1920x1080, min. 640x360; up to 6 seconds; non-skippable",
       "aspectRatio": "16:9 or 9:16",
       "peso": "Hosted on YouTube",
-      "tipoFicheiro": "MP4, MOV"
+      "tipoFicheiro": "MP4, MOV (send the link to the video uploaded to the YouTube channel)"
     },
     "es": {
       "dimensao": "Recomendado 1920x1080, mín. 640x360; hasta 6 segundos; no se puede saltar",
       "aspectRatio": "16:9 o 9:16",
       "peso": "Alojado en YouTube",
-      "tipoFicheiro": "MP4, MOV"
+      "tipoFicheiro": "MP4, MOV (enviar el enlace del vídeo subido al canal de YouTube)"
     },
     "fr": {
       "dimensao": "Recommandé 1920x1080, min. 640x360 ; jusqu'à 6 secondes ; non désactivable",
       "aspectRatio": "16:9 ou 9:16",
       "peso": "Hébergé sur YouTube",
-      "tipoFicheiro": "MP4, MOV"
+      "tipoFicheiro": "MP4, MOV (envoyer le lien de la vidéo téléchargée sur la chaîne YouTube)"
     }
   },
   "Google Vídeo/YouTube|YouTube|Non-skippable 30s (Connected TV)": {
     "en": {
       "dimensao": "16 to 30 seconds; format specific to Connected TV",
       "peso": "Hosted on YouTube",
-      "tipoFicheiro": "MP4, MOV",
+      "tipoFicheiro": "MP4, MOV (send the link to the video uploaded to the YouTube channel)",
       "aspectRatio": "16:9"
     },
     "es": {
       "dimensao": "16 a 30 segundos; formato específico para Connected TV",
       "peso": "Alojado en YouTube",
-      "tipoFicheiro": "MP4, MOV",
+      "tipoFicheiro": "MP4, MOV (enviar el enlace del vídeo subido al canal de YouTube)",
       "aspectRatio": "16:9"
     },
     "fr": {
       "dimensao": "16 à 30 secondes ; format spécifique pour Connected TV",
       "peso": "Hébergé sur YouTube",
-      "tipoFicheiro": "MP4, MOV",
+      "tipoFicheiro": "MP4, MOV (envoyer le lien de la vidéo téléchargée sur la chaîne YouTube)",
       "aspectRatio": "16:9"
     }
   },
@@ -4239,21 +4239,21 @@
       "dimensao": "Horizontal: 1920x1080; Vertical: 1080x1920; Square: 1080x1080; 15 seconds recommended.",
       "aspectRatio": "16:9 or 9:16 or 1:1",
       "peso": "Hosted on YouTube",
-      "tipoFicheiro": "MP4, MOV",
+      "tipoFicheiro": "MP4, MOV (send the link to the video uploaded to the YouTube channel)",
       "copies": "Headline: 2 lines, 40 characters each; Description: 2 lines, 35 characters each."
     },
     "es": {
       "dimensao": "Horizontal: 1920x1080; Vertical: 1080x1920; Cuadrado: 1080x1080; 15 segundos recomendado.",
       "aspectRatio": "16:9 o 9:16 o 1:1",
       "peso": "Alojado en YouTube",
-      "tipoFicheiro": "MP4, MOV",
+      "tipoFicheiro": "MP4, MOV (enviar el enlace del vídeo subido al canal de YouTube)",
       "copies": "Título: 2 líneas, 40 caracteres cada una; Descripción: 2 líneas, 35 caracteres cada una."
     },
     "fr": {
       "dimensao": "Horizontal : 1920x1080 ; Vertical : 1080x1920 ; Carré : 1080x1080 ; 15 secondes recommandé.",
       "aspectRatio": "16:9 ou 9:16 ou 1:1",
       "peso": "Hébergé sur YouTube",
-      "tipoFicheiro": "MP4, MOV",
+      "tipoFicheiro": "MP4, MOV (envoyer le lien de la vidéo téléchargée sur la chaîne YouTube)",
       "copies": "Titre : 2 lignes, 40 caractères chacune ; Description : 2 lignes, 35 caractères chacune."
     }
   },
@@ -4262,19 +4262,19 @@
       "dimensao": "Vertical: 1080x1920; 6 to 60 seconds",
       "aspectRatio": "9:16",
       "peso": "Hosted on YouTube",
-      "tipoFicheiro": "MP4, MOV"
+      "tipoFicheiro": "MP4, MOV (send the link to the video uploaded to the YouTube channel)"
     },
     "es": {
       "dimensao": "Vertical: 1080x1920; 6 a 60 segundos",
       "aspectRatio": "9:16",
       "peso": "Alojado en YouTube",
-      "tipoFicheiro": "MP4, MOV"
+      "tipoFicheiro": "MP4, MOV (enviar el enlace del vídeo subido al canal de YouTube)"
     },
     "fr": {
       "dimensao": "Vertical : 1080x1920 ; 6 à 60 secondes",
       "aspectRatio": "9:16",
       "peso": "Hébergé sur YouTube",
-      "tipoFicheiro": "MP4, MOV"
+      "tipoFicheiro": "MP4, MOV (envoyer le lien de la vidéo téléchargée sur la chaîne YouTube)"
     }
   },
   "Google Vídeo/YouTube|YouTube|Masthead": {
@@ -4282,19 +4282,19 @@
       "dimensao": "Recommended 1920x1080 or higher; autoplay without sound for up to 30 seconds, then a clickable thumbnail",
       "aspectRatio": "16:9",
       "peso": "Hosted on YouTube",
-      "tipoFicheiro": "MP4, MOV"
+      "tipoFicheiro": "MP4, MOV (send the link to the video uploaded to the YouTube channel)"
     },
     "es": {
       "dimensao": "Recomendado 1920x1080 o superior; reproducción automática sin sonido hasta 30 segundos, después miniatura en la que se puede hacer clic",
       "aspectRatio": "16:9",
       "peso": "Alojado en YouTube",
-      "tipoFicheiro": "MP4, MOV"
+      "tipoFicheiro": "MP4, MOV (enviar el enlace del vídeo subido al canal de YouTube)"
     },
     "fr": {
       "dimensao": "Recommandé 1920x1080 ou supérieur ; lecture automatique sans son jusqu'à 30 secondes, puis miniature cliquable",
       "aspectRatio": "16:9",
       "peso": "Hébergé sur YouTube",
-      "tipoFicheiro": "MP4, MOV"
+      "tipoFicheiro": "MP4, MOV (envoyer le lien de la vidéo téléchargée sur la chaîne YouTube)"
     }
   },
   "Google Demand Gen|Google Demand Gen|Imagem": {
@@ -4388,19 +4388,19 @@
       "dimensao": "Recommended 1920x1080 or higher; autoplay without sound for up to 30 seconds, then a clickable thumbnail",
       "aspectRatio": "16:9",
       "peso": "Hosted on YouTube",
-      "tipoFicheiro": "MP4, MOV"
+      "tipoFicheiro": "MP4, MOV (send the link to the video uploaded to the YouTube channel)"
     },
     "es": {
       "dimensao": "Recomendado 1920x1080 o superior; reproducción automática sin sonido hasta 30 segundos, después miniatura en la que se puede hacer clic",
       "aspectRatio": "16:9",
       "peso": "Alojado en YouTube",
-      "tipoFicheiro": "MP4, MOV"
+      "tipoFicheiro": "MP4, MOV (enviar el enlace del vídeo subido al canal de YouTube)"
     },
     "fr": {
       "dimensao": "Recommandé 1920x1080 ou supérieur ; lecture automatique sans son jusqu'à 30 secondes, puis miniature cliquable",
       "aspectRatio": "16:9",
       "peso": "Hébergé sur YouTube",
-      "tipoFicheiro": "MP4, MOV"
+      "tipoFicheiro": "MP4, MOV (envoyer le lien de la vidéo téléchargée sur la chaîne YouTube)"
     }
   },
   "DV360|YouTube|Prog - YouTube Select": {
@@ -4408,19 +4408,19 @@
       "dimensao": "Recommended 1920x1080; skippable after 5s; no fixed maximum duration",
       "aspectRatio": "16:9 or 9:16",
       "peso": "Hosted on YouTube (no file size limit from Google Ads)",
-      "tipoFicheiro": "MP4, MOV (upload via YouTube)"
+      "tipoFicheiro": "MP4, MOV (send the link to the video uploaded to the YouTube channel)"
     },
     "es": {
       "dimensao": "Recomendado 1920x1080; se puede saltar a partir de los 5s; sin duración máxima fija",
       "aspectRatio": "16:9 o 9:16",
       "peso": "Alojado en YouTube (sin límite de peso de Google Ads)",
-      "tipoFicheiro": "MP4, MOV (subida a través de YouTube)"
+      "tipoFicheiro": "MP4, MOV (enviar el enlace del vídeo subido al canal de YouTube)"
     },
     "fr": {
       "dimensao": "Recommandé 1920x1080 ; désactivable après 5s ; sans durée maximale fixe",
       "aspectRatio": "16:9 ou 9:16",
       "peso": "Hébergé sur YouTube (sans limite de poids Google Ads)",
-      "tipoFicheiro": "MP4, MOV (téléversement via YouTube)"
+      "tipoFicheiro": "MP4, MOV (envoyer le lien de la vidéo téléchargée sur la chaîne YouTube)"
     }
   },
   "DV360|YouTube|Prog - YouTube VRC Ad Sequence": {
@@ -4428,38 +4428,38 @@
       "dimensao": "Recommended 1920x1080; skippable after 5s; no fixed maximum duration",
       "aspectRatio": "16:9 or 9:16",
       "peso": "Hosted on YouTube (no file size limit from Google Ads)",
-      "tipoFicheiro": "MP4, MOV (upload via YouTube)"
+      "tipoFicheiro": "MP4, MOV (send the link to the video uploaded to the YouTube channel)"
     },
     "es": {
       "dimensao": "Recomendado 1920x1080; se puede saltar a partir de los 5s; sin duración máxima fija",
       "aspectRatio": "16:9 o 9:16",
       "peso": "Alojado en YouTube (sin límite de peso de Google Ads)",
-      "tipoFicheiro": "MP4, MOV (subida a través de YouTube)"
+      "tipoFicheiro": "MP4, MOV (enviar el enlace del vídeo subido al canal de YouTube)"
     },
     "fr": {
       "dimensao": "Recommandé 1920x1080 ; désactivable après 5s ; sans durée maximale fixe",
       "aspectRatio": "16:9 ou 9:16",
       "peso": "Hébergé sur YouTube (sans limite de poids Google Ads)",
-      "tipoFicheiro": "MP4, MOV (téléversement via YouTube)"
+      "tipoFicheiro": "MP4, MOV (envoyer le lien de la vidéo téléchargée sur la chaîne YouTube)"
     }
   },
   "DV360|YouTube|Prog - YouTube VRC Non-Skippable": {
     "en": {
       "dimensao": "The team chooses the most suitable format(s) from among: BUMPER — recommended 1920x1080, min. 640x360; up to 6 seconds; non-skippable; NON-SKIPPABLE STANDARD — recommended 1920x1080; 7 to 15 seconds; non-skippable; NON-SKIPPABLE 30S — same technical specification as standard, but with 30 seconds duration.",
       "peso": "Hosted on YouTube (no file size limit from Google Ads)",
-      "tipoFicheiro": "MP4, MOV",
+      "tipoFicheiro": "MP4, MOV (send the link to the video uploaded to the YouTube channel)",
       "aspectRatio": "16:9 or 9:16"
     },
     "es": {
       "dimensao": "El equipo elige el/los formato(s) más adecuado(s) entre: BUMPER — recomendado 1920x1080, mín. 640x360; hasta 6 segundos; no se puede saltar; NON-SKIPPABLE STANDARD — recomendado 1920x1080; 7 a 15 segundos; no se puede saltar; NON-SKIPPABLE 30S — misma especificación técnica que el standard, pero con 30 segundos de duración.",
       "peso": "Alojado en YouTube (sin límite de peso de Google Ads)",
-      "tipoFicheiro": "MP4, MOV",
+      "tipoFicheiro": "MP4, MOV (enviar el enlace del vídeo subido al canal de YouTube)",
       "aspectRatio": "16:9 o 9:16"
     },
     "fr": {
       "dimensao": "L'équipe choisit le(s) format(s) le(s) plus adapté(s) parmi : BUMPER — recommandé 1920x1080, min. 640x360 ; jusqu'à 6 secondes ; non désactivable ; NON-SKIPPABLE STANDARD — recommandé 1920x1080 ; 7 à 15 secondes ; non désactivable ; NON-SKIPPABLE 30S — même spécification technique que le standard, mais avec 30 secondes de durée.",
       "peso": "Hébergé sur YouTube (sans limite de poids Google Ads)",
-      "tipoFicheiro": "MP4, MOV",
+      "tipoFicheiro": "MP4, MOV (envoyer le lien de la vidéo téléchargée sur la chaîne YouTube)",
       "aspectRatio": "16:9 ou 9:16"
     }
   },
@@ -4468,38 +4468,38 @@
       "dimensao": "Recommended 1920x1080; skippable after 5s; no fixed maximum duration",
       "aspectRatio": "16:9 or 9:16",
       "peso": "Hosted on YouTube (no file size limit from Google Ads)",
-      "tipoFicheiro": "MP4, MOV (upload via YouTube)"
+      "tipoFicheiro": "MP4, MOV (send the link to the video uploaded to the YouTube channel)"
     },
     "es": {
       "dimensao": "Recomendado 1920x1080; se puede saltar a partir de los 5s; sin duración máxima fija",
       "aspectRatio": "16:9 o 9:16",
       "peso": "Alojado en YouTube (sin límite de peso de Google Ads)",
-      "tipoFicheiro": "MP4, MOV (subida a través de YouTube)"
+      "tipoFicheiro": "MP4, MOV (enviar el enlace del vídeo subido al canal de YouTube)"
     },
     "fr": {
       "dimensao": "Recommandé 1920x1080 ; désactivable après 5s ; sans durée maximale fixe",
       "aspectRatio": "16:9 ou 9:16",
       "peso": "Hébergé sur YouTube (sans limite de poids Google Ads)",
-      "tipoFicheiro": "MP4, MOV (téléversement via YouTube)"
+      "tipoFicheiro": "MP4, MOV (envoyer le lien de la vidéo téléchargée sur la chaîne YouTube)"
     }
   },
   "DV360|YouTube|Prog - YouTube VRC Efficient Reach": {
     "en": {
       "dimensao": "The team chooses the most suitable format(s) from among — Horizontal: 1920x1080 (15s for in-stream skippable/in-feed; 6s for bumper); Vertical: 1080x1920, 6 to 60 seconds (Shorts); Square: 1080x1080, 6 to 60 seconds.",
       "peso": "Hosted on YouTube (no file size limit from Google Ads)",
-      "tipoFicheiro": "MP4, MOV",
+      "tipoFicheiro": "MP4, MOV (send the link to the video uploaded to the YouTube channel)",
       "aspectRatio": "16:9 or 9:16 or 1:1"
     },
     "es": {
       "dimensao": "El equipo elige el/los formato(s) más adecuado(s) entre — Horizontal: 1920x1080 (15s para in-stream skippable/in-feed; 6s para bumper); Vertical: 1080x1920, 6 a 60 segundos (Shorts); Cuadrado: 1080x1080, 6 a 60 segundos.",
       "peso": "Alojado en YouTube (sin límite de peso de Google Ads)",
-      "tipoFicheiro": "MP4, MOV",
+      "tipoFicheiro": "MP4, MOV (enviar el enlace del vídeo subido al canal de YouTube)",
       "aspectRatio": "16:9 o 9:16 o 1:1"
     },
     "fr": {
       "dimensao": "L'équipe choisit le(s) format(s) le(s) plus adapté(s) parmi — Horizontal : 1920x1080 (15s pour in-stream désactivable/in-feed ; 6s pour bumper) ; Vertical : 1080x1920, 6 à 60 secondes (Shorts) ; Carré : 1080x1080, 6 à 60 secondes.",
       "peso": "Hébergé sur YouTube (sans limite de poids Google Ads)",
-      "tipoFicheiro": "MP4, MOV",
+      "tipoFicheiro": "MP4, MOV (envoyer le lien de la vidéo téléchargée sur la chaîne YouTube)",
       "aspectRatio": "16:9 ou 9:16 ou 1:1"
     }
   },
@@ -4507,19 +4507,19 @@
     "en": {
       "dimensao": "The team chooses the most suitable format(s) from among — Horizontal: 1920x1080 (15s for in-stream skippable/in-feed; 6s for bumper); also uses non-skippable in-stream, in-feed and Shorts (specs as per each individual format).",
       "peso": "Hosted on YouTube (no file size limit from Google Ads)",
-      "tipoFicheiro": "MP4, MOV",
+      "tipoFicheiro": "MP4, MOV (send the link to the video uploaded to the YouTube channel)",
       "aspectRatio": "16:9"
     },
     "es": {
       "dimensao": "El equipo elige el/los formato(s) más adecuado(s) entre — Horizontal: 1920x1080 (15s para in-stream skippable/in-feed; 6s para bumper); también usa non-skippable in-stream, in-feed y Shorts (specs según cada formato individual).",
       "peso": "Alojado en YouTube (sin límite de peso de Google Ads)",
-      "tipoFicheiro": "MP4, MOV",
+      "tipoFicheiro": "MP4, MOV (enviar el enlace del vídeo subido al canal de YouTube)",
       "aspectRatio": "16:9"
     },
     "fr": {
       "dimensao": "L'équipe choisit le(s) format(s) le(s) plus adapté(s) parmi — Horizontal : 1920x1080 (15s pour in-stream désactivable/in-feed ; 6s pour bumper) ; utilise également non-skippable in-stream, in-feed et Shorts (spécifications selon chaque format individuel).",
       "peso": "Hébergé sur YouTube (sans limite de poids Google Ads)",
-      "tipoFicheiro": "MP4, MOV",
+      "tipoFicheiro": "MP4, MOV (envoyer le lien de la vidéo téléchargée sur la chaîne YouTube)",
       "aspectRatio": "16:9"
     }
   },
@@ -4703,21 +4703,21 @@
       "dimensao": "Horizontal: 1920x1080; Vertical: 1080x1920; Square: 1080x1080; min. 10 seconds.",
       "aspectRatio": "16:9 or 9:16 or 1:1",
       "peso": "Hosted on YouTube",
-      "tipoFicheiro": "MP4, MOV",
+      "tipoFicheiro": "MP4, MOV (send the link to the video uploaded to the YouTube channel)",
       "copies": "Headline: 30 characters; Long headline: 90 characters; Description: 90 characters; CTA: 10 characters."
     },
     "es": {
       "dimensao": "Horizontal: 1920x1080; Vertical: 1080x1920; Cuadrado: 1080x1080; mín. 10 segundos.",
       "aspectRatio": "16:9 o 9:16 o 1:1",
       "peso": "Alojado en YouTube",
-      "tipoFicheiro": "MP4, MOV",
+      "tipoFicheiro": "MP4, MOV (enviar el enlace del vídeo subido al canal de YouTube)",
       "copies": "Título: 30 caracteres; Título largo: 90 caracteres; Descripción: 90 caracteres; CTA: 10 caracteres."
     },
     "fr": {
       "dimensao": "Horizontal : 1920x1080 ; Vertical : 1080x1920 ; Carré : 1080x1080 ; min. 10 secondes.",
       "aspectRatio": "16:9 ou 9:16 ou 1:1",
       "peso": "Hébergé sur YouTube",
-      "tipoFicheiro": "MP4, MOV",
+      "tipoFicheiro": "MP4, MOV (envoyer le lien de la vidéo téléchargée sur la chaîne YouTube)",
       "copies": "Titre : 30 caractères ; Titre long : 90 caractères ; Description : 90 caractères ; CTA : 10 caractères."
     }
   },
