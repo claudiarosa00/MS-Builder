@@ -9720,24 +9720,24 @@
   },
   "Rádio|Rádio|Live Copies": {
     "en": {
-      "observacoes": "Campaign briefing, supplied by the agency, for the radio station to produce the script of the conversation between the hosts (live read)."
+      "observacoes": "\"Live read\" format: the agency does not deliver a ready-to-air audio file — it delivers a campaign briefing (concept, key messages and tone of voice), and the radio station itself writes the script and produces the conversation between the hosts, read live or recorded in the station's own voice. Because there is no audio file to deliver, it has no File Type or Weight — what is delivered is the written briefing."
     },
     "es": {
-      "observacoes": "Briefing de la campaña, facilitado por la agencia, para que la radio produzca el guion de la conversación entre los locutores (live read)."
+      "observacoes": "Formato de \"live read\": la agencia no entrega un archivo de audio listo para emitir — entrega un briefing de la campaña (concepto, mensajes clave y tono de comunicación), y es la propia radio quien escribe el guion y produce la conversación entre los locutores, leída en directo o grabada con la voz de la emisora. Al no haber archivo de audio que entregar, no tiene Tipo de Archivo ni Peso — lo que se entrega es el briefing escrito."
     },
     "fr": {
-      "observacoes": "Brief de la campagne, fourni par l'agence, pour que la radio produise le script de la conversation entre les animateurs (live read)."
+      "observacoes": "Format de \"live read\" : l'agence ne fournit pas de fichier audio prêt à diffuser — elle fournit un brief de la campagne (concept, messages clés et ton de communication), et c'est la station de radio elle-même qui écrit le script et produit la conversation entre les animateurs, lue en direct ou enregistrée avec la voix de la station. Comme il n'y a pas de fichier audio à livrer, il n'y a pas de type de fichier ni de poids — ce qui est fourni, c'est le brief écrit."
     }
   },
   "Rádio|Rádio|Referência": {
     "en": {
-      "observacoes": "5-second phrase, with a line that's almost like a brand slogan."
+      "observacoes": "Short phrase, 5 seconds long, with wording almost like a brand slogan, read by the radio hosts on air. Like Live Copies, it is not an audio file delivered by the agency — what is supplied is the text of the phrase, for the station to record or read; that's why it has no File Type or Weight."
     },
     "es": {
-      "observacoes": "Frase de 5 segundos, con una frase casi tipo eslogan de la marca."
+      "observacoes": "Frase corta, con una duración de 5 segundos, con un texto casi al estilo de un eslogan de la marca, leída por los locutores de la radio en antena. Al igual que Live Copies, no es un archivo de audio entregado por la agencia — lo que se proporciona es el texto de la frase, para que la radio lo grabe o lea; por eso no tiene Tipo de Archivo ni Peso."
     },
     "fr": {
-      "observacoes": "Phrase de 5 secondes, avec une ligne quasiment de type slogan de la marque."
+      "observacoes": "Phrase courte, d'une durée de 5 secondes, avec un texte presque de type slogan de la marque, lue par les animateurs de la radio à l'antenne. Comme Live Copies, ce n'est pas un fichier audio livré par l'agence — ce qui est fourni, c'est le texte de la phrase, pour que la station l'enregistre ou la lise ; c'est pourquoi il n'y a pas de type de fichier ni de poids."
     }
   }
 }
