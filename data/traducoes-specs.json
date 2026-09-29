@@ -9720,24 +9720,24 @@
   },
   "Rádio|Rádio|Live Copies": {
     "en": {
-      "observacoes": "\"Live read\" format: the agency does not deliver a ready-to-air audio file — it delivers a campaign briefing (concept, key messages and tone of voice), and the radio station itself writes the script and produces the conversation between the hosts, read live or recorded in the station's own voice. Because there is no audio file to deliver, it has no File Type or Weight — what is delivered is the written briefing."
+      "observacoes": "A campaign briefing must be provided, including the concept, key messages and tone of voice. From that briefing, the radio station itself develops the script and produces the conversation between the hosts, which can be done live or pre-recorded, always in the station's own voices."
     },
     "es": {
-      "observacoes": "Formato de \"live read\": la agencia no entrega un archivo de audio listo para emitir — entrega un briefing de la campaña (concepto, mensajes clave y tono de comunicación), y es la propia radio quien escribe el guion y produce la conversación entre los locutores, leída en directo o grabada con la voz de la emisora. Al no haber archivo de audio que entregar, no tiene Tipo de Archivo ni Peso — lo que se entrega es el briefing escrito."
+      "observacoes": "Es necesario proporcionar un briefing de la campaña, que incluya el concepto, los mensajes clave y el tono de comunicación. A partir de ese briefing, la propia radio desarrolla el guion y produce la conversación entre los locutores, que puede realizarse en directo o grabarse previamente, siempre con las voces de la emisora."
     },
     "fr": {
-      "observacoes": "Format de \"live read\" : l'agence ne fournit pas de fichier audio prêt à diffuser — elle fournit un brief de la campagne (concept, messages clés et ton de communication), et c'est la station de radio elle-même qui écrit le script et produit la conversation entre les animateurs, lue en direct ou enregistrée avec la voix de la station. Comme il n'y a pas de fichier audio à livrer, il n'y a pas de type de fichier ni de poids — ce qui est fourni, c'est le brief écrit."
+      "observacoes": "Il est nécessaire de fournir un brief de la campagne, incluant le concept, les messages clés et le ton de communication. À partir de ce brief, la station de radio elle-même développe le script et produit la conversation entre les animateurs, qui peut être réalisée en direct ou préenregistrée, toujours avec les voix de la station."
     }
   },
   "Rádio|Rádio|Referência": {
     "en": {
-      "observacoes": "Short phrase, 5 seconds long, with wording almost like a brand slogan, read by the radio hosts on air. Like Live Copies, it is not an audio file delivered by the agency — what is supplied is the text of the phrase, for the station to record or read; that's why it has no File Type or Weight."
+      "observacoes": "A short phrase must be provided, about 5 seconds long and written in a style close to a brand slogan, to be read on air by the radio hosts."
     },
     "es": {
-      "observacoes": "Frase corta, con una duración de 5 segundos, con un texto casi al estilo de un eslogan de la marca, leída por los locutores de la radio en antena. Al igual que Live Copies, no es un archivo de audio entregado por la agencia — lo que se proporciona es el texto de la frase, para que la radio lo grabe o lea; por eso no tiene Tipo de Archivo ni Peso."
+      "observacoes": "Es necesario proporcionar una frase corta, de unos 5 segundos de duración y con una construcción cercana a un eslogan de marca, para ser leída en antena por los locutores de la radio."
     },
     "fr": {
-      "observacoes": "Phrase courte, d'une durée de 5 secondes, avec un texte presque de type slogan de la marque, lue par les animateurs de la radio à l'antenne. Comme Live Copies, ce n'est pas un fichier audio livré par l'agence — ce qui est fourni, c'est le texte de la phrase, pour que la station l'enregistre ou la lise ; c'est pourquoi il n'y a pas de type de fichier ni de poids."
+      "observacoes": "Il est nécessaire de fournir une phrase courte, d'environ 5 secondes, avec une construction proche d'un slogan de marque, destinée à être lue à l'antenne par les animateurs de la radio."
     }
   }
 }
