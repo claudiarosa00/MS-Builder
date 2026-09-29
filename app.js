@@ -2055,7 +2055,12 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
   // duas (ex.: 2 durações × 3 temas = 6 linhas).
   const gruposLinha = [];
   formatosDaSeccao.forEach((formato) => {
-    const duracoes = formatoTemDuracao(formato) ? duracoesEfetivasDoFormato(formato, objetivo) : [null];
+    // No Excel, as durações saem por ordem descendente (30″ antes de 15″)
+    // — pedido explícito da Cláudia; o resumo no ecrã continua na ordem de
+    // duracoesEfetivasDoFormato (15/20/30 + Outro), sem alteração.
+    const duracoes = formatoTemDuracao(formato)
+      ? [...duracoesEfetivasDoFormato(formato, objetivo)].sort((a, b) => Number(b) - Number(a))
+      : [null];
     const contagemTemas = MEIOS_COM_TEMA.has(grupoMeio) ? contagemTemasDoFormato(formato, objetivo) : 1;
     const temas = contagemTemas > 1 ? Array.from({ length: contagemTemas }, (_, indice) => indice + 1) : [null];
     duracoes.forEach((duracao) => {
@@ -2080,7 +2085,11 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
       });
       linhaFormato.values = [indiceDentroGrupo === 0 ? indiceGrupo + 1 : "", ...valoresColunas];
       linhaFormato.eachCell({ includeEmpty: true }, (celula, indiceColunaExcel) => {
-        const centrada = COLUNAS_CENTRADAS.has(colunasChaves[indiceColunaExcel - 2]);
+        // A coluna "#" (coluna A) fica sempre centrada na horizontal, quer
+        // o grupo tenha uma única linha quer várias (ver também o merge de
+        // grupos com mais que um tema, mais abaixo, que já centrava esta
+        // coluna nesse caso — agora fica igual nos dois casos).
+        const centrada = indiceColunaExcel === 1 || COLUNAS_CENTRADAS.has(colunasChaves[indiceColunaExcel - 2]);
         celula.font = { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } };
         celula.alignment = { vertical: "middle", horizontal: centrada ? "center" : undefined, wrapText: true };
         celula.border = ESTILO_BORDA_COMPLETA;
