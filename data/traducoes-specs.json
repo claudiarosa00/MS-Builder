@@ -9717,5 +9717,27 @@
       "tipoFicheiro": "Fichiers DATA : deux fichiers séparés (Left eye + Right eye) en séquence, au format TIFF RVB 16-bit data, ou fichiers DPX 10-bit — les deux à 24fps.",
       "observacoes": "Audio : 6 canaux (5.1) ou 2 canaux (stéréo) ; fichiers WAV en 24-bit ; échantillonnage 48KHz ; niveau de référence -20dBFS ; vitesse 24fps. Masterisé en Dolby Digital Cinema (VS2.0, certified partner). Questions : bruno.figueiredo@vs2.pt."
     }
+  },
+  "Rádio|Rádio|Live Copies": {
+    "en": {
+      "observacoes": "Campaign briefing, supplied by the agency, for the radio station to produce the script of the conversation between the hosts (live read)."
+    },
+    "es": {
+      "observacoes": "Briefing de la campaña, facilitado por la agencia, para que la radio produzca el guion de la conversación entre los locutores (live read)."
+    },
+    "fr": {
+      "observacoes": "Brief de la campagne, fourni par l'agence, pour que la radio produise le script de la conversation entre les animateurs (live read)."
+    }
+  },
+  "Rádio|Rádio|Referência": {
+    "en": {
+      "observacoes": "5-second phrase, with a line that's almost like a brand slogan."
+    },
+    "es": {
+      "observacoes": "Frase de 5 segundos, con una frase casi tipo eslogan de la marca."
+    },
+    "fr": {
+      "observacoes": "Phrase de 5 secondes, avec une ligne quasiment de type slogan de la marque."
+    }
   }
 }
