@@ -2042,6 +2042,12 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
 
   const indiceColunaLink = colunasChaves.indexOf("link");
   const indiceColunaTema = colunasChaves.indexOf("temaCriativo");
+  // Só a coluna "#" e as colunas de data ficam centradas na horizontal —
+  // as restantes ficam alinhadas à esquerda (pedido explícito da
+  // Cláudia). Um texto centrado lê-se pior em colunas de texto corrido
+  // (Observações, Dimensão, ...), mas um "#" ou uma data soltos ficam
+  // melhor centrados do que encostados ao canto da célula.
+  const COLUNAS_CENTRADAS = new Set(["dataInicioCampanha", "dataEntrega"]);
 
   // Um formato de TV/Rádio com mais que uma duração escolhida é, na
   // prática, mais que um spot pedido — cada duração ganha a sua própria
@@ -2082,12 +2088,10 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
         return COLUNAS_EXCEL_DISPONIVEIS[chave].valor(grupo.formato, objetivo, grupo.duracao, temaIndice);
       });
       linhaFormato.values = [indiceDentroGrupo === 0 ? indiceGrupo + 1 : "", ...valoresColunas];
-      linhaFormato.eachCell({ includeEmpty: true }, (celula) => {
-        // Todas as colunas ficam sempre centradas na horizontal (e na
-        // vertical) — pedido explícito da Cláudia, para a folha toda ficar
-        // com o mesmo alinhamento em vez de só algumas colunas.
+      linhaFormato.eachCell({ includeEmpty: true }, (celula, indiceColunaExcel) => {
+        const centrada = indiceColunaExcel === 1 || COLUNAS_CENTRADAS.has(colunasChaves[indiceColunaExcel - 2]);
         celula.font = { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } };
-        celula.alignment = { vertical: "middle", horizontal: "center", wrapText: true };
+        celula.alignment = { vertical: "middle", horizontal: centrada ? "center" : "left", wrapText: true };
         celula.border = ESTILO_BORDA_COMPLETA;
       });
       // O texto do link fica na cor de destaque, sublinhado, para
@@ -2107,7 +2111,8 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
           continue;
         }
         folha.mergeCells(linhaInicioGrupo, coluna, linhaAtual - 1, coluna);
-        folha.getCell(linhaInicioGrupo, coluna).alignment = { vertical: "middle", horizontal: "center", wrapText: true };
+        const centrada = coluna === 1 || COLUNAS_CENTRADAS.has(colunasChaves[coluna - 2]);
+        folha.getCell(linhaInicioGrupo, coluna).alignment = { vertical: "middle", horizontal: centrada ? "center" : "left", wrapText: true };
       }
     }
   });
@@ -2127,8 +2132,11 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
   const folha = workbook.addWorksheet(nomeMeio);
 
   // Sem gridlines — só a tabela em si vai ter linhas (mais abaixo),
-  // para o Excel ficar limpo e não parecer uma grelha genérica.
-  folha.views = [{ showGridLines: false }];
+  // para o Excel ficar limpo e não parecer uma grelha genérica. Colunas
+  // A-D congeladas por omissão (#, Plataforma/Publisher, Formato e a
+  // 4ª coluna do template deste meio), para ficarem visíveis ao fazer
+  // scroll horizontal pelas colunas de specs mais à direita.
+  folha.views = [{ state: "frozen", xSplit: 4, ySplit: 0, showGridLines: false }];
 
   // --- Larguras de coluna, de acordo com o template deste meio (só as
   // colunas relevantes para ele — ver COLUNAS_POR_MEIO_EXCEL). Têm de ser
@@ -2246,7 +2254,10 @@ async function exportarSelecaoParaExcel() {
   // --- Gerar o ficheiro e fazer o download no browser ---
   const buffer = await workbook.xlsx.writeBuffer();
   const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-  const nomeFicheiro = `${t("excelNomeFicheiroPrefixo")}_${cliente}_${campanha}.xlsx`.replace(/[\\/:*?"<>|]/g, "-");
+  // Últimos 2 dígitos do ano corrente (ex.: "26" em 2026) — pedido
+  // explícito da Cláudia, para o ficheiro ficar fácil de ordenar por ano.
+  const anoCurto = String(new Date().getFullYear()).slice(-2);
+  const nomeFicheiro = `${anoCurto}_${companhia}_${t("excelNomeFicheiroPrefixo")}_${cliente}_${campanha}.xlsx`.replace(/[\\/:*?"<>|]/g, "-");
 
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
