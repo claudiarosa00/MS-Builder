@@ -352,7 +352,10 @@ const TRADUCOES = {
   colTema: { pt: "Tema", en: "Theme", es: "Tema", fr: "Thème" },
   colFonte: { pt: "Fonte", en: "Source", es: "Fuente", fr: "Source" },
   colCanal: { pt: "Canal", en: "Channel", es: "Canal", fr: "Canal" },
-  colPlataforma: { pt: "Plataforma/Publisher", en: "Platform/Publisher", es: "Plataforma/Publisher", fr: "Plateforme/Éditeur" },
+  // Com espaços à volta da "/" (em vez de "Plataforma/Publisher" colado) —
+  // sem espaço, o Excel não tem onde quebrar a linha e parte a própria
+  // palavra "Publisher" ao meio (ex.: "Publishe" / "r").
+  colPlataforma: { pt: "Plataforma / Publisher", en: "Platform / Publisher", es: "Plataforma / Publisher", fr: "Plateforme / Éditeur" },
   colEstacao: { pt: "Estação", en: "Station", es: "Estación", fr: "Station" },
   colConcessionario: { pt: "Concessionário", en: "Concessionaire", es: "Concesionario", fr: "Concessionnaire" },
   colTitulo: { pt: "Título", en: "Title", es: "Título", fr: "Titre" },
@@ -2039,11 +2042,6 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
 
   const indiceColunaLink = colunasChaves.indexOf("link");
   const indiceColunaTema = colunasChaves.indexOf("temaCriativo");
-  // As colunas de "X" (Entrega AF / Entrega na Morada) ficam centradas na
-  // horizontal, em vez de alinhadas à esquerda como o resto do texto — um
-  // "X" solto lê-se pior encostado ao canto da célula. Todas as células
-  // (incluindo estas) ficam sempre centradas na vertical.
-  const COLUNAS_CENTRADAS = new Set(["entregaAF", "entregaMorada"]);
 
   // Um formato de TV/Rádio com mais que uma duração escolhida é, na
   // prática, mais que um spot pedido — cada duração ganha a sua própria
@@ -2084,14 +2082,12 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
         return COLUNAS_EXCEL_DISPONIVEIS[chave].valor(grupo.formato, objetivo, grupo.duracao, temaIndice);
       });
       linhaFormato.values = [indiceDentroGrupo === 0 ? indiceGrupo + 1 : "", ...valoresColunas];
-      linhaFormato.eachCell({ includeEmpty: true }, (celula, indiceColunaExcel) => {
-        // A coluna "#" (coluna A) fica sempre centrada na horizontal, quer
-        // o grupo tenha uma única linha quer várias (ver também o merge de
-        // grupos com mais que um tema, mais abaixo, que já centrava esta
-        // coluna nesse caso — agora fica igual nos dois casos).
-        const centrada = indiceColunaExcel === 1 || COLUNAS_CENTRADAS.has(colunasChaves[indiceColunaExcel - 2]);
+      linhaFormato.eachCell({ includeEmpty: true }, (celula) => {
+        // Todas as colunas ficam sempre centradas na horizontal (e na
+        // vertical) — pedido explícito da Cláudia, para a folha toda ficar
+        // com o mesmo alinhamento em vez de só algumas colunas.
         celula.font = { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } };
-        celula.alignment = { vertical: "middle", horizontal: centrada ? "center" : undefined, wrapText: true };
+        celula.alignment = { vertical: "middle", horizontal: "center", wrapText: true };
         celula.border = ESTILO_BORDA_COMPLETA;
       });
       // O texto do link fica na cor de destaque, sublinhado, para
@@ -2111,8 +2107,7 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
           continue;
         }
         folha.mergeCells(linhaInicioGrupo, coluna, linhaAtual - 1, coluna);
-        const centrada = coluna === 1 || COLUNAS_CENTRADAS.has(colunasChaves[coluna - 2]);
-        folha.getCell(linhaInicioGrupo, coluna).alignment = { vertical: "middle", horizontal: centrada ? "center" : undefined, wrapText: true };
+        folha.getCell(linhaInicioGrupo, coluna).alignment = { vertical: "middle", horizontal: "center", wrapText: true };
       }
     }
   });
@@ -2152,10 +2147,11 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
   const idImagemLogo = workbook.addImage({ buffer: bufferLogo, extension: "png" });
   const alturaLogo = 50;
   const larguraLogo = Math.round(alturaLogo * config.proporcaoLogo);
-  // Âncora em B2 (col:1, row:1) em vez de A1 (col:0, row:0): a coluna A
-  // e a linha 1 ficam livres e funcionam como margem real à esquerda e
-  // por cima do logótipo, que assim já não fica colado ao canto da folha.
-  folha.addImage(idImagemLogo, { tl: { col: 1, row: 1 }, ext: { width: larguraLogo, height: alturaLogo } });
+  // Âncora em B3 (col:1, row:2) em vez de A1 (col:0, row:0): as colunas/
+  // linhas antes ficam livres e funcionam como margem real à esquerda e
+  // por cima do logótipo — mais espaço do que só uma linha (B2), que
+  // ainda ficava demasiado colado ao topo da folha.
+  folha.addImage(idImagemLogo, { tl: { col: 1, row: 2 }, ext: { width: larguraLogo, height: alturaLogo } });
 
   // --- Bloco Companhia / Cliente / Campanha / Meio, no topo ---
   const estiloRotulo = { font: { name: "Arial Nova", size: 10, bold: true, color: { argb: "FF5B6678" } } };
