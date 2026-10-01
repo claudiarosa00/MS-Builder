@@ -1,0 +1,1172 @@
+/*
+============================================
+1. CONFIGURAÇÃO GERAL
+Paleta baseada na cor de marca da Havas (o vermelho),
+usada como único acento — o resto é neutros, para o
+conjunto ficar "clean" e não parecer decorado a mais.
+Manter tudo aqui em cima facilita alterar o aspeto
+geral sem procurar por todo o ficheiro.
+============================================
+*/
+:root {
+  --cor-fundo: #f7f5f4;
+  --cor-texto: #1a1a1a;
+  --cor-texto-suave: #6b6560;
+  --cor-destaque: #e60000;       /* vermelho Havas oficial (amostrado do logótipo) */
+  --cor-destaque-escuro: #af0000;
+  --cor-destaque-suave: #fbe0e0;  /* vermelho muito claro, para fundos/badges */
+  --cor-escuro: #000000;          /* preto puro — igual ao fundo do logótipo */
+  --cor-borda: #e6e2df;
+  --cor-fundo-cartao: #ffffff;
+  --fonte-base: "Arial Nova", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fonte-base);
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+}
+
+/* Os browsers não fazem os controlos de formulário herdar a fonte da
+   página por omissão (usam a fonte do sistema) — sem isto, botões,
+   inputs e selects ficavam visivelmente noutro tipo de letra em vez de
+   Arial Nova, mesmo com o body já configurado. */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+/* Um único estilo de foco por teclado para toda a aplicação — antes só os
+   campos de texto tinham um contorno customizado (vermelho); botões,
+   checkboxes e links ficavam com o azul por omissão do browser, o que
+   misturava duas linguagens visuais de foco na mesma página.
+   :focus-visible (não :focus) para o contorno só aparecer a navegar por
+   teclado, sem "piscar" em cada clique de rato. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--cor-destaque);
+  outline-offset: 2px;
+}
+
+/* Só visível ao ganhar foco (primeiro Tab da página) — deixa saltar os
+   itens do índice lateral e ir direto ao formulário do pedido. */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  left: 12px;
+  z-index: 100;
+  background-color: var(--cor-escuro);
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 0 0 8px 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus-visible {
+  top: 0;
+  outline-offset: -2px;
+}
+
+/*
+============================================
+2. CABEÇALHO
+Antracite escuro com uma linha vermelha de assinatura —
+a marca fica presente sem o cabeçalho gritar em vermelho.
+============================================
+*/
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background-color: var(--cor-escuro);
+  color: #ffffff;
+  padding: 14px 32px;
+  border-top: 4px solid var(--cor-destaque);
+}
+
+.seletor-idioma {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+.seletor-idioma label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #b8b5b3;
+}
+
+.seletor-idioma select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-family: var(--fonte-base);
+  font-size: 13px;
+}
+
+.logo-havas {
+  display: block;
+  height: 150px;
+  width: 150px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.cabecalho h1 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.titulo-acento {
+  color: var(--cor-destaque);
+}
+
+.subtitulo {
+  margin: 2px 0 0 0;
+  font-size: 14px;
+  color: #b8b5b3;
+  letter-spacing: 0.02em;
+}
+
+/*
+============================================
+3. TABS (Construir Pedido / Base de Specs)
+============================================
+*/
+.barra-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 0 32px;
+  background-color: var(--cor-escuro);
+}
+
+.tab-botao {
+  background: none;
+  border: none;
+  color: #b8b5b3;
+  font-family: var(--fonte-base);
+  font-size: 14px;
+  padding: 14px 18px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+}
+
+.tab-botao:hover {
+  color: #ffffff;
+}
+
+.tab-botao.ativo {
+  color: #ffffff;
+  font-weight: 600;
+  border-bottom-color: var(--cor-destaque);
+}
+
+/*
+============================================
+4. LAYOUT PRINCIPAL (índice lateral + conteúdo)
+============================================
+*/
+.layout-app {
+  display: flex;
+  align-items: flex-start;
+}
+
+.indice-publishers {
+  width: 190px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 20px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-right: 1px solid var(--cor-borda);
+  background-color: var(--cor-fundo-cartao);
+}
+
+/* Cada categoria é um botão recolhível — começa fechada, só a mostrar o
+   nome; um clique (na seta ou no nome) revela os publishers lá dentro.
+   Ficam coladas umas às outras (margin-top mínimo) para lerem como um
+   grupo só — a separação que importa é a do cabeçalho "Online"/"Offline"
+   acima delas, não entre elas próprias. */
+.indice-categoria {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  margin: 0;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--cor-escuro);
+  background: none;
+  border: none;
+  border-radius: 5px;
+  font-family: var(--fonte-base);
+  cursor: pointer;
+  text-align: left;
+}
+
+.indice-categoria:hover {
+  background-color: var(--cor-destaque-suave);
+}
+
+/* TV e Rádio no índice não são um botão recolhível (ver
+   CATEGORIAS_SEM_DROPDOWN_INDICE em app.js) — é só um rótulo fixo, os
+   links aparecem sempre logo a seguir. */
+.indice-categoria--fixa {
+  cursor: default;
+}
+
+.indice-categoria--fixa:hover {
+  background: none;
+}
+
+/* TV e Rádio com um único publisher lá dentro: o nome da categoria é o
+   próprio link direto para essa secção (ver atualizarIndicePublishers em
+   app.js) — sem seta, sem nome de publisher repetido por baixo. */
+.indice-categoria--link {
+  text-decoration: none;
+}
+
+.indice-categoria-seta {
+  display: inline-block;
+  font-size: 9px;
+  transition: transform 0.15s ease;
+}
+
+.indice-categoria.expandida .indice-categoria-seta {
+  transform: rotate(90deg);
+}
+
+.indice-categoria-links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.indice-categoria-links.recolhida {
+  display: none;
+}
+
+/* Separa visualmente as categorias online (Social Media, Compra Direta,
+   Google ou Search, Programático) das offline (OOH, e no futuro
+   TV/Rádio/Cinema/Imprensa) — sem isto, OOH aparecia misturado com as
+   categorias de compra digital, o que não faz sentido. */
+.indice-online-offline {
+  margin: 20px 0 4px 0;
+  padding: 6px 10px 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-top: 1px solid var(--cor-borda);
+}
+
+.indice-online-offline:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.indice-online-offline--online {
+  color: var(--cor-destaque);
+}
+
+.indice-online-offline--offline {
+  color: var(--cor-destaque);
+}
+
+/* Só os links de publisher aninhados dentro de uma categoria (ex.:
+   "JCDecaux" dentro de "OOH") — não os links de categoria em si, esses
+   seguem o estilo de .indice-categoria (ver .indice-categoria--link). */
+.indice-categoria-links a {
+  color: var(--cor-texto-suave);
+  text-decoration: none;
+  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: 5px;
+}
+
+.indice-categoria-links a:hover {
+  background-color: var(--cor-destaque-suave);
+  color: var(--cor-destaque-escuro);
+}
+
+.conteudo-principal {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Vários elementos (config do pedido, barra de ações, as duas listas)
+   pertencem só a uma das tabs mas já não vivem dentro de uma secção
+   "painel" única — cada um leva data-tab-visivel e o app.js liga/desliga
+   o atributo [hidden] consoante a tab ativa. Como alguns têm display:flex
+   na própria classe (mais específico que o [hidden] da folha de estilo do
+   browser), é preciso este reforço para [hidden] continuar a esconder. */
+[data-tab-visivel][hidden] {
+  display: none;
+}
+
+/*
+============================================
+5. BARRA DE FILTROS (pesquisa + categoria)
+============================================
+*/
+.barra-filtros {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 20px 32px 0 32px;
+}
+
+#campoPesquisa {
+  flex: 1;
+  min-width: 220px;
+  padding: 10px 14px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: var(--fonte-base);
+  background-color: var(--cor-fundo-cartao);
+}
+
+
+/* Duas filas curtas (Online / Offline) em vez de uma única fila comprida
+   — mais fácil de percorrer com o olho do que tudo espremido numa linha. */
+.filtros-categoria {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filtros-grupo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.filtro-categoria {
+  background-color: var(--cor-fundo-cartao);
+  border: 1px solid var(--cor-borda);
+  color: var(--cor-texto-suave);
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.filtro-categoria:hover {
+  border-color: var(--cor-destaque);
+  color: var(--cor-destaque);
+}
+
+.filtro-categoria.ativo {
+  background-color: var(--cor-destaque);
+  border-color: var(--cor-destaque);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Rótulo "Online"/"Offline" entre os grupos de botões de filtro, para
+   deixar claro que OOH não é mais uma opção de compra digital. */
+.filtros-separador {
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--cor-texto-suave);
+  padding: 0 2px;
+}
+
+/* Botão discreto para "Limpar filtros" / "Limpar seleção" — nunca deve
+   competir visualmente com as ações principais (filtrar, exportar). */
+.botao-limpar {
+  background: none;
+  border: none;
+  color: var(--cor-texto-suave);
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 8px 4px;
+}
+
+.botao-limpar:hover {
+  color: var(--cor-destaque);
+}
+
+.botao-limpar:disabled {
+  color: #c9c4c1;
+  text-decoration: none;
+  cursor: not-allowed;
+}
+
+/* "Limpar seleção" apaga os 3 objetivos de uma vez e não tem "desfazer"
+   (só uma confirmação) — por isso fica com um tom vermelho já visível
+   sem precisar de hover, para não ter o mesmo peso visual discreto de
+   "Selecionar todos"/"Limpar filtros" (que são inofensivos). */
+.botao-limpar--perigo {
+  color: var(--cor-destaque-escuro);
+}
+
+.botao-limpar--perigo:hover {
+  color: var(--cor-destaque);
+}
+
+.botao-limpar--perigo:disabled {
+  color: #c9c4c1;
+}
+
+/* Botão flutuante "voltar ao topo" — fixo no canto, só visível depois de
+   algum scroll (controlado em app.js, via o atributo [hidden]). */
+.botao-voltar-topo {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--cor-destaque);
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  z-index: 50;
+}
+
+.botao-voltar-topo:hover {
+  background-color: var(--cor-destaque-escuro);
+}
+
+.botao-voltar-topo[hidden] {
+  display: none;
+}
+
+/* Notificação flutuante discreta (ex.: confirmação de exportação) —
+   aparece uns segundos e desaparece sozinha (ver app.js). */
+.notificacao-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 32px;
+  transform: translateX(-50%);
+  background-color: var(--cor-escuro);
+  color: #ffffff;
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  z-index: 60;
+  max-width: min(90vw, 420px);
+  text-align: center;
+}
+
+.notificacao-toast[hidden] {
+  display: none;
+}
+
+/* Janela de confirmação própria (ver confirmarAcao em app.js) — usada em
+   vez de window.confirm() porque esta página também corre dentro do
+   visualizador de Artifacts da Claude, que bloqueia diálogos nativos do
+   browser. */
+.modal-fundo {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 200;
+}
+
+.modal-fundo[hidden] {
+  display: none;
+}
+
+.modal-caixa {
+  background-color: var(--cor-fundo-cartao);
+  border-radius: 10px;
+  padding: 24px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+}
+
+.modal-caixa p {
+  margin: 0 0 20px 0;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--cor-texto);
+}
+
+.modal-acoes {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 18px;
+}
+
+.modal-botao-confirmar {
+  background-color: var(--cor-destaque-escuro);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 9px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--fonte-base);
+  cursor: pointer;
+}
+
+.modal-botao-confirmar:hover {
+  background-color: var(--cor-destaque);
+}
+
+.sem-resultados {
+  margin: 24px 32px 0 32px;
+  padding: 16px 20px;
+  background-color: var(--cor-fundo-cartao);
+  border: 1px dashed var(--cor-borda);
+  border-radius: 8px;
+  color: var(--cor-texto-suave);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* O "Limpar filtros" já existente na barra de filtros fica repetido aqui,
+   ao lado da própria mensagem de erro — a recuperação fica junto ao
+   problema, em vez de só lá em cima. */
+.botao-limpar-inline {
+  padding: 4px 4px;
+}
+
+/*
+============================================
+6. DADOS DA CAMPANHA (Cliente / Campanha)
+============================================
+*/
+.dados-campanha {
+  display: flex;
+  gap: 20px;
+  padding: 20px 32px 0 32px;
+  flex-wrap: wrap;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1 1 240px;
+}
+
+.campo label {
+  font-size: 12px;
+  color: var(--cor-texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* --cor-destaque-escuro em vez de --cor-destaque: o vermelho de marca dá só
+   4.43:1 sobre o fundo da página, abaixo do mínimo AA (4.5:1) para texto
+   deste tamanho — o tom mais escuro já usado noutros textos pequenos
+   (--cor-destaque-escuro) dá 7.44:1. */
+.marca-obrigatorio {
+  color: var(--cor-destaque-escuro);
+}
+
+.campo input,
+.campo select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: var(--fonte-base);
+  background-color: #ffffff;
+  color: var(--cor-texto);
+}
+
+.resumo-campanha {
+  padding: 8px 32px 0 32px;
+  margin: 0;
+  font-size: 14px;
+  color: var(--cor-destaque-escuro);
+  font-weight: 600;
+}
+
+/*
+============================================
+6.1 SELETOR DE OBJETIVO (Awareness / Consideration / Conversion)
+Mais destacado que os filtros de categoria, porque não é um filtro —
+muda qual seleção de formatos está a ser editada.
+============================================
+*/
+.seletor-objetivo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 32px;
+  flex-wrap: wrap;
+}
+
+.seletor-objetivo label {
+  font-size: 12px;
+  color: var(--cor-texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* Ícone pequeno com explicação em "title" (ao passar o rato) e aria-label
+   (para leitor de ecrã) — em vez de um parágrafo de texto sempre visível,
+   para não sobrecarregar visualmente uma barra que fica fixa no ecrã
+   durante todo o scroll. */
+.aviso-objetivo-mini {
+  display: inline-block;
+  text-transform: none;
+  letter-spacing: normal;
+  cursor: help;
+  border-radius: 50%;
+}
+
+.aviso-objetivo-mini:hover {
+  color: var(--cor-destaque);
+}
+
+.objetivos-botoes {
+  display: flex;
+  gap: 6px;
+}
+
+.objetivo-botao {
+  background-color: var(--cor-fundo-cartao);
+  border: 1px solid var(--cor-borda);
+  color: var(--cor-texto);
+  font-family: var(--fonte-base);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.objetivo-botao:hover {
+  border-color: var(--cor-destaque);
+}
+
+.objetivo-botao.ativo {
+  background-color: var(--cor-escuro);
+  border-color: var(--cor-escuro);
+  color: #ffffff;
+}
+
+.objetivo-contagem {
+  font-weight: normal;
+  opacity: 0.7;
+}
+
+.objetivo-contagem:empty {
+  display: none;
+}
+
+/*
+============================================
+7. RESUMO DA SELEÇÃO (fica fixo no topo ao fazer scroll)
+A barra-fixa junta o resumo e o botão de exportar, para
+ficarem sempre visíveis juntos, sem ser preciso subir a
+página depois de selecionar formatos mais abaixo na lista.
+============================================
+*/
+.barra-fixa {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: var(--cor-fundo);
+}
+
+.resumo-selecao h2 {
+  margin: 0;
+  padding: 12px 32px;
+  background-color: var(--cor-escuro);
+  color: #ffffff;
+  font-size: 15px;
+}
+
+.resumo-grupos {
+  margin: 0;
+  padding: 10px 32px;
+  background-color: #2b2b2b;
+  color: #ffffff;
+  list-style: none;
+  max-height: 220px;
+  overflow-y: auto;
+  font-size: 13px;
+  box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.25);
+}
+
+/* Cada objetivo com formatos selecionados vira o seu próprio subgrupo,
+   para ficar claro que "Single Image" pode aparecer mais que uma vez —
+   uma por objetivo — sem parecer um erro de duplicação. */
+.resumo-grupo-objetivo {
+  padding: 6px 0;
+}
+
+.resumo-grupo-objetivo strong {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #b8b5b3;
+  margin-bottom: 2px;
+}
+
+.resumo-grupo-objetivo ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.resumo-grupo-objetivo li {
+  padding: 3px 0;
+}
+
+/*
+============================================
+8. BOTÃO DE EXPORTAR PARA EXCEL
+============================================
+*/
+.area-exportar {
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+#botaoExportar {
+  background-color: var(--cor-destaque);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--fonte-base);
+  cursor: pointer;
+}
+
+#botaoExportar:hover {
+  background-color: var(--cor-destaque-escuro);
+}
+
+#botaoExportar:disabled {
+  background-color: #c9c4c1;
+  /* Texto escuro em vez de herdar o branco: o branco sobre este cinzento
+     dava só 1.7:1 de contraste — o botão principal da página ficava quase
+     invisível no estado desativado, em vez de "ainda não, falta um passo". */
+  color: #453f38;
+  cursor: not-allowed;
+}
+
+/*
+============================================
+9. ÁREA DE ESTADO (mensagens de carregamento/erro)
+============================================
+*/
+.area-estado {
+  padding: 12px 32px 0 32px;
+  font-size: 14px;
+  color: var(--cor-texto-suave);
+}
+
+.area-estado.erro {
+  color: var(--cor-destaque-escuro);
+  font-weight: 600;
+}
+
+/*
+============================================
+10. LISTA DE FORMATOS AGRUPADA POR PUBLISHER
+Usada tanto na tab "Construir Pedido" como na "Base de
+Specs" — a única diferença entre as duas é se há coluna
+de checkbox e/ou coluna de link, controlado pelo app.js.
+============================================
+*/
+.lista-formatos {
+  padding: 24px 32px 48px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.grupo-publisher {
+  background-color: var(--cor-fundo-cartao);
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  padding: 16px 20px;
+  scroll-margin-top: 12px;
+  /* Sem isto, um item flex (dentro de .lista-formatos) não encolhe abaixo
+     do tamanho do seu conteúdo — a tabela lá dentro (com min-width) acabava
+     por alargar este cartão, e com ele a página inteira, em vez de o
+     scroll ficar contido em .tabela-formatos-wrap como é suposto. */
+  min-width: 0;
+}
+
+/* Cabeçalho grande "Online"/"Offline" — marca a fronteira entre as
+   categorias de compra digital e os meios offline (OOH, e no futuro
+   TV/Rádio/Cinema/Imprensa), para nunca parecer que OOH é "Compra Direta". */
+.cabecalho-online-offline {
+  margin: 4px 0 -4px 0;
+  padding-bottom: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 2px solid currentColor;
+}
+
+.cabecalho-online-offline--online {
+  color: var(--cor-destaque);
+}
+
+.cabecalho-online-offline--offline {
+  color: var(--cor-escuro);
+}
+
+/* Sub-cabeçalho de categoria (Social Media, Compra Direta, ..., OOH),
+   antes do primeiro publisher de cada uma. */
+.cabecalho-categoria {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--cor-texto-suave);
+}
+
+.grupo-publisher h4 {
+  margin: 0 0 12px 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--cor-texto);
+}
+
+.grupo-publisher .contagem {
+  font-weight: normal;
+  color: var(--cor-texto-suave);
+  font-size: 14px;
+}
+
+/* Contém o scroll horizontal DENTRO da tabela em ecrãs estreitos — sem
+   isto, uma tabela mais larga que o ecrã (muitas colunas, ou uma
+   Observação longa) empurrava a página inteira para o lado. */
+.tabela-formatos-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tabela-formatos {
+  width: 100%;
+  min-width: 460px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tabela-formatos th,
+.tabela-formatos td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid var(--cor-borda);
+  vertical-align: top;
+}
+
+.tabela-formatos th {
+  color: var(--cor-texto-suave);
+  font-weight: normal;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.tabela-formatos tbody tr:hover {
+  background-color: var(--cor-destaque-suave);
+}
+
+/* Na tab "Construir Pedido" a linha toda é clicável (ver o listener de
+   clique em listaFormatos, app.js) — o cursor de "mão" deixa isso claro,
+   e o padding extra alarga a área de toque da checkbox para lá dos 16px
+   visíveis dela própria (abaixo do mínimo recomendado para ecrãs táteis). */
+#listaFormatos .tabela-formatos tbody tr {
+  cursor: pointer;
+}
+
+.coluna-checkbox {
+  width: 28px;
+  padding: 14px 10px;
+}
+
+.checkbox-formato {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--cor-destaque);
+}
+
+/* Mupi de papel sem entrega escolhida — pista discreta de que a checkbox
+   está "condicionada" (ver criarLinhaFormato/mudarEntregaMupi), sem texto
+   extra permanente na linha. */
+.checkbox-formato--pendente {
+  cursor: help;
+  opacity: 0.55;
+}
+
+/* As Observações de algumas specs (ex.: TV/telepromoção) vão bem além dos
+   ~65 caracteres recomendados para leitura confortável — limitar a largura
+   da coluna faz o texto quebrar em linhas mais curtas, mesmo em ecrãs largos. */
+.coluna-observacoes {
+  max-width: 60ch;
+}
+
+.tabela-formatos a {
+  color: var(--cor-destaque);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.etiqueta-dg2020 {
+  display: inline-block;
+  background-color: var(--cor-destaque-suave);
+  color: var(--cor-destaque-escuro);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* Seletor de duração do spot (TV/Rádio) — checkboxes de 15"/20"/30" (mais
+   que uma pode estar marcada, para pedir mais que um spot) + "Outro" com
+   caixa de texto editável, que só aparece quando "Outro" está marcado. */
+.grupo-duracao {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.opcao-duracao {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  color: var(--cor-texto);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.opcao-duracao input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.input-duracao-outro {
+  width: 90px;
+  margin-top: 2px;
+  padding: 5px 8px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 6px;
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  display: block;
+}
+
+.input-duracao-outro[hidden] {
+  display: none;
+}
+
+/* Escolha de entrega dos Mupis em papel (AF vs. morada do concessionário)
+   — dois rádios, tal como as opções de duração acima. */
+.grupo-entrega-mupi {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.opcao-entrega-mupi {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  color: var(--cor-texto);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.opcao-entrega-mupi input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--cor-destaque);
+  flex-shrink: 0;
+}
+
+/* Contador +/- do número de temas/criatividades (TV/Rádio/OOH). */
+.grupo-temas {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.botao-tema-mais,
+.botao-tema-menos {
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 6px;
+  background-color: var(--cor-fundo-cartao);
+  color: var(--cor-texto);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.botao-tema-mais:hover:not(:disabled),
+.botao-tema-menos:hover:not(:disabled) {
+  border-color: var(--cor-destaque);
+  color: var(--cor-destaque);
+}
+
+.botao-tema-mais:disabled,
+.botao-tema-menos:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.valor-temas {
+  min-width: 1.2em;
+  text-align: center;
+  font-family: var(--fonte-base);
+  font-size: 13px;
+}
+
+/*
+============================================
+11. RESPONSIVE (ecrãs estreitos — telemóvel/tablet pequeno)
+Antes desta secção não havia nenhuma @media query em todo o ficheiro: a
+barra lateral de 190px nunca colapsava, o que por si só empurrava a
+página inteira para o lado num ecrã de telemóvel (confirmado: 203px de
+overflow horizontal num viewport de 390px). A solução aqui é sobretudo
+"esconder" — o índice lateral duplica, em navegação, o que os botões de
+filtro por categoria já fazem (que continuam disponíveis e já eram
+responsivos, por usarem flex-wrap), por isso escondê-lo em ecrã pequeno
+não tira nenhuma funcionalidade real, só espaço que não há.
+============================================
+*/
+@media (max-width: 760px) {
+  .indice-publishers {
+    display: none;
+  }
+
+  .layout-app {
+    flex-direction: column;
+    /* .layout-app tem align-items:flex-start para a barra lateral (190px)
+       não esticar em altura no layout normal em linha — mas em coluna
+       (aqui) esse mesmo valor faz o conteúdo encolher para o tamanho do
+       seu conteúdo em vez de esticar à largura do ecrã, que é a causa raiz
+       do overflow horizontal em mobile: .conteudo-principal ficava tão
+       largo quanto o seu conteúdo mais largo (a tabela), e arrastava a
+       página toda consigo. */
+    align-items: stretch;
+  }
+
+  .cabecalho {
+    flex-wrap: wrap;
+    padding: 12px 16px;
+    gap: 12px;
+  }
+
+  .logo-havas {
+    height: 56px;
+    width: 56px;
+  }
+
+  .cabecalho h1 {
+    font-size: 22px;
+  }
+
+  .seletor-idioma {
+    margin-left: 0;
+  }
+
+  .barra-tabs {
+    padding: 0 16px;
+  }
+
+  .dados-campanha,
+  .resumo-campanha,
+  .barra-filtros,
+  .seletor-objetivo,
+  .area-exportar,
+  .area-estado,
+  .lista-formatos,
+  .sem-resultados {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .resumo-selecao h2,
+  .resumo-grupos {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .lista-formatos {
+    padding-top: 16px;
+  }
+
+  .grupo-publisher {
+    padding: 12px 14px;
+  }
+
+  #campoPesquisa {
+    min-width: 0;
+  }
+}
+
