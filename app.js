@@ -98,48 +98,59 @@ function formatoTemDuracao(formato) {
   return (formato.formato || "").toLowerCase().includes("spot");
 }
 
-// Os "Spot TV" com mais que uma variante técnica na base (hoje SD e HD,
-// ver README) são a mesma decisão de pedido — só muda a codificação de
-// vídeo entregue — por isso, no construtor, aparecem como uma única linha
-// "Spot TV" (ver agruparSpotTVSeConstrutor): marcar/desmarcar essa linha,
-// ou mudar a Duração ou o número de Temas, aplica-se a todas as variantes
-// do grupo ao mesmo tempo (ver garantirEstadoDuracao, mudarContagemTemas e
-// o listener de checkbox-formato), e cada variante continua a gerar a sua
-// própria linha no Excel exportado. A Biblioteca de Formatos continua a
-// mostrar cada variante técnica separadamente, com as suas specs próprias
-// — só o construtor (opcoes.simplificado) é que agrupa.
+// Alguns formatos têm mais que uma "variante técnica" na base que é, na
+// prática, a mesma decisão de pedido — só muda a codificação/dimensão
+// entregue — por isso, no construtor, aparecem como uma única linha com
+// um nome genérico (ver agruparVariantesSeConstrutor): marcar/desmarcar
+// essa linha, ou mudar a Duração ou o número de Temas, aplica-se a todas
+// as variantes do grupo ao mesmo tempo (ver garantirEstadoDuracao,
+// mudarContagemTemas e o listener de checkbox-formato), e cada variante
+// continua a gerar a sua própria linha no Excel exportado. A Biblioteca
+// de Formatos continua a mostrar cada variante técnica separadamente,
+// com as suas specs próprias — só o construtor (opcoes.simplificado) é
+// que agrupa. Hoje cobre dois casos: "Spot TV" (SD/HD, ver README) e
+// "Publicidade Cinema" (2D/3D, NOS Publicidade).
 // Construído uma vez, quando a base carrega; representante = o id mais
 // baixo do grupo (mantém a ordem de leitura previsível).
-let GRUPOS_FORMATO_TV = new Map(); // id -> { representante, ids: [...] }
+let GRUPOS_FORMATO_VARIANTES = new Map(); // id -> { representante, ids: [...] }
 
-function construirGruposFormatoTV(formatos) {
-  const porVariante = new Map(); // "fornecedor|veiculo" -> ids de "Spot TV (...)"
+// Um formato é uma "variante técnica" agrupável quando o nome bate com um
+// destes padrões, dentro do meio certo — ver o comentário acima.
+const PADROES_VARIANTE_FORMATO = [
+  { grupoMeio: "TV", regex: /^Spot TV \(/, nomeGenerico: "Spot TV" },
+  { grupoMeio: "Cinema", regex: /^Publicidade Cinema /, nomeGenerico: "Spot" },
+];
+
+function construirGruposFormatoVariantes(formatos) {
+  const porVariante = new Map(); // "grupoMeio|fornecedor|veiculo" -> { nomeGenerico, ids: [...] }
   formatos.forEach((formato) => {
-    if (grupoMeioDoFormato(formato) !== "TV" || !/^Spot TV \(/.test(formato.formato || "")) {
+    const grupoMeio = grupoMeioDoFormato(formato);
+    const padrao = PADROES_VARIANTE_FORMATO.find((p) => p.grupoMeio === grupoMeio && p.regex.test(formato.formato || ""));
+    if (!padrao) {
       return;
     }
-    const chave = `${formato.fornecedor}|${formato.veiculo}`;
+    const chave = `${grupoMeio}|${formato.fornecedor}|${formato.veiculo}`;
     if (!porVariante.has(chave)) {
-      porVariante.set(chave, []);
+      porVariante.set(chave, { nomeGenerico: padrao.nomeGenerico, ids: [] });
     }
-    porVariante.get(chave).push(formato.id);
+    porVariante.get(chave).ids.push(formato.id);
   });
   const grupos = new Map();
-  porVariante.forEach((ids) => {
+  porVariante.forEach(({ nomeGenerico, ids }) => {
     if (ids.length < 2) {
       return;
     }
     const representante = Math.min(...ids);
-    ids.forEach((id) => grupos.set(id, { representante, ids: [...ids] }));
+    ids.forEach((id) => grupos.set(id, { representante, ids: [...ids], nomeGenerico }));
   });
   return grupos;
 }
 
 // Todos os ids "irmãos" deste formato (incluindo ele próprio) — só mais
-// que um quando faz parte de um grupo Spot TV SD/HD (ver
-// GRUPOS_FORMATO_TV); nos restantes casos é sempre só [formato.id].
+// que um quando faz parte de um grupo de variantes técnicas (ver
+// GRUPOS_FORMATO_VARIANTES); nos restantes casos é sempre só [formato.id].
 function idsDoGrupoFormato(id) {
-  const grupo = GRUPOS_FORMATO_TV.get(id);
+  const grupo = GRUPOS_FORMATO_VARIANTES.get(id);
   return grupo ? grupo.ids : [id];
 }
 
@@ -155,7 +166,7 @@ function estadoDuracaoOuOmissao(formato, objetivo) {
 function garantirEstadoDuracao(formato, objetivo) {
   const mapa = duracoesPorObjetivo[objetivo];
   const estado = mapa.get(formato.id) || { padrao: new Set([DURACAO_OMISSAO]), outroAtivo: false, outroValor: "" };
-  // Todos os ids do grupo (ver GRUPOS_FORMATO_TV) passam a apontar para o
+  // Todos os ids do grupo (ver GRUPOS_FORMATO_VARIANTES) passam a apontar para o
   // MESMO objeto — mutar um propaga automaticamente aos outros. Reaplicado
   // sempre (não só na primeira vez) para também corrigir o caso de o
   // estado ter sido restaurado do localStorage com um objeto por id (ver
@@ -629,7 +640,7 @@ async function carregarFormatos() {
     // porque a lista não muda depois de carregada). É este id que as
     // checkboxes vão usar para dizer qual formato foi selecionado.
     todosFormatos = formatos.map((formato, indice) => ({ ...formato, id: indice }));
-    GRUPOS_FORMATO_TV = construirGruposFormatoTV(todosFormatos);
+    GRUPOS_FORMATO_VARIANTES = construirGruposFormatoVariantes(todosFormatos);
 
     // Traduções das specs (EN/ES/FR): se o ficheiro não existir ou vier
     // inválido, a app continua a funcionar normalmente — só mostra o texto
@@ -748,24 +759,25 @@ function categoriaDoPublisher(nomePublisher, formatosDoPublisher) {
   return "Compra Direta";
 }
 
-// No construtor (opcoes.simplificado), substitui cada grupo Spot TV
-// SD/HD (ver GRUPOS_FORMATO_TV) pela sua linha representante, com o
-// nome genérico "Spot TV" em vez da variante técnica — marcar essa
-// linha seleciona as duas (ver o listener de checkbox-formato). Não se
-// aplica à Biblioteca de Formatos, que continua a mostrar cada
-// variante separadamente.
-function agruparSpotTVSeConstrutor(formatosOrdenados, opcoes) {
+// No construtor (opcoes.simplificado), substitui cada grupo de variantes
+// técnicas (ver GRUPOS_FORMATO_VARIANTES — hoje Spot TV SD/HD e
+// Publicidade Cinema 2D/3D) pela sua linha representante, com o nome
+// genérico do grupo (ex.: "Spot TV", "Spot") em vez da variante técnica
+// — marcar essa linha seleciona todas as variantes do grupo (ver o
+// listener de checkbox-formato). Não se aplica à Biblioteca de Formatos,
+// que continua a mostrar cada variante separadamente.
+function agruparVariantesSeConstrutor(formatosOrdenados, opcoes) {
   if (!opcoes.simplificado) {
     return formatosOrdenados;
   }
   return formatosOrdenados
     .filter((formato) => {
-      const grupo = GRUPOS_FORMATO_TV.get(formato.id);
+      const grupo = GRUPOS_FORMATO_VARIANTES.get(formato.id);
       return !grupo || grupo.representante === formato.id;
     })
     .map((formato) => {
-      const grupo = GRUPOS_FORMATO_TV.get(formato.id);
-      return grupo ? { ...formato, formato: "Spot TV" } : formato;
+      const grupo = GRUPOS_FORMATO_VARIANTES.get(formato.id);
+      return grupo ? { ...formato, formato: grupo.nomeGenerico } : formato;
     });
 }
 
@@ -809,7 +821,7 @@ function mostrarFormatosAgrupados(contentor, formatos, opcoes) {
     // pelo Veículo (relevante nos publishers com vários, ex.: "Correio da
     // Manhã" ou "TVI"/"CNN Portugal"; nos restantes, onde Veículo = Fornecedor
     // em todas as linhas, este critério não muda nada), depois pelo Formato.
-    const formatosDoPublisher = agruparSpotTVSeConstrutor(
+    const formatosDoPublisher = agruparVariantesSeConstrutor(
       [...grupos[nomePublisher]].sort((a, b) => {
         const veiculoA = a.veiculo || "";
         const veiculoB = b.veiculo || "";
@@ -2438,11 +2450,12 @@ function restaurarEstadoLocal() {
       }
     });
 
-    // Um pedido guardado antes de o Spot TV SD/HD passar a ser uma única
-    // linha no construtor pode ter só uma das duas variantes selecionada
-    // — alinha com o novo comportamento (ver GRUPOS_FORMATO_TV): se
-    // alguma delas estava selecionada, as duas passam a estar.
-    GRUPOS_FORMATO_TV.forEach((grupo) => {
+    // Um pedido guardado antes de um grupo de variantes técnicas (Spot TV
+    // SD/HD, Publicidade Cinema 2D/3D) passar a ser uma única linha no
+    // construtor pode ter só uma das variantes selecionada — alinha com
+    // o comportamento atual (ver GRUPOS_FORMATO_VARIANTES): se alguma
+    // delas estava selecionada, todas passam a estar.
+    GRUPOS_FORMATO_VARIANTES.forEach((grupo) => {
       if (grupo.ids.some((id) => selecoesPorObjetivo[objetivo].has(id))) {
         grupo.ids.forEach((id) => selecoesPorObjetivo[objetivo].add(id));
       }

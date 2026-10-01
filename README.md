@@ -446,19 +446,25 @@ em `app.js`):
   `anoCurto` em `exportarSelecaoParaExcel`).
 - Sem gridlines, só a tabela em si tem linhas (`showGridLines: false`).
 
-## Trabalho pendente / por terminar
+## Agrupamento de variantes técnicas no construtor
 
-- **Agrupar "Publicidade Cinema 2D"/"Publicidade Cinema 3D" sob "Spot"
-  no construtor**: pedido pela Cláudia ("Em cinema quando escolhemos
-  Spot, quero que saia logo a Publicidade 2D e 3D, logo as duas
-  linhas"), inspirado no mecanismo já existente para o Spot TV SD/HD
-  (`GRUPOS_FORMATO_TV`/`agruparSpotTVSeConstrutor` em `app.js` — ver
-  secção "Duração do Spot" acima para o paralelo). A implementação foi
-  iniciada (generalizar esse mecanismo para cobrir também o Cinema,
-  provavelmente renomeando para algo como `GRUPOS_FORMATO_VARIANTES`) mas
-  **ficou incompleta** — foi interrompida por um pedido mais urgente
-  (a correção das Observações inventadas do Spot Rádio) e nunca foi
-  retomada. Antes de dar como feita noutro sítio, confirmar que o
-  construtor continua a mostrar "Publicidade Cinema 2D" e "Publicidade
-  Cinema 3D" como duas linhas separadas (comportamento atual) em vez de
-  uma única linha "Spot".
+Alguns formatos têm mais que uma "variante técnica" na base que é, na
+prática, a mesma decisão de pedido — só muda a codificação/dimensão
+entregue. No construtor (não na Biblioteca de Formatos, que continua a
+mostrar cada variante separadamente), aparecem como uma única linha com
+um nome genérico: marcar/desmarcar essa linha, ou mudar a Duração ou o
+número de Temas, aplica-se a todas as variantes ao mesmo tempo, e cada
+variante continua a gerar a sua própria linha no Excel exportado (ver
+`GRUPOS_FORMATO_VARIANTES`/`agruparVariantesSeConstrutor`/
+`PADROES_VARIANTE_FORMATO` em `app.js`). Hoje cobre dois casos:
+
+- **Spot TV** (SD/HD) — o original, ver secção "Duração do Spot" acima.
+- **Spot** (Cinema) — "Publicidade Cinema 2D"/"Publicidade Cinema 3D"
+  (NOS Publicidade), pedido pela Cláudia ("quando escolhemos Spot, quero
+  que saia logo a Publicidade 2D e 3D, logo as duas linhas").
+
+Para agrupar um novo par/conjunto de variantes no futuro, basta
+acrescentar uma entrada a `PADROES_VARIANTE_FORMATO` (grupo de meio,
+regex do nome, e o nome genérico a mostrar) — o resto do mecanismo
+(seleção conjunta, persistência, geração de linhas no Excel) já é
+genérico e não precisa de alterações.
