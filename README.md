@@ -91,7 +91,7 @@ templates/                  Reservado para uso futuro (atualmente vazio)
 
 ## Base de dados de formatos
 
-Os 527 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
+Os 579 formatos em `data/base-formatos.xlsx` (folha "Base Formatos") foram
 mapeados a partir da base real de specs da agência (269 formatos de
 publisher → 40 categorias "Digital2020" canónicas, mais os formatos
 Programmatic/DV360 adicionados depois, os 36 formatos de compra direta do
@@ -156,6 +156,22 @@ formatos de vídeo do YouTube — formatos específicos de um publisher direto
 (ex.: Billboard, Half-Page) não entram aqui, porque quem precisar deles
 consulta diretamente as specs desse publisher.
 
+A exceção é o **"Prog - Displ.AI+"** (`Fornecedor = Veículo = "DV360"`,
+`Grupo Digital2020 = "Rich Media"`): um produto interativo HTML5 300x600
+próprio da Havas, com 26 "mecânicas" diferentes à escolha (Chat, Scratch,
+Puzzle Logo, Slot, Carrossel de Produtos, etc.), vindo de um ficheiro de
+specs fornecido pela Cláudia. Em vez de um único formato, entrou como 26
+linhas — uma por mecânica, nomeadas "Prog - Displ.AI+ - \<mecânica>" — já
+que cada uma pede imagens/copies diferentes. **Dimensão** (300x600),
+**Aspect Ratio** (1:2), **Peso** e **Tipo de Ficheiro** são comuns às 26
+(é o mesmo envelope técnico HTML5/CM360/DV360); **Copies** e
+**Observações** são específicos de cada mecânica, retirados diretamente
+do ficheiro original (imagens necessárias, o que é substituível por
+asset real, specs do asset, notas) — nunca parafraseados a ponto de
+perder informação. Quando a imagem é obrigatória para a mecânica (ex.:
+Puzzle Logo, Diferenças), a observação não inclui a frase genérica sobre
+assets opcionais, para não ficar contraditória.
+
 **Para atualizar a base** (ex.: uma empresa contratada entrega specs novas
 periodicamente): basta substituir `data/base-formatos.xlsx` por um ficheiro
 novo com a mesma folha e as mesmas colunas (a ordem das colunas pode mudar —
@@ -204,15 +220,22 @@ documento fornecido não tem specs para eles, e as páginas oficiais da SIC
 (`mediacapitalcomercial.pt/formats/tv`) partilhadas pela Cláudia não
 puderam ser consultadas a partir deste ambiente (bloqueadas pela
 política de rede) — a atualizar assim que houver specs reais, nunca por
-palpite. Rádio continua só com "Spot normal" em MP4/AAC — como não foi
-fornecida nenhuma tabela de specs de uma rádio ou plataforma de
-distribuição concreta, este formato usa valores genéricos de entrega (o
-mesmo padrão de loudness broadcast já usado para TV), sinalizados no
-campo Observações como "a confirmar sempre junto da rádio ou da central
-de meios antes de entregar" (ver secção "Exportação para Excel" abaixo).
-O meio offline restante (Cinema) já tem a estrutura de exportação pronta
-(a sua própria folha), mas entra na base só quando houver dados reais
-para o mapear — nunca é inventado.
+palpite. Rádio tem hoje 3 formatos (`Meio = "Rádio"`,
+`Fornecedor = Veículo = "Rádio"`): "Spot Rádio" (MP3; sem nenhuma
+plataforma de distribuição ou rádio concreta indicada, por isso a coluna
+**Observações** fica em branco — chegou a ter um texto genérico de specs
+de áudio, que não vinha de nenhuma fonte real, e foi removido a pedido
+explícito da Cláudia — ver "Princípio: nunca inventar specs" abaixo, é o
+exemplo real do que esse princípio significa na prática); "Live Copies"
+(a agência não entrega ficheiro de áudio — entrega um briefing para a
+rádio escrever o guião e produzir a conversa entre os animadores, por
+isso não tem Tipo de Ficheiro nem Peso); e "Referência" (frase curta de
+~5 segundos, estilo slogan, lida pelos animadores em antena — também sem
+ficheiro de áudio entregue pela agência, logo sem Tipo de Ficheiro nem
+Peso). O meio **Cinema** tem hoje 2 formatos reais, ambos de "NOS
+Publicidade": "Publicidade Cinema 2D" e "Publicidade Cinema 3D", com as
+specs técnicas oficiais (resolução/aspect ratio de imagem, formato de
+ficheiro de imagem/vídeo, áudio Dolby Digital Cinema via VS2.0).
 
 Alguns publishers de Imprensa têm mais que um **Veículo** distinto — ex.:
 "Correio da Manhã" cobre o jornal diário, o suplemento "Mais Sport" e as
@@ -343,3 +366,99 @@ têm este seletor nem a coluna Secundagem — a sua duração, quando é fixa
 (ex.: Ecrã Fracionado são sempre 10″) ou não é bem o mesmo conceito de
 "secundagem" de um spot (ex.: o guião de uma Telepromoção), já vem descrita
 nas Observações desse formato.
+
+No Excel exportado, quando mais que uma duração foi escolhida para o
+mesmo formato, as linhas saem por ordem **descendente** (30″ antes de
+15″) — pedido explícito da Cláudia. Isto é só no Excel: o resumo no ecrã
+mantém a ordem normal (15″/20″/30″ + "Outro").
+
+### Coluna "Tema"
+
+A coluna **Tema** (chamada "Tema" no Digital, a partir do Grupo
+Digital2020; e "Tema" também em OOH/TV/Rádio, antes preenchida com
+"Tema 1"/"Tema 2" por cada linha gerada) sai **sempre em branco** no
+Excel exportado, em todos os meios — por pedido explícito da Cláudia,
+para a pessoa que recebe o ficheiro escrever ali o tema/criatividade
+real à mão. A lógica de gerar uma linha por cada tema escolhido no
+construtor mantém-se (ver `gruposLinha` em `escreverSeccaoObjetivo`); só
+o texto automático que lá ia (`formatar("temaNumero", ...)` ou o Grupo
+Digital2020) deixou de sair — ver `COLUNAS_EXCEL_DISPONIVEIS.tema` e
+`.temaCriativo` em `app.js`, ambos com `valor: () => ""`.
+
+## Princípio: nunca inventar specs
+
+Esta é a regra mais importante de todo o projeto, repetida várias vezes
+ao longo do desenvolvimento: **nunca inventar ou adivinhar uma spec**.
+Só entra na base informação real, fornecida pela Cláudia ou já validada
+— quando não há informação, o campo fica em branco, nunca com um
+palpite "razoável".
+
+O exemplo concreto que mostra a sério o que isto significa: o formato
+"Spot Rádio" chegou a ter, na coluna Observações, um texto genérico
+sobre specs de áudio (codec AAC, loudness -23 LUFS, peak level, etc.),
+escrito por analogia com as specs reais de TV — **sem nenhuma fonte real
+para Rádio**. A Cláudia corrigiu explicitamente: *"Não coloques
+observações no spot de rádio. Lembra-te que em qualquer meio e qualquer
+formato não é para inventares o que não sabes, e o que não sabes não
+precisas de dizer, deixa apenas em blank."* O texto foi removido por
+completo (ver commit "Remove Observações inventadas do Spot Rádio") — a
+coluna Observações desse formato está em branco até existir uma fonte
+real.
+
+A mesma regra aplica-se a texto em qualquer coluna, não só Observações:
+Dimensão, Peso, Tipo de Ficheiro, Aspect Ratio — tudo o que não está
+confirmado fica vazio.
+
+Regra relacionada, também explícita: qualquer informação que não caiba
+em Tipo de Ficheiro/Peso/Aspect Ratio vai para **Observações**, e tem de
+estar escrita de forma clara para quem a vai ler — clientes **e**
+agências criativas, não apenas notas internas abreviadas.
+
+## Convenções de formatação do Excel exportado
+
+Estabelecidas ao longo do projeto, a partir de prints/exemplos reais
+enviados pela Cláudia (ver `escreverFolhaMeio` e `escreverSeccaoObjetivo`
+em `app.js`):
+
+- **Alinhamento**: por omissão, todo o texto fica alinhado à **esquerda**
+  — mais legível em colunas de texto corrido (Observações, Dimensão,
+  Tipo de Ficheiro, ...). Só ficam centradas a coluna **"#"** e as
+  colunas de **data** (Data de Início da Campanha / Data de entrega) —
+  ver o `Set` `COLUNAS_CENTRADAS` dentro de `escreverSeccaoObjetivo`.
+  (O projeto já passou por uma versão em que *tudo* ficava centrado —
+  foi revertida a pedido explícito depois de testar; não repetir esse
+  passo.)
+- **Freeze panes**: as colunas A-D (a coluna "#" mais as 3 primeiras
+  colunas do template daquele meio — normalmente Plataforma/Publisher e
+  Formato) ficam congeladas por omissão em todas as folhas, para
+  continuarem visíveis ao fazer scroll horizontal pelas colunas de specs
+  mais à direita (`folha.views = [{ state: "frozen", xSplit: 4, ... }]`).
+- **Logótipo**: ancorado em B3 (`col: 1, row: 2` no ExcelJS, 0-indexado)
+  — não em B2/B1, que ficava demasiado colado ao topo da folha.
+- **Cabeçalho "Plataforma / Publisher"**: tem espaços à volta da barra
+  (não "Plataforma/Publisher" colado) — sem espaço, o Excel não tem onde
+  quebrar a linha e parte a própria palavra ao meio (ex.: "Publishe" /
+  "r" em duas linhas). A mesma lógica aplica-se a qualquer outro
+  cabeçalho composto que se venha a adicionar.
+- **Nome do ficheiro exportado**: sempre no formato
+  `{2 últimos dígitos do ano corrente}_{Companhia}_Pedido_Specs_{Cliente}_{Campanha}.xlsx`
+  — ex.: `26_Arena Media_Pedido_Specs_Médis_Brand 2ª vaga.xlsx` (ver
+  `anoCurto` em `exportarSelecaoParaExcel`).
+- Sem gridlines, só a tabela em si tem linhas (`showGridLines: false`).
+
+## Trabalho pendente / por terminar
+
+- **Agrupar "Publicidade Cinema 2D"/"Publicidade Cinema 3D" sob "Spot"
+  no construtor**: pedido pela Cláudia ("Em cinema quando escolhemos
+  Spot, quero que saia logo a Publicidade 2D e 3D, logo as duas
+  linhas"), inspirado no mecanismo já existente para o Spot TV SD/HD
+  (`GRUPOS_FORMATO_TV`/`agruparSpotTVSeConstrutor` em `app.js` — ver
+  secção "Duração do Spot" acima para o paralelo). A implementação foi
+  iniciada (generalizar esse mecanismo para cobrir também o Cinema,
+  provavelmente renomeando para algo como `GRUPOS_FORMATO_VARIANTES`) mas
+  **ficou incompleta** — foi interrompida por um pedido mais urgente
+  (a correção das Observações inventadas do Spot Rádio) e nunca foi
+  retomada. Antes de dar como feita noutro sítio, confirmar que o
+  construtor continua a mostrar "Publicidade Cinema 2D" e "Publicidade
+  Cinema 3D" como duas linhas separadas (comportamento atual) em vez de
+  uma única linha "Spot".
