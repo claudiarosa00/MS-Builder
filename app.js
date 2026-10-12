@@ -598,7 +598,10 @@ async function carregarFormatos() {
   mostrarEstado(t("estadoCarregando"));
 
   try {
-    const resposta = await fetch(FICHEIRO_BASE_FORMATOS);
+    // cache: "no-store" — sem isto, o browser podia continuar a servir uma
+    // cópia antiga deste ficheiro mesmo depois de a base ser atualizada no
+    // GitHub, obrigando a um refresh forçado para ver as alterações.
+    const resposta = await fetch(FICHEIRO_BASE_FORMATOS, { cache: "no-store" });
     if (!resposta.ok) {
       throw new Error(`Não foi possível ler ${FICHEIRO_BASE_FORMATOS} (status ${resposta.status})`);
     }
@@ -646,7 +649,7 @@ async function carregarFormatos() {
     // inválido, a app continua a funcionar normalmente — só mostra o texto
     // original em português nas outras línguas (ver textoTraduzido).
     try {
-      const respostaTraducoes = await fetch(FICHEIRO_TRADUCOES_SPECS);
+      const respostaTraducoes = await fetch(FICHEIRO_TRADUCOES_SPECS, { cache: "no-store" });
       TRADUCOES_SPECS = respostaTraducoes.ok ? await respostaTraducoes.json() : {};
     } catch (erroTraducoes) {
       TRADUCOES_SPECS = {};
