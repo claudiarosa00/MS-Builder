@@ -262,18 +262,68 @@ function contagemTemasDoFormato(formato, objetivo) {
   return temasPorObjetivo[objetivo].get(formato.id) || 1;
 }
 
-// TV é um caso à parte dos restantes meios com tema (Rádio/OOH): as specs
-// técnicas são sempre as mesmas, seja qual for o canal (RTP/SIC/TVI/STAR/
-// NOS/Media Livre) — o que varia é só para onde o spot tem de ser enviado,
-// e o número de temas pode ser diferente por canal E por secundagem (ex.:
-// RTP 30″ = 2 temas, SIC 30″ = 1 tema, RTP 15″ = 1 tema). Por isso TV tem
-// o seu próprio par de mapas (canal escolhido + grelha de temas por
+// Nº de Faces e Nº de cartazes a entregar — só existem no OOH (algumas
+// estruturas, ex. totens/mupis multi-face, têm mais que uma face a
+// publicitar, e cada face pode levar mais que um cartaz físico a
+// entregar). Não vêm da base (são uma característica da compra em
+// concreto, não do formato em si) — ficam em branco por omissão, tal como
+// a Data de Início/Entrega, para o utilizador preencher o que fizer
+// sentido para esta campanha.
+const numFacesOohPorObjetivo = {
+  awareness: new Map(),
+  consideration: new Map(),
+  conversion: new Map(),
+};
+const numCartazesOohPorObjetivo = {
+  awareness: new Map(),
+  consideration: new Map(),
+  conversion: new Map(),
+};
+function valorNumFacesOoh(formato, objetivo) {
+  return numFacesOohPorObjetivo[objetivo].get(formato.id) || "";
+}
+function valorNumCartazesOoh(formato, objetivo) {
+  return numCartazesOohPorObjetivo[objetivo].get(formato.id) || "";
+}
+
+// TV e Rádio são um caso à parte do restante meio com tema (OOH): as specs
+// técnicas são sempre as mesmas, seja qual for o canal/estação — o que
+// varia é só para onde o spot tem de ser enviado, e o número de temas pode
+// ser diferente por canal/estação E por secundagem (ex.: RTP 30″ = 2
+// temas, SIC 30″ = 1 tema, RTP 15″ = 1 tema). Por isso TV/Rádio têm o seu
+// próprio par de mapas (canal escolhido + grelha de temas por
 // canal×secundagem), em vez de reaproveitar temasPorObjetivo — misturar os
 // dois exigiria o mesmo formato "saber" se está a usar uma contagem simples
-// ou uma grelha, o que tornava tudo mais frágil.
+// ou uma grelha, o que tornava tudo mais frágil. OOH continua a usar a
+// contagem simples (ver MEIOS_COM_TEMA/contagemTemasDoFormato).
 const CANAIS_TV = ["RTP", "SIC", "TVI", "STAR", "NOS", "Media Livre"];
-function formatoEhTV(formato) {
-  return grupoMeioDoFormato(formato) === "TV";
+// Lista de estações de rádio — a Cláudia ainda não indicou a lista
+// definitiva, por isso usa-se por omissão as principais estações compradas
+// em Portugal; ajustar esta lista chega para mudar as opções em toda a app.
+const ESTACOES_RADIO = ["Rádio Comercial", "RFM", "Cidade FM", "M80", "Smooth FM", "Rádio Renascença", "Mega Hits", "TSF", "Antena 1", "Antena 3"];
+const CANAIS_POR_MEIO = { "TV": CANAIS_TV, "Rádio": ESTACOES_RADIO };
+const MEIOS_COM_CANAL = new Set(Object.keys(CANAIS_POR_MEIO));
+function formatoTemCanal(formato) {
+  return MEIOS_COM_CANAL.has(grupoMeioDoFormato(formato));
+}
+// As opções de canal/estação disponíveis para este formato, consoante o
+// meio — RTP/SIC/.../Media Livre em TV, as estações de rádio em Rádio.
+function canaisDisponiveisDoFormato(formato) {
+  return CANAIS_POR_MEIO[grupoMeioDoFormato(formato)] || [];
+}
+// "Canais" (TV) vs. "Estações" (Rádio) — o mesmo conceito, rótulos
+// diferentes consoante o meio (ver criarCelulaCanaisTv/criarCabecalhoTabela).
+function chaveRotuloCanal(grupoMeio) {
+  return grupoMeio === "Rádio" ? "labelEstacoesRadio" : "labelCanaisTV";
+}
+function chaveSemCanalEscolhido(grupoMeio) {
+  return grupoMeio === "Rádio" ? "semEstacoesEscolhidas" : "semCanaisEscolhidos";
+}
+function chaveAvisoEscolherCanal(grupoMeio) {
+  return grupoMeio === "Rádio" ? "avisoEscolherEstacaoRadio" : "avisoEscolherCanalTV";
+}
+function chaveAvisoSaltadosSelecionarTodos(grupoMeio) {
+  return grupoMeio === "Rádio" ? "avisoRadioSaltadosSelecionarTodos" : "avisoTvSaltadosSelecionarTodos";
 }
 
 // Canais escolhidos para este formato de TV, por objetivo — Set vazio
@@ -472,6 +522,15 @@ const TRADUCOES = {
   temaGridAumentar: { pt: "Aumentar número de temas de {formato}", en: "Increase number of themes for {formato}", es: "Aumentar número de temas de {formato}", fr: "Augmenter le nombre de thèmes de {formato}" },
   rodapeSpecsTituloTV: { pt: "Especificações técnicas (iguais em todos os canais)", en: "Technical specifications (same for every channel)", es: "Especificaciones técnicas (iguales en todos los canales)", fr: "Spécifications techniques (identiques sur toutes les chaînes)" },
   avisoTvSaltadosSelecionarTodos: { pt: "{n} spot(s) de TV ficaram por selecionar — falta escolher pelo menos um canal.", en: "{n} TV spot(s) were left unselected — at least one channel is still missing.", es: "{n} spot(s) de TV quedaron sin seleccionar — falta elegir al menos un canal.", fr: "{n} spot(s) TV n'ont pas été sélectionnés — il manque au moins une chaîne." },
+  labelEstacoesRadio: { pt: "Estações", en: "Stations", es: "Estaciones", fr: "Stations" },
+  semEstacoesEscolhidas: { pt: "— escolhe pelo menos uma estação —", en: "— choose at least one station —", es: "— elige al menos una estación —", fr: "— choisis au moins une station —" },
+  avisoEscolherEstacaoRadio: { pt: "Escolhe primeiro pelo menos uma estação para este spot de rádio.", en: "Choose at least one station for this radio spot first.", es: "Elige primero al menos una estación para este spot de radio.", fr: "Choisis d'abord au moins une station pour ce spot radio." },
+  rodapeSpecsTituloRadio: { pt: "Especificações técnicas (iguais em todas as estações)", en: "Technical specifications (same for every station)", es: "Especificaciones técnicas (iguales en todas las estaciones)", fr: "Spécifications techniques (identiques sur toutes les stations)" },
+  avisoRadioSaltadosSelecionarTodos: { pt: "{n} spot(s) de rádio ficaram por selecionar — falta escolher pelo menos uma estação.", en: "{n} radio spot(s) were left unselected — at least one station is still missing.", es: "{n} spot(s) de radio quedaron sin seleccionar — falta elegir al menos una estación.", fr: "{n} spot(s) radio n'ont pas été sélectionnés — il manque au moins une station." },
+  colCaderno: { pt: "Caderno", en: "Section", es: "Suplemento", fr: "Cahier" },
+  colNumFaces: { pt: "Nº de Faces", en: "No. of Faces", es: "Nº de Caras", fr: "Nb de Faces" },
+  colNumCartazes: { pt: "Nº de cartazes a entregar", en: "No. of posters to deliver", es: "Nº de carteles a entregar", fr: "Nb d'affiches à livrer" },
+  notaEntregaMateriais: { pt: "Nota: os materiais que não sejam entregues através do Portal GoFastWay (TV) ou, no caso dos mupis em papel, na morada do concessionário, têm de ser enviados por email para os endereços específicos de quem acompanha este cliente na agência.", en: "Note: materials not delivered through the GoFastWay Portal (TV) or, for paper mupis, to the concessionaire's address, must instead be emailed to the specific addresses of the agency staff who handle this client.", es: "Nota: los materiales que no se entreguen a través del Portal GoFastWay (TV) o, en el caso de los mupis de papel, en la dirección del concesionario, deben enviarse por email a las direcciones específicas de quienes gestionan este cliente en la agencia.", fr: "Note : les matériaux non livrés via le Portail GoFastWay (TV) ou, pour les mupis papier, à l'adresse du concessionnaire, doivent être envoyés par email aux adresses spécifiques de l'équipe qui gère ce client à l'agence." },
 };
 
 function t(chave) {
@@ -1003,18 +1062,25 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes) {
   // A Entrega de TV (sempre "GoFastWay") é fixa e não depende de nenhuma
   // escolha do utilizador — por isso aparece também na Biblioteca de
   // Formatos (não só no construtor, ao contrário da Entrega dos Mupis).
+  const grupoMeioDoBloco = grupoMeioDoFormato(formatosDoPublisher[0]);
   const opcoesComMeio = {
     ...opcoes,
-    comGrupoDigital2020: grupoMeioDoFormato(formatosDoPublisher[0]) === "Digital",
-    comCopies: grupoMeioDoFormato(formatosDoPublisher[0]) === "Digital",
+    comGrupoDigital2020: grupoMeioDoBloco === "Digital",
+    comCopies: grupoMeioDoBloco === "Digital",
     comVeiculo: formatosDoPublisher.some((f) => f.veiculo && f.veiculo !== nomePublisher),
     comDuracao: opcoes.simplificado && formatosDoPublisher.some(formatoTemDuracao),
     comEntregaMupi: opcoes.simplificado && formatosDoPublisher.some(formatoEhMupiPapel),
-    comTemas: opcoes.simplificado && MEIOS_COM_TEMA.has(grupoMeioDoFormato(formatosDoPublisher[0])),
-    comEntregaTV: grupoMeioDoFormato(formatosDoPublisher[0]) === "TV",
-    // Canais só existe no construtor (tal como Duração/Entrega) — na
-    // Biblioteca de Formatos não há pedido nenhum a que aplicar canais.
-    comCanaisTv: opcoes.simplificado && grupoMeioDoFormato(formatosDoPublisher[0]) === "TV",
+    comTemas: opcoes.simplificado && MEIOS_COM_TEMA.has(grupoMeioDoBloco),
+    comEntregaTV: grupoMeioDoBloco === "TV",
+    // Canais (TV) / Estações (Rádio) só existem no construtor (tal como
+    // Duração/Entrega) — na Biblioteca de Formatos não há pedido nenhum a
+    // que aplicar canais/estações.
+    comCanaisTv: opcoes.simplificado && MEIOS_COM_CANAL.has(grupoMeioDoBloco),
+    rotuloCanais: t(chaveRotuloCanal(grupoMeioDoBloco)),
+    // Nº de Faces / Nº de cartazes a entregar só existem no OOH, e só no
+    // construtor (são uma característica da compra em concreto, não da
+    // base de formatos).
+    comNumOOH: opcoes.simplificado && grupoMeioDoBloco === "OOH",
   };
 
   const tabela = document.createElement("table");
@@ -1049,7 +1115,9 @@ function criarCabecalhoTabela(opcoes) {
   const colunaTemas = opcoes.comTemas ? `<th scope="col">${t("colTemasBuilder")}</th>` : "";
   const colunaCopies = opcoes.comCopies ? `<th scope="col">${t("colCopies")}</th>` : "";
   const colunaEntregaTV = opcoes.comEntregaTV ? `<th scope="col">${t("colEntrega")}</th>` : "";
-  const colunaCanaisTv = opcoes.comCanaisTv ? `<th scope="col">${t("labelCanaisTV")}</th>` : "";
+  const colunaCanaisTv = opcoes.comCanaisTv ? `<th scope="col">${opcoes.rotuloCanais || t("labelCanaisTV")}</th>` : "";
+  const colunaNumFacesOoh = opcoes.comNumOOH ? `<th scope="col">${t("colNumFaces")}</th>` : "";
+  const colunaNumCartazesOoh = opcoes.comNumOOH ? `<th scope="col">${t("colNumCartazes")}</th>` : "";
 
   // Na tab "Construir Pedido" (simplificado) só mostramos o essencial para
   // escolher — nome do formato e o grupo Digital2020. As specs completas
@@ -1065,6 +1133,8 @@ function criarCabecalhoTabela(opcoes) {
         ${colunaDuracao}
         ${colunaEntregaMupi}
         ${colunaCanaisTv}
+        ${colunaNumFacesOoh}
+        ${colunaNumCartazesOoh}
         ${colunaTemas}
       </tr>
     `;
@@ -1169,13 +1239,15 @@ function criarCelulaTemas(formato, nomeFormatoTexto) {
   `;
 }
 
-// Checkboxes com os canais de TV (RTP/SIC/TVI/STAR/NOS/Media Livre) — mais
-// que um pode estar marcado (o mesmo spot costuma ir para vários canais).
-// Marcar/desmarcar aqui também recalcula a grelha de temas (ver
-// atualizarGridTemasTv), porque cada canal ganha a sua própria linha nela.
+// Checkboxes com os canais de TV (RTP/SIC/TVI/STAR/NOS/Media Livre) ou as
+// estações de Rádio, consoante o meio deste formato (ver
+// canaisDisponiveisDoFormato) — mais que um pode estar marcado (o mesmo
+// spot costuma ir para vários canais/estações). Marcar/desmarcar aqui
+// também recalcula a grelha de temas (ver atualizarGridTemasTv), porque
+// cada canal/estação ganha a sua própria linha nela.
 function criarCelulaCanaisTv(formato) {
   const canais = canaisDoFormato(formato, objetivoAtivo);
-  const opcoes = CANAIS_TV
+  const opcoes = canaisDisponiveisDoFormato(formato)
     .map((canal) => `
       <label class="opcao-canal-tv">
         <input type="checkbox" class="checkbox-canal-tv" data-id="${formato.id}" value="${canal}" ${canais.has(canal) ? "checked" : ""}>
@@ -1184,6 +1256,15 @@ function criarCelulaCanaisTv(formato) {
     `)
     .join("");
   return `<div class="grupo-canais-tv" data-id="${formato.id}">${opcoes}</div>`;
+}
+
+// Inputs numéricos livres (Nº de Faces / Nº de cartazes a entregar) — só
+// para OOH, ver numFacesOohPorObjetivo/numCartazesOohPorObjetivo. Ficam em
+// branco por omissão, sem nenhuma validação de obrigatoriedade (ao
+// contrário de Entrega do Mupi/Canal de TV, estes dois não bloqueiam a
+// seleção do formato).
+function criarCelulaNumOOH(formato, valorAtual, classeInput) {
+  return `<input type="number" min="0" inputmode="numeric" class="${classeInput}" data-id="${formato.id}" value="${valorAtual}">`;
 }
 
 // Grelha de temas de TV: uma linha por canal escolhido, com um contador +/-
@@ -1196,7 +1277,7 @@ function criarCelulaCanaisTv(formato) {
 function criarGridTemasTv(formato, nomeFormatoTexto) {
   const canais = [...canaisDoFormato(formato, objetivoAtivo)];
   if (canais.length === 0) {
-    return `<div class="grid-temas-tv grid-temas-tv--vazia" data-id="${formato.id}">${t("semCanaisEscolhidos")}</div>`;
+    return `<div class="grid-temas-tv grid-temas-tv--vazia" data-id="${formato.id}">${t(chaveSemCanalEscolhido(grupoMeioDoFormato(formato)))}</div>`;
   }
   const temDuracao = formatoTemDuracao(formato);
   const duracoes = temDuracao ? duracoesEfetivasDoFormato(formato, objetivoAtivo) : [""];
@@ -1247,7 +1328,7 @@ function criarLinhaFormato(formato, opcoes) {
   // entrega, um formato de TV só pode ser marcado depois de escolhido pelo
   // menos um canal — sem isso não há para onde dizer que o spot vai (ver o
   // guard equivalente no listener de "checkbox-formato").
-  const canalPendente = formatoEhTV(formato) && canaisDoFormato(formato, objetivoAtivo).size === 0;
+  const canalPendente = formatoTemCanal(formato) && canaisDoFormato(formato, objetivoAtivo).size === 0;
   const pendente = entregaPendente || canalPendente;
   const colunaCheckbox = opcoes.comCheckbox
     ? `<td class="coluna-checkbox"><input type="checkbox" class="checkbox-formato${pendente ? " checkbox-formato--pendente" : ""}" data-id="${formato.id}" aria-labelledby="${idNomeFormato}" ${selecoesPorObjetivo[objetivoAtivo].has(formato.id) ? "checked" : ""}></td>`
@@ -1274,9 +1355,15 @@ function criarLinhaFormato(formato, opcoes) {
   // linha, ao contrário de Duração/Entrega) — em TV usam a grelha por
   // canal×secundagem em vez do contador simples dos restantes meios.
   const colunaTemas = opcoes.comTemas
-    ? `<td>${formatoEhTV(formato) ? criarGridTemasTv(formato, nomeFormatoTexto) : criarCelulaTemas(formato, nomeFormatoTexto)}</td>`
+    ? `<td>${formatoTemCanal(formato) ? criarGridTemasTv(formato, nomeFormatoTexto) : criarCelulaTemas(formato, nomeFormatoTexto)}</td>`
     : "";
   const colunaCanaisTv = opcoes.comCanaisTv ? `<td>${criarCelulaCanaisTv(formato)}</td>` : "";
+  const colunaNumFacesOoh = opcoes.comNumOOH
+    ? `<td>${criarCelulaNumOOH(formato, valorNumFacesOoh(formato, objetivoAtivo), "input-num-faces-ooh")}</td>`
+    : "";
+  const colunaNumCartazesOoh = opcoes.comNumOOH
+    ? `<td>${criarCelulaNumOOH(formato, valorNumCartazesOoh(formato, objetivoAtivo), "input-num-cartazes-ooh")}</td>`
+    : "";
 
   if (opcoes.simplificado) {
     linha.innerHTML = `
@@ -1287,6 +1374,8 @@ function criarLinhaFormato(formato, opcoes) {
       ${colunaDuracao}
       ${colunaEntregaMupi}
       ${colunaCanaisTv}
+      ${colunaNumFacesOoh}
+      ${colunaNumCartazesOoh}
       ${colunaTemas}
     `;
     return linha;
@@ -1564,7 +1653,7 @@ listaFormatos.addEventListener("click", (evento) => {
     return;
   }
   const celula = evento.target.closest("td");
-  if (!celula || celula.classList.contains("coluna-checkbox") || celula.querySelector(".grupo-duracao") || celula.querySelector(".grupo-entrega-mupi") || celula.querySelector(".grupo-temas") || celula.querySelector(".grupo-canais-tv") || celula.querySelector(".grid-temas-tv")) {
+  if (!celula || celula.classList.contains("coluna-checkbox") || celula.querySelector(".grupo-duracao") || celula.querySelector(".grupo-entrega-mupi") || celula.querySelector(".grupo-temas") || celula.querySelector(".grupo-canais-tv") || celula.querySelector(".grid-temas-tv") || celula.querySelector(".input-num-faces-ooh") || celula.querySelector(".input-num-cartazes-ooh")) {
     return;
   }
   const linha = celula.closest("tr");
@@ -1646,12 +1735,12 @@ listaFormatos.addEventListener("change", (evento) => {
         mostrarNotificacao(t("avisoEscolherEntregaMupi"));
         return;
       }
-      // Tal como o Mupi de papel, um formato de TV sem nenhum canal
-      // escolhido não pode ficar marcado — não há para onde exportar o
-      // pedido de spot.
-      if (formato && formatoEhTV(formato) && canaisDoFormato(formato, objetivoAtivo).size === 0) {
+      // Tal como o Mupi de papel, um formato de TV/Rádio sem nenhum canal/
+      // estação escolhido não pode ficar marcado — não há para onde
+      // exportar o pedido de spot.
+      if (formato && formatoTemCanal(formato) && canaisDoFormato(formato, objetivoAtivo).size === 0) {
         alvo.checked = false;
-        mostrarNotificacao(t("avisoEscolherCanalTV"));
+        mostrarNotificacao(t(chaveAvisoEscolherCanal(grupoMeioDoFormato(formato))));
         return;
       }
       idsDoGrupoFormato(id).forEach((idGrupo) => selecoesPorObjetivo[objetivoAtivo].add(idGrupo));
@@ -1727,10 +1816,17 @@ function mudarEntregaMupi(radio) {
   atualizarResumoSelecao();
 }
 
-// A caixa "Outro" da duração usa o evento "input" (não "change") para
-// guardar enquanto se escreve, sem esperar que o campo perca o foco.
+// A caixa "Outro" da duração, e os campos de Nº de Faces/Nº de cartazes do
+// OOH, usam o evento "input" (não "change") para guardar enquanto se
+// escreve, sem esperar que o campo perca o foco.
 listaFormatos.addEventListener("input", (evento) => {
   const alvo = evento.target;
+
+  if (alvo.classList.contains("input-num-faces-ooh") || alvo.classList.contains("input-num-cartazes-ooh")) {
+    mudarNumOoh(alvo);
+    return;
+  }
+
   if (!alvo.classList.contains("input-duracao-outro")) {
     return;
   }
@@ -1738,11 +1834,28 @@ listaFormatos.addEventListener("input", (evento) => {
   const formato = todosFormatos.find((f) => f.id === id);
   const estado = garantirEstadoDuracao(formato, objetivoAtivo);
   estado.outroValor = alvo.value.trim();
-  if (formatoEhTV(formato)) {
+  if (formatoTemCanal(formato)) {
     atualizarGridTemasTv(formato);
   }
   atualizarResumoSelecao();
 });
+
+// Guarda o valor digitado em Nº de Faces/Nº de cartazes a entregar (OOH) —
+// campo livre, sem validação de obrigatoriedade; em branco remove a
+// entrada do mapa (sai como "" no Excel, igual a nunca ter sido preenchido).
+function mudarNumOoh(input) {
+  const id = Number(input.dataset.id);
+  const mapa = input.classList.contains("input-num-faces-ooh") ? numFacesOohPorObjetivo : numCartazesOohPorObjetivo;
+  const valor = input.value.trim();
+  idsDoGrupoFormato(id).forEach((idGrupo) => {
+    if (valor === "") {
+      mapa[objetivoAtivo].delete(idGrupo);
+    } else {
+      mapa[objetivoAtivo].set(idGrupo, valor);
+    }
+  });
+  atualizarResumoSelecao();
+}
 
 // Marca/desmarca uma das durações padrão (15"/20"/30") — não é exclusiva,
 // o formato pode ter várias marcadas ao mesmo tempo (vários spots pedidos).
@@ -1757,7 +1870,7 @@ function mudarCheckboxDuracao(checkbox) {
   }
   // Em TV, a secundagem é uma das dimensões da grelha de temas — mudar as
   // durações ativas muda quantas colunas a grelha tem.
-  if (formatoEhTV(formato)) {
+  if (formatoTemCanal(formato)) {
     atualizarGridTemasTv(formato);
   }
   atualizarResumoSelecao();
@@ -1780,7 +1893,7 @@ function mudarCheckboxDuracaoOutro(checkbox) {
     inputOutro.value = "";
     estado.outroValor = "";
   }
-  if (formatoEhTV(formato)) {
+  if (formatoTemCanal(formato)) {
     atualizarGridTemasTv(formato);
   }
   atualizarResumoSelecao();
@@ -1825,7 +1938,7 @@ function sincronizarCheckboxesComObjetivoAtivo() {
     const formato = todosFormatos.find((f) => f.id === id);
     const pendente = formato && (
       (formatoEhMupiPapel(formato) && !entregaEfetivaDoFormato(formato, objetivoAtivo)) ||
-      (formatoEhTV(formato) && canaisDoFormato(formato, objetivoAtivo).size === 0)
+      (formatoTemCanal(formato) && canaisDoFormato(formato, objetivoAtivo).size === 0)
     );
     checkbox.classList.toggle("checkbox-formato--pendente", pendente);
   });
@@ -1881,6 +1994,17 @@ function sincronizarCheckboxesComObjetivoAtivo() {
       atualizarGridTemasTv(formato);
     }
   });
+
+  // Nº de Faces / Nº de cartazes a entregar (OOH) são por objetivo, tal
+  // como os restantes campos acima.
+  listaFormatos.querySelectorAll(".input-num-faces-ooh").forEach((input) => {
+    const id = Number(input.dataset.id);
+    input.value = numFacesOohPorObjetivo[objetivoAtivo].get(id) || "";
+  });
+  listaFormatos.querySelectorAll(".input-num-cartazes-ooh").forEach((input) => {
+    const id = Number(input.dataset.id);
+    input.value = numCartazesOohPorObjetivo[objetivoAtivo].get(id) || "";
+  });
 }
 
 // Marca todas as checkboxes atualmente visíveis (respeita os filtros ativos
@@ -1891,7 +2015,9 @@ function sincronizarCheckboxesComObjetivoAtivo() {
 botaoSelecionarTodos.addEventListener("click", () => {
   const selecaoAtiva = selecoesPorObjetivo[objetivoAtivo];
   let mupisPorEscolher = 0;
-  let tvsPorEscolher = 0;
+  // Por grupoMeio (TV/Rádio), porque cada um tem a sua própria mensagem de
+  // aviso (ver chaveAvisoSaltadosSelecionarTodos).
+  const canalPorEscolherPorMeio = new Map();
   listaFormatos.querySelectorAll(".checkbox-formato").forEach((checkbox) => {
     const linha = checkbox.closest("tr");
     if (linha.style.display === "none") {
@@ -1903,8 +2029,9 @@ botaoSelecionarTodos.addEventListener("click", () => {
       mupisPorEscolher += 1;
       return;
     }
-    if (formato && formatoEhTV(formato) && canaisDoFormato(formato, objetivoAtivo).size === 0) {
-      tvsPorEscolher += 1;
+    if (formato && formatoTemCanal(formato) && canaisDoFormato(formato, objetivoAtivo).size === 0) {
+      const grupoMeio = grupoMeioDoFormato(formato);
+      canalPorEscolherPorMeio.set(grupoMeio, (canalPorEscolherPorMeio.get(grupoMeio) || 0) + 1);
       return;
     }
     checkbox.checked = true;
@@ -1913,9 +2040,9 @@ botaoSelecionarTodos.addEventListener("click", () => {
   if (mupisPorEscolher > 0) {
     mostrarNotificacao(formatar("avisoMupisSaltadosSelecionarTodos", { n: mupisPorEscolher }));
   }
-  if (tvsPorEscolher > 0) {
-    mostrarNotificacao(formatar("avisoTvSaltadosSelecionarTodos", { n: tvsPorEscolher }));
-  }
+  canalPorEscolherPorMeio.forEach((n, grupoMeio) => {
+    mostrarNotificacao(formatar(chaveAvisoSaltadosSelecionarTodos(grupoMeio), { n }));
+  });
   atualizarResumoSelecao();
 });
 
@@ -2044,7 +2171,7 @@ function atualizarResumoSelecao() {
           // TV tem canal × secundagem, cada combinação com o seu próprio
           // número de temas — uma linha de resumo por combinação (mesma
           // lógica da exportação para Excel, ver escreverSeccaoObjetivo).
-          if (formatoEhTV(f)) {
+          if (formatoTemCanal(f)) {
             return celulasTemaTvAtivas(f, objetivo).map(({ canal, duracao }) => {
               const contagem = contagemTemaTv(f, objetivo, canal, duracao);
               const etiquetaTemasTv = contagem > 1 ? ` — ${formatar("resumoNumeroTemas", { n: contagem })}` : "";
@@ -2190,6 +2317,39 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
     titulo: () => t("colCanalTV"),
     valor: (formato, objetivo, duracao, temaIndice, canalTv) => canalTv || "",
   },
+  // Estação de Rádio — mesmo conceito e mesma origem do canalTv acima
+  // (vem de escreverSeccaoObjetivo, grupo.canal), só muda o rótulo.
+  estacaoRadio: {
+    largura: 14,
+    titulo: () => t("colEstacao"),
+    valor: (formato, objetivo, duracao, temaIndice, canalTv) => canalTv || "",
+  },
+  // Nº de Faces / Nº de cartazes a entregar (OOH) — ver
+  // numFacesOohPorObjetivo/numCartazesOohPorObjetivo; preenchidos no
+  // construtor, não vêm da base.
+  numFacesOoh: {
+    largura: 14,
+    titulo: () => t("colNumFaces"),
+    valor: (formato, objetivo) => valorNumFacesOoh(formato, objetivo),
+  },
+  numCartazesOoh: {
+    largura: 18,
+    titulo: () => t("colNumCartazes"),
+    valor: (formato, objetivo) => valorNumCartazesOoh(formato, objetivo),
+  },
+  // Imprensa: Veículo (o título em si, ex. "Correio da Manhã") e Caderno
+  // (o suplemento/secção, ex. "Boa Onda") — antes saíam juntos na única
+  // coluna "plataforma" (rotulada "Título"), que só mostrava o Veículo.
+  veiculoImprensa: {
+    largura: 22,
+    titulo: () => t("colVeiculo"),
+    valor: (formato) => formato.fornecedor,
+  },
+  cadernoImprensa: {
+    largura: 22,
+    titulo: () => t("colCaderno"),
+    valor: (formato) => formato.veiculo,
+  },
   plataforma: {
     largura: 20,
     titulo: (grupoMeio) => t(CHAVE_TRADUCAO_COL_PLATAFORMA_POR_MEIO[grupoMeio] || "colPlataforma"),
@@ -2308,19 +2468,31 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
 // Dimensão/Aspect Ratio, Imprensa e OOH não têm Canal nem Tema (esse é
 // um conceito só de Digital), etc. Um meio sem entrada aqui usa o
 // conjunto completo do Digital.
+//
+// Ordem pedida pela Cláudia: Canal/Estação > Formato > Secundagem (TV/
+// Rádio), e em todos os meios a Data de Início da Campanha/Data de
+// Entrega vêm logo a seguir ao Tema — e só depois todas as especificações
+// técnicas. Cinema e Imprensa não têm coluna de Tema (não é um conceito
+// que se aplique a esses dois meios, ver MEIOS_COM_TEMA): aí as datas
+// ficam logo a seguir ao Formato, que é o equivalente mais próximo.
 const COLUNAS_POR_MEIO_EXCEL = {
-  "Digital": ["canal", "plataforma", "formato", "tema", "dimensao", "aspectRatio", "peso", "tipoFicheiro", "copies", "observacoes", "link", "dataInicioCampanha", "dataEntrega"],
-  "OOH": ["plataforma", "formato", "temaCriativo", "dimensao", "aspectRatio", "tipoFicheiro", "entregaAF", "entregaMorada", "moradaEntregaMupi", "observacoes", "dataInicioCampanha", "dataEntrega"],
+  "Digital": ["canal", "plataforma", "formato", "tema", "dataInicioCampanha", "dataEntrega", "dimensao", "aspectRatio", "peso", "tipoFicheiro", "copies", "observacoes", "link"],
+  "OOH": ["plataforma", "formato", "temaCriativo", "dataInicioCampanha", "dataEntrega", "dimensao", "aspectRatio", "numFacesOoh", "numCartazesOoh", "tipoFicheiro", "entregaAF", "entregaMorada", "moradaEntregaMupi", "observacoes"],
   // Sem "plataforma" (é sempre "TV", já não diz nada de novo agora que há
   // Canal) nem as colunas de specs técnicas (dimensao/aspectRatio/
   // tipoFicheiro/entregaTV/observacoes) — essas são iguais em todos os
   // canais e formatos de TV deste pedido, por isso saem só uma vez, em
-  // nota de rodapé no fim da folha (ver escreverFolhaMeio/escreverRodapeTV
-  // — pedido explícito da Cláudia).
+  // nota de rodapé no fim da folha (ver escreverFolhaMeio/
+  // escreverRodapeEspecificacoes — pedido explícito da Cláudia). Rádio
+  // segue agora a mesma lógica (ver ESTACOES_RADIO/MEIOS_COM_CANAL).
   "TV": ["canalTv", "formato", "secundagem", "temaCriativo", "dataInicioCampanha", "dataEntrega"],
-  "Rádio": ["plataforma", "formato", "secundagem", "temaCriativo", "tipoFicheiro", "observacoes", "dataInicioCampanha", "dataEntrega"],
-  "Cinema": ["plataforma", "formato", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes", "dataInicioCampanha", "dataEntrega"],
-  "Imprensa": ["plataforma", "formato", "dimensao", "tipoFicheiro", "observacoes", "dataInicioCampanha", "dataEntrega"],
+  "Rádio": ["estacaoRadio", "formato", "secundagem", "temaCriativo", "dataInicioCampanha", "dataEntrega"],
+  "Cinema": ["plataforma", "formato", "dataInicioCampanha", "dataEntrega", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes"],
+  // Veículo (ex. "Correio da Manhã") e Caderno (ex. "Boa Onda") substituem
+  // a antiga coluna única "plataforma"/"Título" — pedido explícito da
+  // Cláudia, para o caderno/suplemento não ficar escondido dentro do nome
+  // do veículo.
+  "Imprensa": ["veiculoImprensa", "cadernoImprensa", "formato", "dataInicioCampanha", "dataEntrega", "dimensao", "tipoFicheiro", "observacoes"],
 };
 
 // Escreve uma secção completa (título do objetivo + cabeçalho da tabela +
@@ -2371,12 +2543,12 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
   // duas (ex.: 2 durações × 3 temas = 6 linhas).
   const gruposLinha = [];
   formatosDaSeccao.forEach((formato) => {
-    // TV é um caso à parte: cada canal escolhido ganha o seu próprio grupo
-    // de linhas (com a sua própria secundagem e o seu próprio número de
-    // temas por secundagem — ver celulasTemaTvAtivas/contagemTemaTv), em
-    // vez de uma contagem de temas só, partilhada por todas as durações
-    // (como acontece em Rádio/OOH).
-    if (grupoMeioDoFormato(formato) === "TV") {
+    // TV/Rádio são um caso à parte: cada canal/estação escolhido ganha o
+    // seu próprio grupo de linhas (com a sua própria secundagem e o seu
+    // próprio número de temas por secundagem — ver
+    // celulasTemaTvAtivas/contagemTemaTv), em vez de uma contagem de temas
+    // só, partilhada por todas as durações (como acontece em OOH).
+    if (MEIOS_COM_CANAL.has(grupoMeioDoFormato(formato))) {
       celulasTemaTvAtivas(formato, objetivo)
         .sort((a, b) => Number(b.duracao || 0) - Number(a.duracao || 0))
         .forEach(({ canal, duracao }) => {
@@ -2454,30 +2626,30 @@ botaoExportar.addEventListener("click", exportarSelecaoParaExcel);
 // Imprensa): logótipo, bloco Companhia/Cliente/Campanha/Meio, e uma
 // secção por objetivo com os formatos desse meio (objetivos sem formatos
 // desse meio não geram secção nessa folha).
-// Nota de rodapé da folha de TV: specs técnicas (Dimensão/Aspect Ratio/
-// Tipo de Ficheiro/Observações/Entrega) de cada formato de TV usado neste
-// pedido — uma vez por formato, nunca repetidas por canal/secundagem/tema
-// (são sempre as mesmas, seja qual for o canal — pedido explícito da
-// Cláudia). Só os formatos realmente selecionados (nalgum objetivo)
-// aparecem aqui, não a base toda.
-function escreverRodapeTV(folha, linhaInicio, numColunas) {
-  const formatosTv = new Map();
+// Nota de rodapé da folha de TV/Rádio: specs técnicas (Dimensão/Aspect
+// Ratio/Tipo de Ficheiro/Observações, + Entrega GoFastWay em TV) de cada
+// formato usado neste pedido — uma vez por formato, nunca repetidas por
+// canal/estação/secundagem/tema (são sempre as mesmas, seja qual for o
+// canal/estação — pedido explícito da Cláudia). Só os formatos realmente
+// selecionados (nalgum objetivo) aparecem aqui, não a base toda.
+function escreverRodapeEspecificacoes(folha, linhaInicio, numColunas, grupoMeio) {
+  const formatosDoMeio = new Map();
   OBJETIVOS.forEach((objetivo) => {
     selecoesPorObjetivo[objetivo].forEach((id) => {
       const formato = todosFormatos.find((f) => f.id === id);
-      if (formato && grupoMeioDoFormato(formato) === "TV") {
-        formatosTv.set(formato.id, formato);
+      if (formato && grupoMeioDoFormato(formato) === grupoMeio) {
+        formatosDoMeio.set(formato.id, formato);
       }
     });
   });
-  if (formatosTv.size === 0) {
+  if (formatosDoMeio.size === 0) {
     return linhaInicio;
   }
 
   let linha = linhaInicio;
   folha.mergeCells(linha, 1, linha, numColunas);
   const celulaTitulo = folha.getCell(linha, 1);
-  celulaTitulo.value = t("rodapeSpecsTituloTV");
+  celulaTitulo.value = t(grupoMeio === "Rádio" ? "rodapeSpecsTituloRadio" : "rodapeSpecsTituloTV");
   celulaTitulo.font = { name: "Arial Nova", size: 12, bold: true, color: { argb: "FFFFFFFF" } };
   celulaTitulo.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF1A1A1A" } };
   celulaTitulo.alignment = { vertical: "middle", horizontal: "left" };
@@ -2486,7 +2658,7 @@ function escreverRodapeTV(folha, linhaInicio, numColunas) {
   const estiloRotulo = { font: { name: "Arial Nova", size: 10, bold: true, color: { argb: "FF5B6678" } } };
   const estiloValor = { font: { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } }, alignment: { wrapText: true, vertical: "top" } };
 
-  [...formatosTv.values()]
+  [...formatosDoMeio.values()]
     .sort((a, b) => (a.formato || "").localeCompare(b.formato || "", "pt"))
     .forEach((formato) => {
       const celulaNome = folha.getCell(linha, 1);
@@ -2514,18 +2686,36 @@ function escreverRodapeTV(folha, linhaInicio, numColunas) {
       });
 
       // Entrega (GoFastWay) — valor fixo, igual em todos os formatos de TV.
-      folha.getCell(linha, 1).value = t("colEntrega");
-      folha.getCell(linha, 1).style = estiloRotulo;
-      folha.mergeCells(linha, 2, linha, numColunas);
-      const celulaEntrega = folha.getCell(linha, 2);
-      celulaEntrega.value = { text: `GoFastWay — ${TEXTO_LINK_GOFASTWAY}`, hyperlink: LINK_GOFASTWAY };
-      celulaEntrega.font = { name: "Arial Nova", size: 10, color: { argb: "FF1155CC" }, underline: true };
-      linha += 1;
+      // Rádio não tem este conceito (sem portal de entrega fixo), por isso
+      // não ganha esta linha.
+      if (grupoMeio === "TV") {
+        folha.getCell(linha, 1).value = t("colEntrega");
+        folha.getCell(linha, 1).style = estiloRotulo;
+        folha.mergeCells(linha, 2, linha, numColunas);
+        const celulaEntrega = folha.getCell(linha, 2);
+        celulaEntrega.value = { text: `GoFastWay — ${TEXTO_LINK_GOFASTWAY}`, hyperlink: LINK_GOFASTWAY };
+        celulaEntrega.font = { name: "Arial Nova", size: 10, color: { argb: "FF1155CC" }, underline: true };
+        linha += 1;
+      }
 
       linha += 1; // linha em branco antes do próximo formato
     });
 
   return linha;
+}
+
+// Nota fixa, igual em todos os meios: materiais que não sigam pelo
+// GoFastWay (TV) ou, no caso dos mupis em papel, para a morada do
+// concessionário (ver MORADA_ENTREGA_MUPI_PAPEL), têm de ir por email para
+// quem acompanha este cliente na agência — pedido explícito da Cláudia.
+function escreverNotaEntregaMateriais(folha, linha, numColunas) {
+  folha.mergeCells(linha, 1, linha, numColunas);
+  const celula = folha.getCell(linha, 1);
+  celula.value = t("notaEntregaMateriais");
+  celula.font = { name: "Arial Nova", size: 9, italic: true, color: { argb: "FF5B6678" } };
+  celula.alignment = { vertical: "top", horizontal: "left", wrapText: true };
+  folha.getRow(linha).height = 30;
+  return linha + 1;
 }
 
 async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha, grupoMeio) {
@@ -2616,9 +2806,21 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
     linhaAtual = escreverSeccaoObjetivo(folha, linhaAtual, t(CHAVE_TRADUCAO_OBJETIVO[objetivo]), formatosDoObjetivo, config, objetivo, colunasChaves, grupoMeio);
   });
 
-  if (grupoMeio === "TV") {
-    escreverRodapeTV(folha, linhaAtual, colunasChaves.length + 1);
+  const numColunasFolha = colunasChaves.length + 1;
+
+  // Uma linha de intervalo extra antes da nota de especificações de TV/
+  // Rádio — pedido explícito da Cláudia (a linha em branco que já havia
+  // entre a tabela e o rodapé, ver escreverSeccaoObjetivo, não bastava).
+  if (MEIOS_COM_CANAL.has(grupoMeio)) {
+    linhaAtual += 1;
+    linhaAtual = escreverRodapeEspecificacoes(folha, linhaAtual, numColunasFolha, grupoMeio);
   }
+
+  // Nota sobre a entrega dos materiais (GoFastWay/mupis em papel vs. email
+  // da equipa do cliente) — em todas as folhas, pedido explícito da
+  // Cláudia.
+  linhaAtual += 1;
+  escreverNotaEntregaMateriais(folha, linhaAtual, numColunasFolha);
 }
 
 async function exportarSelecaoParaExcel() {
@@ -2741,6 +2943,8 @@ function guardarEstadoLocal() {
     const temas = {};
     const canaisTv = {};
     const temasGridTv = {};
+    const numFacesOoh = {};
+    const numCartazesOoh = {};
     OBJETIVOS.forEach((objetivo) => {
       selecoes[objetivo] = [...selecoesPorObjetivo[objetivo]]
         .map((id) => idParaChave.get(id))
@@ -2797,6 +3001,24 @@ function guardarEstadoLocal() {
           }
         }
       });
+      numFacesOoh[objetivo] = {};
+      numFacesOohPorObjetivo[objetivo].forEach((valor, id) => {
+        if (selecoesPorObjetivo[objetivo].has(id)) {
+          const chave = idParaChave.get(id);
+          if (chave) {
+            numFacesOoh[objetivo][chave] = valor;
+          }
+        }
+      });
+      numCartazesOoh[objetivo] = {};
+      numCartazesOohPorObjetivo[objetivo].forEach((valor, id) => {
+        if (selecoesPorObjetivo[objetivo].has(id)) {
+          const chave = idParaChave.get(id);
+          if (chave) {
+            numCartazesOoh[objetivo][chave] = valor;
+          }
+        }
+      });
     });
     localStorage.setItem(CHAVE_LOCALSTORAGE_PEDIDO, JSON.stringify({
       companhia: campoCompanhia.value,
@@ -2809,6 +3031,8 @@ function guardarEstadoLocal() {
       temas,
       canaisTv,
       temasGridTv,
+      numFacesOoh,
+      numCartazesOoh,
     }));
   } catch (erro) {
     // localStorage indisponível — nada a fazer, a app continua sem persistência.
@@ -2868,8 +3092,10 @@ function restaurarEstadoLocal() {
     const canaisGuardados = (estadoGuardado.canaisTv && estadoGuardado.canaisTv[objetivo]) || {};
     Object.entries(canaisGuardados).forEach(([chave, canais]) => {
       const id = chaveParaId.get(chave);
-      if (id !== undefined && Array.isArray(canais)) {
-        canaisTvPorObjetivo[objetivo].set(id, new Set(canais.filter((c) => CANAIS_TV.includes(c))));
+      const formatoCanal = id !== undefined ? todosFormatos.find((f) => f.id === id) : null;
+      if (formatoCanal && Array.isArray(canais)) {
+        const disponiveis = canaisDisponiveisDoFormato(formatoCanal);
+        canaisTvPorObjetivo[objetivo].set(id, new Set(canais.filter((c) => disponiveis.includes(c))));
       }
     });
 
@@ -2884,6 +3110,22 @@ function restaurarEstadoLocal() {
           }
         });
         temasGridTvPorObjetivo[objetivo].set(id, grelha);
+      }
+    });
+
+    const numFacesGuardados = (estadoGuardado.numFacesOoh && estadoGuardado.numFacesOoh[objetivo]) || {};
+    Object.entries(numFacesGuardados).forEach(([chave, valor]) => {
+      const id = chaveParaId.get(chave);
+      if (id !== undefined && typeof valor === "string" && valor !== "") {
+        numFacesOohPorObjetivo[objetivo].set(id, valor);
+      }
+    });
+
+    const numCartazesGuardados = (estadoGuardado.numCartazesOoh && estadoGuardado.numCartazesOoh[objetivo]) || {};
+    Object.entries(numCartazesGuardados).forEach(([chave, valor]) => {
+      const id = chaveParaId.get(chave);
+      if (id !== undefined && typeof valor === "string" && valor !== "") {
+        numCartazesOohPorObjetivo[objetivo].set(id, valor);
       }
     });
 

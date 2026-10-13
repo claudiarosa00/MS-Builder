@@ -1180,6 +1180,18 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   font-size: 12.5px;
 }
 
+/* Nº de Faces / Nº de cartazes a entregar (OOH) — campos numéricos livres,
+   ver criarCelulaNumOOH em app.js. */
+.input-num-faces-ooh,
+.input-num-cartazes-ooh {
+  width: 64px;
+  padding: 5px 6px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 6px;
+  font-family: var(--fonte-base);
+  font-size: 13px;
+}
+
 /*
 ============================================
 11. RESPONSIVE (ecrãs estreitos — telemóvel/tablet pequeno)
