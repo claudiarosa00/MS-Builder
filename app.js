@@ -297,10 +297,9 @@ function valorNumCartazesOoh(formato, objetivo) {
 // ou uma grelha, o que tornava tudo mais frágil. OOH continua a usar a
 // contagem simples (ver MEIOS_COM_TEMA/contagemTemasDoFormato).
 const CANAIS_TV = ["RTP", "SIC", "TVI", "STAR", "NOS", "Media Livre"];
-// Lista de estações de rádio — a Cláudia ainda não indicou a lista
-// definitiva, por isso usa-se por omissão as principais estações compradas
-// em Portugal; ajustar esta lista chega para mudar as opções em toda a app.
-const ESTACOES_RADIO = ["Rádio Comercial", "RFM", "Cidade FM", "M80", "Smooth FM", "Rádio Renascença", "Mega Hits", "TSF", "Antena 1", "Antena 3"];
+// Lista de estações de rádio indicada pela Cláudia, por ordem alfabética
+// — ajustar esta lista chega para mudar as opções em toda a app.
+const ESTACOES_RADIO = ["Batida FM", "Best Rock FM", "Cidade FM", "CMR", "M80", "Mega Hits", "Rádio Comercial", "Rádio Observador", "Renascença", "RFM", "Smooth FM", "Star FM", "TSF"];
 const CANAIS_POR_MEIO = { "TV": CANAIS_TV, "Rádio": ESTACOES_RADIO };
 const MEIOS_COM_CANAL = new Set(Object.keys(CANAIS_POR_MEIO));
 function formatoTemCanal(formato) {
@@ -2574,6 +2573,21 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
     });
   });
 
+  // Em TV/Rádio a ordem pedida é Canal/Estação > Formato > Secundagem —
+  // diferente da ordem em que gruposLinha foi construído acima (por
+  // formato, com os canais desse formato agrupados lá dentro). Como esta
+  // função só escreve formatos de um único grupoMeio de cada vez (ver
+  // formatosDoObjetivo em escreverFolhaMeio), e todo o gruposLinha de uma
+  // folha de TV/Rádio tem sempre .canal definido, dá para reordenar tudo
+  // aqui no fim sem misturar com os restantes meios.
+  if (MEIOS_COM_CANAL.has(grupoMeio)) {
+    gruposLinha.sort((a, b) => (
+      (a.canal || "").localeCompare(b.canal || "", "pt") ||
+      (a.formato.formato || "").localeCompare(b.formato.formato || "", "pt") ||
+      Number(b.duracao || 0) - Number(a.duracao || 0)
+    ));
+  }
+
   let linhaAtual = linha;
   gruposLinha.forEach((grupo, indiceGrupo) => {
     const linhaInicioGrupo = linhaAtual;
@@ -2658,15 +2672,23 @@ function escreverRodapeEspecificacoes(folha, linhaInicio, numColunas, grupoMeio)
   celulaTitulo.alignment = { vertical: "middle", horizontal: "left" };
   linha += 1;
 
-  const estiloRotulo = { font: { name: "Arial Nova", size: 10, bold: true, color: { argb: "FF5B6678" } } };
-  const estiloValor = { font: { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } }, alignment: { wrapText: true, vertical: "top" } };
+  // Rótulo + valor na MESMA célula (fundida ao longo de toda a largura da
+  // tabela), em vez de rótulo na coluna 1 e valor fundido a partir da
+  // coluna 2 — a coluna 1 tem a largura da coluna "#" (só 5), estreita
+  // demais para o texto do rótulo, que ficava cortado/a quebrar linha sem
+  // necessidade (ver auditoria da Cláudia). Fundir desde a coluna 1 dá ao
+  // texto toda a largura da tabela para respirar.
+  const estiloRotulo = { name: "Arial Nova", size: 10, bold: true, color: { argb: "FF5B6678" } };
+  const estiloValor = { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } };
 
   [...formatosDoMeio.values()]
     .sort((a, b) => (a.formato || "").localeCompare(b.formato || "", "pt"))
     .forEach((formato) => {
+      folha.mergeCells(linha, 1, linha, numColunas);
       const celulaNome = folha.getCell(linha, 1);
       celulaNome.value = textoTraduzido(formato, "formato") ?? "";
       celulaNome.font = { name: "Arial Nova", size: 11, bold: true, color: { argb: "FF0F1724" } };
+      celulaNome.alignment = { vertical: "top", horizontal: "left", wrapText: true };
       linha += 1;
 
       const campos = [
@@ -2679,12 +2701,10 @@ function escreverRodapeEspecificacoes(folha, linhaInicio, numColunas, grupoMeio)
         if (!valor) {
           return;
         }
-        folha.getCell(linha, 1).value = rotulo;
-        folha.getCell(linha, 1).style = estiloRotulo;
-        folha.mergeCells(linha, 2, linha, numColunas);
-        const celulaValor = folha.getCell(linha, 2);
-        celulaValor.value = valor;
-        celulaValor.style = estiloValor;
+        folha.mergeCells(linha, 1, linha, numColunas);
+        const celula = folha.getCell(linha, 1);
+        celula.value = { richText: [{ font: estiloRotulo, text: `${rotulo}: ` }, { font: estiloValor, text: valor }] };
+        celula.alignment = { vertical: "top", horizontal: "left", wrapText: true };
         linha += 1;
       });
 
@@ -2692,12 +2712,11 @@ function escreverRodapeEspecificacoes(folha, linhaInicio, numColunas, grupoMeio)
       // Rádio não tem este conceito (sem portal de entrega fixo), por isso
       // não ganha esta linha.
       if (grupoMeio === "TV") {
-        folha.getCell(linha, 1).value = t("colEntrega");
-        folha.getCell(linha, 1).style = estiloRotulo;
-        folha.mergeCells(linha, 2, linha, numColunas);
-        const celulaEntrega = folha.getCell(linha, 2);
-        celulaEntrega.value = { text: `GoFastWay — ${TEXTO_LINK_GOFASTWAY}`, hyperlink: LINK_GOFASTWAY };
+        folha.mergeCells(linha, 1, linha, numColunas);
+        const celulaEntrega = folha.getCell(linha, 1);
+        celulaEntrega.value = { text: `${t("colEntrega")}: GoFastWay — ${TEXTO_LINK_GOFASTWAY}`, hyperlink: LINK_GOFASTWAY };
         celulaEntrega.font = { name: "Arial Nova", size: 10, color: { argb: "FF1155CC" }, underline: true };
+        celulaEntrega.alignment = { vertical: "top", horizontal: "left", wrapText: true };
         linha += 1;
       }
 
