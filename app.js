@@ -530,7 +530,9 @@ const TRADUCOES = {
   colCaderno: { pt: "Caderno", en: "Section", es: "Suplemento", fr: "Cahier" },
   colNumFaces: { pt: "Nº de Faces", en: "No. of Faces", es: "Nº de Caras", fr: "Nb de Faces" },
   colNumCartazes: { pt: "Nº de cartazes a entregar", en: "No. of posters to deliver", es: "Nº de carteles a entregar", fr: "Nb d'affiches à livrer" },
-  notaEntregaMateriais: { pt: "Nota: os materiais que não sejam entregues através do Portal GoFastWay (TV) ou, no caso dos mupis em papel, na morada do concessionário, têm de ser enviados por email para os endereços abaixo:", en: "Note: materials not delivered through the GoFastWay Portal (TV) or, for paper mupis, to the concessionaire's address, must instead be emailed to the addresses below:", es: "Nota: los materiales que no se entreguen a través del Portal GoFastWay (TV) o, en el caso de los mupis de papel, en la dirección del concesionario, deben enviarse por email a las direcciones siguientes:", fr: "Note : les matériaux non livrés via le Portail GoFastWay (TV) ou, pour les mupis papier, à l'adresse du concessionnaire, doivent être envoyés par email aux adresses ci-dessous :" },
+  notaEntregaMateriaisGenerica: { pt: "Nota: os materiais devem ser enviados por email para os endereços abaixo:", en: "Note: materials must be emailed to the addresses below:", es: "Nota: los materiales deben enviarse por email a las direcciones siguientes:", fr: "Note : les matériaux doivent être envoyés par email aux adresses ci-dessous :" },
+  notaEntregaMateriaisTV: { pt: "Nota: os materiais que não sejam entregues através do Portal GoFastWay (TV) têm de ser enviados por email para os endereços abaixo:", en: "Note: materials not delivered through the GoFastWay Portal (TV) must be emailed to the addresses below:", es: "Nota: los materiales que no se entreguen a través del Portal GoFastWay (TV) deben enviarse por email a las direcciones siguientes:", fr: "Note : les matériaux non livrés via le Portail GoFastWay (TV) doivent être envoyés par email aux adresses ci-dessous :" },
+  notaEntregaMateriaisOOH: { pt: "Nota: os Mupis Papel podem ser entregues na morada do concessionário — os que não sigam por essa via, e os restantes materiais, devem ser enviados por email para os endereços abaixo:", en: "Note: Paper Mupis can be delivered to the concessionaire's address — any that aren't, and all other materials, must be emailed to the addresses below:", es: "Nota: los Mupis de Papel pueden entregarse en la dirección del concesionario — los que no sigan por esa vía, y el resto de los materiales, deben enviarse por email a las direcciones siguientes:", fr: "Note : les Mupis Papier peuvent être livrés à l'adresse du concessionnaire — ceux qui ne le sont pas, ainsi que tous les autres matériaux, doivent être envoyés par email aux adresses ci-dessous :" },
   semContactosCliente: { pt: "— sem endereços definidos para este cliente —", en: "— no addresses defined for this client —", es: "— sin direcciones definidas para este cliente —", fr: "— aucune adresse définie pour ce client —" },
 };
 
@@ -2724,17 +2726,25 @@ function contactosDoCliente(nomeCliente) {
   return chaveEncontrada ? CONTACTOS_POR_CLIENTE[chaveEncontrada] : [];
 }
 
-// Nota fixa, igual em todos os meios: materiais que não sigam pelo
-// GoFastWay (TV) ou, no caso dos mupis em papel, para a morada do
-// concessionário (ver MORADA_ENTREGA_MUPI_PAPEL), têm de ir por email para
-// os endereços de quem acompanha este cliente na agência — pedido
-// explícito da Cláudia. Os endereços em si vêm de CONTACTOS_POR_CLIENTE,
-// um por linha a seguir à nota.
-function escreverNotaEntregaMateriais(folha, linha, numColunas, cliente) {
+// O texto da nota varia por meio: TV tem o GoFastWay como via principal,
+// OOH tem os Mupis Papel (ver MORADA_ENTREGA_MUPI_PAPEL) entregues na
+// morada do concessionário, e os restantes meios (Digital/Imprensa/
+// Cinema/Rádio) não têm nenhuma via alternativa — só o email. Os
+// endereços em si vêm de CONTACTOS_POR_CLIENTE, um por linha a seguir à
+// nota — pedido explícito da Cláudia.
+const CHAVE_NOTA_ENTREGA_POR_MEIO = {
+  "TV": "notaEntregaMateriaisTV",
+  "OOH": "notaEntregaMateriaisOOH",
+};
+function chaveNotaEntregaMateriais(grupoMeio) {
+  return CHAVE_NOTA_ENTREGA_POR_MEIO[grupoMeio] || "notaEntregaMateriaisGenerica";
+}
+
+function escreverNotaEntregaMateriais(folha, linha, numColunas, cliente, grupoMeio) {
   let linhaAtual = linha;
   folha.mergeCells(linhaAtual, 1, linhaAtual, numColunas);
   const celulaNota = folha.getCell(linhaAtual, 1);
-  celulaNota.value = t("notaEntregaMateriais");
+  celulaNota.value = t(chaveNotaEntregaMateriais(grupoMeio));
   celulaNota.font = { name: "Arial Nova", size: 9, italic: true, color: { argb: "FF5B6678" } };
   celulaNota.alignment = { vertical: "top", horizontal: "left", wrapText: true };
   folha.getRow(linhaAtual).height = 30;
@@ -2862,7 +2872,7 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
   // da equipa do cliente) — em todas as folhas, pedido explícito da
   // Cláudia.
   linhaAtual += 1;
-  escreverNotaEntregaMateriais(folha, linhaAtual, numColunasFolha, cliente);
+  escreverNotaEntregaMateriais(folha, linhaAtual, numColunasFolha, cliente, grupoMeio);
 }
 
 async function exportarSelecaoParaExcel() {
