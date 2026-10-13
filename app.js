@@ -530,7 +530,8 @@ const TRADUCOES = {
   colCaderno: { pt: "Caderno", en: "Section", es: "Suplemento", fr: "Cahier" },
   colNumFaces: { pt: "Nº de Faces", en: "No. of Faces", es: "Nº de Caras", fr: "Nb de Faces" },
   colNumCartazes: { pt: "Nº de cartazes a entregar", en: "No. of posters to deliver", es: "Nº de carteles a entregar", fr: "Nb d'affiches à livrer" },
-  notaEntregaMateriais: { pt: "Nota: os materiais que não sejam entregues através do Portal GoFastWay (TV) ou, no caso dos mupis em papel, na morada do concessionário, têm de ser enviados por email para os endereços específicos de quem acompanha este cliente na agência.", en: "Note: materials not delivered through the GoFastWay Portal (TV) or, for paper mupis, to the concessionaire's address, must instead be emailed to the specific addresses of the agency staff who handle this client.", es: "Nota: los materiales que no se entreguen a través del Portal GoFastWay (TV) o, en el caso de los mupis de papel, en la dirección del concesionario, deben enviarse por email a las direcciones específicas de quienes gestionan este cliente en la agencia.", fr: "Note : les matériaux non livrés via le Portail GoFastWay (TV) ou, pour les mupis papier, à l'adresse du concessionnaire, doivent être envoyés par email aux adresses spécifiques de l'équipe qui gère ce client à l'agence." },
+  notaEntregaMateriais: { pt: "Nota: os materiais que não sejam entregues através do Portal GoFastWay (TV) ou, no caso dos mupis em papel, na morada do concessionário, têm de ser enviados por email para os endereços abaixo:", en: "Note: materials not delivered through the GoFastWay Portal (TV) or, for paper mupis, to the concessionaire's address, must instead be emailed to the addresses below:", es: "Nota: los materiales que no se entreguen a través del Portal GoFastWay (TV) o, en el caso de los mupis de papel, en la dirección del concesionario, deben enviarse por email a las direcciones siguientes:", fr: "Note : les matériaux non livrés via le Portail GoFastWay (TV) ou, pour les mupis papier, à l'adresse du concessionnaire, doivent être envoyés par email aux adresses ci-dessous :" },
+  semContactosCliente: { pt: "— sem endereços definidos para este cliente —", en: "— no addresses defined for this client —", es: "— sin direcciones definidas para este cliente —", fr: "— aucune adresse définie pour ce client —" },
 };
 
 function t(chave) {
@@ -2704,18 +2705,59 @@ function escreverRodapeEspecificacoes(folha, linhaInicio, numColunas, grupoMeio)
   return linha;
 }
 
+// Endereços de email a usar na nota de entrega (ver
+// escreverNotaEntregaMateriais), por cliente — para materiais que não
+// sigam pelo GoFastWay (TV) nem para a morada do mupi em papel (ver
+// MORADA_ENTREGA_MUPI_PAPEL). A comparação com o campo Cliente ignora
+// maiúsculas/minúsculas e espaços a mais (ver contactosDoCliente), mas o
+// nome em si tem de bater certo com o que está aqui.
+// *** A preencher: a Cláudia ainda não indicou os endereços de cada
+// cliente — fica vazio por omissão (mostra "sem endereços definidos"). ***
+const CONTACTOS_POR_CLIENTE = {
+  // "Nome do Cliente": ["pessoa1@agencia.pt", "pessoa2@agencia.pt"],
+};
+function contactosDoCliente(nomeCliente) {
+  const chaveNormalizada = (nomeCliente || "").trim().toLowerCase();
+  const chaveEncontrada = Object.keys(CONTACTOS_POR_CLIENTE).find(
+    (chave) => chave.trim().toLowerCase() === chaveNormalizada
+  );
+  return chaveEncontrada ? CONTACTOS_POR_CLIENTE[chaveEncontrada] : [];
+}
+
 // Nota fixa, igual em todos os meios: materiais que não sigam pelo
 // GoFastWay (TV) ou, no caso dos mupis em papel, para a morada do
 // concessionário (ver MORADA_ENTREGA_MUPI_PAPEL), têm de ir por email para
-// quem acompanha este cliente na agência — pedido explícito da Cláudia.
-function escreverNotaEntregaMateriais(folha, linha, numColunas) {
-  folha.mergeCells(linha, 1, linha, numColunas);
-  const celula = folha.getCell(linha, 1);
-  celula.value = t("notaEntregaMateriais");
-  celula.font = { name: "Arial Nova", size: 9, italic: true, color: { argb: "FF5B6678" } };
-  celula.alignment = { vertical: "top", horizontal: "left", wrapText: true };
-  folha.getRow(linha).height = 30;
-  return linha + 1;
+// os endereços de quem acompanha este cliente na agência — pedido
+// explícito da Cláudia. Os endereços em si vêm de CONTACTOS_POR_CLIENTE,
+// um por linha a seguir à nota.
+function escreverNotaEntregaMateriais(folha, linha, numColunas, cliente) {
+  let linhaAtual = linha;
+  folha.mergeCells(linhaAtual, 1, linhaAtual, numColunas);
+  const celulaNota = folha.getCell(linhaAtual, 1);
+  celulaNota.value = t("notaEntregaMateriais");
+  celulaNota.font = { name: "Arial Nova", size: 9, italic: true, color: { argb: "FF5B6678" } };
+  celulaNota.alignment = { vertical: "top", horizontal: "left", wrapText: true };
+  folha.getRow(linhaAtual).height = 30;
+  linhaAtual += 1;
+
+  const emails = contactosDoCliente(cliente);
+  if (emails.length === 0) {
+    folha.mergeCells(linhaAtual, 1, linhaAtual, numColunas);
+    const celulaVazia = folha.getCell(linhaAtual, 1);
+    celulaVazia.value = t("semContactosCliente");
+    celulaVazia.font = { name: "Arial Nova", size: 9, italic: true, color: { argb: "FF9AA5B1" } };
+    return linhaAtual + 1;
+  }
+
+  const estiloEmail = { font: { name: "Arial Nova", size: 9, color: { argb: "FF0F1724" } } };
+  emails.forEach((email) => {
+    folha.mergeCells(linhaAtual, 1, linhaAtual, numColunas);
+    const celulaEmail = folha.getCell(linhaAtual, 1);
+    celulaEmail.value = `• ${email}`;
+    celulaEmail.style = estiloEmail;
+    linhaAtual += 1;
+  });
+  return linhaAtual;
 }
 
 async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha, grupoMeio) {
@@ -2820,7 +2862,7 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
   // da equipa do cliente) — em todas as folhas, pedido explícito da
   // Cláudia.
   linhaAtual += 1;
-  escreverNotaEntregaMateriais(folha, linhaAtual, numColunasFolha);
+  escreverNotaEntregaMateriais(folha, linhaAtual, numColunasFolha, cliente);
 }
 
 async function exportarSelecaoParaExcel() {
