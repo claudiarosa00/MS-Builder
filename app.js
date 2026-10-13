@@ -232,7 +232,7 @@ function entregaEfetivaDoFormato(formato, objetivo) {
 // COLUNAS_EXCEL_DISPONIVEIS) quando "Entrega na Morada" foi a opção
 // escolhida — não aparece no construtor, para não sobrecarregar a linha.
 const MORADA_ENTREGA_MUPI_PAPEL = {
-  "JCDecaux": "Caso entreguem cartazes nas nossas instalações, os mesmos deverão ser acompanhados de uma impressão da campanha a afixar. A entrega dos cartazes deve ser efetuada das 07h00 às 12h00 e das 13h30 às 16h00 nas instalações da JCDecaux – Portão 1. Morada: Beco da Aviação, nº 1, Granja do Alpriate, 2625-607 Vialonga – Portugal.",
+  "JCDecaux": "Os cartazes deverão ser acompanhados de uma impressão da campanha a afixar. A entrega dos cartazes deve ser efetuada das 07h00 às 12h00 e das 13h30 às 16h00 nas instalações da JCDecaux – Portão 1. Morada: Beco da Aviação, nº 1, Granja do Alpriate, 2625-607 Vialonga – Portugal.",
   "MOP": "Morada de entrega: R. Mário Castelhano, 42 - Armazém 7, Lux Parque - Queluz de Baixo, 2734-502 Barcarena. Horário: 8h-12h e 13h-17h. Tel: +351 214 355 485.",
   "DreamMedia": "Morada de entrega: Rua Manuel da Maia, nº 4, 2680-186 Loures. Horário: 8h-12h e 13h-17h.",
 };
@@ -2214,14 +2214,20 @@ Companhia escolhida (Havas Media ou Arena Media).
 Usa a biblioteca ExcelJS (lib/exceljs.min.js).
 ============================================
 */
+// corDataEntrega: um destaque bem leve na coluna "Data de entrega" (só as
+// células de dados, não o cabeçalho) — pedido explícito da Cláudia, para
+// essa data saltar à vista sem gritar. Tom clarinho da cor de cada
+// companhia (vermelho/rosa para a Havas Media, azul para a Arena Media).
 const CONFIGURACAO_COMPANHIA = {
   "Havas Media": {
     corCabecalho: "FFE60000",
+    corDataEntrega: "FFFCE8E8",
     ficheiroLogo: "assets/logo-havas-media.png",
     proporcaoLogo: 372 / 160,
   },
   "Arena Media": {
     corCabecalho: "FF328CF5",
+    corDataEntrega: "FFE8F1FC",
     ficheiroLogo: "assets/logo-arena-media.png",
     proporcaoLogo: 1557 / 368,
   },
@@ -2528,6 +2534,7 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
 
   const indiceColunaLink = colunasChaves.indexOf("link");
   const indiceColunaTema = colunasChaves.indexOf("temaCriativo");
+  const indiceColunaDataEntrega = colunasChaves.indexOf("dataEntrega");
   // Só a coluna "#" e as colunas de data ficam centradas na horizontal —
   // as restantes ficam alinhadas à esquerda (pedido explícito da
   // Cláudia). Um texto centrado lê-se pior em colunas de texto corrido
@@ -2609,6 +2616,11 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
         celula.font = { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } };
         celula.alignment = { vertical: "middle", horizontal: centrada ? "center" : "left", wrapText: true };
         celula.border = ESTILO_BORDA_COMPLETA;
+        // Destaque leve na coluna "Data de entrega" (ver corDataEntrega em
+        // CONFIGURACAO_COMPANHIA) — só as células de dados, não o cabeçalho.
+        if (indiceColunaExcel - 2 === indiceColunaDataEntrega) {
+          celula.fill = { type: "pattern", pattern: "solid", fgColor: { argb: config.corDataEntrega } };
+        }
       });
       // O texto do link fica na cor de destaque, sublinhado, para
       // parecer clicável mesmo antes de o utilizador lhe tocar.
