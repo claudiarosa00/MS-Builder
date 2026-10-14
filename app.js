@@ -3233,10 +3233,10 @@ function restaurarEstadoLocal() {
   if (estadoGuardado.campanha) {
     campoCampanha.value = estadoGuardado.campanha;
   }
-  if (estadoGuardado.objetivoAtivo && OBJETIVOS.includes(estadoGuardado.objetivoAtivo)) {
-    objetivoAtivo = estadoGuardado.objetivoAtivo;
-    atualizarBotoesObjetivo();
-  }
+  // Objetivo ativo fica sempre em Awareness ao abrir o construtor, mesmo que
+  // o pedido guardado tivesse outro objetivo selecionado no momento em que
+  // foi deixado — as seleções de cada objetivo (acima) são sempre restauradas
+  // na mesma, só o separador visível ao abrir é que não é.
 }
 
 /*
