@@ -532,7 +532,6 @@ const TRADUCOES = {
   notaEntregaMateriaisGenerica: { pt: "Nota: os materiais devem ser enviados por email para os endereços abaixo:", en: "Note: materials must be emailed to the addresses below:", es: "Nota: los materiales deben enviarse por email a las direcciones siguientes:", fr: "Note : les matériaux doivent être envoyés par email aux adresses ci-dessous :" },
   notaEntregaMateriaisTV: { pt: "Nota: os materiais que não sejam entregues através do Portal GoFastWay (TV) têm de ser enviados por email para os endereços abaixo:", en: "Note: materials not delivered through the GoFastWay Portal (TV) must be emailed to the addresses below:", es: "Nota: los materiales que no se entreguen a través del Portal GoFastWay (TV) deben enviarse por email a las direcciones siguientes:", fr: "Note : les matériaux non livrés via le Portail GoFastWay (TV) doivent être envoyés par email aux adresses ci-dessous :" },
   notaEntregaMateriaisOOH: { pt: "Nota: os Mupis Papel podem ser entregues na morada do concessionário — os que não sigam por essa via, e os restantes materiais, devem ser enviados por email para os endereços abaixo:", en: "Note: Paper Mupis can be delivered to the concessionaire's address — any that aren't, and all other materials, must be emailed to the addresses below:", es: "Nota: los Mupis de Papel pueden entregarse en la dirección del concesionario — los que no sigan por esa vía, y el resto de los materiales, deben enviarse por email a las direcciones siguientes:", fr: "Note : les Mupis Papier peuvent être livrés à l'adresse du concessionnaire — ceux qui ne le sont pas, ainsi que tous les autres matériaux, doivent être envoyés par email aux adresses ci-dessous :" },
-  semContactosCliente: { pt: "— sem endereços definidos para este cliente —", en: "— no addresses defined for this client —", es: "— sin direcciones definidas para este cliente —", fr: "— aucune adresse définie pour ce client —" },
 };
 
 function t(chave) {
@@ -2783,11 +2782,7 @@ function escreverNotaEntregaMateriais(folha, linha, numColunas, cliente, grupoMe
 
   const emails = contactosDoCliente(cliente);
   if (emails.length === 0) {
-    folha.mergeCells(linhaAtual, 1, linhaAtual, numColunas);
-    const celulaVazia = folha.getCell(linhaAtual, 1);
-    celulaVazia.value = t("semContactosCliente");
-    celulaVazia.font = { name: "Arial Nova", size: 9, italic: true, color: { argb: "FF9AA5B1" } };
-    return linhaAtual + 1;
+    return linhaAtual;
   }
 
   const estiloEmail = { font: { name: "Arial Nova", size: 9, color: { argb: "FF0F1724" } } };
