@@ -834,14 +834,20 @@ cada chave é o nome do publisher, e o valor é a lista dos
 seus formatos. Facilita depois desenhar a lista no ecrã.
 ============================================
 */
+// Normalmente um fornecedor pertence por inteiro a uma só categoria, mas
+// alguns (ex.: a Endless, que tem ecrãs físicos em loja e também formatos
+// digitais no site/app) têm suporte em mais que um meio — nesse caso
+// aparecem como dois blocos distintos (um por categoria), cada um só com
+// os formatos respetivos, em vez de ficarem misturados num bloco só.
 function agruparPorPublisher(formatos) {
   const grupos = {};
   for (const formato of formatos) {
-    const nomePublisher = formato.fornecedor;
-    if (!grupos[nomePublisher]) {
-      grupos[nomePublisher] = [];
+    const categoria = categoriaDoFormato(formato);
+    const chave = `${formato.fornecedor}\u0000${categoria}`;
+    if (!grupos[chave]) {
+      grupos[chave] = { nome: formato.fornecedor, categoria, formatos: [] };
     }
-    grupos[nomePublisher].push(formato);
+    grupos[chave].formatos.push(formato);
   }
   return grupos;
 }
@@ -886,25 +892,30 @@ const CHAVE_TRADUCAO_CATEGORIA = {
   "Imprensa": "meioImprensa",
 };
 
-function categoriaDoPublisher(nomePublisher, formatosDoPublisher) {
-  const grupoMeio = grupoMeioDoFormato(formatosDoPublisher[0]);
+// A que categoria pertence UM formato (usado para agrupar — ver
+// agruparPorPublisher — e por categoriaDoPublisher, que aplica isto ao
+// primeiro formato de um bloco já agrupado, por isso homogéneo).
+function categoriaDoFormato(formato) {
+  const grupoMeio = grupoMeioDoFormato(formato);
   if (grupoMeio !== "Digital") {
     return grupoMeio;
   }
   // Os vários tipos de campanha do Google (Display Network, Demand Gen, App
   // Campaigns, Performance Max, Search, Vídeo) ficam cada um no seu próprio
   // bloco de publisher, mas todos pertencem à mesma categoria "Google ou Search".
-  if (nomePublisher.startsWith("Google")) {
+  if (formato.fornecedor.startsWith("Google")) {
     return "Google ou Search";
   }
-  const canal = formatosDoPublisher[0].canal;
-  if (canal === "Paid Social") {
+  if (formato.canal === "Paid Social") {
     return "Social Media";
   }
-  if (canal === "Programático") {
+  if (formato.canal === "Programático") {
     return "Programático";
   }
   return "Compra Direta";
+}
+function categoriaDoPublisher(nomePublisher, formatosDoPublisher) {
+  return categoriaDoFormato(formatosDoPublisher[0]);
 }
 
 // No construtor (opcoes.simplificado), substitui cada grupo de variantes
@@ -941,18 +952,26 @@ repetem entre as duas tabs (têm de ser únicos na página).
 function mostrarFormatosAgrupados(contentor, formatos, opcoes) {
   const grupos = agruparPorPublisher(formatos);
 
+  // Quando o mesmo fornecedor dá dois blocos (ex.: Endless em OOH e em
+  // Compra Direta), o id de cada bloco tem de ficar distinto — ver
+  // criarBlocoPublisher.
+  const contagemPorNome = {};
+  Object.values(grupos).forEach((grupo) => {
+    contagemPorNome[grupo.nome] = (contagemPorNome[grupo.nome] || 0) + 1;
+  });
+
   // Ordem de aparecimento: primeiro por canal, pela ordem fixa definida em
   // ORDEM_CATEGORIAS (Social Media, Compra Direta, Google ou Search,
   // Programático, e depois os meios offline — OOH, TV, Rádio, Cinema,
   // Imprensa); dentro de cada categoria, os publishers ficam por ordem
   // alfabética.
-  const nomesPublishers = Object.keys(grupos).sort((a, b) => {
-    const posicaoA = ORDEM_CATEGORIAS.indexOf(categoriaDoPublisher(a, grupos[a]));
-    const posicaoB = ORDEM_CATEGORIAS.indexOf(categoriaDoPublisher(b, grupos[b]));
+  const chavesGrupos = Object.keys(grupos).sort((a, b) => {
+    const posicaoA = ORDEM_CATEGORIAS.indexOf(grupos[a].categoria);
+    const posicaoB = ORDEM_CATEGORIAS.indexOf(grupos[b].categoria);
     if (posicaoA !== posicaoB) {
       return posicaoA - posicaoB;
     }
-    return a.localeCompare(b, "pt");
+    return grupos[a].nome.localeCompare(grupos[b].nome, "pt");
   });
 
   contentor.innerHTML = "";
@@ -964,13 +983,14 @@ function mostrarFormatosAgrupados(contentor, formatos, opcoes) {
   // outra categoria online.
   let categoriaAnterior = null;
   let grupoOnlineOfflineAnterior = null;
-  for (const nomePublisher of nomesPublishers) {
+  for (const chave of chavesGrupos) {
+    const { nome: nomePublisher, categoria } = grupos[chave];
     // Dentro do publisher, as linhas ficam por ordem alfabética — primeiro
     // pelo Veículo (relevante nos publishers com vários, ex.: "Correio da
     // Manhã" ou "TVI"/"CNN Portugal"; nos restantes, onde Veículo = Fornecedor
     // em todas as linhas, este critério não muda nada), depois pelo Formato.
     const formatosDoPublisher = agruparVariantesSeConstrutor(
-      [...grupos[nomePublisher]].sort((a, b) => {
+      [...grupos[chave].formatos].sort((a, b) => {
         const veiculoA = a.veiculo || "";
         const veiculoB = b.veiculo || "";
         if (veiculoA !== veiculoB) {
@@ -980,7 +1000,6 @@ function mostrarFormatosAgrupados(contentor, formatos, opcoes) {
       }),
       opcoes
     );
-    const categoria = categoriaDoPublisher(nomePublisher, formatosDoPublisher);
     if (categoria !== categoriaAnterior) {
       const grupoOnlineOffline = CATEGORIAS_ONLINE.has(categoria) ? "online" : "offline";
       if (grupoOnlineOffline !== grupoOnlineOfflineAnterior) {
@@ -990,7 +1009,8 @@ function mostrarFormatosAgrupados(contentor, formatos, opcoes) {
       contentor.appendChild(criarCabecalhoCategoria(categoria));
       categoriaAnterior = categoria;
     }
-    contentor.appendChild(criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes));
+    const idPrecisaDeSufixo = contagemPorNome[nomePublisher] > 1;
+    contentor.appendChild(criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes, idPrecisaDeSufixo));
   }
 }
 
@@ -1010,12 +1030,18 @@ function criarCabecalhoCategoria(categoria) {
   return cabecalho;
 }
 
-function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes) {
+function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes, idPrecisaDeSufixo) {
   const bloco = document.createElement("section");
   bloco.className = "grupo-publisher";
-  bloco.id = `${opcoes.prefixoId}-pub-${paraIdHtml(nomePublisher)}`;
+  const categoria = categoriaDoPublisher(nomePublisher, formatosDoPublisher);
+  // Normalmente o nome do publisher já é único na página — mas um
+  // fornecedor com suporte em mais que uma categoria (ver
+  // agruparPorPublisher) dá vários blocos com o mesmo nome, por isso o id
+  // de cada um precisa da categoria a seguir para não colidir.
+  const sufixoId = idPrecisaDeSufixo ? `-${paraIdHtml(categoria)}` : "";
+  bloco.id = `${opcoes.prefixoId}-pub-${paraIdHtml(nomePublisher)}${sufixoId}`;
   bloco.dataset.publisher = nomePublisher;
-  bloco.dataset.categoria = categoriaDoPublisher(nomePublisher, formatosDoPublisher);
+  bloco.dataset.categoria = categoria;
 
   const titulo = document.createElement("h4");
   titulo.textContent = nomePublisher;
@@ -1028,8 +1054,10 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes) {
   // O Grupo Digital2020 é uma taxonomia exclusiva dos meios digitais — não
   // existe (nem faz sentido) para publishers offline (OOH, e no futuro
   // TV/Rádio/Cinema/Imprensa), por isso nem a coluna é desenhada para eles.
-  // Um publisher pertence sempre por inteiro a um único meio, daí bastar
-  // olhar para o primeiro formato para decidir.
+  // Cada BLOCO (já agrupado por categoria — ver agruparPorPublisher) é
+  // sempre homogéneo num único meio, mesmo que o mesmo fornecedor dê
+  // origem a mais que um bloco (ex.: Endless, em OOH e em Compra Direta) —
+  // daí bastar olhar para o primeiro formato do bloco para decidir.
   //
   // O Veículo só ganha coluna própria quando, dentro deste publisher, há
   // mais que um veículo distinto do próprio nome do publisher — ex.:
