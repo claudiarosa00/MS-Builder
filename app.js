@@ -175,18 +175,31 @@ function garantirEstadoDuracao(formato, objetivo) {
   return estado;
 }
 
+// A caixa "Outro" aceita mais que uma duração livre ao mesmo tempo (ex.:
+// "21, 25" para um filme de 21" e outro de 25" no mesmo pedido) — basta
+// separar por vírgula; cada uma conta como a sua própria duração (e, por
+// isso, o seu próprio spot/linha — ver duracoesEfetivasDoFormato).
+function duracoesLivresDoEstado(estado) {
+  if (!estado.outroAtivo || !estado.outroValor.trim()) {
+    return [];
+  }
+  return estado.outroValor
+    .split(",")
+    .map((valor) => valor.trim())
+    .filter((valor) => valor.length > 0);
+}
+
 // As durações efetivamente escolhidas para este formato+objetivo, na ordem
-// 15/20/30 seguida de "Outro" (se ativo e preenchido) — nunca uma lista
-// vazia quando o formato tem duração (cai sempre em [DURACAO_OMISSAO]).
+// 15/20/30 seguidas das durações livres de "Outro" (se ativo e
+// preenchido — ver duracoesLivresDoEstado) — nunca uma lista vazia quando
+// o formato tem duração (cai sempre em [DURACAO_OMISSAO]).
 function duracoesEfetivasDoFormato(formato, objetivo) {
   if (!formatoTemDuracao(formato)) {
     return [];
   }
   const estado = estadoDuracaoOuOmissao(formato, objetivo);
   const valores = DURACOES_PADRAO.filter((valor) => estado.padrao.has(valor));
-  if (estado.outroAtivo && estado.outroValor.trim()) {
-    valores.push(estado.outroValor.trim());
-  }
+  valores.push(...duracoesLivresDoEstado(estado));
   return valores.length > 0 ? valores : [DURACAO_OMISSAO];
 }
 const selecoesPorObjetivo = {
@@ -246,12 +259,13 @@ const LINK_GOFASTWAY = "http://www.gofastway.tv";
 const TEXTO_LINK_GOFASTWAY = "www.gofastway.tv";
 
 // Pedir o mesmo formato para vários temas/criatividades diferentes (TV,
-// Rádio e OOH) é, tal como a duração, mais que um pedido de facto — cada
-// tema ganha a sua própria linha no Excel (ver escreverSeccaoObjetivo).
-// Aqui só se escolhe a QUANTIDADE (não o nome de cada tema, que fica por
-// preencher à mão depois no Excel, em "Tema 1"/"Tema 2"/...). Sem entrada
-// no mapa assume-se 1 (um único pedido, sem divisão por tema).
-const MEIOS_COM_TEMA = new Set(["TV", "Rádio", "OOH"]);
+// Rádio, OOH e Digital) é, tal como a duração, mais que um pedido de
+// facto — cada tema ganha a sua própria linha no Excel (ver
+// escreverSeccaoObjetivo). Aqui só se escolhe a QUANTIDADE (o nome de
+// cada tema fica por preencher à mão depois no Excel, na coluna Tema,
+// que sai sempre em branco — ver COLUNAS_EXCEL_DISPONIVEIS.tema). Sem
+// entrada no mapa assume-se 1 (um único pedido, sem divisão por tema).
+const MEIOS_COM_TEMA = new Set(["TV", "Rádio", "OOH", "Digital"]);
 const LIMITE_MAXIMO_TEMAS = 10;
 const temasPorObjetivo = {
   awareness: new Map(),
@@ -478,7 +492,7 @@ const TRADUCOES = {
   colDuracao: { pt: "Duração do Spot", en: "Spot Duration", es: "Duración del Spot", fr: "Durée du Spot" },
   colSecundagem: { pt: "Secundagem", en: "Duration", es: "Duración", fr: "Durée" },
   duracaoOutro: { pt: "Outro", en: "Other", es: "Otro", fr: "Autre" },
-  placeholderDuracaoOutro: { pt: "segundos", en: "seconds", es: "segundos", fr: "secondes" },
+  placeholderDuracaoOutro: { pt: "segundos, ex.: 21, 25", en: "seconds, e.g. 21, 25", es: "segundos, ej.: 21, 25", fr: "secondes, ex. : 21, 25" },
   colGrupoDigital2020: { pt: "Grupo Digital2020", en: "Digital2020 Group", es: "Grupo Digital2020", fr: "Groupe Digital2020" },
   colDimensao: { pt: "Dimensão", en: "Dimensions", es: "Dimensión", fr: "Dimensions" },
   colAspectRatio: { pt: "Aspect Ratio", en: "Aspect Ratio", es: "Aspect Ratio", fr: "Aspect Ratio" },
@@ -1085,8 +1099,8 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes, idPreci
   // construtor — tal como a Duração, liga-se por publisher mas cada linha
   // decide por si própria se mostra o seletor.
   //
-  // Os Temas (TV/Rádio/OOH) aplicam-se a qualquer formato destes meios, no
-  // construtor — ver MEIOS_COM_TEMA.
+  // Os Temas (TV/Rádio/OOH/Digital) aplicam-se a qualquer formato destes
+  // meios, no construtor — ver MEIOS_COM_TEMA.
   //
   // A Entrega de TV (sempre "GoFastWay") é fixa e não depende de nenhuma
   // escolha do utilizador — por isso aparece também na Biblioteca de
@@ -2562,12 +2576,14 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
   const indiceColunaLink = colunasChaves.indexOf("link");
   const indiceColunaTema = colunasChaves.indexOf("temaCriativo");
   const indiceColunaDataEntrega = colunasChaves.indexOf("dataEntrega");
-  // Só a coluna "#" e as colunas de data ficam centradas na horizontal —
-  // as restantes ficam alinhadas à esquerda (pedido explícito da
-  // Cláudia). Um texto centrado lê-se pior em colunas de texto corrido
-  // (Observações, Dimensão, ...), mas um "#" ou uma data soltos ficam
-  // melhor centrados do que encostados ao canto da célula.
-  const COLUNAS_CENTRADAS = new Set(["dataInicioCampanha", "dataEntrega"]);
+  // Só a coluna "#", as colunas de data e as de Entrega do OOH (Entrega
+  // AF/Entrega Morada, que só levam um "X" ou ficam em branco) ficam
+  // centradas na horizontal — as restantes ficam alinhadas à esquerda
+  // (pedido explícito da Cláudia). Um texto centrado lê-se pior em
+  // colunas de texto corrido (Observações, Dimensão, ...), mas um "#",
+  // uma data ou um "X" soltos ficam melhor centrados do que encostados
+  // ao canto da célula.
+  const COLUNAS_CENTRADAS = new Set(["dataInicioCampanha", "dataEntrega", "entregaAF", "entregaMorada"]);
 
   // Um formato de TV/Rádio com mais que uma duração escolhida é, na
   // prática, mais que um spot pedido — cada duração ganha a sua própria
