@@ -258,14 +258,15 @@ const MORADA_ENTREGA_MUPI_PAPEL = {
 const LINK_GOFASTWAY = "http://www.gofastway.tv";
 const TEXTO_LINK_GOFASTWAY = "www.gofastway.tv";
 
-// Pedir o mesmo formato para vários temas/criatividades diferentes (TV,
-// Rádio, OOH e Digital) é, tal como a duração, mais que um pedido de
-// facto — cada tema ganha a sua própria linha no Excel (ver
-// escreverSeccaoObjetivo). Aqui só se escolhe a QUANTIDADE (o nome de
-// cada tema fica por preencher à mão depois no Excel, na coluna Tema,
-// que sai sempre em branco — ver COLUNAS_EXCEL_DISPONIVEIS.tema). Sem
-// entrada no mapa assume-se 1 (um único pedido, sem divisão por tema).
-const MEIOS_COM_TEMA = new Set(["TV", "Rádio", "OOH", "Digital"]);
+// Pedir o mesmo formato para vários temas/criatividades diferentes é, tal
+// como a duração, mais que um pedido de facto — cada tema ganha a sua
+// própria linha no Excel (ver escreverSeccaoObjetivo). Aqui só se escolhe
+// a QUANTIDADE (o nome de cada tema fica por preencher à mão depois no
+// Excel, na coluna Tema, que sai sempre em branco — ver
+// COLUNAS_EXCEL_DISPONIVEIS.tema). Sem entrada no mapa assume-se 1 (um
+// único pedido, sem divisão por tema). Aplica-se a todos os meios (pedido
+// explícito da Cláudia).
+const MEIOS_COM_TEMA = new Set(["TV", "Rádio", "OOH", "Digital", "Cinema", "Imprensa"]);
 const LIMITE_MAXIMO_TEMAS = 10;
 const temasPorObjetivo = {
   awareness: new Map(),
@@ -1099,8 +1100,8 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes, idPreci
   // construtor — tal como a Duração, liga-se por publisher mas cada linha
   // decide por si própria se mostra o seletor.
   //
-  // Os Temas (TV/Rádio/OOH/Digital) aplicam-se a qualquer formato destes
-  // meios, no construtor — ver MEIOS_COM_TEMA.
+  // Os Temas aplicam-se a qualquer formato, em todos os meios, no
+  // construtor — ver MEIOS_COM_TEMA.
   //
   // A Entrega de TV (sempre "GoFastWay") é fixa e não depende de nenhuma
   // escolha do utilizador — por isso aparece também na Biblioteca de
@@ -2514,16 +2515,13 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
 };
 
 // Cada meio só leva as colunas que lhe fazem sentido — Rádio não tem
-// Dimensão/Aspect Ratio, Imprensa e OOH não têm Canal nem Tema (esse é
-// um conceito só de Digital), etc. Um meio sem entrada aqui usa o
-// conjunto completo do Digital.
+// Dimensão/Aspect Ratio, Imprensa e OOH não têm Canal, etc. Um meio sem
+// entrada aqui usa o conjunto completo do Digital.
 //
 // Ordem pedida pela Cláudia: Canal/Estação > Formato > Secundagem (TV/
 // Rádio), e em todos os meios a Data de Início da Campanha/Data de
 // Entrega vêm logo a seguir ao Tema — e só depois todas as especificações
-// técnicas. Cinema e Imprensa não têm coluna de Tema (não é um conceito
-// que se aplique a esses dois meios, ver MEIOS_COM_TEMA): aí as datas
-// ficam logo a seguir ao Formato, que é o equivalente mais próximo.
+// técnicas. Todos os meios têm coluna de Tema (ver MEIOS_COM_TEMA).
 const COLUNAS_POR_MEIO_EXCEL = {
   "Digital": ["canal", "plataforma", "formato", "tema", "dataInicioCampanha", "dataEntrega", "dimensao", "aspectRatio", "peso", "tipoFicheiro", "copies", "observacoes", "link"],
   "OOH": ["plataforma", "formato", "temaCriativo", "dataInicioCampanha", "dataEntrega", "dimensao", "aspectRatio", "numFacesOoh", "numCartazesOoh", "tipoFicheiro", "entregaAF", "entregaMorada", "moradaEntregaMupi", "observacoes"],
@@ -2536,12 +2534,12 @@ const COLUNAS_POR_MEIO_EXCEL = {
   // segue agora a mesma lógica (ver ESTACOES_RADIO/MEIOS_COM_CANAL).
   "TV": ["canalTv", "formato", "secundagem", "temaCriativo", "dataInicioCampanha", "dataEntrega"],
   "Rádio": ["estacaoRadio", "formato", "secundagem", "temaCriativo", "dataInicioCampanha", "dataEntrega"],
-  "Cinema": ["plataforma", "formato", "dataInicioCampanha", "dataEntrega", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes"],
+  "Cinema": ["plataforma", "formato", "temaCriativo", "dataInicioCampanha", "dataEntrega", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes"],
   // Veículo (ex. "Correio da Manhã") e Caderno (ex. "Boa Onda") substituem
   // a antiga coluna única "plataforma"/"Título" — pedido explícito da
   // Cláudia, para o caderno/suplemento não ficar escondido dentro do nome
   // do veículo.
-  "Imprensa": ["veiculoImprensa", "cadernoImprensa", "formato", "dataInicioCampanha", "dataEntrega", "dimensao", "tipoFicheiro", "observacoes"],
+  "Imprensa": ["veiculoImprensa", "cadernoImprensa", "formato", "temaCriativo", "dataInicioCampanha", "dataEntrega", "dimensao", "tipoFicheiro", "observacoes"],
 };
 
 // Escreve uma secção completa (título do objetivo + cabeçalho da tabela +
