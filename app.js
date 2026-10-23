@@ -123,11 +123,17 @@ function formatoTemDuracao(formato) {
 // essa linha, ou mudar a Duração ou o número de Temas, aplica-se a todas
 // as variantes do grupo ao mesmo tempo (ver garantirEstadoDuracao,
 // mudarContagemTemas e o listener de checkbox-formato), e cada variante
-// continua a gerar a sua própria linha no Excel exportado. A Biblioteca
-// de Formatos continua a mostrar cada variante técnica separadamente,
-// com as suas specs próprias — só o construtor (opcoes.simplificado) é
-// que agrupa. Hoje cobre dois casos: "Spot TV" (SD/HD, ver README) e
-// "Publicidade Cinema" (2D/3D, NOS Publicidade).
+// continua a gerar a sua própria linha no Excel exportado — com as
+// colunas que partilham o mesmo valor (ex.: Plataforma, ou o próprio
+// Formato quando o nome genérico é igual) fundidas verticalmente em vez
+// de repetidas, só as que realmente diferem entre variantes (ex.:
+// Dimensão, Peso) é que saem em linhas separadas (ver
+// mesclarColunasComValorRepetido). A Biblioteca de Formatos continua a
+// mostrar cada variante técnica separadamente, com as suas specs
+// próprias — só o construtor (opcoes.simplificado) é que agrupa. Hoje
+// cobre três casos: "Spot TV" (SD/HD, ver README), "Publicidade Cinema"
+// (2D/3D, NOS Publicidade) e "Ecrã Digital - Canal Executivo" da
+// LiftMedia (Horizontal/Vertical, duas dimensões do mesmo ecrã).
 // Construído uma vez, quando a base carrega; representante = o id mais
 // baixo do grupo (mantém a ordem de leitura previsível).
 let GRUPOS_FORMATO_VARIANTES = new Map(); // id -> { representante, ids: [...] }
@@ -137,6 +143,7 @@ let GRUPOS_FORMATO_VARIANTES = new Map(); // id -> { representante, ids: [...] }
 const PADROES_VARIANTE_FORMATO = [
   { grupoMeio: "TV", regex: /^Spot TV \(/, nomeGenerico: "Spot TV" },
   { grupoMeio: "Cinema", regex: /^Publicidade Cinema /, nomeGenerico: "Spot" },
+  { grupoMeio: "OOH", regex: /^Ecrã Digital - Canal Executivo \(/, nomeGenerico: "Ecrã Digital - Canal Executivo" },
 ];
 
 function construirGruposFormatoVariantes(formatos) {
@@ -2624,6 +2631,41 @@ const COLUNAS_POR_MEIO_EXCEL = {
   "Imprensa": ["veiculoImprensa", "cadernoImprensa", "formato", "temaCriativo", "dataInicioCampanha", "dataEntrega", "dimensao", "tipoFicheiro", "observacoes"],
 };
 
+// Mescla verticalmente, coluna a coluna, qualquer sequência de linhas
+// consecutivas desta secção que partilhem o mesmo valor não vazio — tanto
+// um único formato espalhado por várias linhas (vários temas, ou um
+// formato com mais que uma dimensão/peso/variante técnica, ver
+// GRUPOS_FORMATO_VARIANTES) como formatos diferentes que repitam a mesma
+// Plataforma/Canal (ex.: vários formatos do mesmo Facebook, ou vários
+// spots no mesmo canal de TV) — pedido explícito da Cláudia, para os
+// campos com informação comum saírem fundidos em vez de repetidos linha
+// a linha. Nunca mescla células vazias (ex.: a coluna Tema, sempre em
+// branco para o utilizador preencher à mão, ou Data de Início/Entrega) —
+// só values genuinamente iguais e preenchidos.
+function mesclarColunasComValorRepetido(folha, numColunas, linhaInicio, linhaFim, colunasCentradas, colunasChaves) {
+  if (linhaFim < linhaInicio) {
+    return;
+  }
+  for (let coluna = 1; coluna <= numColunas; coluna += 1) {
+    let inicioBloco = linhaInicio;
+    let valorBloco = folha.getCell(linhaInicio, coluna).value;
+    for (let linha = linhaInicio + 1; linha <= linhaFim + 1; linha += 1) {
+      const dentroDoIntervalo = linha <= linhaFim;
+      const valorAtual = dentroDoIntervalo ? folha.getCell(linha, coluna).value : undefined;
+      if (dentroDoIntervalo && valorAtual === valorBloco && valorBloco !== null && valorBloco !== undefined && valorBloco !== "") {
+        continue;
+      }
+      if (linha - 1 > inicioBloco && valorBloco !== null && valorBloco !== undefined && valorBloco !== "") {
+        folha.mergeCells(inicioBloco, coluna, linha - 1, coluna);
+        const centrada = coluna === 1 || colunasCentradas.has(colunasChaves[coluna - 2]);
+        folha.getCell(inicioBloco, coluna).alignment = { vertical: "middle", horizontal: centrada ? "center" : "left", wrapText: true };
+      }
+      inicioBloco = linha;
+      valorBloco = valorAtual;
+    }
+  }
+}
+
 // Escreve uma secção completa (título do objetivo + cabeçalho da tabela +
 // uma linha por formato — ou uma linha por duração escolhida, no caso de
 // TV/Rádio, ver mais abaixo) a partir da linha indicada, e devolve a
@@ -2654,7 +2696,6 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
   linha += 1;
 
   const indiceColunaLink = colunasChaves.indexOf("link");
-  const indiceColunaTema = colunasChaves.indexOf("temaCriativo");
   const indiceColunaDataEntrega = colunasChaves.indexOf("dataEntrega");
   // Só a coluna "#", as colunas de data e as de Entrega do OOH (Entrega
   // AF/Entrega Morada, que só levam um "X" ou ficam em branco) ficam
@@ -2716,22 +2757,22 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
     ));
   }
 
+  const linhaPrimeiraLinhaDados = linha;
   let linhaAtual = linha;
   gruposLinha.forEach((grupo, indiceGrupo) => {
-    const linhaInicioGrupo = linhaAtual;
-    grupo.temas.forEach((temaIndice, indiceDentroGrupo) => {
+    grupo.temas.forEach((temaIndice) => {
       const linhaFormato = folha.getRow(linhaAtual);
-      // Quando este item se espalha por várias linhas (vários temas), só a
-      // primeira linha do grupo leva valor nas colunas partilhadas (tudo
-      // exceto o Tema) — as restantes ficam em branco, para o merge logo a
-      // seguir não ter de sobrepor conteúdo já escrito nelas.
-      const valoresColunas = colunasChaves.map((chave, indiceColuna) => {
-        if (indiceDentroGrupo > 0 && indiceColuna !== indiceColunaTema) {
-          return "";
-        }
-        return COLUNAS_EXCEL_DISPONIVEIS[chave].valor(grupo.formato, objetivo, grupo.duracao, temaIndice, grupo.canal);
-      });
-      linhaFormato.values = [indiceDentroGrupo === 0 ? indiceGrupo + 1 : "", ...valoresColunas];
+      // Cada linha leva sempre o valor real em todas as colunas (nunca
+      // em branco "a sinalizar continuação") — é a mesclagem genérica a
+      // seguir (ver mesclarColunasComValorRepetido) que funde as
+      // sequências de linhas com o mesmo valor, seja dentro do mesmo
+      // grupo (vários temas, ou um formato com mais que uma dimensão —
+      // ver GRUPOS_FORMATO_VARIANTES) seja entre grupos diferentes que
+      // partilhem Plataforma/Canal.
+      const valoresColunas = colunasChaves.map((chave) => (
+        COLUNAS_EXCEL_DISPONIVEIS[chave].valor(grupo.formato, objetivo, grupo.duracao, temaIndice, grupo.canal)
+      ));
+      linhaFormato.values = [indiceGrupo + 1, ...valoresColunas];
       linhaFormato.eachCell({ includeEmpty: true }, (celula, indiceColunaExcel) => {
         const centrada = indiceColunaExcel === 1 || COLUNAS_CENTRADAS.has(colunasChaves[indiceColunaExcel - 2]);
         celula.font = { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } };
@@ -2745,27 +2786,15 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
       });
       // O texto do link fica na cor de destaque, sublinhado, para
       // parecer clicável mesmo antes de o utilizador lhe tocar.
-      if (indiceColunaLink !== -1 && indiceDentroGrupo === 0 && grupo.formato.link) {
+      if (indiceColunaLink !== -1 && grupo.formato.link) {
         linhaFormato.getCell(indiceColunaLink + 2).font = { name: "Arial Nova", size: 10, color: { argb: "FF1155CC" }, underline: true };
       }
       linhaAtual += 1;
     });
-
-    // Com mais que um tema, as colunas partilhadas (incluindo o "#") ficam
-    // visualmente unidas ao longo das linhas do grupo — só o Tema muda
-    // linha a linha.
-    if (grupo.temas.length > 1) {
-      for (let coluna = 1; coluna <= numColunas; coluna += 1) {
-        if (coluna - 2 === indiceColunaTema) {
-          continue;
-        }
-        folha.mergeCells(linhaInicioGrupo, coluna, linhaAtual - 1, coluna);
-        const centrada = coluna === 1 || COLUNAS_CENTRADAS.has(colunasChaves[coluna - 2]);
-        folha.getCell(linhaInicioGrupo, coluna).alignment = { vertical: "middle", horizontal: centrada ? "center" : "left", wrapText: true };
-      }
-    }
   });
   linha = linhaAtual;
+
+  mesclarColunasComValorRepetido(folha, numColunas, linhaPrimeiraLinhaDados, linhaAtual - 1, COLUNAS_CENTRADAS, colunasChaves);
 
   return linha + 1; // uma linha em branco antes da secção seguinte
 }
