@@ -81,7 +81,7 @@ let objetivoAtivo = "awareness";
 // outroAtivo: boolean, outroValor: string }. Quando não há entrada,
 // assume-se só DURACAO_OMISSAO (30", a duração mais comum), nunca fica por
 // preencher.
-const DURACOES_PADRAO = ["15", "20", "30"];
+const DURACOES_PADRAO = ["5", "10", "15", "20", "25", "30"];
 const DURACAO_OMISSAO = "30";
 const duracoesPorObjetivo = {
   awareness: new Map(),
@@ -1132,10 +1132,9 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes, idPreci
   const grupoMeioDoBloco = grupoMeioDoFormato(formatosDoPublisher[0]);
   const opcoesComMeio = {
     ...opcoes,
-    // Só no construtor (opcoes.simplificado) — pedido explícito da
-    // Cláudia para tirar esta coluna da Biblioteca de Formatos, que já
-    // mostra as specs completas e não precisa desta taxonomia extra.
-    comGrupoDigital2020: opcoes.simplificado && grupoMeioDoBloco === "Digital",
+    // Tirada de vez, tanto do construtor como da Biblioteca de Formatos
+    // — pedido explícito da Cláudia.
+    comGrupoDigital2020: false,
     comCopies: grupoMeioDoBloco === "Digital",
     comVeiculo: formatosDoPublisher.some((f) => f.veiculo && f.veiculo !== nomePublisher),
     comEntregaMupi: opcoes.simplificado && formatosDoPublisher.some(formatoEhMupiPapel),
