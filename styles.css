@@ -1114,8 +1114,43 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   cursor: pointer;
 }
 
+/* Grelha da coluna Secundagem de TV: uma linha por canal escolhido, com
+   o seu próprio seletor de duração (ver .grupo-duracao) — cada canal
+   pode ter a sua própria grelha de durações (ex.: TVI a 30"+20", SIC só
+   a 30"+10", no mesmo pedido). Separada da grelha de Temas ao lado (ver
+   .grid-temas-tv) — pedido explícito da Cláudia, para ficar claro que se
+   escolhe primeiro o canal, depois a secundagem, só depois o nº de
+   temas — ver criarGridSecundagemTv em app.js. */
+.grid-secundagem-tv {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.grid-secundagem-tv--vazia {
+  font-size: 12.5px;
+  color: var(--cor-texto-suave);
+  font-style: italic;
+}
+
+.linha-secundagem-tv {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 6px 0;
+  border-top: 1px solid var(--cor-borda);
+}
+
+.linha-secundagem-tv:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
 /* Grelha de temas de TV: uma linha por canal escolhido, com um contador
-   +/- por secundagem ativa nesse canal — ver criarGridTemasTv em app.js. */
+   +/- por secundagem ativa nesse canal — ver criarGridTemasTv em app.js.
+   As linhas ficam com a mesma altura/separador que .linha-secundagem-tv,
+   para as duas colunas lerem alinhadas lado a lado. */
 .grid-temas-tv {
   display: flex;
   flex-direction: column;
@@ -1128,15 +1163,11 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   font-style: italic;
 }
 
-/* Cada linha de canal passou a ter duas sub-linhas: o cabeçalho (nome do
-   canal + o seu seletor de duração — ver .grupo-duracao) e as células de
-   temas propriamente ditas, uma por secundagem ativa NESSE canal — cada
-   canal pode ter a sua própria grelha de durações (ex.: TVI a 30"+20",
-   SIC só a 30"+10", no mesmo pedido). */
 .linha-temas-tv {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
   padding: 6px 0;
   border-top: 1px solid var(--cor-borda);
 }
@@ -1144,13 +1175,6 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
 .linha-temas-tv:first-child {
   border-top: none;
   padding-top: 0;
-}
-
-.linha-temas-tv-cabecalho {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
 }
 
 .linha-temas-tv-canal {

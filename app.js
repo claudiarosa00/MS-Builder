@@ -1145,6 +1145,13 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes, idPreci
     // que aplicar canais/estações.
     comCanaisTv: opcoes.simplificado && MEIOS_COM_CANAL.has(grupoMeioDoBloco),
     rotuloCanais: t(chaveRotuloCanal(grupoMeioDoBloco)),
+    // Secundagem (TV/Rádio) ganhou a sua própria coluna, separada de
+    // Temas — pedido explícito da Cláudia, para ficar claro que se
+    // escolhe primeiro o canal, depois a secundagem desse canal, e só
+    // depois o número de temas por secundagem (ver criarGridSecundagemTv/
+    // criarGridTemasTv). Mesma condição que comCanaisTv: só existe onde
+    // há canal para associar a secundagem.
+    comSecundagemTv: opcoes.simplificado && MEIOS_COM_CANAL.has(grupoMeioDoBloco),
     // Nº de Faces / Nº de cartazes a entregar só existem no OOH, e só no
     // construtor (são uma característica da compra em concreto, não da
     // base de formatos).
@@ -1183,6 +1190,7 @@ function criarCabecalhoTabela(opcoes) {
   const colunaCopies = opcoes.comCopies ? `<th scope="col">${t("colCopies")}</th>` : "";
   const colunaEntregaTV = opcoes.comEntregaTV ? `<th scope="col">${t("colEntrega")}</th>` : "";
   const colunaCanaisTv = opcoes.comCanaisTv ? `<th scope="col">${opcoes.rotuloCanais || t("labelCanaisTV")}</th>` : "";
+  const colunaSecundagemTv = opcoes.comSecundagemTv ? `<th scope="col">${t("colSecundagem")}</th>` : "";
   const colunaNumFacesOoh = opcoes.comNumOOH ? `<th scope="col">${t("colNumFaces")}</th>` : "";
   const colunaNumCartazesOoh = opcoes.comNumOOH ? `<th scope="col">${t("colNumCartazes")}</th>` : "";
 
@@ -1199,6 +1207,7 @@ function criarCabecalhoTabela(opcoes) {
         ${colunaGrupoDigital2020}
         ${colunaEntregaMupi}
         ${colunaCanaisTv}
+        ${colunaSecundagemTv}
         ${colunaNumFacesOoh}
         ${colunaNumCartazesOoh}
         ${colunaTemas}
@@ -1312,8 +1321,9 @@ function criarCelulaTemas(formato, nomeFormatoTexto) {
 // estações de Rádio, consoante o meio deste formato (ver
 // canaisDisponiveisDoFormato) — mais que um pode estar marcado (o mesmo
 // spot costuma ir para vários canais/estações). Marcar/desmarcar aqui
-// também recalcula a grelha de temas (ver atualizarGridTemasTv), porque
-// cada canal/estação ganha a sua própria linha nela.
+// também recalcula as grelhas de Secundagem e Temas (ver
+// atualizarGridsTv), porque cada canal/estação ganha a sua própria
+// linha em cada uma.
 function criarCelulaCanaisTv(formato) {
   const canais = canaisDoFormato(formato, objetivoAtivo);
   const opcoes = canaisDisponiveisDoFormato(formato)
@@ -1336,52 +1346,109 @@ function criarCelulaNumOOH(formato, valorAtual, classeInput) {
   return `<input type="number" min="0" inputmode="numeric" class="${classeInput}" data-id="${formato.id}" value="${valorAtual}">`;
 }
 
-// Grelha de temas de TV: uma linha por canal escolhido, com o seu próprio
-// seletor de duração (ver criarSeletorDuracaoTv — cada canal pode ter uma
-// grelha de durações diferente) e um contador +/- por cada secundagem
-// ativa NESSE canal (ou um único contador, sem rótulo de secundagem, para
-// formatos sem duração — ex.: Ecrã Fracionado). Fica vazia (com uma nota)
+// Só as células de temas (contadores +/-) de UM canal — a parte da grelha
+// que depende das durações ativas nesse canal. Separada de
+// criarGridTemasTv para poder ser recriada sozinha (ver
+// atualizarCelulasTemasCanal) sem mexer no seletor de duração desse
+// canal: se a atualização ao mudar a duração reconstruísse a grelha
+// inteira, o campo de texto "Outro" — que vive dentro dela — perdia o
+// foco a cada letra escrita, tornando impossível escrever lá mais que um
+// caráter de cada vez.
+function criarCelulasTemasCanal(formato, canal, nomeFormatoTexto) {
+  const temDuracao = formatoTemDuracao(formato);
+  const duracoes = temDuracao ? duracoesEfetivasDoFormato(formato, objetivoAtivo, canal) : [""];
+  return duracoes
+    .map((duracao) => {
+      const contagem = contagemTemaTv(formato, objetivoAtivo, canal, duracao);
+      const rotuloDuracao = duracao ? `<span class="celula-tema-tv-duracao">${duracao}″</span>` : "";
+      const nomeContexto = duracao ? `${nomeFormatoTexto} — ${canal} — ${duracao}″` : `${nomeFormatoTexto} — ${canal}`;
+      return `
+        <span class="celula-tema-tv" data-id="${formato.id}" data-canal="${canal}" data-duracao="${duracao}">
+          ${rotuloDuracao}
+          <button type="button" class="botao-temagrid-menos" data-id="${formato.id}" data-canal="${canal}" data-duracao="${duracao}" aria-label="${formatar("temaGridDiminuir", { formato: nomeContexto })}" ${contagem <= 1 ? "disabled" : ""}>−</button>
+          <span class="valor-temagrid" aria-live="polite">${contagem}</span>
+          <button type="button" class="botao-temagrid-mais" data-id="${formato.id}" data-canal="${canal}" data-duracao="${duracao}" aria-label="${formatar("temaGridAumentar", { formato: nomeContexto })}" ${contagem >= LIMITE_MAXIMO_TEMAS ? "disabled" : ""}>+</button>
+        </span>
+      `;
+    })
+    .join("");
+}
+
+// Grelha da coluna Secundagem: uma linha por canal escolhido, com o nome
+// do canal e o seu próprio seletor de duração (ver criarSeletorDuracaoTv
+// — cada canal pode ter uma grelha de durações diferente, ex.: TVI a
+// 30″+20″, SIC só a 10″). Fica vazia (com uma nota) enquanto não houver
+// nenhum canal escolhido, e também para formatos sem duração (ex.: Ecrã
+// Fracionado) — esses não têm nada para mostrar aqui, só na coluna Temas.
+function criarGridSecundagemTv(formato) {
+  const canais = [...canaisDoFormato(formato, objetivoAtivo)];
+  if (canais.length === 0) {
+    return `<div class="grid-secundagem-tv grid-secundagem-tv--vazia" data-id="${formato.id}">${t(chaveSemCanalEscolhido(grupoMeioDoFormato(formato)))}</div>`;
+  }
+  if (!formatoTemDuracao(formato)) {
+    return `<div class="grid-secundagem-tv" data-id="${formato.id}"></div>`;
+  }
+  const linhas = canais
+    .map((canal) => `
+      <div class="linha-secundagem-tv">
+        <span class="linha-temas-tv-canal">${canal}</span>
+        ${criarSeletorDuracaoTv(formato, canal)}
+      </div>
+    `)
+    .join("");
+  return `<div class="grid-secundagem-tv" data-id="${formato.id}">${linhas}</div>`;
+}
+
+// Grelha de temas de TV: uma linha por canal escolhido, com um contador
+// +/- por cada secundagem ativa NESSE canal (ver criarCelulasTemasCanal;
+// ou um único contador, sem rótulo de secundagem, para formatos sem
+// duração). O seletor de duração vive na coluna Secundagem, ao lado (ver
+// criarGridSecundagemTv) — não aqui, para o campo "Outro" nunca ser
+// reconstruído por mudanças na coluna Temas. Fica vazia (com uma nota)
 // enquanto não houver nenhum canal escolhido — é por isso que marcar/
-// desmarcar um canal, ou mudar a duração de um deles, tem de voltar a
-// chamar esta função (ver atualizarGridTemasTv), e não só atualizar o
-// número de um contador já existente.
+// desmarcar um canal tem de voltar a chamar esta função (ver
+// atualizarGridsTv); mudar a duração de um canal já escolhido só recria
+// as células desse canal (ver atualizarCelulasTemasCanal), não a grelha
+// inteira.
 function criarGridTemasTv(formato, nomeFormatoTexto) {
   const canais = [...canaisDoFormato(formato, objetivoAtivo)];
   if (canais.length === 0) {
     return `<div class="grid-temas-tv grid-temas-tv--vazia" data-id="${formato.id}">${t(chaveSemCanalEscolhido(grupoMeioDoFormato(formato)))}</div>`;
   }
-  const temDuracao = formatoTemDuracao(formato);
   const linhas = canais
-    .map((canal) => {
-      const duracoes = temDuracao ? duracoesEfetivasDoFormato(formato, objetivoAtivo, canal) : [""];
-      const celulas = duracoes
-        .map((duracao) => {
-          const contagem = contagemTemaTv(formato, objetivoAtivo, canal, duracao);
-          const rotuloDuracao = duracao ? `<span class="celula-tema-tv-duracao">${duracao}″</span>` : "";
-          const nomeContexto = duracao ? `${nomeFormatoTexto} — ${canal} — ${duracao}″` : `${nomeFormatoTexto} — ${canal}`;
-          return `
-            <span class="celula-tema-tv" data-id="${formato.id}" data-canal="${canal}" data-duracao="${duracao}">
-              ${rotuloDuracao}
-              <button type="button" class="botao-temagrid-menos" data-id="${formato.id}" data-canal="${canal}" data-duracao="${duracao}" aria-label="${formatar("temaGridDiminuir", { formato: nomeContexto })}" ${contagem <= 1 ? "disabled" : ""}>−</button>
-              <span class="valor-temagrid" aria-live="polite">${contagem}</span>
-              <button type="button" class="botao-temagrid-mais" data-id="${formato.id}" data-canal="${canal}" data-duracao="${duracao}" aria-label="${formatar("temaGridAumentar", { formato: nomeContexto })}" ${contagem >= LIMITE_MAXIMO_TEMAS ? "disabled" : ""}>+</button>
-            </span>
-          `;
-        })
-        .join("");
-      const seletorDuracao = temDuracao ? criarSeletorDuracaoTv(formato, canal) : "";
-      return `
-        <div class="linha-temas-tv">
-          <div class="linha-temas-tv-cabecalho">
-            <span class="linha-temas-tv-canal">${canal}</span>
-            ${seletorDuracao}
-          </div>
-          <div class="celulas-temas-tv">${celulas}</div>
-        </div>
-      `;
-    })
+    .map((canal) => `
+      <div class="linha-temas-tv">
+        <span class="linha-temas-tv-canal">${canal}</span>
+        <div class="celulas-temas-tv" data-id="${formato.id}" data-canal="${canal}">${criarCelulasTemasCanal(formato, canal, nomeFormatoTexto)}</div>
+      </div>
+    `)
     .join("");
   return `<div class="grid-temas-tv" data-id="${formato.id}">${linhas}</div>`;
+}
+
+// Atualização cirúrgica depois de mudar a duração de UM canal: troca só
+// as células de temas desse canal — nunca o seletor de duração (que nem
+// vive na mesma coluna) nem as restantes linhas — ver a nota em
+// criarCelulasTemasCanal sobre o porquê (preservar o foco do campo
+// "Outro" enquanto se escreve nele).
+function atualizarCelulasTemasCanal(formato, canal) {
+  const nomeFormatoTexto = textoTraduzido(formato, "formato") ?? "";
+  listaFormatos.querySelectorAll(`.celulas-temas-tv[data-id="${formato.id}"][data-canal="${canal}"]`).forEach((div) => {
+    div.innerHTML = criarCelulasTemasCanal(formato, canal, nomeFormatoTexto);
+  });
+}
+
+// Reconstrói as duas grelhas (Secundagem e Temas) de um formato de TV —
+// chamado quando o conjunto de canais muda (marcar/desmarcar um canal),
+// já que isso acrescenta ou remove uma linha inteira em cada uma.
+function atualizarGridsTv(formato) {
+  const nomeFormatoTexto = textoTraduzido(formato, "formato") ?? "";
+  listaFormatos.querySelectorAll(`.grid-secundagem-tv[data-id="${formato.id}"]`).forEach((grid) => {
+    grid.outerHTML = criarGridSecundagemTv(formato);
+  });
+  listaFormatos.querySelectorAll(`.grid-temas-tv[data-id="${formato.id}"]`).forEach((grid) => {
+    grid.outerHTML = criarGridTemasTv(formato, nomeFormatoTexto);
+  });
 }
 
 function criarLinhaFormato(formato, opcoes) {
@@ -1425,12 +1492,18 @@ function criarLinhaFormato(formato, opcoes) {
     : "";
   // Os Temas aplicam-se a qualquer formato do meio (não há exceção por
   // linha, ao contrário da Entrega) — em TV/Rádio usam a grelha por
-  // canal×secundagem (com o seu próprio seletor de duração por canal, ver
-  // criarGridTemasTv) em vez do contador simples dos restantes meios.
+  // canal×secundagem (ver criarGridTemasTv) em vez do contador simples
+  // dos restantes meios; o seletor de duração de cada canal fica na
+  // coluna Secundagem, ao lado (ver colunaSecundagemTv).
   const colunaTemas = opcoes.comTemas
     ? `<td>${formatoTemCanal(formato) ? criarGridTemasTv(formato, nomeFormatoTexto) : criarCelulaTemas(formato, nomeFormatoTexto)}</td>`
     : "";
   const colunaCanaisTv = opcoes.comCanaisTv ? `<td>${criarCelulaCanaisTv(formato)}</td>` : "";
+  // Todo o bloco é TV/Rádio quando esta coluna existe (mesma condição de
+  // comCanaisTv, ver criarBlocoPublisher) — por isso não precisa de
+  // verificar formatoTemCanal linha a linha, ao contrário da Duração/
+  // Entrega, que podiam misturar-se com formatos sem esse conceito.
+  const colunaSecundagemTv = opcoes.comSecundagemTv ? `<td>${criarGridSecundagemTv(formato)}</td>` : "";
   const colunaNumFacesOoh = opcoes.comNumOOH
     ? `<td>${criarCelulaNumOOH(formato, valorNumFacesOoh(formato, objetivoAtivo), "input-num-faces-ooh")}</td>`
     : "";
@@ -1446,6 +1519,7 @@ function criarLinhaFormato(formato, opcoes) {
       ${colunaGrupoDigital2020}
       ${colunaEntregaMupi}
       ${colunaCanaisTv}
+      ${colunaSecundagemTv}
       ${colunaNumFacesOoh}
       ${colunaNumCartazesOoh}
       ${colunaTemas}
@@ -1725,7 +1799,7 @@ listaFormatos.addEventListener("click", (evento) => {
     return;
   }
   const celula = evento.target.closest("td");
-  if (!celula || celula.classList.contains("coluna-checkbox") || celula.querySelector(".grupo-duracao") || celula.querySelector(".grupo-entrega-mupi") || celula.querySelector(".grupo-temas") || celula.querySelector(".grupo-canais-tv") || celula.querySelector(".grid-temas-tv") || celula.querySelector(".input-num-faces-ooh") || celula.querySelector(".input-num-cartazes-ooh")) {
+  if (!celula || celula.classList.contains("coluna-checkbox") || celula.querySelector(".grupo-duracao") || celula.querySelector(".grupo-entrega-mupi") || celula.querySelector(".grupo-temas") || celula.querySelector(".grupo-canais-tv") || celula.querySelector(".grid-secundagem-tv") || celula.querySelector(".grid-temas-tv") || celula.querySelector(".input-num-faces-ooh") || celula.querySelector(".input-num-cartazes-ooh")) {
     return;
   }
   const linha = celula.closest("tr");
@@ -1777,18 +1851,6 @@ function mudarContagemTemaGrid(botao) {
   celula.querySelector(".botao-temagrid-menos").disabled = novo <= 1;
   celula.querySelector(".botao-temagrid-mais").disabled = novo >= LIMITE_MAXIMO_TEMAS;
   atualizarResumoSelecao();
-}
-
-// Volta a desenhar a grelha de temas deste formato de TV — chamado sempre
-// que o conjunto de células pode ter mudado (canal ou secundagem
-// marcados/desmarcados), porque adicionar/remover uma linha ou coluna da
-// grelha não dá para fazer só a atualizar um número, ao contrário de
-// mudarContagemTemaGrid.
-function atualizarGridTemasTv(formato) {
-  const nomeFormatoTexto = textoTraduzido(formato, "formato") ?? "";
-  listaFormatos.querySelectorAll(`.grid-temas-tv[data-id="${formato.id}"]`).forEach((grid) => {
-    grid.outerHTML = criarGridTemasTv(formato, nomeFormatoTexto);
-  });
 }
 
 listaFormatos.addEventListener("change", (evento) => {
@@ -1861,7 +1923,7 @@ function mudarCanalTv(checkbox) {
   if (checkboxFormato) {
     checkboxFormato.classList.toggle("checkbox-formato--pendente", canais.size === 0);
   }
-  atualizarGridTemasTv(formato);
+  atualizarGridsTv(formato);
   atualizarResumoSelecao();
 }
 
@@ -1907,7 +1969,10 @@ listaFormatos.addEventListener("input", (evento) => {
   const formato = todosFormatos.find((f) => f.id === id);
   const estado = garantirEstadoDuracao(formato, objetivoAtivo, canal);
   estado.outroValor = alvo.value.trim();
-  atualizarGridTemasTv(formato);
+  // Só as células de temas deste canal — nunca a grelha toda, senão o
+  // próprio campo onde se está a escrever seria destruído e recriado a
+  // cada letra, perdendo o foco (ver atualizarCelulasTemasCanal).
+  atualizarCelulasTemasCanal(formato, canal);
   atualizarResumoSelecao();
 });
 
@@ -1942,9 +2007,11 @@ function mudarCheckboxDuracao(checkbox) {
   } else {
     estado.padrao.delete(checkbox.value);
   }
-  // A secundagem é uma das dimensões da grelha de temas — mudar as
-  // durações ativas deste canal muda quantas colunas a linha dele tem.
-  atualizarGridTemasTv(formato);
+  // A secundagem é uma das dimensões das células de temas — mudar as
+  // durações ativas deste canal muda quantas células a linha dele tem.
+  // Só recria as células deste canal (não o seletor de duração), senão o
+  // resto das checkboxes/campo "Outro" perdiam o estado a meio do clique.
+  atualizarCelulasTemasCanal(formato, canal);
   atualizarResumoSelecao();
 }
 
@@ -1966,7 +2033,10 @@ function mudarCheckboxDuracaoOutro(checkbox) {
     inputOutro.value = "";
     estado.outroValor = "";
   }
-  atualizarGridTemasTv(formato);
+  // Só as células de temas deste canal — nunca o seletor de duração,
+  // senão o foco que acabou de ser dado ao campo "Outro" (duas linhas
+  // acima) perdia-se de imediato.
+  atualizarCelulasTemasCanal(formato, canal);
   atualizarResumoSelecao();
 }
 
@@ -2014,9 +2084,10 @@ function sincronizarCheckboxesComObjetivoAtivo() {
     checkbox.classList.toggle("checkbox-formato--pendente", pendente);
   });
 
-  // A duração já não tem sincronização própria aqui — vive dentro da
-  // grelha de temas de TV/Rádio (um seletor por canal), que é sempre
-  // reconstruída do zero mais abaixo (ver o forEach de ".grid-temas-tv"),
+  // A duração já não tem sincronização própria aqui — vive na grelha de
+  // Secundagem de TV/Rádio (um seletor por canal), que é sempre
+  // reconstruída do zero mais abaixo (ver o forEach de ".grid-temas-tv",
+  // que também reconstrói a grelha de Secundagem — ver atualizarGridsTv),
   // e essa reconstrução já lê o estado certo por canal.
 
   listaFormatos.querySelectorAll(".grupo-entrega-mupi").forEach((grupo) => {
@@ -2053,7 +2124,7 @@ function sincronizarCheckboxesComObjetivoAtivo() {
     const id = Number(grid.dataset.id);
     const formato = todosFormatos.find((f) => f.id === id);
     if (formato) {
-      atualizarGridTemasTv(formato);
+      atualizarGridsTv(formato);
     }
   });
 
