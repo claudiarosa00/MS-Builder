@@ -983,11 +983,16 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
 
 /* Seletor de duração do spot (TV/Rádio) — checkboxes de 15"/20"/30" (mais
    que uma pode estar marcada, para pedir mais que um spot) + "Outro" com
-   caixa de texto editável, que só aparece quando "Outro" está marcado. */
+   caixa de texto editável, que só aparece quando "Outro" está marcado.
+   Vive dentro da grelha de temas de TV (.linha-temas-tv-cabecalho), um por
+   canal/estação escolhido — por isso fica em linha, não em coluna, para
+   caber ao lado do nome do canal sem alongar demasiado cada linha. */
 .grupo-duracao {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
 }
 
 .opcao-duracao {
@@ -1123,10 +1128,28 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   font-style: italic;
 }
 
+/* Cada linha de canal passou a ter duas sub-linhas: o cabeçalho (nome do
+   canal + o seu seletor de duração — ver .grupo-duracao) e as células de
+   temas propriamente ditas, uma por secundagem ativa NESSE canal — cada
+   canal pode ter a sua própria grelha de durações (ex.: TVI a 30"+20",
+   SIC só a 30"+10", no mesmo pedido). */
 .linha-temas-tv {
   display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px 0;
+  border-top: 1px solid var(--cor-borda);
+}
+
+.linha-temas-tv:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.linha-temas-tv-cabecalho {
+  display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
@@ -1134,6 +1157,13 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   font-size: 12.5px;
   font-weight: 600;
   min-width: 68px;
+}
+
+.celulas-temas-tv {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .celula-tema-tv {

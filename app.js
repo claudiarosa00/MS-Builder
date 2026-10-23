@@ -69,13 +69,18 @@ let objetivoAtivo = "awareness";
 // A duração do spot (TV/Rádio) é outra coisa que varia por seleção, não só
 // por objetivo — o mesmo "Spot TV" pode ser pedido em mais que uma duração
 // ao mesmo tempo (ex.: 30" para o spot principal + 15" recortado para outro
-// momento da campanha), cada uma um pedido de spot distinto. Por isso
-// guarda-se à parte, também por objetivo, indexado pelo id do formato (só
-// relevante para formatos de TV/Rádio — ver formatoTemDuracao). Cada
-// entrada é { padrao: Set<string> (subconjunto de DURACOES_PADRAO
-// escolhido), outroAtivo: boolean, outroValor: string }. Quando não há
-// entrada, assume-se só DURACAO_OMISSAO (30", a duração mais comum), nunca
-// fica por preencher.
+// momento da campanha), cada uma um pedido de spot distinto. E, porque cada
+// canal/estação pode ter a sua própria grelha de durações (ex.: TVI a
+// 30"+20", SIC só a 30"+10", no mesmo pedido), a duração é guardada por
+// canal, não só por formato — indexada pela chave composta
+// `${formato.id}||${canal}` (ver chaveDuracaoCanal), também por objetivo.
+// Só relevante para formatos de TV/Rádio (ver formatoTemDuracao), que são
+// sempre formatos com canal (ver formatoTemCanal) — por isso a duração
+// nunca precisa de existir sem um canal associado. Cada entrada é
+// { padrao: Set<string> (subconjunto de DURACOES_PADRAO escolhido),
+// outroAtivo: boolean, outroValor: string }. Quando não há entrada,
+// assume-se só DURACAO_OMISSAO (30", a duração mais comum), nunca fica por
+// preencher.
 const DURACOES_PADRAO = ["15", "20", "30"];
 const DURACAO_OMISSAO = "30";
 const duracoesPorObjetivo = {
@@ -83,6 +88,19 @@ const duracoesPorObjetivo = {
   consideration: new Map(),
   conversion: new Map(),
 };
+function chaveDuracaoCanal(idFormato, canal) {
+  return `${idFormato}||${canal}`;
+}
+// Separa uma chave composta "<parteId>||<canal>" nas duas partes — usada
+// tanto para o estado em memória (chaveDuracaoCanal(id, canal), com
+// <parteId> numérico) como para a versão persistida no localStorage
+// (chaveDuracaoCanal(chaveEstável, canal), com <parteId> uma chave de
+// texto estável — ver guardarEstadoLocal/restaurarEstadoLocal, que fazem
+// a conversão id↔chaveEstável consoante o sentido).
+function separarChaveDuracaoCanal(chaveComposta) {
+  const indice = chaveComposta.indexOf("||");
+  return { parteId: chaveComposta.slice(0, indice), canal: chaveComposta.slice(indice + 2) };
+}
 
 // Só os formatos de "spot" (o clássico anúncio de X segundos) têm secundagem
 // escolhível — os restantes formatos de TV (Ecrã Fracionado, Telepromoção,
@@ -155,23 +173,26 @@ function idsDoGrupoFormato(id) {
 }
 
 // Estado de duração para leitura (renderização) — nunca cria/guarda nada,
-// devolve o valor por omissão (só 30") quando ainda não há escolha explícita.
-function estadoDuracaoOuOmissao(formato, objetivo) {
-  return duracoesPorObjetivo[objetivo].get(formato.id) || { padrao: new Set([DURACAO_OMISSAO]), outroAtivo: false, outroValor: "" };
+// devolve o valor por omissão (só 30") quando ainda não há escolha explícita
+// para este canal.
+function estadoDuracaoOuOmissao(formato, objetivo, canal) {
+  return duracoesPorObjetivo[objetivo].get(chaveDuracaoCanal(formato.id, canal)) || { padrao: new Set([DURACAO_OMISSAO]), outroAtivo: false, outroValor: "" };
 }
 
 // Garante uma entrada real no mapa (criando-a com o valor por omissão se
 // for a primeira interação) para poder ser alterada — só chamar a partir
 // de um evento do utilizador, nunca da renderização.
-function garantirEstadoDuracao(formato, objetivo) {
+function garantirEstadoDuracao(formato, objetivo, canal) {
   const mapa = duracoesPorObjetivo[objetivo];
-  const estado = mapa.get(formato.id) || { padrao: new Set([DURACAO_OMISSAO]), outroAtivo: false, outroValor: "" };
+  const chave = chaveDuracaoCanal(formato.id, canal);
+  const estado = mapa.get(chave) || { padrao: new Set([DURACAO_OMISSAO]), outroAtivo: false, outroValor: "" };
   // Todos os ids do grupo (ver GRUPOS_FORMATO_VARIANTES) passam a apontar para o
-  // MESMO objeto — mutar um propaga automaticamente aos outros. Reaplicado
-  // sempre (não só na primeira vez) para também corrigir o caso de o
-  // estado ter sido restaurado do localStorage com um objeto por id (ver
-  // restaurarEstadoLocal), que ainda não estão "ligados" entre si.
-  idsDoGrupoFormato(formato.id).forEach((id) => mapa.set(id, estado));
+  // MESMO objeto, para o MESMO canal — mutar um propaga automaticamente aos
+  // outros. Reaplicado sempre (não só na primeira vez) para também corrigir
+  // o caso de o estado ter sido restaurado do localStorage com um objeto
+  // por chave (ver restaurarEstadoLocal), que ainda não estão "ligados"
+  // entre si.
+  idsDoGrupoFormato(formato.id).forEach((id) => mapa.set(chaveDuracaoCanal(id, canal), estado));
   return estado;
 }
 
@@ -189,15 +210,16 @@ function duracoesLivresDoEstado(estado) {
     .filter((valor) => valor.length > 0);
 }
 
-// As durações efetivamente escolhidas para este formato+objetivo, na ordem
-// 15/20/30 seguidas das durações livres de "Outro" (se ativo e
+// As durações efetivamente escolhidas para este formato+objetivo+canal, na
+// ordem 15/20/30 seguidas das durações livres de "Outro" (se ativo e
 // preenchido — ver duracoesLivresDoEstado) — nunca uma lista vazia quando
-// o formato tem duração (cai sempre em [DURACAO_OMISSAO]).
-function duracoesEfetivasDoFormato(formato, objetivo) {
+// o formato tem duração (cai sempre em [DURACAO_OMISSAO]). Cada canal tem a
+// sua própria grelha de durações (ex.: TVI a 30"+20", SIC só a 30"+10").
+function duracoesEfetivasDoFormato(formato, objetivo, canal) {
   if (!formatoTemDuracao(formato)) {
     return [];
   }
-  const estado = estadoDuracaoOuOmissao(formato, objetivo);
+  const estado = estadoDuracaoOuOmissao(formato, objetivo, canal);
   const valores = DURACOES_PADRAO.filter((valor) => estado.padrao.has(valor));
   valores.push(...duracoesLivresDoEstado(estado));
   return valores.length > 0 ? valores : [DURACAO_OMISSAO];
@@ -393,9 +415,12 @@ function definirContagemTemaTv(formato, objetivo, canal, duracao, novaContagem) 
 // coluna por canal).
 function celulasTemaTvAtivas(formato, objetivo) {
   const canais = [...canaisDoFormato(formato, objetivo)];
-  const duracoes = formatoTemDuracao(formato) ? duracoesEfetivasDoFormato(formato, objetivo) : [""];
+  const temDuracao = formatoTemDuracao(formato);
   const celulas = [];
   canais.forEach((canal) => {
+    // Cada canal tem a sua própria grelha de durações (ver
+    // duracoesEfetivasDoFormato) — não é a mesma lista para todos.
+    const duracoes = temDuracao ? duracoesEfetivasDoFormato(formato, objetivo, canal) : [""];
     duracoes.forEach((duracao) => {
       celulas.push({ canal, duracao });
     });
@@ -1082,23 +1107,21 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes, idPreci
   // os distinguir. Para a maioria dos publishers (onde Veículo = Fornecedor)
   // a coluna nem aparece, para não ficar redundante.
   // A Duração do Spot só faz sentido para formatos de "spot" (ver
-  // formatoTemDuracao), e só na tab "Construir Pedido" (onde há uma
-  // seleção concreta a que a duração se aplica) — na Biblioteca de
-  // Formatos, que só mostra as specs "em bruto", não aparece. A coluna
-  // liga-se por publisher (basta UM formato do bloco precisar dela — ex.:
-  // o bloco "TV" tem "Spot TV" a par de "Ecrã Fracionado"/"Telepromoção",
-  // que não são spots), mas cada LINHA decide por si própria se mostra o
-  // seletor ou só um traço (ver criarLinhaFormato) — nunca basta olhar
-  // só para o primeiro formato do bloco, porque um publisher pode
-  // misturar formatos com e sem esse conceito.
+  // formatoTemDuracao) — já não tem coluna própria: vive dentro da grelha
+  // de Temas de TV/Rádio, um seletor por canal/estação escolhido (ver
+  // criarGridTemasTv/criarSeletorDuracaoTv), porque cada canal pode ter a
+  // sua própria grelha de durações (ex.: TVI a 30"+20", SIC só a 30"+10").
   // O Copies também só existe para meios digitais (é uma noção de
   // criatividades/versões de anúncio online) — os meios offline (OOH, TV,
   // Rádio, Cinema, Imprensa) não têm essa coluna na Biblioteca de Formatos.
   //
   // A Entrega (AF vs. morada) só faz sentido para o Mupi em papel de
   // alguns concessionários de OOH (ver formatoEhMupiPapel), e só no
-  // construtor — tal como a Duração, liga-se por publisher mas cada linha
-  // decide por si própria se mostra o seletor.
+  // construtor — liga-se por publisher (basta UM formato do bloco
+  // precisar dela), mas cada LINHA decide por si própria se mostra o
+  // seletor ou só um traço (ver criarLinhaFormato) — nunca basta olhar só
+  // para o primeiro formato do bloco, porque um publisher pode misturar
+  // formatos com e sem esse conceito.
   //
   // Os Temas aplicam-se a qualquer formato, em todos os meios, no
   // construtor — ver MEIOS_COM_TEMA.
@@ -1109,10 +1132,12 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes, idPreci
   const grupoMeioDoBloco = grupoMeioDoFormato(formatosDoPublisher[0]);
   const opcoesComMeio = {
     ...opcoes,
-    comGrupoDigital2020: grupoMeioDoBloco === "Digital",
+    // Só no construtor (opcoes.simplificado) — pedido explícito da
+    // Cláudia para tirar esta coluna da Biblioteca de Formatos, que já
+    // mostra as specs completas e não precisa desta taxonomia extra.
+    comGrupoDigital2020: opcoes.simplificado && grupoMeioDoBloco === "Digital",
     comCopies: grupoMeioDoBloco === "Digital",
     comVeiculo: formatosDoPublisher.some((f) => f.veiculo && f.veiculo !== nomePublisher),
-    comDuracao: opcoes.simplificado && formatosDoPublisher.some(formatoTemDuracao),
     comEntregaMupi: opcoes.simplificado && formatosDoPublisher.some(formatoEhMupiPapel),
     comTemas: opcoes.simplificado && MEIOS_COM_TEMA.has(grupoMeioDoBloco),
     comEntregaTV: grupoMeioDoBloco === "TV",
@@ -1154,7 +1179,6 @@ function criarCabecalhoTabela(opcoes) {
   const colunaLink = opcoes.comLink ? `<th scope="col">${t("colFonte")}</th>` : "";
   const colunaGrupoDigital2020 = opcoes.comGrupoDigital2020 ? `<th scope="col">${t("colGrupoDigital2020")}</th>` : "";
   const colunaVeiculo = opcoes.comVeiculo ? `<th scope="col">${t("colVeiculo")}</th>` : "";
-  const colunaDuracao = opcoes.comDuracao ? `<th scope="col">${t("colDuracao")}</th>` : "";
   const colunaEntregaMupi = opcoes.comEntregaMupi ? `<th scope="col">${t("colEntrega")}</th>` : "";
   const colunaTemas = opcoes.comTemas ? `<th scope="col">${t("colTemasBuilder")}</th>` : "";
   const colunaCopies = opcoes.comCopies ? `<th scope="col">${t("colCopies")}</th>` : "";
@@ -1174,7 +1198,6 @@ function criarCabecalhoTabela(opcoes) {
         <th scope="col">${t("colFormato")}</th>
         ${colunaVeiculo}
         ${colunaGrupoDigital2020}
-        ${colunaDuracao}
         ${colunaEntregaMupi}
         ${colunaCanaisTv}
         ${colunaNumFacesOoh}
@@ -1205,31 +1228,34 @@ function criarCabecalhoTabela(opcoes) {
 }
 
 // Checkboxes com as durações mais comuns (15"/20"/30") + "Outro" — mais que
-// uma pode estar marcada ao mesmo tempo, porque o mesmo formato pode ser
-// pedido em mais que uma duração (cada uma um spot distinto). Quando
-// "Outro" está marcado, aparece a seguir uma caixa de texto editável (ver
-// o listener de "checkbox-duracao"/"checkbox-duracao-outro"/
-// "input-duracao-outro" mais abaixo). O estado mostrado vem sempre do
-// objetivo ativo no momento (a mesma seleção pode ter durações diferentes
-// consoante o objetivo).
-function criarCelulaDuracao(formato) {
-  const estado = estadoDuracaoOuOmissao(formato, objetivoAtivo);
+// uma pode estar marcada ao mesmo tempo, porque o mesmo canal/estação pode
+// pedir mais que uma duração (cada uma um spot distinto). Quando "Outro"
+// está marcado, aparece a seguir uma caixa de texto editável (ver o
+// listener de "checkbox-duracao"/"checkbox-duracao-outro"/
+// "input-duracao-outro" mais abaixo). Cada canal/estação tem a sua própria
+// grelha de durações — por isso este seletor vive dentro da grelha de
+// temas de TV (ver criarGridTemasTv), um por linha de canal, em vez de
+// numa coluna "Duração" só por formato: a TVI pode ir a 30"+20" e a SIC só
+// a 30"+10" no mesmo pedido, por exemplo (pedido explícito da Cláudia). O
+// estado mostrado vem sempre do objetivo ativo no momento.
+function criarSeletorDuracaoTv(formato, canal) {
+  const estado = estadoDuracaoOuOmissao(formato, objetivoAtivo, canal);
   const opcoesPadrao = DURACOES_PADRAO
     .map((valor) => `
       <label class="opcao-duracao">
-        <input type="checkbox" class="checkbox-duracao" data-id="${formato.id}" value="${valor}" ${estado.padrao.has(valor) ? "checked" : ""}>
+        <input type="checkbox" class="checkbox-duracao" data-id="${formato.id}" data-canal="${canal}" value="${valor}" ${estado.padrao.has(valor) ? "checked" : ""}>
         ${valor}″
       </label>
     `)
     .join("");
   return `
-    <div class="grupo-duracao" data-id="${formato.id}">
+    <div class="grupo-duracao" data-id="${formato.id}" data-canal="${canal}">
       ${opcoesPadrao}
       <label class="opcao-duracao opcao-duracao-outro">
-        <input type="checkbox" class="checkbox-duracao-outro" data-id="${formato.id}" ${estado.outroAtivo ? "checked" : ""}>
+        <input type="checkbox" class="checkbox-duracao-outro" data-id="${formato.id}" data-canal="${canal}" ${estado.outroAtivo ? "checked" : ""}>
         ${t("duracaoOutro")}
       </label>
-      <input type="text" class="input-duracao-outro" data-id="${formato.id}"
+      <input type="text" class="input-duracao-outro" data-id="${formato.id}" data-canal="${canal}"
         value="${estado.outroAtivo ? (estado.outroValor || "") : ""}" placeholder="${t("placeholderDuracaoOutro")}" ${estado.outroAtivo ? "" : "hidden"}>
     </div>
   `;
@@ -1311,22 +1337,24 @@ function criarCelulaNumOOH(formato, valorAtual, classeInput) {
   return `<input type="number" min="0" inputmode="numeric" class="${classeInput}" data-id="${formato.id}" value="${valorAtual}">`;
 }
 
-// Grelha de temas de TV: uma linha por canal escolhido, com um contador +/-
-// por cada secundagem ativa nesse canal (ou um único contador, sem rótulo
-// de secundagem, para formatos sem duração — ex.: Ecrã Fracionado). Fica
-// vazia (com uma nota) enquanto não houver nenhum canal escolhido — é por
-// isso que marcar/desmarcar um canal tem de voltar a chamar esta função
-// (ver atualizarGridTemasTv), e não só atualizar o número de um contador
-// já existente.
+// Grelha de temas de TV: uma linha por canal escolhido, com o seu próprio
+// seletor de duração (ver criarSeletorDuracaoTv — cada canal pode ter uma
+// grelha de durações diferente) e um contador +/- por cada secundagem
+// ativa NESSE canal (ou um único contador, sem rótulo de secundagem, para
+// formatos sem duração — ex.: Ecrã Fracionado). Fica vazia (com uma nota)
+// enquanto não houver nenhum canal escolhido — é por isso que marcar/
+// desmarcar um canal, ou mudar a duração de um deles, tem de voltar a
+// chamar esta função (ver atualizarGridTemasTv), e não só atualizar o
+// número de um contador já existente.
 function criarGridTemasTv(formato, nomeFormatoTexto) {
   const canais = [...canaisDoFormato(formato, objetivoAtivo)];
   if (canais.length === 0) {
     return `<div class="grid-temas-tv grid-temas-tv--vazia" data-id="${formato.id}">${t(chaveSemCanalEscolhido(grupoMeioDoFormato(formato)))}</div>`;
   }
   const temDuracao = formatoTemDuracao(formato);
-  const duracoes = temDuracao ? duracoesEfetivasDoFormato(formato, objetivoAtivo) : [""];
   const linhas = canais
     .map((canal) => {
+      const duracoes = temDuracao ? duracoesEfetivasDoFormato(formato, objetivoAtivo, canal) : [""];
       const celulas = duracoes
         .map((duracao) => {
           const contagem = contagemTemaTv(formato, objetivoAtivo, canal, duracao);
@@ -1342,7 +1370,16 @@ function criarGridTemasTv(formato, nomeFormatoTexto) {
           `;
         })
         .join("");
-      return `<div class="linha-temas-tv"><span class="linha-temas-tv-canal">${canal}</span>${celulas}</div>`;
+      const seletorDuracao = temDuracao ? criarSeletorDuracaoTv(formato, canal) : "";
+      return `
+        <div class="linha-temas-tv">
+          <div class="linha-temas-tv-cabecalho">
+            <span class="linha-temas-tv-canal">${canal}</span>
+            ${seletorDuracao}
+          </div>
+          <div class="celulas-temas-tv">${celulas}</div>
+        </div>
+      `;
     })
     .join("");
   return `<div class="grid-temas-tv" data-id="${formato.id}">${linhas}</div>`;
@@ -1381,23 +1418,16 @@ function criarLinhaFormato(formato, opcoes) {
     ? `<td><span class="etiqueta-dg2020">${formato.grupoDigital2020 ?? "—"}</span></td>`
     : "";
   const colunaVeiculo = opcoes.comVeiculo ? `<td>${formato.veiculo ?? "—"}</td>` : "";
-  // opcoes.comDuracao diz se ESTE PUBLISHER tem a coluna (basta um formato
-  // do bloco precisar); dentro dela, cada linha ainda decide por si própria
-  // se mostra o seletor ou só um traço — um publisher pode misturar
-  // formatos de spot com outros que não têm essa noção (ex.: "TV" tem
-  // "Spot TV" a par de "Ecrã Fracionado").
-  const colunaDuracao = opcoes.comDuracao
-    ? `<td>${formatoTemDuracao(formato) ? criarCelulaDuracao(formato) : "—"}</td>`
-    : "";
-  // Tal como a Duração, a Entrega liga-se por publisher (comEntregaMupi),
-  // mas cada linha decide por si própria se mostra o seletor — um bloco de
-  // OOH pode misturar Mupi papel com outros formatos sem essa noção.
+  // A Entrega liga-se por publisher (comEntregaMupi), mas cada linha
+  // decide por si própria se mostra o seletor — um bloco de OOH pode
+  // misturar Mupi papel com outros formatos sem essa noção.
   const colunaEntregaMupi = opcoes.comEntregaMupi
     ? `<td>${formatoEhMupiPapel(formato) ? criarCelulaEntregaMupi(formato, idNomeFormato) : "—"}</td>`
     : "";
   // Os Temas aplicam-se a qualquer formato do meio (não há exceção por
-  // linha, ao contrário de Duração/Entrega) — em TV usam a grelha por
-  // canal×secundagem em vez do contador simples dos restantes meios.
+  // linha, ao contrário da Entrega) — em TV/Rádio usam a grelha por
+  // canal×secundagem (com o seu próprio seletor de duração por canal, ver
+  // criarGridTemasTv) em vez do contador simples dos restantes meios.
   const colunaTemas = opcoes.comTemas
     ? `<td>${formatoTemCanal(formato) ? criarGridTemasTv(formato, nomeFormatoTexto) : criarCelulaTemas(formato, nomeFormatoTexto)}</td>`
     : "";
@@ -1415,7 +1445,6 @@ function criarLinhaFormato(formato, opcoes) {
       <td id="${idNomeFormato}">${nomeFormatoTexto}</td>
       ${colunaVeiculo}
       ${colunaGrupoDigital2020}
-      ${colunaDuracao}
       ${colunaEntregaMupi}
       ${colunaCanaisTv}
       ${colunaNumFacesOoh}
@@ -1875,12 +1904,11 @@ listaFormatos.addEventListener("input", (evento) => {
     return;
   }
   const id = Number(alvo.dataset.id);
+  const canal = alvo.dataset.canal;
   const formato = todosFormatos.find((f) => f.id === id);
-  const estado = garantirEstadoDuracao(formato, objetivoAtivo);
+  const estado = garantirEstadoDuracao(formato, objetivoAtivo, canal);
   estado.outroValor = alvo.value.trim();
-  if (formatoTemCanal(formato)) {
-    atualizarGridTemasTv(formato);
-  }
+  atualizarGridTemasTv(formato);
   atualizarResumoSelecao();
 });
 
@@ -1901,32 +1929,34 @@ function mudarNumOoh(input) {
   atualizarResumoSelecao();
 }
 
-// Marca/desmarca uma das durações padrão (15"/20"/30") — não é exclusiva,
-// o formato pode ter várias marcadas ao mesmo tempo (vários spots pedidos).
+// Marca/desmarca uma das durações padrão (15"/20"/30") deste canal/estação
+// — não é exclusiva, o mesmo canal pode ter várias marcadas ao mesmo tempo
+// (vários spots pedidos), e cada canal tem a sua própria grelha (ver
+// chaveDuracaoCanal).
 function mudarCheckboxDuracao(checkbox) {
   const id = Number(checkbox.dataset.id);
+  const canal = checkbox.dataset.canal;
   const formato = todosFormatos.find((f) => f.id === id);
-  const estado = garantirEstadoDuracao(formato, objetivoAtivo);
+  const estado = garantirEstadoDuracao(formato, objetivoAtivo, canal);
   if (checkbox.checked) {
     estado.padrao.add(checkbox.value);
   } else {
     estado.padrao.delete(checkbox.value);
   }
-  // Em TV, a secundagem é uma das dimensões da grelha de temas — mudar as
-  // durações ativas muda quantas colunas a grelha tem.
-  if (formatoTemCanal(formato)) {
-    atualizarGridTemasTv(formato);
-  }
+  // A secundagem é uma das dimensões da grelha de temas — mudar as
+  // durações ativas deste canal muda quantas colunas a linha dele tem.
+  atualizarGridTemasTv(formato);
   atualizarResumoSelecao();
 }
 
-// Marca/desmarca a duração "Outro" — mostra/esconde a caixa de texto e
-// limpa-a ao desmarcar (o valor só volta a ficar visível se o utilizador
-// voltar a escrever depois de marcar outra vez).
+// Marca/desmarca a duração "Outro" deste canal/estação — mostra/esconde a
+// caixa de texto e limpa-a ao desmarcar (o valor só volta a ficar visível
+// se o utilizador voltar a escrever depois de marcar outra vez).
 function mudarCheckboxDuracaoOutro(checkbox) {
   const id = Number(checkbox.dataset.id);
+  const canal = checkbox.dataset.canal;
   const formato = todosFormatos.find((f) => f.id === id);
-  const estado = garantirEstadoDuracao(formato, objetivoAtivo);
+  const estado = garantirEstadoDuracao(formato, objetivoAtivo, canal);
   estado.outroAtivo = checkbox.checked;
   const inputOutro = checkbox.closest(".grupo-duracao").querySelector(".input-duracao-outro");
   if (checkbox.checked) {
@@ -1937,9 +1967,7 @@ function mudarCheckboxDuracaoOutro(checkbox) {
     inputOutro.value = "";
     estado.outroValor = "";
   }
-  if (formatoTemCanal(formato)) {
-    atualizarGridTemasTv(formato);
-  }
+  atualizarGridTemasTv(formato);
   atualizarResumoSelecao();
 }
 
@@ -1987,19 +2015,10 @@ function sincronizarCheckboxesComObjetivoAtivo() {
     checkbox.classList.toggle("checkbox-formato--pendente", pendente);
   });
 
-  listaFormatos.querySelectorAll(".grupo-duracao").forEach((grupo) => {
-    const id = Number(grupo.dataset.id);
-    const formato = todosFormatos.find((f) => f.id === id);
-    const estado = estadoDuracaoOuOmissao(formato, objetivoAtivo);
-    grupo.querySelectorAll(".checkbox-duracao").forEach((checkbox) => {
-      checkbox.checked = estado.padrao.has(checkbox.value);
-    });
-    const checkboxOutro = grupo.querySelector(".checkbox-duracao-outro");
-    checkboxOutro.checked = estado.outroAtivo;
-    const inputOutro = grupo.querySelector(".input-duracao-outro");
-    inputOutro.hidden = !estado.outroAtivo;
-    inputOutro.value = estado.outroAtivo ? (estado.outroValor || "") : "";
-  });
+  // A duração já não tem sincronização própria aqui — vive dentro da
+  // grelha de temas de TV/Rádio (um seletor por canal), que é sempre
+  // reconstruída do zero mais abaixo (ver o forEach de ".grid-temas-tv"),
+  // e essa reconstrução já lê o estado certo por canal.
 
   listaFormatos.querySelectorAll(".grupo-entrega-mupi").forEach((grupo) => {
     const id = Number(grupo.dataset.id);
@@ -2223,15 +2242,8 @@ function atualizarResumoSelecao() {
               return `<li>${nomeFormato} — ${canal}${rotuloDuracao}${etiquetaTemasTv}</li>`;
             });
           }
-          // TV/Rádio pode ter mais que uma duração escolhida — cada uma é
-          // um spot pedido à parte, por isso ganha a sua própria linha no
-          // resumo (mesma lógica da exportação para Excel, ver
-          // escreverSeccaoObjetivo).
-          if (formatoTemDuracao(f)) {
-            return duracoesEfetivasDoFormato(f, objetivo).map((duracao) =>
-              `<li>${f.fornecedor}${veiculo} — ${nomeFormato} — ${duracao}″${etiqueta}${etiquetaTemas}${etiquetaEntrega}</li>`
-            );
-          }
+          // Os restantes meios nunca têm duração (só TV/Rádio têm — e já
+          // voltaram acima, no ramo de formatoTemCanal).
           return [`<li>${f.fornecedor}${veiculo} — ${nomeFormato}${etiqueta}${etiquetaTemas}${etiquetaEntrega}</li>`];
         })
         .join("");
@@ -2608,12 +2620,10 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
         });
       return;
     }
-    // No Excel, as durações saem por ordem descendente (30″ antes de 15″)
-    // — pedido explícito da Cláudia; o resumo no ecrã continua na ordem de
-    // duracoesEfetivasDoFormato (15/20/30 + Outro), sem alteração.
-    const duracoes = formatoTemDuracao(formato)
-      ? [...duracoesEfetivasDoFormato(formato, objetivo)].sort((a, b) => Number(b) - Number(a))
-      : [null];
+    // Os restantes meios nunca têm duração (só TV/Rádio têm — e esses já
+    // voltaram acima, no ramo de MEIOS_COM_CANAL), por isso é sempre uma
+    // única "duração" nula aqui.
+    const duracoes = [null];
     const contagemTemas = MEIOS_COM_TEMA.has(grupoMeio) ? contagemTemasDoFormato(formato, objetivo) : 1;
     const temas = contagemTemas > 1 ? Array.from({ length: contagemTemas }, (_, indice) => indice + 1) : [null];
     duracoes.forEach((duracao) => {
@@ -3073,11 +3083,16 @@ function guardarEstadoLocal() {
       // selecionados nesse objetivo — um valor "órfão" (de um formato
       // entretanto desmarcado) não tem interesse em manter.
       duracoes[objetivo] = {};
-      duracoesPorObjetivo[objetivo].forEach((estado, id) => {
+      duracoesPorObjetivo[objetivo].forEach((estado, chaveCanal) => {
+        // A chave em memória é composta (id do formato + canal — ver
+        // chaveDuracaoCanal); a persistida troca o id pela chaveTraducao
+        // estável, tal como as restantes, mas mantém o canal junto.
+        const { parteId, canal } = separarChaveDuracaoCanal(chaveCanal);
+        const id = Number(parteId);
         if (selecoesPorObjetivo[objetivo].has(id)) {
           const chave = idParaChave.get(id);
           if (chave) {
-            duracoes[objetivo][chave] = {
+            duracoes[objetivo][chaveDuracaoCanal(chave, canal)] = {
               padrao: [...estado.padrao],
               outroAtivo: estado.outroAtivo,
               outroValor: estado.outroValor,
@@ -3182,10 +3197,11 @@ function restaurarEstadoLocal() {
     });
 
     const duracoesGuardadas = (estadoGuardado.duracoes && estadoGuardado.duracoes[objetivo]) || {};
-    Object.entries(duracoesGuardadas).forEach(([chave, guardado]) => {
-      const id = chaveParaId.get(chave);
+    Object.entries(duracoesGuardadas).forEach(([chaveComposta, guardado]) => {
+      const { parteId: chaveFormato, canal } = separarChaveDuracaoCanal(chaveComposta);
+      const id = chaveParaId.get(chaveFormato);
       if (id !== undefined && guardado && Array.isArray(guardado.padrao)) {
-        duracoesPorObjetivo[objetivo].set(id, {
+        duracoesPorObjetivo[objetivo].set(chaveDuracaoCanal(id, canal), {
           padrao: new Set(guardado.padrao),
           outroAtivo: !!guardado.outroAtivo,
           outroValor: guardado.outroValor || "",
