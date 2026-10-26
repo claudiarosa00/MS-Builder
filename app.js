@@ -760,6 +760,12 @@ const CABECALHOS_BASE_EXCEL = {
   "Copies": "copies",
   "Observações": "observacoes",
   "Link": "link",
+  // Caminho para um PNG com o desenho técnico/medidas do formato (ex.:
+  // assets/especificacoes-ooh/girodmedias-mupi.png) — opcional, só usado
+  // em OOH, para gerar uma sheet extra por formato no Excel exportado
+  // (ver escreverFolhaImagemFormato). Formatos sem esta coluna preenchida
+  // não geram sheet nenhuma.
+  "Imagem": "imagemFicheiro",
 };
 
 // O valor de uma célula do ExcelJS nem sempre é uma string simples — uma
@@ -2892,6 +2898,23 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
 
 botaoExportar.addEventListener("click", exportarSelecaoParaExcel);
 
+// Todos os formatos selecionados (nalgum objetivo) de um dado meio, sem
+// repetições — usado sempre que é preciso a lista de formatos realmente
+// pedidos, não a base toda (ver escreverRodapeEspecificacoes e
+// escreverFolhasImagensOOH).
+function formatosSelecionadosDoMeio(grupoMeio) {
+  const formatosDoMeio = new Map();
+  OBJETIVOS.forEach((objetivo) => {
+    selecoesPorObjetivo[objetivo].forEach((id) => {
+      const formato = todosFormatos.find((f) => f.id === id);
+      if (formato && grupoMeioDoFormato(formato) === grupoMeio) {
+        formatosDoMeio.set(formato.id, formato);
+      }
+    });
+  });
+  return [...formatosDoMeio.values()];
+}
+
 // Escreve a folha de um meio (Digital / OOH / TV / Rádio / Cinema /
 // Imprensa): logótipo, bloco Companhia/Cliente/Campanha/Meio, e uma
 // secção por objetivo com os formatos desse meio (objetivos sem formatos
@@ -2903,16 +2926,8 @@ botaoExportar.addEventListener("click", exportarSelecaoParaExcel);
 // canal/estação — pedido explícito da Cláudia). Só os formatos realmente
 // selecionados (nalgum objetivo) aparecem aqui, não a base toda.
 function escreverRodapeEspecificacoes(folha, linhaInicio, numColunas, grupoMeio) {
-  const formatosDoMeio = new Map();
-  OBJETIVOS.forEach((objetivo) => {
-    selecoesPorObjetivo[objetivo].forEach((id) => {
-      const formato = todosFormatos.find((f) => f.id === id);
-      if (formato && grupoMeioDoFormato(formato) === grupoMeio) {
-        formatosDoMeio.set(formato.id, formato);
-      }
-    });
-  });
-  if (formatosDoMeio.size === 0) {
+  const formatosDoMeio = formatosSelecionadosDoMeio(grupoMeio);
+  if (formatosDoMeio.length === 0) {
     return linhaInicio;
   }
 
@@ -2934,7 +2949,8 @@ function escreverRodapeEspecificacoes(folha, linhaInicio, numColunas, grupoMeio)
   const estiloRotulo = { name: "Arial Nova", size: 10, bold: true, color: { argb: "FF5B6678" } };
   const estiloValor = { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } };
 
-  [...formatosDoMeio.values()]
+  formatosDoMeio
+    .slice()
     .sort((a, b) => (a.formato || "").localeCompare(b.formato || "", "pt"))
     .forEach((formato) => {
       folha.mergeCells(linha, 1, linha, numColunas);
@@ -3166,6 +3182,99 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
   ajustarLargurasAoConteudo(folha, colunasChaves, largurasConteudo);
 }
 
+/*
+============================================
+11.1 SHEETS EXTRA COM A IMAGEM DE CADA FORMATO DE OOH
+Além da folha normal de OOH, cada formato selecionado que
+tenha uma imagem associada na base (coluna "Imagem" —
+caminho para um PNG com o desenho técnico/medidas, ver
+CABECALHOS_BASE_EXCEL) ganha a sua própria sheet, com essa
+imagem e as medidas por baixo — pedido explícito da
+Cláudia. Formatos sem imagem não geram sheet nenhuma: nunca
+inventamos um desenho técnico que o fornecedor não enviou.
+============================================
+*/
+// Lê a largura/altura de um PNG a partir dos primeiros bytes do ficheiro
+// (assinatura PNG + chunk IHDR, sempre nos bytes 16-23) — para conseguir
+// embutir a imagem no Excel já com as proporções certas, sem ter de pedir
+// a quem acrescenta a imagem à base para também indicar as dimensões à mão.
+function obterDimensoesPNG(bufferImagem) {
+  const vista = new DataView(bufferImagem);
+  return { largura: vista.getUint32(16), altura: vista.getUint32(20) };
+}
+
+// Nomes de sheet do Excel têm de ser únicos, no máximo 31 caracteres, e
+// não podem conter \ / ? * [ ] : — esta função garante as três coisas,
+// acrescentando " (2)", " (3)", etc. se duas sheets dessem o mesmo nome
+// depois de cortado (ex.: dois formatos de fornecedores diferentes cujo
+// nome só difere a partir do caracter 31).
+function nomeUnicoParaSheet(nomeDesejado, nomesUsados) {
+  const sanitizado = nomeDesejado.replace(/[\\/?*[\]:]/g, "-").slice(0, 31) || "Especificações";
+  let nome = sanitizado;
+  let contador = 2;
+  while (nomesUsados.has(nome.toLowerCase())) {
+    const sufixo = ` (${contador})`;
+    nome = sanitizado.slice(0, 31 - sufixo.length) + sufixo;
+    contador += 1;
+  }
+  nomesUsados.add(nome.toLowerCase());
+  return nome;
+}
+
+async function escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados) {
+  const respostaImagem = await fetch(formato.imagemFicheiro, { cache: "no-store" });
+  if (!respostaImagem.ok) {
+    // Referenciada na base mas o ficheiro não existe/não carrega — não
+    // bloqueia o resto da exportação, só esta sheet fica por fazer.
+    return;
+  }
+  const bufferImagem = await respostaImagem.arrayBuffer();
+  const { largura: larguraNatural, altura: alturaNatural } = obterDimensoesPNG(bufferImagem);
+
+  const nomeFormatoTexto = textoTraduzido(formato, "formato") ?? formato.formato ?? "";
+  const folha = workbook.addWorksheet(nomeUnicoParaSheet(`${formato.fornecedor} — ${nomeFormatoTexto}`, nomesSheetUsados));
+  folha.views = [{ showGridLines: false }];
+  folha.columns = [{ width: 5 }, { width: 90 }];
+
+  const celulaTitulo = folha.getCell(2, 2);
+  celulaTitulo.value = `${formato.fornecedor} — ${nomeFormatoTexto}`;
+  celulaTitulo.font = { name: "Arial Nova", size: 14, bold: true, color: { argb: "FF0F1724" } };
+
+  // A imagem nunca sai maior que isto (mas pode sair mais pequena, se já
+  // vier assim) — um desenho técnico em alta resolução não tem de ocupar
+  // o ecrã todo para as medidas continuarem legíveis.
+  const LADO_MAXIMO_IMAGEM = 700;
+  const escala = Math.min(LADO_MAXIMO_IMAGEM / larguraNatural, LADO_MAXIMO_IMAGEM / alturaNatural, 1);
+  const larguraFinal = Math.round(larguraNatural * escala);
+  const alturaFinal = Math.round(alturaNatural * escala);
+  const idImagem = workbook.addImage({ buffer: bufferImagem, extension: "png" });
+  const linhaImagem = 4;
+  folha.addImage(idImagem, { tl: { col: 1, row: linhaImagem - 1 }, ext: { width: larguraFinal, height: alturaFinal } });
+
+  // Linha das medidas começa a seguir à imagem — a altura de linha por
+  // omissão do Excel ronda os 20px, por isso esta conta é só uma
+  // aproximação (overshoot é inofensivo, só deixa uma margem extra).
+  const linhaMedidas = linhaImagem + Math.ceil(alturaFinal / 20) + 2;
+  const celulaMedidas = folha.getCell(linhaMedidas, 2);
+  celulaMedidas.value = {
+    richText: [
+      { font: { name: "Arial Nova", size: 10, bold: true }, text: `${t("colDimensao")}: ` },
+      { font: { name: "Arial Nova", size: 10 }, text: textoTraduzido(formato, "dimensao") || "" },
+    ],
+  };
+  celulaMedidas.alignment = { wrapText: true, vertical: "top" };
+}
+
+async function escreverFolhasImagensOOH(workbook) {
+  const nomesSheetUsados = new Set(workbook.worksheets.map((folha) => folha.name.toLowerCase()));
+  const formatosComImagem = formatosSelecionadosDoMeio("OOH")
+    .filter((formato) => formato.imagemFicheiro)
+    .sort((a, b) => (textoTraduzido(a, "formato") ?? "").localeCompare(textoTraduzido(b, "formato") ?? "", "pt"));
+  for (const formato of formatosComImagem) {
+    await escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados);
+  }
+}
+
 async function exportarSelecaoParaExcel() {
   const companhia = campoCompanhia.value;
   if (totalFormatosSelecionados() === 0 || !companhia) {
@@ -3199,6 +3308,13 @@ async function exportarSelecaoParaExcel() {
 
   for (const grupoMeio of gruposOrdenados) {
     await escreverFolhaMeio(workbook, config, companhia, cliente, campanha, grupoMeio);
+  }
+
+  // Sheets extra com a imagem/medidas de cada formato de OOH selecionado
+  // que tenha uma (ver escreverFolhasImagensOOH) — depois da folha normal
+  // de OOH, nunca antes.
+  if (gruposOrdenados.includes("OOH")) {
+    await escreverFolhasImagensOOH(workbook);
   }
 
   // --- Gerar o ficheiro e fazer o download no browser ---
