@@ -296,7 +296,8 @@ const TEXTO_LINK_GOFASTWAY = "www.gofastway.tv";
 // único pedido, sem divisão por tema). Aplica-se a todos os meios (pedido
 // explícito da Cláudia).
 const MEIOS_COM_TEMA = new Set(["TV", "Rádio", "OOH", "Digital", "Cinema", "Imprensa"]);
-const LIMITE_MAXIMO_TEMAS = 10;
+// Sem limite máximo de temas (pedido explícito da Cláudia) — só o mínimo
+// de 1 é imposto (ver mudarContagemTemas/mudarContagemTemaGrid).
 const temasPorObjetivo = {
   awareness: new Map(),
   consideration: new Map(),
@@ -1319,7 +1320,7 @@ function criarCelulaTemas(formato, nomeFormatoTexto) {
     <div class="grupo-temas" data-id="${formato.id}">
       <button type="button" class="botao-tema-menos" data-id="${formato.id}" aria-label="${formatar("temasDiminuir", { formato: nomeFormatoTexto })}" ${contagem <= 1 ? "disabled" : ""}>−</button>
       <span class="valor-temas" data-id="${formato.id}" aria-live="polite">${contagem}</span>
-      <button type="button" class="botao-tema-mais" data-id="${formato.id}" aria-label="${formatar("temasAumentar", { formato: nomeFormatoTexto })}" ${contagem >= LIMITE_MAXIMO_TEMAS ? "disabled" : ""}>+</button>
+      <button type="button" class="botao-tema-mais" data-id="${formato.id}" aria-label="${formatar("temasAumentar", { formato: nomeFormatoTexto })}">+</button>
     </div>
   `;
 }
@@ -1374,7 +1375,7 @@ function criarCelulasTemasCanal(formato, canal, nomeFormatoTexto) {
           ${rotuloDuracao}
           <button type="button" class="botao-temagrid-menos" data-id="${formato.id}" data-canal="${canal}" data-duracao="${duracao}" aria-label="${formatar("temaGridDiminuir", { formato: nomeContexto })}" ${contagem <= 1 ? "disabled" : ""}>−</button>
           <span class="valor-temagrid" aria-live="polite">${contagem}</span>
-          <button type="button" class="botao-temagrid-mais" data-id="${formato.id}" data-canal="${canal}" data-duracao="${duracao}" aria-label="${formatar("temaGridAumentar", { formato: nomeContexto })}" ${contagem >= LIMITE_MAXIMO_TEMAS ? "disabled" : ""}>+</button>
+          <button type="button" class="botao-temagrid-mais" data-id="${formato.id}" data-canal="${canal}" data-duracao="${duracao}" aria-label="${formatar("temaGridAumentar", { formato: nomeContexto })}">+</button>
         </span>
       `;
     })
@@ -1818,15 +1819,16 @@ listaFormatos.addEventListener("click", (evento) => {
   checkbox.dispatchEvent(new Event("change", { bubbles: true }));
 });
 
-// Aumenta/diminui o número de temas deste formato (1..LIMITE_MAXIMO_TEMAS)
-// — não mexe na seleção, só na quantidade de linhas que este formato vai
-// gerar no Excel se/quando for selecionado (ver escreverSeccaoObjetivo).
+// Aumenta/diminui o número de temas deste formato (mínimo 1, sem máximo —
+// pedido explícito da Cláudia) — não mexe na seleção, só na quantidade de
+// linhas que este formato vai gerar no Excel se/quando for selecionado
+// (ver escreverSeccaoObjetivo).
 function mudarContagemTemas(botao) {
   const id = Number(botao.dataset.id);
   const formato = todosFormatos.find((f) => f.id === id);
   const atual = contagemTemasDoFormato(formato, objetivoAtivo);
   const delta = botao.classList.contains("botao-tema-mais") ? 1 : -1;
-  const novo = Math.min(LIMITE_MAXIMO_TEMAS, Math.max(1, atual + delta));
+  const novo = Math.max(1, atual + delta);
   if (novo === atual) {
     return;
   }
@@ -1834,7 +1836,6 @@ function mudarContagemTemas(botao) {
   const grupo = botao.closest(".grupo-temas");
   grupo.querySelector(".valor-temas").textContent = novo;
   grupo.querySelector(".botao-tema-menos").disabled = novo <= 1;
-  grupo.querySelector(".botao-tema-mais").disabled = novo >= LIMITE_MAXIMO_TEMAS;
   atualizarResumoSelecao();
 }
 
@@ -1848,7 +1849,7 @@ function mudarContagemTemaGrid(botao) {
   const formato = todosFormatos.find((f) => f.id === id);
   const atual = contagemTemaTv(formato, objetivoAtivo, canal, duracao);
   const delta = botao.classList.contains("botao-temagrid-mais") ? 1 : -1;
-  const novo = Math.min(LIMITE_MAXIMO_TEMAS, Math.max(1, atual + delta));
+  const novo = Math.max(1, atual + delta);
   if (novo === atual) {
     return;
   }
@@ -1856,7 +1857,6 @@ function mudarContagemTemaGrid(botao) {
   const celula = botao.closest(".celula-tema-tv");
   celula.querySelector(".valor-temagrid").textContent = novo;
   celula.querySelector(".botao-temagrid-menos").disabled = novo <= 1;
-  celula.querySelector(".botao-temagrid-mais").disabled = novo >= LIMITE_MAXIMO_TEMAS;
   atualizarResumoSelecao();
 }
 
@@ -2112,7 +2112,6 @@ function sincronizarCheckboxesComObjetivoAtivo() {
     const contagem = contagemTemasDoFormato(formato, objetivoAtivo);
     grupo.querySelector(".valor-temas").textContent = contagem;
     grupo.querySelector(".botao-tema-menos").disabled = contagem <= 1;
-    grupo.querySelector(".botao-tema-mais").disabled = contagem >= LIMITE_MAXIMO_TEMAS;
   });
 
   // Canais e grelha de temas de TV são por objetivo, tal como a duração —
