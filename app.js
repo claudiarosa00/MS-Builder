@@ -2381,7 +2381,7 @@ Gera um ficheiro .xlsx, no estilo do template real da
 agência (cabeçalho colorido, bloco Companhia/Cliente/
 Campanha/Meio no topo), só com os formatos selecionados.
 A cor do cabeçalho e o logótipo mudam consoante a
-Companhia escolhida (Havas Media, Arena Media ou Forward).
+Companhia escolhida (Havas Media, Arena Media ou Forward Media).
 Usa a biblioteca ExcelJS (lib/exceljs.min.js).
 ============================================
 */
@@ -2389,25 +2389,32 @@ Usa a biblioteca ExcelJS (lib/exceljs.min.js).
 // células de dados, não o cabeçalho) — pedido explícito da Cláudia, para
 // essa data saltar à vista sem gritar. Tom clarinho da cor de cada
 // companhia (vermelho/rosa para a Havas Media, azul para a Arena Media,
-// dourado/caqui para a Forward).
+// dourado/caqui para a Forward Media).
 const CONFIGURACAO_COMPANHIA = {
   "Havas Media": {
     corCabecalho: "FFE60000",
     corDataEntrega: "FFFCE8E8",
     ficheiroLogo: "assets/logo-havas-media.png",
     proporcaoLogo: 372 / 160,
+    alturaLogo: 50,
   },
   "Arena Media": {
     corCabecalho: "FF328CF5",
     corDataEntrega: "FFE8F1FC",
     ficheiroLogo: "assets/logo-arena-media.png",
     proporcaoLogo: 1557 / 368,
+    alturaLogo: 50,
   },
-  Forward: {
+  // Logótipo completo (símbolo "FWD" + "Part of the Havas Media Network"
+  // por baixo, tal como foi enviado) — pedido explícito da Cláudia para
+  // aparecer tudo, não só o símbolo. alturaLogo maior que as outras duas
+  // companhias para essa segunda linha não ficar ilegível de tão pequena.
+  "Forward Media": {
     corCabecalho: "FFC4BD97",
     corDataEntrega: "FFF8F7F3",
     ficheiroLogo: "assets/logo-forward.png",
-    proporcaoLogo: 938 / 678,
+    proporcaoLogo: 1615 / 841,
+    alturaLogo: 78,
   },
 };
 
@@ -2713,13 +2720,48 @@ function mesclarColunasComValorRepetido(folha, numColunas, linhaInicio, linhaFim
   }
 }
 
+// Comprimento (da linha mais comprida, se o texto tiver quebras) de um
+// valor de célula — usado para ajustar a largura das colunas ao conteúdo
+// real (ver registarLarguraColuna/ajustarLargurasAoConteudo). Um valor
+// pode ser texto simples ou um objeto {text, hyperlink} (ex.: a coluna
+// Link ou a Entrega de TV, ver COLUNAS_EXCEL_DISPONIVEIS) — neste caso
+// olha para o texto lá dentro, não para o objeto todo.
+function comprimentoValorCelula(valor) {
+  const bruto = valor && typeof valor === "object" ? (valor.text ?? "") : valor;
+  return String(bruto ?? "").split("\n").reduce((maior, linha) => Math.max(maior, linha.length), 0);
+}
+
+// Maior largura (em nº de colunas) que deixamos uma coluna crescer para
+// caber o texto — acima disto o texto só quebra linha (wrapText já está
+// ligado em todas as células de dados) em vez de alargar a coluna sem
+// limite por causa de uma Observação com um parágrafo inteiro.
+const LARGURA_MAXIMA_COLUNA_EXCEL = 70;
+
+// Ajusta a largura de cada coluna da folha ao texto mais comprido
+// encontrado nela (cabeçalho, bloco Companhia/Cliente/Campanha/Meio no
+// topo, e os dados da tabela — tudo registado durante a escrita, ver
+// registarLarguraColuna) — pedido explícito da Cláudia, para as colunas
+// saírem sempre à medida do que lá está, em vez de uma largura fixa por
+// meio que tanto podia sobrar como ficar curta. COLUNAS_EXCEL_DISPONIVEIS
+// continua a valer como largura mínima, para uma coluna quase vazia (ex.:
+// Aspect Ratio) não ficar demasiado estreita.
+function ajustarLargurasAoConteudo(folha, colunasChaves, largurasConteudo) {
+  const totalColunas = Math.max(colunasChaves.length + 1, largurasConteudo.length - 1);
+  for (let coluna = 2; coluna <= totalColunas; coluna += 1) {
+    const chave = colunasChaves[coluna - 2];
+    const larguraMinima = chave ? COLUNAS_EXCEL_DISPONIVEIS[chave].largura : 8;
+    const larguraConteudo = (largurasConteudo[coluna] || 0) + 2;
+    folha.getColumn(coluna).width = Math.min(LARGURA_MAXIMA_COLUNA_EXCEL, Math.max(larguraMinima, larguraConteudo));
+  }
+}
+
 // Escreve uma secção completa (título do objetivo + cabeçalho da tabela +
 // uma linha por formato — ou uma linha por duração escolhida, no caso de
 // TV/Rádio, ver mais abaixo) a partir da linha indicada, e devolve a
 // próxima linha livre (já com uma linha em branco a separar da secção
 // seguinte). colunasChaves é a lista de colunas desta folha (ver
 // COLUNAS_POR_MEIO_EXCEL), sempre precedida pela coluna fixa "#".
-function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSeccao, config, objetivo, colunasChaves, grupoMeio) {
+function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSeccao, config, objetivo, colunasChaves, grupoMeio, registarLarguraColuna) {
   let linha = linhaInicio;
   const numColunas = colunasChaves.length + 1;
 
@@ -2739,6 +2781,7 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
     celula.fill = { type: "pattern", pattern: "solid", fgColor: { argb: config.corCabecalho } };
     celula.alignment = { vertical: "middle", wrapText: true };
     celula.border = ESTILO_BORDA_COMPLETA;
+    registarLarguraColuna(indice + 1, titulo);
   });
   linha += 1;
 
@@ -2820,6 +2863,7 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
         COLUNAS_EXCEL_DISPONIVEIS[chave].valor(grupo.formato, objetivo, grupo.duracao, temaIndice, grupo.canal)
       ));
       linhaFormato.values = [indiceGrupo + 1, ...valoresColunas];
+      valoresColunas.forEach((valor, indiceValor) => registarLarguraColuna(indiceValor + 2, valor));
       linhaFormato.eachCell({ includeEmpty: true }, (celula, indiceColunaExcel) => {
         const centrada = indiceColunaExcel === 1 || COLUNAS_CENTRADAS.has(colunasChaves[indiceColunaExcel - 2]);
         celula.font = { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } };
@@ -3020,7 +3064,7 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
   const respostaLogo = await fetch(config.ficheiroLogo);
   const bufferLogo = await respostaLogo.arrayBuffer();
   const idImagemLogo = workbook.addImage({ buffer: bufferLogo, extension: "png" });
-  const alturaLogo = 50;
+  const alturaLogo = config.alturaLogo ?? 50;
   const larguraLogo = Math.round(alturaLogo * config.proporcaoLogo);
   // Âncora em B3 (col:1, row:2) em vez de A1 (col:0, row:0): as colunas/
   // linhas antes ficam livres e funcionam como margem real à esquerda e
@@ -3047,6 +3091,29 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
   folha.getCell("E6").style = estiloRotulo;
   folha.getCell("F6").value = nomeMeio;
   folha.getCell("F6").style = estiloValor;
+
+  // --- Acompanha o texto mais comprido escrito em cada coluna (cabeçalho
+  // + dados da tabela, + este bloco Companhia/Cliente/Campanha/Meio que
+  // cai nas colunas E/F), para no fim ajustar a largura de cada coluna ao
+  // que lá está (ver ajustarLargurasAoConteudo) — pedido explícito da
+  // Cláudia. As colunas E/F entram aqui diretamente porque não fazem
+  // parte de colunasChaves (são só este bloco do topo).
+  const numColunasFolha = colunasChaves.length + 1;
+  const largurasConteudo = new Array(Math.max(numColunasFolha, 6) + 1).fill(0);
+  const registarLarguraColuna = (coluna, valor) => {
+    const comprimento = comprimentoValorCelula(valor);
+    if (comprimento > largurasConteudo[coluna]) {
+      largurasConteudo[coluna] = comprimento;
+    }
+  };
+  registarLarguraColuna(5, t("excelLabelCompanhia"));
+  registarLarguraColuna(5, t("excelLabelCliente"));
+  registarLarguraColuna(5, t("excelLabelCampanha"));
+  registarLarguraColuna(5, t("excelLabelMeio"));
+  registarLarguraColuna(6, companhia);
+  registarLarguraColuna(6, cliente);
+  registarLarguraColuna(6, campanha);
+  registarLarguraColuna(6, nomeMeio);
 
   // --- Uma secção por objetivo (Awareness / Consideration / Conversion),
   // cada uma com o seu próprio cabeçalho de tabela — o mesmo formato pode
@@ -3079,10 +3146,8 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
     if (formatosDoObjetivo.length === 0) {
       return;
     }
-    linhaAtual = escreverSeccaoObjetivo(folha, linhaAtual, t(CHAVE_TRADUCAO_OBJETIVO[objetivo]), formatosDoObjetivo, config, objetivo, colunasChaves, grupoMeio);
+    linhaAtual = escreverSeccaoObjetivo(folha, linhaAtual, t(CHAVE_TRADUCAO_OBJETIVO[objetivo]), formatosDoObjetivo, config, objetivo, colunasChaves, grupoMeio, registarLarguraColuna);
   });
-
-  const numColunasFolha = colunasChaves.length + 1;
 
   // Uma linha de intervalo extra antes da nota de especificações de TV/
   // Rádio — pedido explícito da Cláudia (a linha em branco que já havia
@@ -3097,6 +3162,8 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
   // Cláudia.
   linhaAtual += 1;
   escreverNotaEntregaMateriais(folha, linhaAtual, numColunasFolha, cliente, grupoMeio);
+
+  ajustarLargurasAoConteudo(folha, colunasChaves, largurasConteudo);
 }
 
 async function exportarSelecaoParaExcel() {
