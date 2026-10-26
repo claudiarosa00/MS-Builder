@@ -530,7 +530,7 @@ const TRADUCOES = {
   colGrupoDigital2020: { pt: "Grupo Digital2020", en: "Digital2020 Group", es: "Grupo Digital2020", fr: "Groupe Digital2020" },
   colDimensao: { pt: "Dimensão", en: "Dimensions", es: "Dimensión", fr: "Dimensions" },
   colAspectRatio: { pt: "Aspect Ratio", en: "Aspect Ratio", es: "Aspect Ratio", fr: "Aspect Ratio" },
-  colPeso: { pt: "Peso", en: "File Size", es: "Peso", fr: "Poids" },
+  colPeso: { pt: "Peso / Duração", en: "File Size / Duration", es: "Peso / Duración", fr: "Poids / Durée" },
   colTipoFicheiro: { pt: "Tipo de ficheiro", en: "File Type", es: "Tipo de archivo", fr: "Type de fichier" },
   colCopies: { pt: "Copies", en: "Copy", es: "Copies", fr: "Copies" },
   colObservacoes: { pt: "Observações", en: "Notes", es: "Observaciones", fr: "Remarques" },
