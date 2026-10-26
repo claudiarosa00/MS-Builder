@@ -6,7 +6,7 @@ processo manual que antes era feito diretamente em Excel.
 
 ## O que faz
 
-- **Construir Pedido**: escolhe a Companhia (Havas Media / Arena Media),
+- **Construir Pedido**: escolhe a Companhia (Havas Media / Arena Media / Forward),
   Cliente e Campanha, seleciona os formatos pretendidos — por objetivo
   (Awareness / Consideration / Conversion, cada um com a sua própria seleção,
   para o mesmo formato poder ser pedido mais que uma vez) — e exporta tudo
@@ -301,7 +301,7 @@ equipa/fornecedor poder trabalhar só com a folha que lhe interessa. Cada
 folha tem o logótipo e cor da Companhia escolhida, os dados da Campanha, e
 uma secção por objetivo selecionado (Awareness / Consideration /
 Conversion), cada uma com o seu próprio cabeçalho de tabela. Esta estrutura
-é igual nas duas Companhias (Havas Media / Arena Media) — só o logótipo e
+é igual nas três Companhias (Havas Media / Arena Media / Forward) — só o logótipo e
 a cor de cabeçalho mudam.
 
 Cada meio tem o seu **próprio template de colunas**, só com as colunas que

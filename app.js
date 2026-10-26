@@ -909,6 +909,46 @@ function paraIdHtml(texto) {
     .replace(/(^-|-$)/g, "");
 }
 
+// Escapa texto vindo da base (nome do formato, veículo, dimensão, peso,
+// observações, ...) antes de o colocar dentro de HTML construído por
+// template literal (innerHTML/outerHTML) — tanto como texto como dentro
+// de um atributo (ex.: aria-label="..."). Sem isto, um valor malicioso na
+// base-formatos.xlsx (ex.: um Formato chamado `<img src=x onerror=...>`)
+// executava como HTML/JS no browser de quem o visse — ver auditoria de
+// segurança. A Excel exportado NUNCA passa por aqui: cell.value do
+// ExcelJS não interpreta HTML, por isso escapar ali corromperia o texto
+// (apareceria "&amp;" em vez de "&").
+function escapeHTML(texto) {
+  return String(texto ?? "").replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  }[c]));
+}
+
+// Só deixa passar um link http(s) — qualquer outro esquema (ex.:
+// "javascript:alert(1)", "data:text/html,...") fica bloqueado, devolvendo
+// null. formato.link vem da base-formatos.xlsx e é colocado diretamente
+// num atributo href; sem esta validação, um valor malicioso na base
+// corria JavaScript ao clicar no link "Ver specs" — ver auditoria de
+// segurança. O texto que passa é sempre escapado antes de entrar no HTML.
+function hrefSeguro(url) {
+  if (!url) {
+    return null;
+  }
+  try {
+    const analisado = new URL(String(url), window.location.href);
+    if (analisado.protocol !== "http:" && analisado.protocol !== "https:") {
+      return null;
+    }
+    return escapeHTML(analisado.href);
+  } catch {
+    return null;
+  }
+}
+
 // A que categoria do índice pertence um publisher, a partir dos seus
 // próprios formatos: primeiro separamos por meio (Digital vs. os meios
 // offline — OOH, TV, Rádio, Cinema, Imprensa — usando o mesmo mapeamento
@@ -1440,7 +1480,7 @@ function criarGridTemasTv(formato, nomeFormatoTexto) {
 // criarCelulasTemasCanal sobre o porquê (preservar o foco do campo
 // "Outro" enquanto se escreve nele).
 function atualizarCelulasTemasCanal(formato, canal) {
-  const nomeFormatoTexto = textoTraduzido(formato, "formato") ?? "";
+  const nomeFormatoTexto = escapeHTML(textoTraduzido(formato, "formato") ?? "");
   listaFormatos.querySelectorAll(`.celulas-temas-tv[data-id="${formato.id}"][data-canal="${canal}"]`).forEach((div) => {
     div.innerHTML = criarCelulasTemasCanal(formato, canal, nomeFormatoTexto);
   });
@@ -1450,7 +1490,7 @@ function atualizarCelulasTemasCanal(formato, canal) {
 // chamado quando o conjunto de canais muda (marcar/desmarcar um canal),
 // já que isso acrescenta ou remove uma linha inteira em cada uma.
 function atualizarGridsTv(formato) {
-  const nomeFormatoTexto = textoTraduzido(formato, "formato") ?? "";
+  const nomeFormatoTexto = escapeHTML(textoTraduzido(formato, "formato") ?? "");
   listaFormatos.querySelectorAll(`.grid-secundagem-tv[data-id="${formato.id}"]`).forEach((grid) => {
     grid.outerHTML = criarGridSecundagemTv(formato);
   });
@@ -1470,7 +1510,7 @@ function criarLinhaFormato(formato, opcoes) {
   // para dar contexto (a que formato pertence) aos controlos de Entrega/
   // Temas mais abaixo, que de outro modo soariam todos iguais para quem
   // usa leitor de ecrã (ver auditoria de acessibilidade).
-  const nomeFormatoTexto = textoTraduzido(formato, "formato") ?? "";
+  const nomeFormatoTexto = escapeHTML(textoTraduzido(formato, "formato") ?? "");
   // Marca a checkbox logo na criação se este formato já estiver selecionado
   // (importante para a lista continuar correta depois de trocar de idioma
   // ou de filtro, que voltam a desenhar as linhas do zero).
@@ -1489,9 +1529,9 @@ function criarLinhaFormato(formato, opcoes) {
     ? `<td class="coluna-checkbox"><input type="checkbox" class="checkbox-formato${pendente ? " checkbox-formato--pendente" : ""}" data-id="${formato.id}" aria-labelledby="${idNomeFormato}" ${selecoesPorObjetivo[objetivoAtivo].has(formato.id) ? "checked" : ""}></td>`
     : "";
   const colunaGrupoDigital2020 = opcoes.comGrupoDigital2020
-    ? `<td><span class="etiqueta-dg2020">${formato.grupoDigital2020 ?? "—"}</span></td>`
+    ? `<td><span class="etiqueta-dg2020">${escapeHTML(formato.grupoDigital2020) || "—"}</span></td>`
     : "";
-  const colunaVeiculo = opcoes.comVeiculo ? `<td>${formato.veiculo ?? "—"}</td>` : "";
+  const colunaVeiculo = opcoes.comVeiculo ? `<td>${escapeHTML(formato.veiculo) || "—"}</td>` : "";
   // A Entrega liga-se por publisher (comEntregaMupi), mas cada linha
   // decide por si própria se mostra o seletor — um bloco de OOH pode
   // misturar Mupi papel com outros formatos sem essa noção.
@@ -1538,12 +1578,13 @@ function criarLinhaFormato(formato, opcoes) {
   // aria-label com o nome do formato: sem isto, uma pessoa a navegar pela
   // lista de links do leitor de ecrã só ouviria "Ver specs" repetido,
   // dezenas de vezes, sem saber a que formato cada link pertence.
+  const linkSeguro = hrefSeguro(formato.link);
   const colunaLink = opcoes.comLink
-    ? `<td>${formato.link ? `<a href="${formato.link}" target="_blank" rel="noopener" aria-label="${formatar("verSpecsLinkComNome", { formato: nomeFormatoTexto })}">${t("verSpecsLink")}</a>` : "—"}</td>`
+    ? `<td>${linkSeguro ? `<a href="${linkSeguro}" target="_blank" rel="noopener" aria-label="${formatar("verSpecsLinkComNome", { formato: nomeFormatoTexto })}">${t("verSpecsLink")}</a>` : "—"}</td>`
     : "";
   // O Copies só existe para meios digitais (ver comCopies em
   // criarBlocoPublisher) — um publisher offline não desenha esta coluna.
-  const colunaCopies = opcoes.comCopies ? `<td>${textoTraduzido(formato, "copies") || "—"}</td>` : "";
+  const colunaCopies = opcoes.comCopies ? `<td>${escapeHTML(textoTraduzido(formato, "copies")) || "—"}</td>` : "";
   // A Entrega de TV é sempre "GoFastWay" — não vem da base, é um valor
   // fixo (ver entregaTV em COLUNAS_EXCEL_DISPONIVEIS, a mesma ideia usada
   // aqui na Biblioteca de Formatos), com o link do Portal GoFastWay
@@ -1556,13 +1597,13 @@ function criarLinhaFormato(formato, opcoes) {
     <td id="${idNomeFormato}">${nomeFormatoTexto}</td>
     ${colunaVeiculo}
     ${colunaGrupoDigital2020}
-    <td>${textoTraduzido(formato, "dimensao") ?? t("naoEspecificado")}</td>
-    <td>${textoTraduzido(formato, "aspectRatio") || "—"}</td>
-    <td>${textoTraduzido(formato, "peso") ?? t("naoEspecificado")}</td>
-    <td>${textoTraduzido(formato, "tipoFicheiro") ?? t("naoEspecificado")}</td>
+    <td>${escapeHTML(textoTraduzido(formato, "dimensao")) || t("naoEspecificado")}</td>
+    <td>${escapeHTML(textoTraduzido(formato, "aspectRatio")) || "—"}</td>
+    <td>${escapeHTML(textoTraduzido(formato, "peso")) || t("naoEspecificado")}</td>
+    <td>${escapeHTML(textoTraduzido(formato, "tipoFicheiro")) || t("naoEspecificado")}</td>
     ${colunaCopies}
     ${colunaEntregaTV}
-    <td class="coluna-observacoes">${textoTraduzido(formato, "observacoes") || "—"}</td>
+    <td class="coluna-observacoes">${escapeHTML(textoTraduzido(formato, "observacoes")) || "—"}</td>
     ${colunaLink}
   `;
   return linha;
@@ -2293,13 +2334,13 @@ function atualizarResumoSelecao() {
           // Tal como nas tabelas, o Grupo Digital2020 só existe para meios
           // digitais — um formato offline (OOH, ...) não mostra a etiqueta.
           const etiqueta = grupoMeioDoFormato(f) === "Digital"
-            ? ` <span class="etiqueta-dg2020">${f.grupoDigital2020 ?? "—"}</span>`
+            ? ` <span class="etiqueta-dg2020">${escapeHTML(f.grupoDigital2020) || "—"}</span>`
             : "";
           // Quando o Veículo é diferente do Fornecedor (ex.: "Correio da
           // Manhã" → "Boa Onda"), mostra-o também — senão duas seleções
           // diferentes podiam aparecer com o mesmo texto no resumo.
-          const veiculo = f.veiculo && f.veiculo !== f.fornecedor ? ` (${f.veiculo})` : "";
-          const nomeFormato = textoTraduzido(f, "formato") ?? "";
+          const veiculo = f.veiculo && f.veiculo !== f.fornecedor ? ` (${escapeHTML(f.veiculo)})` : "";
+          const nomeFormato = escapeHTML(textoTraduzido(f, "formato") ?? "");
           // Nº de temas (TV/Rádio/OOH) e escolha de entrega (Mupi papel) —
           // mostrados aqui para o resumo refletir sempre o que vai sair no
           // Excel (ver escreverSeccaoObjetivo/COLUNAS_EXCEL_DISPONIVEIS).
@@ -2320,7 +2361,7 @@ function atualizarResumoSelecao() {
           }
           // Os restantes meios nunca têm duração (só TV/Rádio têm — e já
           // voltaram acima, no ramo de formatoTemCanal).
-          return [`<li>${f.fornecedor}${veiculo} — ${nomeFormato}${etiqueta}${etiquetaTemas}${etiquetaEntrega}</li>`];
+          return [`<li>${escapeHTML(f.fornecedor)}${veiculo} — ${nomeFormato}${etiqueta}${etiquetaTemas}${etiquetaEntrega}</li>`];
         })
         .join("");
       return `<li class="resumo-grupo-objetivo"><strong>${t(CHAVE_TRADUCAO_OBJETIVO[objetivo])}</strong><ul>${itensObjetivo}</ul></li>`;
@@ -2340,14 +2381,15 @@ Gera um ficheiro .xlsx, no estilo do template real da
 agência (cabeçalho colorido, bloco Companhia/Cliente/
 Campanha/Meio no topo), só com os formatos selecionados.
 A cor do cabeçalho e o logótipo mudam consoante a
-Companhia escolhida (Havas Media ou Arena Media).
+Companhia escolhida (Havas Media, Arena Media ou Forward).
 Usa a biblioteca ExcelJS (lib/exceljs.min.js).
 ============================================
 */
 // corDataEntrega: um destaque bem leve na coluna "Data de entrega" (só as
 // células de dados, não o cabeçalho) — pedido explícito da Cláudia, para
 // essa data saltar à vista sem gritar. Tom clarinho da cor de cada
-// companhia (vermelho/rosa para a Havas Media, azul para a Arena Media).
+// companhia (vermelho/rosa para a Havas Media, azul para a Arena Media,
+// dourado/caqui para a Forward).
 const CONFIGURACAO_COMPANHIA = {
   "Havas Media": {
     corCabecalho: "FFE60000",
@@ -2360,6 +2402,15 @@ const CONFIGURACAO_COMPANHIA = {
     corDataEntrega: "FFE8F1FC",
     ficheiroLogo: "assets/logo-arena-media.png",
     proporcaoLogo: 1557 / 368,
+  },
+  // Logótipo ainda é um placeholder de texto (ver
+  // gerar_logo_forward_placeholder.py) — por substituir pelo ficheiro
+  // real assim que a Cláudia o enviar.
+  Forward: {
+    corCabecalho: "FFC4BD97",
+    corDataEntrega: "FFF8F7F3",
+    ficheiroLogo: "assets/logo-forward.png",
+    proporcaoLogo: 600 / 160,
   },
 };
 
