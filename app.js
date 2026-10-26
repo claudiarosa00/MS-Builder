@@ -2403,14 +2403,11 @@ const CONFIGURACAO_COMPANHIA = {
     ficheiroLogo: "assets/logo-arena-media.png",
     proporcaoLogo: 1557 / 368,
   },
-  // Logótipo ainda é um placeholder de texto (ver
-  // gerar_logo_forward_placeholder.py) — por substituir pelo ficheiro
-  // real assim que a Cláudia o enviar.
   Forward: {
     corCabecalho: "FFC4BD97",
     corDataEntrega: "FFF8F7F3",
     ficheiroLogo: "assets/logo-forward.png",
-    proporcaoLogo: 600 / 160,
+    proporcaoLogo: 938 / 678,
   },
 };
 
