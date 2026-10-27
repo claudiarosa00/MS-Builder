@@ -1202,6 +1202,96 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   margin-right: 2px;
 }
 
+/* "Campanha" repetível (TV/Rádio) — pisco + blocos por campanha, ver
+   criarColunaCanaisTv/criarColunaSecundagemTv/criarColunaTemasTv em
+   app.js. O pisco e os blocos vivem nas 3 colunas (Canal/Secundagem/
+   Temas); só a coluna Canal tem o campo de nome editável + remover. */
+.opcao-mais-campanhas-tv {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--fonte-base);
+  font-size: 12.5px;
+  color: var(--cor-texto-suave);
+  cursor: pointer;
+  margin-bottom: 6px;
+}
+
+.opcao-mais-campanhas-tv input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.coluna-canais-tv-raiz--campanhas .bloco-campanha-tv,
+.coluna-secundagem-tv-raiz--campanhas .bloco-campanha-tv,
+.coluna-temas-tv-raiz--campanhas .bloco-campanha-tv {
+  padding: 8px 0;
+  border-top: 1px solid var(--cor-borda);
+}
+
+.coluna-canais-tv-raiz--campanhas .bloco-campanha-tv:first-of-type,
+.coluna-secundagem-tv-raiz--campanhas .bloco-campanha-tv:first-of-type,
+.coluna-temas-tv-raiz--campanhas .bloco-campanha-tv:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.cabecalho-campanha-tv {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.input-nome-campanha-tv {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--fonte-base);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 3px 6px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 4px;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+}
+
+.botao-remover-campanha-tv {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  border: 1px solid var(--cor-borda);
+  border-radius: 4px;
+  background: var(--cor-fundo);
+  color: var(--cor-texto-suave);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.botao-remover-campanha-tv:hover {
+  color: var(--cor-destaque);
+  border-color: var(--cor-destaque);
+}
+
+.botao-adicionar-campanha-tv {
+  margin-top: 4px;
+  font-family: var(--fonte-base);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--cor-destaque);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.rotulo-campanha-tv {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cor-texto-suave);
+  margin-bottom: 6px;
+}
+
 .botao-temagrid-mais,
 .botao-temagrid-menos {
   width: 20px;

@@ -416,6 +416,109 @@ function definirContagemTemaTv(formato, objetivo, canal, duracao, novaContagem) 
   }
   grelha.set(chaveCelulaTemaTv(canal, duracao), novaContagem);
 }
+
+// "Campanha" repetível (TV/Rádio) — pedido explícito da Cláudia, para um
+// único pedido poder cobrir várias campanhas do mesmo cliente ao mesmo
+// tempo (ex.: Pedido de Material mensal com a Campanha A, B, C, cada uma
+// com o seu próprio plano de canais/secundagem/temas), em vez de um
+// ficheiro à parte por campanha. Por omissão um formato não tem nenhuma
+// campanha (o fluxo de sempre, sem mudança nenhuma); ligar o "pisco" cria
+// já as duas primeiras (ver alternarMaisCampanhasTv) e o formato passa a
+// mostrar um bloco repetível por campanha em vez do único bloco de
+// sempre. Por formato (não partilhada entre formatos — pedido explícito
+// da Cláudia), e por objetivo, tal como o resto do estado de TV/Rádio.
+//
+// Cada campanha reaproveita por inteiro os Maps já existentes
+// (canaisTvPorObjetivo, duracoesPorObjetivo, temasGridTvPorObjetivo), só
+// trocando o "formato.id" por um id composto "<idFormato>::camp::
+// <idCampanha>" (ver chaveFormatoCampanha/resolverFormatoDoId) — a opção
+// que menos mexe no resto do ficheiro: toda a lógica de Canal/Secundagem/
+// Temas já indexada por formato.id passa a funcionar sem alterações,
+// tanto para o bloco único (id simples) como para um bloco de campanha
+// (id composto).
+const campanhasTvPorObjetivo = {
+  awareness: new Map(),
+  consideration: new Map(),
+  conversion: new Map(),
+};
+const SEPARADOR_ID_CAMPANHA = "::camp::";
+function chaveFormatoCampanha(idFormatoReal, idCampanha) {
+  return `${idFormatoReal}${SEPARADOR_ID_CAMPANHA}${idCampanha}`;
+}
+// Extrai a parte do id real (numérica) de um data-id que pode ser simples
+// (formato sem campanhas) ou composto (dentro de um bloco de campanha).
+function idFormatoRealDoId(idDataset) {
+  const idTexto = String(idDataset);
+  const indice = idTexto.indexOf(SEPARADOR_ID_CAMPANHA);
+  return Number(indice === -1 ? idTexto : idTexto.slice(0, indice));
+}
+// Extrai o id da campanha de um data-id composto, ou null se for um id
+// simples (bloco único, sem campanhas).
+function idCampanhaDoId(idDataset) {
+  const idTexto = String(idDataset);
+  const indice = idTexto.indexOf(SEPARADOR_ID_CAMPANHA);
+  return indice === -1 ? null : idTexto.slice(indice + SEPARADOR_ID_CAMPANHA.length);
+}
+// Devolve o "formato" a usar nos Maps de estado por id (Canal/Secundagem/
+// Temas) a partir de um data-id do DOM — mantém todos os campos reais
+// (fornecedor, veículo, canais disponíveis, ...) do formato real, só troca
+// o id quando o data-id pertence a um bloco de campanha. Devolve
+// undefined se o formato real já não existir (ex.: base recarregada).
+function resolverFormatoDoId(idDataset) {
+  const idTexto = String(idDataset);
+  const idReal = idFormatoRealDoId(idTexto);
+  const real = todosFormatos.find((f) => f.id === idReal);
+  if (!real) {
+    return undefined;
+  }
+  return idTexto === String(idReal) ? real : { ...real, id: idTexto };
+}
+function campanhasDoFormato(formato, objetivo) {
+  return campanhasTvPorObjetivo[objetivo].get(formato.id) || [];
+}
+function formatoUsaCampanhas(formato, objetivo) {
+  return campanhasDoFormato(formato, objetivo).length > 0;
+}
+function proximoIdCampanha(lista) {
+  const maior = lista.reduce((acc, campanha) => Math.max(acc, Number(campanha.id) || 0), 0);
+  return String(maior + 1);
+}
+function criarCampanha(formato, objetivo, nome) {
+  const lista = campanhasTvPorObjetivo[objetivo].get(formato.id) || [];
+  const idNovo = proximoIdCampanha(lista);
+  const nova = { id: idNovo, nome: nome || `${t("campanhaRotuloOmissao")} ${idNovo}` };
+  campanhasTvPorObjetivo[objetivo].set(formato.id, [...lista, nova]);
+  return nova;
+}
+function removerCampanha(formato, objetivo, idCampanha) {
+  const lista = campanhasTvPorObjetivo[objetivo].get(formato.id) || [];
+  campanhasTvPorObjetivo[objetivo].set(formato.id, lista.filter((campanha) => campanha.id !== idCampanha));
+}
+function renomearCampanha(formato, objetivo, idCampanha, novoNome) {
+  const lista = campanhasTvPorObjetivo[objetivo].get(formato.id) || [];
+  const campanha = lista.find((c) => c.id === idCampanha);
+  if (campanha) {
+    campanha.nome = novoNome;
+  }
+}
+// Verdadeiro quando este formato de TV/Rádio já tem pelo menos um canal/
+// estação escolhido — no bloco único de sempre, OU nalguma das campanhas
+// (quando o "pisco" de várias campanhas está ativo). Substitui
+// "canaisDoFormato(formato, objetivo).size === 0" em todos os sítios que
+// decidem se o formato já pode ser marcado/exportado — com campanhas
+// ativas, o bloco único de base fica sempre vazio (todos os canais ficam
+// guardados sob ids compostos), por isso olhar só a ele dava sempre
+// "nenhum canal escolhido" mesmo com dados preenchidos nas campanhas.
+function formatoTemAlgumCanalEscolhido(formato, objetivo) {
+  if (canaisDoFormato(formato, objetivo).size > 0) {
+    return true;
+  }
+  return campanhasDoFormato(formato, objetivo).some((campanha) => {
+    const idComposto = chaveFormatoCampanha(formato.id, campanha.id);
+    return (canaisTvPorObjetivo[objetivo].get(idComposto) || new Set()).size > 0;
+  });
+}
+
 // Todas as combinações canal×secundagem atualmente relevantes para este
 // formato (uma célula de temas por combinação) — usada tanto para desenhar
 // a grelha no construtor como para gerar as linhas no Excel exportado.
@@ -572,6 +675,15 @@ const TRADUCOES = {
   labelEstacoesRadio: { pt: "Estações", en: "Stations", es: "Estaciones", fr: "Stations" },
   semEstacoesEscolhidas: { pt: "— escolhe pelo menos uma estação —", en: "— choose at least one station —", es: "— elige al menos una estación —", fr: "— choisis au moins une station —" },
   avisoEscolherEstacaoRadio: { pt: "Escolhe primeiro pelo menos uma estação para este spot de rádio.", en: "Choose at least one station for this radio spot first.", es: "Elige primero al menos una estación para este spot de radio.", fr: "Choisis d'abord au moins une station pour ce spot radio." },
+  colCampanha: { pt: "Campanha", en: "Campaign", es: "Campaña", fr: "Campagne" },
+  maisQueUmaCampanha: { pt: "Mais do que uma campanha", en: "More than one campaign", es: "Más de una campaña", fr: "Plus d'une campagne" },
+  campanhaRotuloOmissao: { pt: "Campanha", en: "Campaign", es: "Campaña", fr: "Campagne" },
+  nomeDaCampanha: { pt: "Nome da campanha de {formato}", en: "Campaign name for {formato}", es: "Nombre de la campaña de {formato}", fr: "Nom de la campagne de {formato}" },
+  adicionarCampanhaBotao: { pt: "+ Nova campanha", en: "+ New campaign", es: "+ Nueva campaña", fr: "+ Nouvelle campagne" },
+  adicionarCampanha: { pt: "Acrescentar nova campanha a {formato}", en: "Add a new campaign to {formato}", es: "Añadir nueva campaña a {formato}", fr: "Ajouter une nouvelle campagne à {formato}" },
+  removerCampanha: { pt: "Remover a campanha {campanha} de {formato}", en: "Remove the {campanha} campaign from {formato}", es: "Eliminar la campaña {campanha} de {formato}", fr: "Supprimer la campagne {campanha} de {formato}" },
+  avisoDesligarCampanhas: { pt: "Já há canais escolhidos nalgumas campanhas. Desligar \"mais do que uma campanha\" esconde essa informação (sem apagar o resto do pedido). Continuar?", en: "Some campaigns already have channels chosen. Turning off \"more than one campaign\" hides that information (the rest of the request is unaffected). Continue?", es: "Ya hay canales elegidos en algunas campañas. Desactivar \"más de una campaña\" oculta esa información (sin borrar el resto de la solicitud). ¿Continuar?", fr: "Des chaînes sont déjà choisies dans certaines campagnes. Désactiver « plus d'une campagne » masque ces informations (sans effacer le reste de la demande). Continuer ?" },
+  avisoRemoverCampanha: { pt: "Esta campanha já tem canais escolhidos. Remover esconde essa informação (sem apagar o resto do pedido). Continuar?", en: "This campaign already has channels chosen. Removing it hides that information (the rest of the request is unaffected). Continue?", es: "Esta campaña ya tiene canales elegidos. Eliminarla oculta esa información (sin borrar el resto de la solicitud). ¿Continuar?", fr: "Cette campagne a déjà des chaînes choisies. La supprimer masque ces informations (sans effacer le reste de la demande). Continuer ?" },
   rodapeSpecsTituloRadio: { pt: "Especificações técnicas (iguais em todas as estações)", en: "Technical specifications (same for every station)", es: "Especificaciones técnicas (iguales en todas las estaciones)", fr: "Spécifications techniques (identiques sur toutes les stations)" },
   avisoRadioSaltadosSelecionarTodos: { pt: "{n} spot(s) de rádio ficaram por selecionar — falta escolher pelo menos uma estação.", en: "{n} radio spot(s) were left unselected — at least one station is still missing.", es: "{n} spot(s) de radio quedaron sin seleccionar — falta elegir al menos una estación.", fr: "{n} spot(s) radio n'ont pas été sélectionnés — il manque au moins une station." },
   colCaderno: { pt: "Caderno", en: "Section", es: "Suplemento", fr: "Cahier" },
@@ -1495,6 +1607,104 @@ function atualizarCelulasTemasCanal(formato, canal) {
 // Reconstrói as duas grelhas (Secundagem e Temas) de um formato de TV —
 // chamado quando o conjunto de canais muda (marcar/desmarcar um canal),
 // já que isso acrescenta ou remove uma linha inteira em cada uma.
+// Envolve a célula de Canal/Estação (criarCelulaCanaisTv) com o "pisco" de
+// várias campanhas e, quando ativo, os blocos repetíveis por campanha —
+// ver campanhasTvPorObjetivo. O nome de cada campanha só é editável aqui
+// (coluna Canal); as colunas Secundagem/Temas ao lado só repetem o nome
+// como rótulo (ver rotuloCampanhaTv/criarColunaSecundagemTv/
+// criarColunaTemasTv), para não haver 3 cópias do mesmo campo de texto a
+// mexer ao mesmo tempo.
+function criarColunaCanaisTv(formato, nomeFormatoTexto) {
+  const campanhas = campanhasDoFormato(formato, objetivoAtivo);
+  if (campanhas.length === 0) {
+    return `
+      <div class="coluna-canais-tv-raiz" data-id="${formato.id}">
+        <label class="opcao-mais-campanhas-tv">
+          <input type="checkbox" class="checkbox-mais-campanhas-tv" data-id="${formato.id}">
+          ${t("maisQueUmaCampanha")}
+        </label>
+        ${criarCelulaCanaisTv(formato)}
+      </div>
+    `;
+  }
+  const blocos = campanhas
+    .map((campanha) => {
+      const formatoCampanha = { ...formato, id: chaveFormatoCampanha(formato.id, campanha.id) };
+      return `
+        <div class="bloco-campanha-tv" data-id="${formato.id}" data-id-campanha="${campanha.id}">
+          <div class="cabecalho-campanha-tv">
+            <input type="text" class="input-nome-campanha-tv" data-id="${formato.id}" data-id-campanha="${campanha.id}"
+              value="${escapeHTML(campanha.nome)}" aria-label="${formatar("nomeDaCampanha", { formato: nomeFormatoTexto })}">
+            <button type="button" class="botao-remover-campanha-tv" data-id="${formato.id}" data-id-campanha="${campanha.id}"
+              aria-label="${formatar("removerCampanha", { campanha: escapeHTML(campanha.nome), formato: nomeFormatoTexto })}">×</button>
+          </div>
+          ${criarCelulaCanaisTv(formatoCampanha)}
+        </div>
+      `;
+    })
+    .join("");
+  return `
+    <div class="coluna-canais-tv-raiz coluna-canais-tv-raiz--campanhas" data-id="${formato.id}">
+      <label class="opcao-mais-campanhas-tv">
+        <input type="checkbox" class="checkbox-mais-campanhas-tv" data-id="${formato.id}" checked>
+        ${t("maisQueUmaCampanha")}
+      </label>
+      ${blocos}
+      <button type="button" class="botao-adicionar-campanha-tv" data-id="${formato.id}" aria-label="${formatar("adicionarCampanha", { formato: nomeFormatoTexto })}">${t("adicionarCampanhaBotao")}</button>
+    </div>
+  `;
+}
+
+function rotuloCampanhaTv(campanha) {
+  return `<div class="rotulo-campanha-tv">${escapeHTML(campanha.nome)}</div>`;
+}
+
+function criarColunaSecundagemTv(formato) {
+  const campanhas = campanhasDoFormato(formato, objetivoAtivo);
+  if (campanhas.length === 0) {
+    return `<div class="coluna-secundagem-tv-raiz" data-id="${formato.id}">${criarGridSecundagemTv(formato)}</div>`;
+  }
+  const blocos = campanhas
+    .map((campanha) => {
+      const formatoCampanha = { ...formato, id: chaveFormatoCampanha(formato.id, campanha.id) };
+      return `<div class="bloco-campanha-tv">${rotuloCampanhaTv(campanha)}${criarGridSecundagemTv(formatoCampanha)}</div>`;
+    })
+    .join("");
+  return `<div class="coluna-secundagem-tv-raiz coluna-secundagem-tv-raiz--campanhas" data-id="${formato.id}">${blocos}</div>`;
+}
+
+function criarColunaTemasTv(formato, nomeFormatoTexto) {
+  const campanhas = campanhasDoFormato(formato, objetivoAtivo);
+  if (campanhas.length === 0) {
+    return `<div class="coluna-temas-tv-raiz" data-id="${formato.id}">${criarGridTemasTv(formato, nomeFormatoTexto)}</div>`;
+  }
+  const blocos = campanhas
+    .map((campanha) => {
+      const formatoCampanha = { ...formato, id: chaveFormatoCampanha(formato.id, campanha.id) };
+      return `<div class="bloco-campanha-tv">${rotuloCampanhaTv(campanha)}${criarGridTemasTv(formatoCampanha, nomeFormatoTexto)}</div>`;
+    })
+    .join("");
+  return `<div class="coluna-temas-tv-raiz coluna-temas-tv-raiz--campanhas" data-id="${formato.id}">${blocos}</div>`;
+}
+
+// Reconstrói as 3 colunas (Canal/Secundagem/Temas) por inteiro — usada
+// sempre que a PRÓPRIA LISTA de campanhas muda (ligar/desligar o "pisco",
+// adicionar/remover uma campanha), ao contrário de atualizarGridsTv (só
+// Secundagem/Temas, sem mexer na lista) que já chega para uma simples
+// mudança de canal/duração dentro de uma campanha já existente.
+function atualizarColunasCampanhaTv(formato) {
+  const nomeFormatoTexto = escapeHTML(textoTraduzido(formato, "formato") ?? "");
+  listaFormatos.querySelectorAll(`.coluna-canais-tv-raiz[data-id="${formato.id}"]`).forEach((raiz) => {
+    raiz.outerHTML = criarColunaCanaisTv(formato, nomeFormatoTexto);
+  });
+  listaFormatos.querySelectorAll(`.coluna-secundagem-tv-raiz[data-id="${formato.id}"]`).forEach((raiz) => {
+    raiz.outerHTML = criarColunaSecundagemTv(formato);
+  });
+  listaFormatos.querySelectorAll(`.coluna-temas-tv-raiz[data-id="${formato.id}"]`).forEach((raiz) => {
+    raiz.outerHTML = criarColunaTemasTv(formato, nomeFormatoTexto);
+  });
+}
+
 function atualizarGridsTv(formato) {
   const nomeFormatoTexto = escapeHTML(textoTraduzido(formato, "formato") ?? "");
   listaFormatos.querySelectorAll(`.grid-secundagem-tv[data-id="${formato.id}"]`).forEach((grid) => {
@@ -1529,7 +1739,7 @@ function criarLinhaFormato(formato, opcoes) {
   // entrega, um formato de TV só pode ser marcado depois de escolhido pelo
   // menos um canal — sem isso não há para onde dizer que o spot vai (ver o
   // guard equivalente no listener de "checkbox-formato").
-  const canalPendente = formatoTemCanal(formato) && canaisDoFormato(formato, objetivoAtivo).size === 0;
+  const canalPendente = formatoTemCanal(formato) && !formatoTemAlgumCanalEscolhido(formato, objetivoAtivo);
   const pendente = entregaPendente || canalPendente;
   const colunaCheckbox = opcoes.comCheckbox
     ? `<td class="coluna-checkbox"><input type="checkbox" class="checkbox-formato${pendente ? " checkbox-formato--pendente" : ""}" data-id="${formato.id}" aria-labelledby="${idNomeFormato}" ${selecoesPorObjetivo[objetivoAtivo].has(formato.id) ? "checked" : ""}></td>`
@@ -1550,14 +1760,14 @@ function criarLinhaFormato(formato, opcoes) {
   // dos restantes meios; o seletor de duração de cada canal fica na
   // coluna Secundagem, ao lado (ver colunaSecundagemTv).
   const colunaTemas = opcoes.comTemas
-    ? `<td>${formatoTemCanal(formato) ? criarGridTemasTv(formato, nomeFormatoTexto) : criarCelulaTemas(formato, nomeFormatoTexto)}</td>`
+    ? `<td>${formatoTemCanal(formato) ? criarColunaTemasTv(formato, nomeFormatoTexto) : criarCelulaTemas(formato, nomeFormatoTexto)}</td>`
     : "";
-  const colunaCanaisTv = opcoes.comCanaisTv ? `<td>${criarCelulaCanaisTv(formato)}</td>` : "";
+  const colunaCanaisTv = opcoes.comCanaisTv ? `<td>${criarColunaCanaisTv(formato, nomeFormatoTexto)}</td>` : "";
   // Todo o bloco é TV/Rádio quando esta coluna existe (mesma condição de
   // comCanaisTv, ver criarBlocoPublisher) — por isso não precisa de
   // verificar formatoTemCanal linha a linha, ao contrário da Duração/
   // Entrega, que podiam misturar-se com formatos sem esse conceito.
-  const colunaSecundagemTv = opcoes.comSecundagemTv ? `<td>${criarGridSecundagemTv(formato)}</td>` : "";
+  const colunaSecundagemTv = opcoes.comSecundagemTv ? `<td>${criarColunaSecundagemTv(formato)}</td>` : "";
   const colunaNumFacesOoh = opcoes.comNumOOH
     ? `<td>${criarCelulaNumOOH(formato, valorNumFacesOoh(formato, objetivoAtivo), "input-num-faces-ooh")}</td>`
     : "";
@@ -1850,6 +2060,16 @@ listaFormatos.addEventListener("click", (evento) => {
     mudarContagemTemaGrid(botaoTemaGrid);
     return;
   }
+  const botaoAdicionarCampanha = evento.target.closest(".botao-adicionar-campanha-tv");
+  if (botaoAdicionarCampanha) {
+    adicionarCampanhaTv(botaoAdicionarCampanha);
+    return;
+  }
+  const botaoRemoverCampanha = evento.target.closest(".botao-remover-campanha-tv");
+  if (botaoRemoverCampanha) {
+    removerCampanhaTv(botaoRemoverCampanha);
+    return;
+  }
   if (evento.target.closest("input, a, label, select, button")) {
     return;
   }
@@ -1890,10 +2110,12 @@ function mudarContagemTemas(botao) {
 // secundagem da grelha de TV — só mexe nessa célula, as restantes do
 // mesmo formato ficam como estavam.
 function mudarContagemTemaGrid(botao) {
-  const id = Number(botao.dataset.id);
   const canal = botao.dataset.canal;
   const duracao = botao.dataset.duracao;
-  const formato = todosFormatos.find((f) => f.id === id);
+  const formato = resolverFormatoDoId(botao.dataset.id);
+  if (!formato) {
+    return;
+  }
   const atual = contagemTemaTv(formato, objetivoAtivo, canal, duracao);
   const delta = botao.classList.contains("botao-temagrid-mais") ? 1 : -1;
   const novo = Math.max(1, atual + delta);
@@ -1926,7 +2148,7 @@ listaFormatos.addEventListener("change", (evento) => {
       // Tal como o Mupi de papel, um formato de TV/Rádio sem nenhum canal/
       // estação escolhido não pode ficar marcado — não há para onde
       // exportar o pedido de spot.
-      if (formato && formatoTemCanal(formato) && canaisDoFormato(formato, objetivoAtivo).size === 0) {
+      if (formato && formatoTemCanal(formato) && !formatoTemAlgumCanalEscolhido(formato, objetivoAtivo)) {
         alvo.checked = false;
         mostrarNotificacao(t(chaveAvisoEscolherCanal(grupoMeioDoFormato(formato))));
         return;
@@ -1956,6 +2178,11 @@ listaFormatos.addEventListener("change", (evento) => {
 
   if (alvo.classList.contains("checkbox-canal-tv")) {
     mudarCanalTv(alvo);
+    return;
+  }
+
+  if (alvo.classList.contains("checkbox-mais-campanhas-tv")) {
+    alternarMaisCampanhasTv(alvo);
   }
 });
 
@@ -1965,20 +2192,97 @@ listaFormatos.addEventListener("change", (evento) => {
 // sozinho: escolher canais é um pré-requisito, não uma confirmação (o
 // utilizador ainda tem de marcar a checkbox à parte).
 function mudarCanalTv(checkbox) {
-  const id = Number(checkbox.dataset.id);
-  const formato = todosFormatos.find((f) => f.id === id);
+  const formato = resolverFormatoDoId(checkbox.dataset.id);
+  if (!formato) {
+    return;
+  }
   const canais = garantirCanaisFormato(formato, objetivoAtivo);
   if (checkbox.checked) {
     canais.add(checkbox.value);
   } else {
     canais.delete(checkbox.value);
   }
-  const checkboxFormato = listaFormatos.querySelector(`.checkbox-formato[data-id="${id}"]`);
+  // A pista visual de "condicionado" olha ao formato REAL (nunca ao bloco
+  // de campanha), porque tem de refletir se há algum canal escolhido em
+  // qualquer campanha — ver formatoTemAlgumCanalEscolhido.
+  const idReal = idFormatoRealDoId(checkbox.dataset.id);
+  const checkboxFormato = listaFormatos.querySelector(`.checkbox-formato[data-id="${idReal}"]`);
   if (checkboxFormato) {
-    checkboxFormato.classList.toggle("checkbox-formato--pendente", canais.size === 0);
+    const formatoReal = resolverFormatoDoId(idReal);
+    checkboxFormato.classList.toggle("checkbox-formato--pendente", formatoReal && !formatoTemAlgumCanalEscolhido(formatoReal, objetivoAtivo));
   }
   atualizarGridsTv(formato);
   atualizarResumoSelecao();
+}
+
+// Liga/desliga o modo de várias campanhas para este formato de TV/Rádio —
+// ligar cria já as duas primeiras campanhas (o próprio nome "mais que uma"
+// implica pelo menos 2); desligar pede confirmação se já havia algum canal
+// escolhido nalguma campanha, para não apagar dados sem avisar primeiro
+// (ver confirmarAcao).
+async function alternarMaisCampanhasTv(checkbox) {
+  const formato = resolverFormatoDoId(checkbox.dataset.id);
+  if (!formato) {
+    return;
+  }
+  if (checkbox.checked) {
+    criarCampanha(formato, objetivoAtivo);
+    criarCampanha(formato, objetivoAtivo);
+    atualizarColunasCampanhaTv(formato);
+    atualizarResumoSelecao();
+    return;
+  }
+  if (formatoTemAlgumCanalEscolhido(formato, objetivoAtivo) && !(await confirmarAcao(t("avisoDesligarCampanhas")))) {
+    checkbox.checked = true;
+    return;
+  }
+  campanhasTvPorObjetivo[objetivoAtivo].set(formato.id, []);
+  atualizarColunasCampanhaTv(formato);
+  atualizarResumoSelecao();
+}
+
+// Acrescenta mais uma campanha a este formato (já tem de estar no modo de
+// várias campanhas — o botão só existe nesse estado, ver
+// criarColunaCanaisTv).
+function adicionarCampanhaTv(botao) {
+  const formato = resolverFormatoDoId(botao.dataset.id);
+  if (!formato) {
+    return;
+  }
+  criarCampanha(formato, objetivoAtivo);
+  atualizarColunasCampanhaTv(formato);
+  atualizarResumoSelecao();
+}
+
+// Remove uma campanha — pede confirmação se já tinha algum canal escolhido
+// (ver confirmarAcao). Sem nenhuma campanha a sobrar, o formato volta
+// sozinho ao bloco único de sempre (campanhasDoFormato passa a devolver
+// uma lista vazia, ver criarColunaCanaisTv).
+async function removerCampanhaTv(botao) {
+  const formato = resolverFormatoDoId(botao.dataset.id);
+  if (!formato) {
+    return;
+  }
+  const idCampanha = botao.dataset.idCampanha;
+  const idComposto = chaveFormatoCampanha(formato.id, idCampanha);
+  const temCanalEscolhido = (canaisTvPorObjetivo[objetivoAtivo].get(idComposto) || new Set()).size > 0;
+  if (temCanalEscolhido && !(await confirmarAcao(t("avisoRemoverCampanha")))) {
+    return;
+  }
+  removerCampanha(formato, objetivoAtivo, idCampanha);
+  atualizarColunasCampanhaTv(formato);
+  atualizarResumoSelecao();
+}
+
+// Só guarda o nome enquanto se escreve (evento "input", não "change") —
+// tal como o campo "Outro" da duração, para não esperar que o campo perca
+// o foco.
+function mudarNomeCampanhaTv(input) {
+  const formato = resolverFormatoDoId(input.dataset.id);
+  if (!formato) {
+    return;
+  }
+  renomearCampanha(formato, objetivoAtivo, input.dataset.idCampanha, input.value);
 }
 
 // Guarda a escolha de entrega (AF/morada) deste Mupi papel e, se o
@@ -2015,12 +2319,19 @@ listaFormatos.addEventListener("input", (evento) => {
     return;
   }
 
+  if (alvo.classList.contains("input-nome-campanha-tv")) {
+    mudarNomeCampanhaTv(alvo);
+    return;
+  }
+
   if (!alvo.classList.contains("input-duracao-outro")) {
     return;
   }
-  const id = Number(alvo.dataset.id);
   const canal = alvo.dataset.canal;
-  const formato = todosFormatos.find((f) => f.id === id);
+  const formato = resolverFormatoDoId(alvo.dataset.id);
+  if (!formato) {
+    return;
+  }
   const estado = garantirEstadoDuracao(formato, objetivoAtivo, canal);
   estado.outroValor = alvo.value.trim();
   // Só as células de temas deste canal — nunca a grelha toda, senão o
@@ -2052,9 +2363,11 @@ function mudarNumOoh(input) {
 // (vários spots pedidos), e cada canal tem a sua própria grelha (ver
 // chaveDuracaoCanal).
 function mudarCheckboxDuracao(checkbox) {
-  const id = Number(checkbox.dataset.id);
   const canal = checkbox.dataset.canal;
-  const formato = todosFormatos.find((f) => f.id === id);
+  const formato = resolverFormatoDoId(checkbox.dataset.id);
+  if (!formato) {
+    return;
+  }
   const estado = garantirEstadoDuracao(formato, objetivoAtivo, canal);
   if (checkbox.checked) {
     estado.padrao.add(checkbox.value);
@@ -2073,9 +2386,11 @@ function mudarCheckboxDuracao(checkbox) {
 // caixa de texto e limpa-a ao desmarcar (o valor só volta a ficar visível
 // se o utilizador voltar a escrever depois de marcar outra vez).
 function mudarCheckboxDuracaoOutro(checkbox) {
-  const id = Number(checkbox.dataset.id);
   const canal = checkbox.dataset.canal;
-  const formato = todosFormatos.find((f) => f.id === id);
+  const formato = resolverFormatoDoId(checkbox.dataset.id);
+  if (!formato) {
+    return;
+  }
   const estado = garantirEstadoDuracao(formato, objetivoAtivo, canal);
   estado.outroAtivo = checkbox.checked;
   const inputOutro = checkbox.closest(".grupo-duracao").querySelector(".input-duracao-outro");
@@ -2133,7 +2448,7 @@ function sincronizarCheckboxesComObjetivoAtivo() {
     const formato = todosFormatos.find((f) => f.id === id);
     const pendente = formato && (
       (formatoEhMupiPapel(formato) && !entregaEfetivaDoFormato(formato, objetivoAtivo)) ||
-      (formatoTemCanal(formato) && canaisDoFormato(formato, objetivoAtivo).size === 0)
+      (formatoTemCanal(formato) && !formatoTemAlgumCanalEscolhido(formato, objetivoAtivo))
     );
     checkbox.classList.toggle("checkbox-formato--pendente", pendente);
   });
@@ -2165,19 +2480,15 @@ function sincronizarCheckboxesComObjetivoAtivo() {
   // a grelha é sempre reconstruída do zero (não só os números), porque o
   // próprio conjunto de canais/secundagens pode ser diferente de objetivo
   // para objetivo.
-  listaFormatos.querySelectorAll(".grupo-canais-tv").forEach((grupo) => {
-    const id = Number(grupo.dataset.id);
-    const formato = todosFormatos.find((f) => f.id === id);
-    const canais = canaisDoFormato(formato, objetivoAtivo);
-    grupo.querySelectorAll(".checkbox-canal-tv").forEach((checkbox) => {
-      checkbox.checked = canais.has(checkbox.value);
-    });
-  });
-  listaFormatos.querySelectorAll(".grid-temas-tv").forEach((grid) => {
-    const id = Number(grid.dataset.id);
+  // Reconstrói as 3 colunas (Canal/Secundagem/Temas) por inteiro, incluindo
+  // a lista de campanhas — campanhasTvPorObjetivo é por objetivo, tal como
+  // o resto do estado de TV/Rádio, por isso o nº de blocos pode mudar ao
+  // trocar de objetivo.
+  listaFormatos.querySelectorAll(".coluna-canais-tv-raiz").forEach((raiz) => {
+    const id = Number(raiz.dataset.id);
     const formato = todosFormatos.find((f) => f.id === id);
     if (formato) {
-      atualizarGridsTv(formato);
+      atualizarColunasCampanhaTv(formato);
     }
   });
 
@@ -2215,7 +2526,7 @@ botaoSelecionarTodos.addEventListener("click", () => {
       mupisPorEscolher += 1;
       return;
     }
-    if (formato && formatoTemCanal(formato) && canaisDoFormato(formato, objetivoAtivo).size === 0) {
+    if (formato && formatoTemCanal(formato) && !formatoTemAlgumCanalEscolhido(formato, objetivoAtivo)) {
       const grupoMeio = grupoMeioDoFormato(formato);
       canalPorEscolherPorMeio.set(grupoMeio, (canalPorEscolherPorMeio.get(grupoMeio) || 0) + 1);
       return;
@@ -2357,13 +2668,23 @@ function atualizarResumoSelecao() {
           // TV tem canal × secundagem, cada combinação com o seu próprio
           // número de temas — uma linha de resumo por combinação (mesma
           // lógica da exportação para Excel, ver escreverSeccaoObjetivo).
+          // Com campanhas ativas (ver campanhasTvPorObjetivo), cada campanha
+          // é percorrida à parte, com o seu nome à frente — senão o resumo
+          // ficava sempre vazio nesses formatos (o bloco único de base fica
+          // sem nenhum canal escolhido enquanto há campanhas).
           if (formatoTemCanal(f)) {
-            return celulasTemaTvAtivas(f, objetivo).map(({ canal, duracao }) => {
-              const contagem = contagemTemaTv(f, objetivo, canal, duracao);
-              const etiquetaTemasTv = contagem > 1 ? ` — ${formatar("resumoNumeroTemas", { n: contagem })}` : "";
-              const rotuloDuracao = duracao ? ` — ${duracao}″` : "";
-              return `<li>${nomeFormato} — ${canal}${rotuloDuracao}${etiquetaTemasTv}</li>`;
-            });
+            const campanhas = campanhasDoFormato(f, objetivo);
+            const contextos = campanhas.length > 0
+              ? campanhas.map((campanha) => ({ formatoEfetivo: { ...f, id: chaveFormatoCampanha(f.id, campanha.id) }, prefixoCampanha: `${escapeHTML(campanha.nome)} — ` }))
+              : [{ formatoEfetivo: f, prefixoCampanha: "" }];
+            return contextos.flatMap(({ formatoEfetivo, prefixoCampanha }) => (
+              celulasTemaTvAtivas(formatoEfetivo, objetivo).map(({ canal, duracao }) => {
+                const contagem = contagemTemaTv(formatoEfetivo, objetivo, canal, duracao);
+                const etiquetaTemasTv = contagem > 1 ? ` — ${formatar("resumoNumeroTemas", { n: contagem })}` : "";
+                const rotuloDuracao = duracao ? ` — ${duracao}″` : "";
+                return `<li>${prefixoCampanha}${nomeFormato} — ${canal}${rotuloDuracao}${etiquetaTemasTv}</li>`;
+              })
+            ));
           }
           // Os restantes meios nunca têm duração (só TV/Rádio têm — e já
           // voltaram acima, no ramo de formatoTemCanal).
@@ -2511,6 +2832,15 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
   // "canal" do Digital acima (Social Media/Google/Programático/Internet):
   // aqui é para onde o spot tem de ser enviado, vem de
   // escreverSeccaoObjetivo (grupo.canal), não da base de formatos.
+  // Nome da campanha (ver campanhasTvPorObjetivo) — só preenchida quando o
+  // formato usa o modo de várias campanhas; nos restantes fica sempre em
+  // branco (pedido/mock-up da Cláudia: "Campanha" é a 1ª coluna de TV/
+  // Rádio, antes do Canal).
+  campanha: {
+    largura: 16,
+    titulo: () => t("colCampanha"),
+    valor: (formato, objetivo, duracao, temaIndice, canal, campanha) => campanha || "",
+  },
   canalTv: {
     largura: 14,
     titulo: () => t("colCanalTV"),
@@ -2681,8 +3011,8 @@ const COLUNAS_POR_MEIO_EXCEL = {
   // nota de rodapé no fim da folha (ver escreverFolhaMeio/
   // escreverRodapeEspecificacoes — pedido explícito da Cláudia). Rádio
   // segue agora a mesma lógica (ver ESTACOES_RADIO/MEIOS_COM_CANAL).
-  "TV": ["canalTv", "formato", "secundagem", "temaCriativo", "dataInicioCampanha", "dataEntrega"],
-  "Rádio": ["estacaoRadio", "formato", "secundagem", "temaCriativo", "dataInicioCampanha", "dataEntrega"],
+  "TV": ["campanha", "canalTv", "formato", "secundagem", "temaCriativo", "dataInicioCampanha", "dataEntrega"],
+  "Rádio": ["campanha", "estacaoRadio", "formato", "secundagem", "temaCriativo", "dataInicioCampanha", "dataEntrega"],
   "Cinema": ["plataforma", "formato", "temaCriativo", "dataInicioCampanha", "dataEntrega", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes"],
   // Veículo (ex. "Correio da Manhã") e Caderno (ex. "Boa Onda") substituem
   // a antiga coluna única "plataforma"/"Título" — pedido explícito da
@@ -2767,6 +3097,28 @@ function ajustarLargurasAoConteudo(folha, colunasChaves, largurasConteudo) {
 // próxima linha livre (já com uma linha em branco a separar da secção
 // seguinte). colunasChaves é a lista de colunas desta folha (ver
 // COLUNAS_POR_MEIO_EXCEL), sempre precedida pela coluna fixa "#".
+// Combina, dentro da mesma secundagem, os canais/estações que têm
+// exatamente o mesmo nº de temas numa só lista de linhas com o Canal
+// escrito em conjunto ("RTP, SIC, TVI") — pedido explícito da Cláudia,
+// para não repetir o mesmo plano uma vez por canal quando vários pedem
+// exatamente o mesmo. Canais com secundagem ou nº de temas diferentes
+// NUNCA se juntam — cada um mantém o seu próprio grupo de linhas (ver
+// celulasTemaTvAtivas/contagemTemaTv, sempre por canal).
+function agruparCanaisPorPlanoIgual(formato, objetivo) {
+  const porPlano = new Map();
+  celulasTemaTvAtivas(formato, objetivo).forEach(({ canal, duracao }) => {
+    const contagemTemas = contagemTemaTv(formato, objetivo, canal, duracao || null);
+    const chavePlano = `${duracao || ""}||${contagemTemas}`;
+    let entrada = porPlano.get(chavePlano);
+    if (!entrada) {
+      entrada = { duracao: duracao || null, contagemTemas, canais: [] };
+      porPlano.set(chavePlano, entrada);
+    }
+    entrada.canais.push(canal);
+  });
+  return [...porPlano.values()].sort((a, b) => Number(b.duracao || 0) - Number(a.duracao || 0));
+}
+
 function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSeccao, config, objetivo, colunasChaves, grupoMeio, registarLarguraColuna) {
   let linha = linhaInicio;
   const numColunas = colunasChaves.length + 1;
@@ -2818,13 +3170,20 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
     // celulasTemaTvAtivas/contagemTemaTv), em vez de uma contagem de temas
     // só, partilhada por todas as durações (como acontece em OOH).
     if (MEIOS_COM_CANAL.has(grupoMeioDoFormato(formato))) {
-      celulasTemaTvAtivas(formato, objetivo)
-        .sort((a, b) => Number(b.duracao || 0) - Number(a.duracao || 0))
-        .forEach(({ canal, duracao }) => {
-          const contagemTemas = contagemTemaTv(formato, objetivo, canal, duracao || null);
+      // Com campanhas ativas (ver campanhasTvPorObjetivo), cada campanha
+      // gera o seu próprio conjunto de linhas, com o nome da campanha na
+      // coluna própria (ver coluna "campanha") — sem nenhuma campanha, só
+      // um "contexto" implícito, igual ao comportamento de sempre.
+      const campanhas = campanhasDoFormato(formato, objetivo);
+      const contextos = campanhas.length > 0
+        ? campanhas.map((campanha) => ({ nomeCampanha: campanha.nome, formatoEfetivo: { ...formato, id: chaveFormatoCampanha(formato.id, campanha.id) } }))
+        : [{ nomeCampanha: "", formatoEfetivo: formato }];
+      contextos.forEach(({ nomeCampanha, formatoEfetivo }) => {
+        agruparCanaisPorPlanoIgual(formatoEfetivo, objetivo).forEach(({ canais, duracao, contagemTemas }) => {
           const temas = contagemTemas > 1 ? Array.from({ length: contagemTemas }, (_, indice) => indice + 1) : [null];
-          gruposLinha.push({ formato, duracao: duracao || null, temas, canal });
+          gruposLinha.push({ formato, duracao: duracao || null, temas, canal: canais.join(", "), campanha: nomeCampanha });
         });
+      });
       return;
     }
     // Os restantes meios nunca têm duração (só TV/Rádio têm — e esses já
@@ -2846,7 +3205,21 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
   // folha de TV/Rádio tem sempre .canal definido, dá para reordenar tudo
   // aqui no fim sem misturar com os restantes meios.
   if (MEIOS_COM_CANAL.has(grupoMeio)) {
+    // Com campanhas ativas, as linhas de cada campanha ficam sempre juntas
+    // (pela ordem em que as campanhas foram criadas, não alfabética — ver
+    // ordemCampanha), para a coluna Campanha fundir num bloco contínuo em
+    // vez de intercalar com as de outra campanha. Sem campanhas, todo
+    // .campanha é "" e este novo critério não muda nada (continua só
+    // Canal > Formato > Secundagem, como sempre).
+    const ordemCampanha = new Map();
+    gruposLinha.forEach((grupo) => {
+      const nomeCampanha = grupo.campanha || "";
+      if (!ordemCampanha.has(nomeCampanha)) {
+        ordemCampanha.set(nomeCampanha, ordemCampanha.size);
+      }
+    });
     gruposLinha.sort((a, b) => (
+      (ordemCampanha.get(a.campanha || "") - ordemCampanha.get(b.campanha || "")) ||
       (a.canal || "").localeCompare(b.canal || "", "pt") ||
       (a.formato.formato || "").localeCompare(b.formato.formato || "", "pt") ||
       Number(b.duracao || 0) - Number(a.duracao || 0)
@@ -2866,7 +3239,7 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
       // ver GRUPOS_FORMATO_VARIANTES) seja entre grupos diferentes que
       // partilhem Plataforma/Canal.
       const valoresColunas = colunasChaves.map((chave) => (
-        COLUNAS_EXCEL_DISPONIVEIS[chave].valor(grupo.formato, objetivo, grupo.duracao, temaIndice, grupo.canal)
+        COLUNAS_EXCEL_DISPONIVEIS[chave].valor(grupo.formato, objetivo, grupo.duracao, temaIndice, grupo.canal, grupo.campanha)
       ));
       linhaFormato.values = [indiceGrupo + 1, ...valoresColunas];
       valoresColunas.forEach((valor, indiceValor) => registarLarguraColuna(indiceValor + 2, valor));
@@ -3402,8 +3775,27 @@ function guardarEstadoLocal() {
     const temas = {};
     const canaisTv = {};
     const temasGridTv = {};
+    const campanhasTv = {};
     const numFacesOoh = {};
     const numCartazesOoh = {};
+    // Troca a parte "id do formato" de uma chave composta (duração/canais/
+    // temasGrid — ver chaveFormatoCampanha) pela chaveTraducao estável,
+    // preservando o "::camp::<idCampanha>" quando existir — sem isto, os
+    // dados de uma campanha (ids compostos, nunca presentes em
+    // selecoesPorObjetivo) nunca passavam no filtro de "formato
+    // selecionado" a seguir, e perdiam-se ao atualizar a página.
+    function chavePersistidaComCampanha(idOuComposto, objetivo) {
+      const idReal = idFormatoRealDoId(idOuComposto);
+      if (!selecoesPorObjetivo[objetivo].has(idReal)) {
+        return null;
+      }
+      const chave = idParaChave.get(idReal);
+      if (!chave) {
+        return null;
+      }
+      const idCampanha = idCampanhaDoId(idOuComposto);
+      return idCampanha === null ? chave : chaveFormatoCampanha(chave, idCampanha);
+    }
     OBJETIVOS.forEach((objetivo) => {
       selecoes[objetivo] = [...selecoesPorObjetivo[objetivo]]
         .map((id) => idParaChave.get(id))
@@ -3417,16 +3809,13 @@ function guardarEstadoLocal() {
         // chaveDuracaoCanal); a persistida troca o id pela chaveTraducao
         // estável, tal como as restantes, mas mantém o canal junto.
         const { parteId, canal } = separarChaveDuracaoCanal(chaveCanal);
-        const id = Number(parteId);
-        if (selecoesPorObjetivo[objetivo].has(id)) {
-          const chave = idParaChave.get(id);
-          if (chave) {
-            duracoes[objetivo][chaveDuracaoCanal(chave, canal)] = {
-              padrao: [...estado.padrao],
-              outroAtivo: estado.outroAtivo,
-              outroValor: estado.outroValor,
-            };
-          }
+        const chave = chavePersistidaComCampanha(parteId, objetivo);
+        if (chave) {
+          duracoes[objetivo][chaveDuracaoCanal(chave, canal)] = {
+            padrao: [...estado.padrao],
+            outroAtivo: estado.outroAtivo,
+            outroValor: estado.outroValor,
+          };
         }
       });
       entregasMupi[objetivo] = {};
@@ -3449,19 +3838,27 @@ function guardarEstadoLocal() {
       });
       canaisTv[objetivo] = {};
       canaisTvPorObjetivo[objetivo].forEach((canais, id) => {
-        if (selecoesPorObjetivo[objetivo].has(id)) {
-          const chave = idParaChave.get(id);
-          if (chave) {
-            canaisTv[objetivo][chave] = [...canais];
-          }
+        const chave = chavePersistidaComCampanha(id, objetivo);
+        if (chave) {
+          canaisTv[objetivo][chave] = [...canais];
         }
       });
       temasGridTv[objetivo] = {};
       temasGridTvPorObjetivo[objetivo].forEach((grelha, id) => {
-        if (selecoesPorObjetivo[objetivo].has(id)) {
+        const chave = chavePersistidaComCampanha(id, objetivo);
+        if (chave) {
+          temasGridTv[objetivo][chave] = Object.fromEntries(grelha);
+        }
+      });
+      // Lista de campanhas (ver campanhasTvPorObjetivo) — sempre indexada
+      // pelo id REAL do formato (nunca composto), ao contrário dos 3 Maps
+      // acima.
+      campanhasTv[objetivo] = {};
+      campanhasTvPorObjetivo[objetivo].forEach((lista, id) => {
+        if (lista.length > 0 && selecoesPorObjetivo[objetivo].has(id)) {
           const chave = idParaChave.get(id);
           if (chave) {
-            temasGridTv[objetivo][chave] = Object.fromEntries(grelha);
+            campanhasTv[objetivo][chave] = lista;
           }
         }
       });
@@ -3495,6 +3892,7 @@ function guardarEstadoLocal() {
       temas,
       canaisTv,
       temasGridTv,
+      campanhasTv,
       numFacesOoh,
       numCartazesOoh,
     }));
@@ -3516,6 +3914,16 @@ function restaurarEstadoLocal() {
   }
 
   const chaveParaId = new Map(todosFormatos.map((f) => [chaveTraducao(f), f.id]));
+  // Inverso de chavePersistidaComCampanha (ver guardarEstadoLocal) — separa
+  // a chaveTraducao estável do "::camp::<idCampanha>" quando a chave
+  // persistida pertence a um bloco de campanha.
+  function idRealEIdCampanhaDaChave(chaveOuComposta) {
+    const texto = String(chaveOuComposta);
+    const indice = texto.indexOf(SEPARADOR_ID_CAMPANHA);
+    return indice === -1
+      ? { chaveReal: texto, idCampanha: null }
+      : { chaveReal: texto.slice(0, indice), idCampanha: texto.slice(indice + SEPARADOR_ID_CAMPANHA.length) };
+  }
   OBJETIVOS.forEach((objetivo) => {
     const chaves = (estadoGuardado.selecoes && estadoGuardado.selecoes[objetivo]) || [];
     chaves.forEach((chave) => {
@@ -3528,9 +3936,11 @@ function restaurarEstadoLocal() {
     const duracoesGuardadas = (estadoGuardado.duracoes && estadoGuardado.duracoes[objetivo]) || {};
     Object.entries(duracoesGuardadas).forEach(([chaveComposta, guardado]) => {
       const { parteId: chaveFormato, canal } = separarChaveDuracaoCanal(chaveComposta);
-      const id = chaveParaId.get(chaveFormato);
+      const { chaveReal, idCampanha } = idRealEIdCampanhaDaChave(chaveFormato);
+      const id = chaveParaId.get(chaveReal);
       if (id !== undefined && guardado && Array.isArray(guardado.padrao)) {
-        duracoesPorObjetivo[objetivo].set(chaveDuracaoCanal(id, canal), {
+        const idDestino = idCampanha === null ? id : chaveFormatoCampanha(id, idCampanha);
+        duracoesPorObjetivo[objetivo].set(chaveDuracaoCanal(idDestino, canal), {
           padrao: new Set(guardado.padrao),
           outroAtivo: !!guardado.outroAtivo,
           outroValor: guardado.outroValor || "",
@@ -3555,18 +3965,21 @@ function restaurarEstadoLocal() {
     });
 
     const canaisGuardados = (estadoGuardado.canaisTv && estadoGuardado.canaisTv[objetivo]) || {};
-    Object.entries(canaisGuardados).forEach(([chave, canais]) => {
-      const id = chaveParaId.get(chave);
+    Object.entries(canaisGuardados).forEach(([chaveComposta, canais]) => {
+      const { chaveReal, idCampanha } = idRealEIdCampanhaDaChave(chaveComposta);
+      const id = chaveParaId.get(chaveReal);
       const formatoCanal = id !== undefined ? todosFormatos.find((f) => f.id === id) : null;
       if (formatoCanal && Array.isArray(canais)) {
         const disponiveis = canaisDisponiveisDoFormato(formatoCanal);
-        canaisTvPorObjetivo[objetivo].set(id, new Set(canais.filter((c) => disponiveis.includes(c))));
+        const idDestino = idCampanha === null ? id : chaveFormatoCampanha(id, idCampanha);
+        canaisTvPorObjetivo[objetivo].set(idDestino, new Set(canais.filter((c) => disponiveis.includes(c))));
       }
     });
 
     const temasGridGuardados = (estadoGuardado.temasGridTv && estadoGuardado.temasGridTv[objetivo]) || {};
-    Object.entries(temasGridGuardados).forEach(([chave, grelhaGuardada]) => {
-      const id = chaveParaId.get(chave);
+    Object.entries(temasGridGuardados).forEach(([chaveComposta, grelhaGuardada]) => {
+      const { chaveReal, idCampanha } = idRealEIdCampanhaDaChave(chaveComposta);
+      const id = chaveParaId.get(chaveReal);
       if (id !== undefined && grelhaGuardada && typeof grelhaGuardada === "object") {
         const grelha = new Map();
         Object.entries(grelhaGuardada).forEach(([chaveCelula, contagem]) => {
@@ -3574,7 +3987,26 @@ function restaurarEstadoLocal() {
             grelha.set(chaveCelula, contagem);
           }
         });
-        temasGridTvPorObjetivo[objetivo].set(id, grelha);
+        const idDestino = idCampanha === null ? id : chaveFormatoCampanha(id, idCampanha);
+        temasGridTvPorObjetivo[objetivo].set(idDestino, grelha);
+      }
+    });
+
+    // Lista de campanhas (ver campanhasTvPorObjetivo) — sem isto restaurado,
+    // os ids compostos das 2 secções acima ficavam em memória mas sem
+    // nenhum bloco de campanha para os mostrar (a 1ª renderização decide
+    // bloco único vs. campanhas por campanhasDoFormato, ver
+    // criarColunaCanaisTv).
+    const campanhasGuardadas = (estadoGuardado.campanhasTv && estadoGuardado.campanhasTv[objetivo]) || {};
+    Object.entries(campanhasGuardadas).forEach(([chave, lista]) => {
+      const id = chaveParaId.get(chave);
+      if (id !== undefined && Array.isArray(lista)) {
+        const listaValida = lista
+          .filter((campanha) => campanha && typeof campanha.id === "string" && typeof campanha.nome === "string")
+          .map((campanha) => ({ id: campanha.id, nome: campanha.nome }));
+        if (listaValida.length > 0) {
+          campanhasTvPorObjetivo[objetivo].set(id, listaValida);
+        }
       }
     });
 
