@@ -598,6 +598,12 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   flex: 1 1 240px;
 }
 
+/* Campo numérico curto — não faz sentido ocupar a mesma largura que
+   Cliente/Campanha (texto livre). */
+.campo-numero-vagas {
+  flex: 0 1 160px;
+}
+
 .campo label {
   font-size: 12px;
   color: var(--cor-texto-suave);
@@ -705,6 +711,62 @@ muda qual seleção de formatos está a ser editada.
 
 .objetivo-contagem:empty {
   display: none;
+}
+
+/* Seletor de Vaga (TV/Rádio) — só visível com numeroVagasPedido > 1, ver
+   renderizarBotoesVaga em app.js. Mesma estrutura do seletor de Objetivo
+   acima, mas com o destaque da marca (não o escuro do Objetivo), para ler
+   como um nível de escolha secundário/aninhado, não outro seletor
+   principal. */
+.seletor-vaga {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 32px 16px 32px;
+  flex-wrap: wrap;
+}
+
+/* display:flex acima é mais específico que o [hidden] da folha de estilo
+   do browser — sem este reforço, o atributo hidden deixava de esconder a
+   secção (ver o mesmo problema, já resolvido, em [data-tab-visivel][hidden]
+   mais abaixo). */
+.seletor-vaga[hidden] {
+  display: none;
+}
+
+.seletor-vaga label {
+  font-size: 12px;
+  color: var(--cor-texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.vagas-botoes {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.vaga-botao {
+  background-color: var(--cor-fundo-cartao);
+  border: 1px solid var(--cor-borda);
+  color: var(--cor-texto);
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.vaga-botao:hover {
+  border-color: var(--cor-destaque);
+}
+
+.vaga-botao.ativo {
+  background-color: var(--cor-destaque);
+  border-color: var(--cor-destaque);
+  color: #ffffff;
 }
 
 /*
@@ -1200,96 +1262,6 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   font-size: 12px;
   color: var(--cor-texto-suave);
   margin-right: 2px;
-}
-
-/* "Vaga" repetível (TV/Rádio) — pisco + blocos por vaga, ver
-   criarColunaCanaisTv/criarColunaSecundagemTv/criarColunaTemasTv em
-   app.js. O pisco e os blocos vivem nas 3 colunas (Canal/Secundagem/
-   Temas); só a coluna Canal tem o campo de nome editável + remover. */
-.opcao-mais-vagas-tv {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-family: var(--fonte-base);
-  font-size: 12.5px;
-  color: var(--cor-texto-suave);
-  cursor: pointer;
-  margin-bottom: 6px;
-}
-
-.opcao-mais-vagas-tv input[type="checkbox"] {
-  cursor: pointer;
-}
-
-.coluna-canais-tv-raiz--vagas .bloco-vaga-tv,
-.coluna-secundagem-tv-raiz--vagas .bloco-vaga-tv,
-.coluna-temas-tv-raiz--vagas .bloco-vaga-tv {
-  padding: 8px 0;
-  border-top: 1px solid var(--cor-borda);
-}
-
-.coluna-canais-tv-raiz--vagas .bloco-vaga-tv:first-of-type,
-.coluna-secundagem-tv-raiz--vagas .bloco-vaga-tv:first-of-type,
-.coluna-temas-tv-raiz--vagas .bloco-vaga-tv:first-of-type {
-  border-top: none;
-  padding-top: 0;
-}
-
-.cabecalho-vaga-tv {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 6px;
-}
-
-.input-nome-vaga-tv {
-  flex: 1;
-  min-width: 0;
-  font-family: var(--fonte-base);
-  font-size: 12.5px;
-  font-weight: 600;
-  padding: 3px 6px;
-  border: 1px solid var(--cor-borda);
-  border-radius: 4px;
-  background: var(--cor-fundo);
-  color: var(--cor-texto);
-}
-
-.botao-remover-vaga-tv {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  line-height: 1;
-  border: 1px solid var(--cor-borda);
-  border-radius: 4px;
-  background: var(--cor-fundo);
-  color: var(--cor-texto-suave);
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.botao-remover-vaga-tv:hover {
-  color: var(--cor-destaque);
-  border-color: var(--cor-destaque);
-}
-
-.botao-adicionar-vaga-tv {
-  margin-top: 4px;
-  font-family: var(--fonte-base);
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--cor-destaque);
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
-
-.rotulo-vaga-tv {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--cor-texto-suave);
-  margin-bottom: 6px;
 }
 
 .botao-temagrid-mais,

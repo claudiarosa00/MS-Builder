@@ -11,6 +11,9 @@ const campoIdioma = document.getElementById("campoIdioma");
 const campoCompanhia = document.getElementById("campoCompanhia");
 const campoCliente = document.getElementById("campoCliente");
 const campoCampanha = document.getElementById("campoCampanha");
+const campoNumeroVagas = document.getElementById("campoNumeroVagas");
+const seletorVaga = document.getElementById("seletorVaga");
+const areaVagasBotoes = document.getElementById("areaVagasBotoes");
 const resumoCampanha = document.getElementById("resumoCampanha");
 const resumoSelecao = document.getElementById("resumoSelecao");
 const botaoExportar = document.getElementById("botaoExportar");
@@ -417,43 +420,42 @@ function definirContagemTemaTv(formato, objetivo, canal, duracao, novaContagem) 
   grelha.set(chaveCelulaTemaTv(canal, duracao), novaContagem);
 }
 
-// "Vaga" repetível (TV/Rádio) — pedido explícito da Cláudia, para um
-// único pedido poder cobrir várias vagas do mesmo cliente ao mesmo
-// tempo (ex.: Pedido de Material mensal com a Vaga A, B, C, cada uma
-// com o seu próprio plano de canais/secundagem/temas), em vez de um
-// ficheiro à parte por vaga. Por omissão um formato não tem nenhuma
-// vaga (o fluxo de sempre, sem mudança nenhuma); ligar o "pisco" cria
-// já as duas primeiras (ver alternarMaisVagasTv) e o formato passa a
-// mostrar um bloco repetível por vaga em vez do único bloco de
-// sempre. Por formato (não partilhada entre formatos — pedido explícito
-// da Cláudia), e por objetivo, tal como o resto do estado de TV/Rádio.
+// "Vaga" (TV/Rádio) — pedido explícito da Cláudia, para um único pedido
+// poder cobrir várias vagas da mesma campanha ao mesmo tempo (ex.: Pedido
+// de Material mensal com a Vaga 1, 2, 3, cada uma com o seu próprio plano
+// de canais/secundagem/temas), em vez de um ficheiro à parte por vaga.
+// Desenho simples de propósito (2ª versão, depois de um protótipo por
+// formato individual que a Cláudia achou complexo a mais): um único campo
+// "Número de Vagas" no topo do pedido (ver campoNumeroVagas) controla
+// quantas vagas há; com mais que 1, aparece um seletor "Vaga 1/2/3/..."
+// (ver renderizarBotoesVaga), em tudo igual ao seletor de Objetivo —
+// escolhe-se a vaga ativa e preenche-se o pedido inteiro para essa vaga,
+// troca-se de vaga, preenche-se outra vez. Nunca há mais que uma vaga
+// "aberta" ao mesmo tempo (daí "para não dificultar a complexidade").
 //
 // Cada vaga reaproveita por inteiro os Maps já existentes
 // (canaisTvPorObjetivo, duracoesPorObjetivo, temasGridTvPorObjetivo), só
-// trocando o "formato.id" por um id composto "<idFormato>::camp::
-// <idVaga>" (ver chaveFormatoVaga/resolverFormatoDoId) — a opção
-// que menos mexe no resto do ficheiro: toda a lógica de Canal/Secundagem/
-// Temas já indexada por formato.id passa a funcionar sem alterações,
-// tanto para o bloco único (id simples) como para um bloco de vaga
-// (id composto).
-const vagasTvPorObjetivo = {
-  awareness: new Map(),
-  consideration: new Map(),
-  conversion: new Map(),
-};
+// trocando o "formato.id" por um id composto "<idFormato>::camp::<nºVaga>"
+// (ver chaveFormatoVaga/resolverFormatoDoId) quando numeroVagasPedido > 1
+// — a opção que menos mexe no resto do ficheiro: toda a lógica de Canal/
+// Secundagem/Temas já indexada por formato.id passa a funcionar sem
+// alterações, tanto com uma vaga só (id simples) como com várias (id
+// composto, consoante a vaga ativa no momento).
+let numeroVagasPedido = 1;
+let vagaAtiva = "1";
 const SEPARADOR_ID_VAGA = "::camp::";
 function chaveFormatoVaga(idFormatoReal, idVaga) {
   return `${idFormatoReal}${SEPARADOR_ID_VAGA}${idVaga}`;
 }
 // Extrai a parte do id real (numérica) de um data-id que pode ser simples
-// (formato sem vagas) ou composto (dentro de um bloco de vaga).
+// (uma vaga só) ou composto (número de Vagas > 1).
 function idFormatoRealDoId(idDataset) {
   const idTexto = String(idDataset);
   const indice = idTexto.indexOf(SEPARADOR_ID_VAGA);
   return Number(indice === -1 ? idTexto : idTexto.slice(0, indice));
 }
-// Extrai o id da vaga de um data-id composto, ou null se for um id
-// simples (bloco único, sem vagas).
+// Extrai o nº da vaga de um data-id composto, ou null se for um id
+// simples (uma vaga só).
 function idVagaDoId(idDataset) {
   const idTexto = String(idDataset);
   const indice = idTexto.indexOf(SEPARADOR_ID_VAGA);
@@ -462,8 +464,8 @@ function idVagaDoId(idDataset) {
 // Devolve o "formato" a usar nos Maps de estado por id (Canal/Secundagem/
 // Temas) a partir de um data-id do DOM — mantém todos os campos reais
 // (fornecedor, veículo, canais disponíveis, ...) do formato real, só troca
-// o id quando o data-id pertence a um bloco de vaga. Devolve
-// undefined se o formato real já não existir (ex.: base recarregada).
+// o id quando o data-id é composto (vaga). Devolve undefined se o formato
+// real já não existir (ex.: base recarregada).
 function resolverFormatoDoId(idDataset) {
   const idTexto = String(idDataset);
   const idReal = idFormatoRealDoId(idTexto);
@@ -473,50 +475,30 @@ function resolverFormatoDoId(idDataset) {
   }
   return idTexto === String(idReal) ? real : { ...real, id: idTexto };
 }
-function vagasDoFormato(formato, objetivo) {
-  return vagasTvPorObjetivo[objetivo].get(formato.id) || [];
-}
-function formatoUsaVagas(formato, objetivo) {
-  return vagasDoFormato(formato, objetivo).length > 0;
-}
-function proximoIdVaga(lista) {
-  const maior = lista.reduce((acc, vaga) => Math.max(acc, Number(vaga.id) || 0), 0);
-  return String(maior + 1);
-}
-function criarVaga(formato, objetivo, nome) {
-  const lista = vagasTvPorObjetivo[objetivo].get(formato.id) || [];
-  const idNovo = proximoIdVaga(lista);
-  const nova = { id: idNovo, nome: nome || `${t("vagaRotuloOmissao")} ${idNovo}` };
-  vagasTvPorObjetivo[objetivo].set(formato.id, [...lista, nova]);
-  return nova;
-}
-function removerVaga(formato, objetivo, idVaga) {
-  const lista = vagasTvPorObjetivo[objetivo].get(formato.id) || [];
-  vagasTvPorObjetivo[objetivo].set(formato.id, lista.filter((vaga) => vaga.id !== idVaga));
-}
-function renomearVaga(formato, objetivo, idVaga, novoNome) {
-  const lista = vagasTvPorObjetivo[objetivo].get(formato.id) || [];
-  const vaga = lista.find((v) => v.id === idVaga);
-  if (vaga) {
-    vaga.nome = novoNome;
-  }
+// O "formato" efetivamente usado para ler/escrever Canal/Secundagem/Temas
+// no construtor — com 1 vaga só, é o formato tal e qual (comportamento de
+// sempre); com mais que 1, é o id composto da vaga ATIVA no momento (ver
+// vagaAtiva) — ver criarColunaCanaisTv/SecundagemTv/TemasTv.
+function formatoDaVagaAtiva(formato) {
+  return numeroVagasPedido > 1 ? { ...formato, id: chaveFormatoVaga(formato.id, vagaAtiva) } : formato;
 }
 // Verdadeiro quando este formato de TV/Rádio já tem pelo menos um canal/
-// estação escolhido — no bloco único de sempre, OU nalguma das vagas
-// (quando o "pisco" de várias vagas está ativo). Substitui
+// estação escolhido nalguma vaga — substitui
 // "canaisDoFormato(formato, objetivo).size === 0" em todos os sítios que
-// decidem se o formato já pode ser marcado/exportado — com vagas
-// ativas, o bloco único de base fica sempre vazio (todos os canais ficam
-// guardados sob ids compostos), por isso olhar só a ele dava sempre
-// "nenhum canal escolhido" mesmo com dados preenchidos nas vagas.
+// decidem se o formato já pode ser marcado/exportado, porque com mais
+// que 1 vaga o formato.id "simples" nunca tem canais (ficam todos sob
+// ids compostos por vaga).
 function formatoTemAlgumCanalEscolhido(formato, objetivo) {
-  if (canaisDoFormato(formato, objetivo).size > 0) {
-    return true;
+  if (numeroVagasPedido <= 1) {
+    return canaisDoFormato(formato, objetivo).size > 0;
   }
-  return vagasDoFormato(formato, objetivo).some((vaga) => {
-    const idComposto = chaveFormatoVaga(formato.id, vaga.id);
-    return (canaisTvPorObjetivo[objetivo].get(idComposto) || new Set()).size > 0;
-  });
+  for (let numeroVaga = 1; numeroVaga <= numeroVagasPedido; numeroVaga += 1) {
+    const idComposto = chaveFormatoVaga(formato.id, String(numeroVaga));
+    if ((canaisTvPorObjetivo[objetivo].get(idComposto) || new Set()).size > 0) {
+      return true;
+    }
+  }
+  return false;
 }
 
 // Todas as combinações canal×secundagem atualmente relevantes para este
@@ -675,15 +657,11 @@ const TRADUCOES = {
   labelEstacoesRadio: { pt: "Estações", en: "Stations", es: "Estaciones", fr: "Stations" },
   semEstacoesEscolhidas: { pt: "— escolhe pelo menos uma estação —", en: "— choose at least one station —", es: "— elige al menos una estación —", fr: "— choisis au moins une station —" },
   avisoEscolherEstacaoRadio: { pt: "Escolhe primeiro pelo menos uma estação para este spot de rádio.", en: "Choose at least one station for this radio spot first.", es: "Elige primero al menos una estación para este spot de radio.", fr: "Choisis d'abord au moins une station pour ce spot radio." },
-  colVaga: { pt: "Vaga", en: "Flight", es: "Oleada", fr: "Vague" },
-  maisQueUmaVaga: { pt: "Mais do que uma vaga", en: "More than one flight", es: "Más de una oleada", fr: "Plus d'une vague" },
-  vagaRotuloOmissao: { pt: "Vaga", en: "Flight", es: "Oleada", fr: "Vague" },
-  nomeDaVaga: { pt: "Nome da vaga de {formato}", en: "Flight name for {formato}", es: "Nombre de la oleada de {formato}", fr: "Nom de la vague de {formato}" },
-  adicionarVagaBotao: { pt: "+ Nova vaga", en: "+ New flight", es: "+ Nueva oleada", fr: "+ Nouvelle vague" },
-  adicionarVaga: { pt: "Acrescentar nova vaga a {formato}", en: "Add a new flight to {formato}", es: "Añadir nueva oleada a {formato}", fr: "Ajouter une nouvelle vague à {formato}" },
-  removerVaga: { pt: "Remover a vaga {vaga} de {formato}", en: "Remove the {vaga} flight from {formato}", es: "Eliminar la oleada {vaga} de {formato}", fr: "Supprimer la vague {vaga} de {formato}" },
-  avisoDesligarVagas: { pt: "Já há canais escolhidos nalgumas vagas. Desligar \"mais do que uma vaga\" esconde essa informação (sem apagar o resto do pedido). Continuar?", en: "Some flights already have channels chosen. Turning off \"more than one flight\" hides that information (the rest of the request is unaffected). Continue?", es: "Ya hay canales elegidos en algunas oleadas. Desactivar \"más de una oleada\" oculta esa información (sin borrar el resto de la solicitud). ¿Continuar?", fr: "Des chaînes sont déjà choisies dans certaines vagues. Désactiver « plus d'une vague » masque ces informations (sans effacer le reste de la demande). Continuer ?" },
-  avisoRemoverVaga: { pt: "Esta vaga já tem canais escolhidos. Remover esconde essa informação (sem apagar o resto do pedido). Continuar?", en: "This flight already has channels chosen. Removing it hides that information (the rest of the request is unaffected). Continue?", es: "Esta oleada ya tiene canales elegidos. Eliminarla oculta esa información (sin borrar el resto de la solicitud). ¿Continuar?", fr: "Cette vague a déjà des chaînes choisies. La supprimer masque ces informations (sans effacer le reste de la demande). Continuer ?" },
+  labelNumeroVagas: { pt: "Nº de Vagas (TV/Rádio)", en: "No. of Flights (TV/Radio)", es: "Nº de Oleadas (TV/Radio)", fr: "Nb de vagues (TV/Radio)" },
+  avisoNumeroVagas: { pt: "Mais que 1 vaga pede para preencher o pedido de TV/Rádio uma vaga de cada vez — escolhe a vaga ativa no seletor que aparece por baixo.", en: "More than 1 flight means filling in the TV/Radio request one flight at a time — pick the active flight in the selector that appears below.", es: "Más de 1 oleada implica rellenar el pedido de TV/Radio una oleada cada vez — elige la oleada activa en el selector que aparece debajo.", fr: "Plus d'une vague demande de remplir la demande TV/Radio une vague à la fois — choisis la vague active dans le sélecteur qui apparaît en dessous." },
+  labelVagaAtiva: { pt: "Vaga", en: "Flight", es: "Oleada", fr: "Vague" },
+  tituloVagaExcel: { pt: "Vaga {n}", en: "Flight {n}", es: "Oleada {n}", fr: "Vague {n}" },
+  avisoDiminuirVagas: { pt: "Já há canais escolhidos nalgumas das vagas que vão deixar de existir. Diminuir o nº de vagas esconde essa informação (sem apagar o resto do pedido). Continuar?", en: "Some of the flights that would be removed already have channels chosen. Lowering the flight count hides that information (the rest of the request is unaffected). Continue?", es: "Ya hay canales elegidos en algunas de las oleadas que van a desaparecer. Reducir el nº de oleadas oculta esa información (sin borrar el resto de la solicitud). ¿Continuar?", fr: "Des chaînes sont déjà choisies dans certaines des vagues qui vont disparaître. Réduire le nombre de vagues masque ces informations (sans effacer le reste de la demande). Continuer ?" },
   rodapeSpecsTituloRadio: { pt: "Especificações técnicas (iguais em todas as estações)", en: "Technical specifications (same for every station)", es: "Especificaciones técnicas (iguales en todas las estaciones)", fr: "Spécifications techniques (identiques sur toutes les stations)" },
   avisoRadioSaltadosSelecionarTodos: { pt: "{n} spot(s) de rádio ficaram por selecionar — falta escolher pelo menos uma estação.", en: "{n} radio spot(s) were left unselected — at least one station is still missing.", es: "{n} spot(s) de radio quedaron sin seleccionar — falta elegir al menos una estación.", fr: "{n} spot(s) radio n'ont pas été sélectionnés — il manque au moins une station." },
   colCaderno: { pt: "Caderno", en: "Section", es: "Suplemento", fr: "Cahier" },
@@ -971,6 +949,8 @@ async function carregarFormatos() {
     // nascem marcadas com a seleção guardada, em vez de precisarem de um
     // segundo desenho.
     restaurarEstadoLocal();
+    campoNumeroVagas.value = numeroVagasPedido;
+    renderizarBotoesVaga();
 
     // Depois de carregado com sucesso não há nada útil a dizer aqui — a
     // própria lista de formatos a aparecer no ecrã já confirma que correu
@@ -1604,98 +1584,35 @@ function atualizarCelulasTemasCanal(formato, canal) {
   });
 }
 
-// Reconstrói as duas grelhas (Secundagem e Temas) de um formato de TV —
-// chamado quando o conjunto de canais muda (marcar/desmarcar um canal),
-// já que isso acrescenta ou remove uma linha inteira em cada uma.
-// Envolve a célula de Canal/Estação (criarCelulaCanaisTv) com o "pisco" de
-// várias vagas e, quando ativo, os blocos repetíveis por vaga —
-// ver vagasTvPorObjetivo. O nome de cada vaga só é editável aqui
-// (coluna Canal); as colunas Secundagem/Temas ao lado só repetem o nome
-// como rótulo (ver rotuloVagaTv/criarColunaSecundagemTv/
-// criarColunaTemasTv), para não haver 3 cópias do mesmo campo de texto a
-// mexer ao mesmo tempo.
-function criarColunaCanaisTv(formato, nomeFormatoTexto) {
-  const vagas = vagasDoFormato(formato, objetivoAtivo);
-  if (vagas.length === 0) {
-    return `
-      <div class="coluna-canais-tv-raiz" data-id="${formato.id}">
-        <label class="opcao-mais-vagas-tv">
-          <input type="checkbox" class="checkbox-mais-vagas-tv" data-id="${formato.id}">
-          ${t("maisQueUmaVaga")}
-        </label>
-        ${criarCelulaCanaisTv(formato)}
-      </div>
-    `;
-  }
-  const blocos = vagas
-    .map((vaga) => {
-      const formatoVaga = { ...formato, id: chaveFormatoVaga(formato.id, vaga.id) };
-      return `
-        <div class="bloco-vaga-tv" data-id="${formato.id}" data-id-vaga="${vaga.id}">
-          <div class="cabecalho-vaga-tv">
-            <input type="text" class="input-nome-vaga-tv" data-id="${formato.id}" data-id-vaga="${vaga.id}"
-              value="${escapeHTML(vaga.nome)}" aria-label="${formatar("nomeDaVaga", { formato: nomeFormatoTexto })}">
-            <button type="button" class="botao-remover-vaga-tv" data-id="${formato.id}" data-id-vaga="${vaga.id}"
-              aria-label="${formatar("removerVaga", { vaga: escapeHTML(vaga.nome), formato: nomeFormatoTexto })}">×</button>
-          </div>
-          ${criarCelulaCanaisTv(formatoVaga)}
-        </div>
-      `;
-    })
-    .join("");
-  return `
-    <div class="coluna-canais-tv-raiz coluna-canais-tv-raiz--vagas" data-id="${formato.id}">
-      <label class="opcao-mais-vagas-tv">
-        <input type="checkbox" class="checkbox-mais-vagas-tv" data-id="${formato.id}" checked>
-        ${t("maisQueUmaVaga")}
-      </label>
-      ${blocos}
-      <button type="button" class="botao-adicionar-vaga-tv" data-id="${formato.id}" aria-label="${formatar("adicionarVaga", { formato: nomeFormatoTexto })}">${t("adicionarVagaBotao")}</button>
-    </div>
-  `;
-}
-
-function rotuloVagaTv(vaga) {
-  return `<div class="rotulo-vaga-tv">${escapeHTML(vaga.nome)}</div>`;
+// As 3 colunas de TV/Rádio (Canal/Secundagem/Temas) mostram sempre um
+// único bloco — com mais que 1 vaga (ver numeroVagasPedido), o conteúdo é
+// o da VAGA ATIVA no momento (ver formatoDaVagaAtiva/vagaAtiva); trocar de
+// vaga no seletor do topo (ver renderizarBotoesVaga) volta a chamar estas
+// funções para o mesmo formato, mostrando os dados da vaga seguinte. O
+// wrapper ("-raiz") guarda sempre o id REAL do formato (nunca composto),
+// para o conseguir encontrar outra vez ao trocar de vaga ou de objetivo
+// (ver atualizarColunasTv).
+function criarColunaCanaisTv(formato) {
+  return `<div class="coluna-canais-tv-raiz" data-id="${formato.id}">${criarCelulaCanaisTv(formatoDaVagaAtiva(formato))}</div>`;
 }
 
 function criarColunaSecundagemTv(formato) {
-  const vagas = vagasDoFormato(formato, objetivoAtivo);
-  if (vagas.length === 0) {
-    return `<div class="coluna-secundagem-tv-raiz" data-id="${formato.id}">${criarGridSecundagemTv(formato)}</div>`;
-  }
-  const blocos = vagas
-    .map((vaga) => {
-      const formatoVaga = { ...formato, id: chaveFormatoVaga(formato.id, vaga.id) };
-      return `<div class="bloco-vaga-tv">${rotuloVagaTv(vaga)}${criarGridSecundagemTv(formatoVaga)}</div>`;
-    })
-    .join("");
-  return `<div class="coluna-secundagem-tv-raiz coluna-secundagem-tv-raiz--vagas" data-id="${formato.id}">${blocos}</div>`;
+  return `<div class="coluna-secundagem-tv-raiz" data-id="${formato.id}">${criarGridSecundagemTv(formatoDaVagaAtiva(formato))}</div>`;
 }
 
 function criarColunaTemasTv(formato, nomeFormatoTexto) {
-  const vagas = vagasDoFormato(formato, objetivoAtivo);
-  if (vagas.length === 0) {
-    return `<div class="coluna-temas-tv-raiz" data-id="${formato.id}">${criarGridTemasTv(formato, nomeFormatoTexto)}</div>`;
-  }
-  const blocos = vagas
-    .map((vaga) => {
-      const formatoVaga = { ...formato, id: chaveFormatoVaga(formato.id, vaga.id) };
-      return `<div class="bloco-vaga-tv">${rotuloVagaTv(vaga)}${criarGridTemasTv(formatoVaga, nomeFormatoTexto)}</div>`;
-    })
-    .join("");
-  return `<div class="coluna-temas-tv-raiz coluna-temas-tv-raiz--vagas" data-id="${formato.id}">${blocos}</div>`;
+  return `<div class="coluna-temas-tv-raiz" data-id="${formato.id}">${criarGridTemasTv(formatoDaVagaAtiva(formato), nomeFormatoTexto)}</div>`;
 }
 
-// Reconstrói as 3 colunas (Canal/Secundagem/Temas) por inteiro — usada
-// sempre que a PRÓPRIA LISTA de vagas muda (ligar/desligar o "pisco",
-// adicionar/remover uma vaga), ao contrário de atualizarGridsTv (só
-// Secundagem/Temas, sem mexer na lista) que já chega para uma simples
-// mudança de canal/duração dentro de uma vaga já existente.
-function atualizarColunasVagaTv(formato) {
+// Reconstrói as 3 colunas (Canal/Secundagem/Temas) por inteiro — usada ao
+// trocar de vaga ativa (o conjunto de canais pode ser completamente
+// diferente de vaga para vaga) — ao contrário de atualizarGridsTv (só
+// Secundagem/Temas, sem recriar os checkboxes de Canal) que já chega para
+// uma simples mudança de canal/duração dentro da MESMA vaga.
+function atualizarColunasTv(formato) {
   const nomeFormatoTexto = escapeHTML(textoTraduzido(formato, "formato") ?? "");
   listaFormatos.querySelectorAll(`.coluna-canais-tv-raiz[data-id="${formato.id}"]`).forEach((raiz) => {
-    raiz.outerHTML = criarColunaCanaisTv(formato, nomeFormatoTexto);
+    raiz.outerHTML = criarColunaCanaisTv(formato);
   });
   listaFormatos.querySelectorAll(`.coluna-secundagem-tv-raiz[data-id="${formato.id}"]`).forEach((raiz) => {
     raiz.outerHTML = criarColunaSecundagemTv(formato);
@@ -1762,7 +1679,7 @@ function criarLinhaFormato(formato, opcoes) {
   const colunaTemas = opcoes.comTemas
     ? `<td>${formatoTemCanal(formato) ? criarColunaTemasTv(formato, nomeFormatoTexto) : criarCelulaTemas(formato, nomeFormatoTexto)}</td>`
     : "";
-  const colunaCanaisTv = opcoes.comCanaisTv ? `<td>${criarColunaCanaisTv(formato, nomeFormatoTexto)}</td>` : "";
+  const colunaCanaisTv = opcoes.comCanaisTv ? `<td>${criarColunaCanaisTv(formato)}</td>` : "";
   // Todo o bloco é TV/Rádio quando esta coluna existe (mesma condição de
   // comCanaisTv, ver criarBlocoPublisher) — por isso não precisa de
   // verificar formatoTemCanal linha a linha, ao contrário da Duração/
@@ -2060,16 +1977,6 @@ listaFormatos.addEventListener("click", (evento) => {
     mudarContagemTemaGrid(botaoTemaGrid);
     return;
   }
-  const botaoAdicionarVaga = evento.target.closest(".botao-adicionar-vaga-tv");
-  if (botaoAdicionarVaga) {
-    adicionarVagaTv(botaoAdicionarVaga);
-    return;
-  }
-  const botaoRemoverVaga = evento.target.closest(".botao-remover-vaga-tv");
-  if (botaoRemoverVaga) {
-    removerVagaTv(botaoRemoverVaga);
-    return;
-  }
   if (evento.target.closest("input, a, label, select, button")) {
     return;
   }
@@ -2181,9 +2088,6 @@ listaFormatos.addEventListener("change", (evento) => {
     return;
   }
 
-  if (alvo.classList.contains("checkbox-mais-vagas-tv")) {
-    alternarMaisVagasTv(alvo);
-  }
 });
 
 // Guarda a escolha de canais deste formato de TV e, assim que há pelo
@@ -2213,76 +2117,6 @@ function mudarCanalTv(checkbox) {
   }
   atualizarGridsTv(formato);
   atualizarResumoSelecao();
-}
-
-// Liga/desliga o modo de várias vagas para este formato de TV/Rádio —
-// ligar cria já as duas primeiras vagas (o próprio nome "mais que uma"
-// implica pelo menos 2); desligar pede confirmação se já havia algum canal
-// escolhido nalguma vaga, para não apagar dados sem avisar primeiro
-// (ver confirmarAcao).
-async function alternarMaisVagasTv(checkbox) {
-  const formato = resolverFormatoDoId(checkbox.dataset.id);
-  if (!formato) {
-    return;
-  }
-  if (checkbox.checked) {
-    criarVaga(formato, objetivoAtivo);
-    criarVaga(formato, objetivoAtivo);
-    atualizarColunasVagaTv(formato);
-    atualizarResumoSelecao();
-    return;
-  }
-  if (formatoTemAlgumCanalEscolhido(formato, objetivoAtivo) && !(await confirmarAcao(t("avisoDesligarVagas")))) {
-    checkbox.checked = true;
-    return;
-  }
-  vagasTvPorObjetivo[objetivoAtivo].set(formato.id, []);
-  atualizarColunasVagaTv(formato);
-  atualizarResumoSelecao();
-}
-
-// Acrescenta mais uma vaga a este formato (já tem de estar no modo de
-// várias vagas — o botão só existe nesse estado, ver
-// criarColunaCanaisTv).
-function adicionarVagaTv(botao) {
-  const formato = resolverFormatoDoId(botao.dataset.id);
-  if (!formato) {
-    return;
-  }
-  criarVaga(formato, objetivoAtivo);
-  atualizarColunasVagaTv(formato);
-  atualizarResumoSelecao();
-}
-
-// Remove uma vaga — pede confirmação se já tinha algum canal escolhido
-// (ver confirmarAcao). Sem nenhuma vaga a sobrar, o formato volta
-// sozinho ao bloco único de sempre (vagasDoFormato passa a devolver
-// uma lista vazia, ver criarColunaCanaisTv).
-async function removerVagaTv(botao) {
-  const formato = resolverFormatoDoId(botao.dataset.id);
-  if (!formato) {
-    return;
-  }
-  const idVaga = botao.dataset.idVaga;
-  const idComposto = chaveFormatoVaga(formato.id, idVaga);
-  const temCanalEscolhido = (canaisTvPorObjetivo[objetivoAtivo].get(idComposto) || new Set()).size > 0;
-  if (temCanalEscolhido && !(await confirmarAcao(t("avisoRemoverVaga")))) {
-    return;
-  }
-  removerVaga(formato, objetivoAtivo, idVaga);
-  atualizarColunasVagaTv(formato);
-  atualizarResumoSelecao();
-}
-
-// Só guarda o nome enquanto se escreve (evento "input", não "change") —
-// tal como o campo "Outro" da duração, para não esperar que o campo perca
-// o foco.
-function mudarNomeVagaTv(input) {
-  const formato = resolverFormatoDoId(input.dataset.id);
-  if (!formato) {
-    return;
-  }
-  renomearVaga(formato, objetivoAtivo, input.dataset.idVaga, input.value);
 }
 
 // Guarda a escolha de entrega (AF/morada) deste Mupi papel e, se o
@@ -2316,11 +2150,6 @@ listaFormatos.addEventListener("input", (evento) => {
 
   if (alvo.classList.contains("input-num-faces-ooh") || alvo.classList.contains("input-num-cartazes-ooh")) {
     mudarNumOoh(alvo);
-    return;
-  }
-
-  if (alvo.classList.contains("input-nome-vaga-tv")) {
-    mudarNomeVagaTv(alvo);
     return;
   }
 
@@ -2437,6 +2266,94 @@ botoesObjetivo.forEach((botao) => {
   });
 });
 
+// Seletor de Vaga (TV/Rádio) — só visível com numeroVagasPedido > 1 (ver
+// campoNumeroVagas), em tudo igual ao seletor de Objetivo acima: mostra um
+// botão por vaga, marca a ativa, e troca o conteúdo das 3 colunas de TV/
+// Rádio (ver sincronizarComVagaAtiva) ao clicar noutra.
+function renderizarBotoesVaga() {
+  if (numeroVagasPedido <= 1) {
+    seletorVaga.hidden = true;
+    areaVagasBotoes.innerHTML = "";
+    return;
+  }
+  seletorVaga.hidden = false;
+  areaVagasBotoes.innerHTML = Array.from({ length: numeroVagasPedido }, (_, indice) => String(indice + 1))
+    .map((numeroVaga) => {
+      const ativo = numeroVaga === vagaAtiva;
+      return `
+        <button type="button" class="vaga-botao${ativo ? " ativo" : ""}" data-vaga="${numeroVaga}" ${ativo ? 'aria-current="true"' : ""}>
+          ${formatar("tituloVagaExcel", { n: numeroVaga })}
+        </button>
+      `;
+    })
+    .join("");
+}
+
+// Reconstrói as 3 colunas de TV/Rádio de todos os formatos para refletirem
+// a vaga ativa — chamado ao trocar de vaga (ver areaVagasBotoes abaixo) e
+// ao mudar numeroVagasPedido (ver campoNumeroVagas), tal como
+// sincronizarCheckboxesComObjetivoAtivo já faz ao trocar de objetivo.
+function sincronizarComVagaAtiva() {
+  listaFormatos.querySelectorAll(".coluna-canais-tv-raiz").forEach((raiz) => {
+    const id = Number(raiz.dataset.id);
+    const formato = todosFormatos.find((f) => f.id === id);
+    if (formato) {
+      atualizarColunasTv(formato);
+    }
+  });
+}
+
+areaVagasBotoes.addEventListener("click", (evento) => {
+  const botao = evento.target.closest(".vaga-botao");
+  if (!botao) {
+    return;
+  }
+  vagaAtiva = botao.dataset.vaga;
+  renderizarBotoesVaga();
+  sincronizarComVagaAtiva();
+});
+
+// Verdadeiro se alguma vaga no intervalo [deVaga, ateVaga] (inclusive) já
+// tem algum canal escolhido nalgum formato/objetivo — usado só para decidir
+// se vale a pena pedir confirmação antes de diminuir o nº de vagas (ver
+// campoNumeroVagas), não para desenhar nada.
+function existemCanaisEmVagas(deVaga, ateVaga) {
+  return OBJETIVOS.some((objetivo) => todosFormatos.some((formato) => {
+    if (!formatoTemCanal(formato)) {
+      return false;
+    }
+    for (let numeroVaga = deVaga; numeroVaga <= ateVaga; numeroVaga += 1) {
+      const idComposto = chaveFormatoVaga(formato.id, String(numeroVaga));
+      if ((canaisTvPorObjetivo[objetivo].get(idComposto) || new Set()).size > 0) {
+        return true;
+      }
+    }
+    return false;
+  }));
+}
+
+// O nº de vagas só muda ao sair do campo (evento "change"), nunca a cada
+// dígito escrito (evento "input") — pedir confirmação a meio da escrita
+// (ex.: ao passar por "1" antes de "12") seria muito intrusivo.
+campoNumeroVagas.addEventListener("change", async () => {
+  const novo = Math.max(1, Math.min(24, Math.floor(Number(campoNumeroVagas.value)) || 1));
+  campoNumeroVagas.value = novo;
+  if (novo === numeroVagasPedido) {
+    return;
+  }
+  if (novo < numeroVagasPedido && existemCanaisEmVagas(novo + 1, numeroVagasPedido) && !(await confirmarAcao(t("avisoDiminuirVagas")))) {
+    campoNumeroVagas.value = numeroVagasPedido;
+    return;
+  }
+  numeroVagasPedido = novo;
+  if (Number(vagaAtiva) > numeroVagasPedido) {
+    vagaAtiva = String(numeroVagasPedido);
+  }
+  renderizarBotoesVaga();
+  sincronizarComVagaAtiva();
+  atualizarResumoSelecao();
+});
+
 function sincronizarCheckboxesComObjetivoAtivo() {
   const selecaoAtiva = selecoesPorObjetivo[objetivoAtivo];
   listaFormatos.querySelectorAll(".checkbox-formato").forEach((checkbox) => {
@@ -2480,15 +2397,14 @@ function sincronizarCheckboxesComObjetivoAtivo() {
   // a grelha é sempre reconstruída do zero (não só os números), porque o
   // próprio conjunto de canais/secundagens pode ser diferente de objetivo
   // para objetivo.
-  // Reconstrói as 3 colunas (Canal/Secundagem/Temas) por inteiro, incluindo
-  // a lista de vagas — vagasTvPorObjetivo é por objetivo, tal como
-  // o resto do estado de TV/Rádio, por isso o nº de blocos pode mudar ao
-  // trocar de objetivo.
+  // Reconstrói as 3 colunas (Canal/Secundagem/Temas) por inteiro — o
+  // conjunto de canais/secundagens pode ser diferente de objetivo para
+  // objetivo (tal como o resto do estado de TV/Rádio).
   listaFormatos.querySelectorAll(".coluna-canais-tv-raiz").forEach((raiz) => {
     const id = Number(raiz.dataset.id);
     const formato = todosFormatos.find((f) => f.id === id);
     if (formato) {
-      atualizarColunasVagaTv(formato);
+      atualizarColunasTv(formato);
     }
   });
 
@@ -2668,15 +2584,18 @@ function atualizarResumoSelecao() {
           // TV tem canal × secundagem, cada combinação com o seu próprio
           // número de temas — uma linha de resumo por combinação (mesma
           // lógica da exportação para Excel, ver escreverSeccaoObjetivo).
-          // Com vagas ativas (ver vagasTvPorObjetivo), cada vaga
-          // é percorrida à parte, com o seu nome à frente — senão o resumo
-          // ficava sempre vazio nesses formatos (o bloco único de base fica
-          // sem nenhum canal escolhido enquanto há vagas).
+          // Com mais que 1 vaga (ver numeroVagasPedido), cada vaga é
+          // percorrida à parte, com o seu rótulo à frente — senão o resumo
+          // ficava sempre vazio nesses formatos (o id "simples" nunca tem
+          // canais quando há vagas, ver formatoDaVagaAtiva).
           if (formatoTemCanal(f)) {
-            const vagas = vagasDoFormato(f, objetivo);
-            const contextos = vagas.length > 0
-              ? vagas.map((vaga) => ({ formatoEfetivo: { ...f, id: chaveFormatoVaga(f.id, vaga.id) }, prefixoVaga: `${escapeHTML(vaga.nome)} — ` }))
-              : [{ formatoEfetivo: f, prefixoVaga: "" }];
+            const numerosVaga = numeroVagasPedido > 1
+              ? Array.from({ length: numeroVagasPedido }, (_, indice) => String(indice + 1))
+              : [null];
+            const contextos = numerosVaga.map((numeroVaga) => ({
+              formatoEfetivo: numeroVaga === null ? f : { ...f, id: chaveFormatoVaga(f.id, numeroVaga) },
+              prefixoVaga: numeroVaga === null ? "" : `${formatar("tituloVagaExcel", { n: numeroVaga })} — `,
+            }));
             return contextos.flatMap(({ formatoEfetivo, prefixoVaga }) => (
               celulasTemaTvAtivas(formatoEfetivo, objetivo).map(({ canal, duracao }) => {
                 const contagem = contagemTemaTv(formatoEfetivo, objetivo, canal, duracao);
@@ -2832,16 +2751,6 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
   // "canal" do Digital acima (Social Media/Google/Programático/Internet):
   // aqui é para onde o spot tem de ser enviado, vem de
   // escreverSeccaoObjetivo (grupo.canal), não da base de formatos.
-  // Nome da vaga (ver vagasTvPorObjetivo) — só preenchida quando o
-  // formato usa o modo de várias vagas; nos restantes fica sempre em
-  // branco, e a coluna nem chega a aparecer na folha (ver colunasChaves em
-  // escreverFolhaMeio — pedido explícito da Cláudia, para não poluir
-  // pedidos que não usam vagas).
-  vaga: {
-    largura: 16,
-    titulo: () => t("colVaga"),
-    valor: (formato, objetivo, duracao, temaIndice, canal, vaga) => vaga || "",
-  },
   canalTv: {
     largura: 14,
     titulo: () => t("colCanalTV"),
@@ -3012,8 +2921,8 @@ const COLUNAS_POR_MEIO_EXCEL = {
   // nota de rodapé no fim da folha (ver escreverFolhaMeio/
   // escreverRodapeEspecificacoes — pedido explícito da Cláudia). Rádio
   // segue agora a mesma lógica (ver ESTACOES_RADIO/MEIOS_COM_CANAL).
-  "TV": ["vaga", "canalTv", "formato", "secundagem", "temaCriativo", "dataInicioCampanha", "dataEntrega"],
-  "Rádio": ["vaga", "estacaoRadio", "formato", "secundagem", "temaCriativo", "dataInicioCampanha", "dataEntrega"],
+  "TV": ["canalTv", "formato", "secundagem", "temaCriativo", "dataInicioCampanha", "dataEntrega"],
+  "Rádio": ["estacaoRadio", "formato", "secundagem", "temaCriativo", "dataInicioCampanha", "dataEntrega"],
   "Cinema": ["plataforma", "formato", "temaCriativo", "dataInicioCampanha", "dataEntrega", "dimensao", "aspectRatio", "tipoFicheiro", "observacoes"],
   // Veículo (ex. "Correio da Manhã") e Caderno (ex. "Boa Onda") substituem
   // a antiga coluna única "plataforma"/"Título" — pedido explícito da
@@ -3149,27 +3058,27 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
     // celulasTemaTvAtivas/contagemTemaTv), em vez de uma contagem de temas
     // só, partilhada por todas as durações (como acontece em OOH).
     if (MEIOS_COM_CANAL.has(grupoMeioDoFormato(formato))) {
-      // Com vagas ativas (ver vagasTvPorObjetivo), cada vaga
-      // gera o seu próprio conjunto de linhas, com o nome da vaga na
-      // coluna própria (ver coluna "vaga") — sem nenhuma vaga, só
-      // um "contexto" implícito, igual ao comportamento de sempre.
+      // Com mais que 1 vaga (ver numeroVagasPedido), cada vaga gera o seu
+      // próprio conjunto de linhas, atrás de uma faixa "Vaga N" (ver
+      // escrita das linhas mais abaixo) — com 1 vaga só, um único
+      // "contexto" implícito, igual ao comportamento de sempre.
       //
       // Cada canal fica sempre na SUA PRÓPRIA linha — nunca se juntam vários
       // canais numa só (mesmo com a mesma secundagem e nº de temas), porque
       // o nº de temas igual não garante que os temas em si sejam os mesmos
       // (pedido explícito da Cláudia: dois canais podem ter o mesmo nº de
       // temas mas temas diferentes entre si).
-      const vagas = vagasDoFormato(formato, objetivo);
-      const contextos = vagas.length > 0
-        ? vagas.map((vaga) => ({ nomeVaga: vaga.nome, formatoEfetivo: { ...formato, id: chaveFormatoVaga(formato.id, vaga.id) } }))
-        : [{ nomeVaga: "", formatoEfetivo: formato }];
-      contextos.forEach(({ nomeVaga, formatoEfetivo }) => {
+      const numerosVaga = numeroVagasPedido > 1
+        ? Array.from({ length: numeroVagasPedido }, (_, indice) => String(indice + 1))
+        : [null];
+      numerosVaga.forEach((numeroVaga) => {
+        const formatoEfetivo = numeroVaga === null ? formato : { ...formato, id: chaveFormatoVaga(formato.id, numeroVaga) };
         celulasTemaTvAtivas(formatoEfetivo, objetivo)
           .sort((a, b) => Number(b.duracao || 0) - Number(a.duracao || 0))
           .forEach(({ canal, duracao }) => {
             const contagemTemas = contagemTemaTv(formatoEfetivo, objetivo, canal, duracao || null);
             const temas = contagemTemas > 1 ? Array.from({ length: contagemTemas }, (_, indice) => indice + 1) : [null];
-            gruposLinha.push({ formato, duracao: duracao || null, temas, canal, vaga: nomeVaga });
+            gruposLinha.push({ formato, duracao: duracao || null, temas, canal, vaga: numeroVaga || "" });
           });
       });
       return;
@@ -3193,11 +3102,11 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
   // folha de TV/Rádio tem sempre .canal definido, dá para reordenar tudo
   // aqui no fim sem misturar com os restantes meios.
   if (MEIOS_COM_CANAL.has(grupoMeio)) {
-    // Com vagas ativas, as linhas de cada vaga ficam sempre juntas
-    // (pela ordem em que as vagas foram criadas, não alfabética — ver
-    // ordemVaga), para a coluna Vaga fundir num bloco contínuo em
-    // vez de intercalar com as de outra vaga. Sem vagas, todo
-    // .vaga é "" e este novo critério não muda nada (continua só
+    // Com mais que 1 vaga, as linhas de cada vaga ficam sempre juntas (pela
+    // ordem numérica — "1", "2", ... "10" —, não alfabética, ver ordemVaga),
+    // para a faixa "Vaga N" (ver escrita das linhas mais abaixo) agrupar um
+    // bloco contínuo em vez de intercalar com o de outra vaga. Com 1 vaga
+    // só, todo .vaga é "" e este critério não muda nada (continua só
     // Canal > Formato > Secundagem, como sempre).
     const ordemVaga = new Map();
     gruposLinha.forEach((grupo) => {
@@ -3214,9 +3123,35 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
     ));
   }
 
-  const linhaPrimeiraLinhaDados = linha;
+  // Com mais que 1 vaga, cada uma ganha a sua própria faixa "Vaga N" (igual
+  // em espírito ao título do objetivo lá em cima, mas mais discreta — cor
+  // clara da companhia em vez do preto) antes das suas linhas — por isso a
+  // fusão de células (ver mesclarColunasComValorRepetido) corre por vaga,
+  // nunca atravessando uma faixa: sem isso, um Canal igual em 2 vagas
+  // diferentes fundia-se incorretamente num bloco só. Com 1 vaga só,
+  // grupo.vaga é sempre "" em todas as linhas, por isso nunca entra aqui
+  // nenhuma faixa e corre tudo numa única fusão no fim — comportamento
+  // idêntico ao que havia antes de existir "vaga".
   let linhaAtual = linha;
+  let vagaAberta;
+  let linhaInicioVaga = linhaAtual;
   gruposLinha.forEach((grupo, indiceGrupo) => {
+    if (grupo.vaga !== vagaAberta) {
+      if (vagaAberta !== undefined && linhaAtual - 1 >= linhaInicioVaga) {
+        mesclarColunasComValorRepetido(folha, numColunas, linhaInicioVaga, linhaAtual - 1, COLUNAS_CENTRADAS, colunasChaves);
+      }
+      if (grupo.vaga) {
+        folha.mergeCells(linhaAtual, 1, linhaAtual, numColunas);
+        const celulaVaga = folha.getCell(linhaAtual, 1);
+        celulaVaga.value = formatar("tituloVagaExcel", { n: grupo.vaga });
+        celulaVaga.font = { name: "Arial Nova", size: 10.5, bold: true, color: { argb: "FF0F1724" } };
+        celulaVaga.fill = { type: "pattern", pattern: "solid", fgColor: { argb: config.corDataEntrega } };
+        celulaVaga.alignment = { vertical: "middle", horizontal: "left" };
+        linhaAtual += 1;
+      }
+      vagaAberta = grupo.vaga;
+      linhaInicioVaga = linhaAtual;
+    }
     grupo.temas.forEach((temaIndice) => {
       const linhaFormato = folha.getRow(linhaAtual);
       // Cada linha leva sempre o valor real em todas as colunas (nunca
@@ -3227,7 +3162,7 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
       // ver GRUPOS_FORMATO_VARIANTES) seja entre grupos diferentes que
       // partilhem Plataforma/Canal.
       const valoresColunas = colunasChaves.map((chave) => (
-        COLUNAS_EXCEL_DISPONIVEIS[chave].valor(grupo.formato, objetivo, grupo.duracao, temaIndice, grupo.canal, grupo.vaga)
+        COLUNAS_EXCEL_DISPONIVEIS[chave].valor(grupo.formato, objetivo, grupo.duracao, temaIndice, grupo.canal)
       ));
       linhaFormato.values = [indiceGrupo + 1, ...valoresColunas];
       valoresColunas.forEach((valor, indiceValor) => registarLarguraColuna(indiceValor + 2, valor));
@@ -3250,9 +3185,10 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
       linhaAtual += 1;
     });
   });
+  if (linhaAtual - 1 >= linhaInicioVaga) {
+    mesclarColunasComValorRepetido(folha, numColunas, linhaInicioVaga, linhaAtual - 1, COLUNAS_CENTRADAS, colunasChaves);
+  }
   linha = linhaAtual;
-
-  mesclarColunasComValorRepetido(folha, numColunas, linhaPrimeiraLinhaDados, linhaAtual - 1, COLUNAS_CENTRADAS, colunasChaves);
 
   return linha + 1; // uma linha em branco antes da secção seguinte
 }
@@ -3431,14 +3367,7 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
   // definidas ANTES de escrever valores nas células, senão o ExcelJS
   // troca-nos as voltas e perde o conteúdo já escrito (foi um bug que
   // apanhámos a testar). ---
-  const colunasChavesDoMeio = COLUNAS_POR_MEIO_EXCEL[grupoMeio] || COLUNAS_POR_MEIO_EXCEL.Digital;
-  // A coluna "Vaga" só aparece quando pelo menos um formato selecionado
-  // deste meio (nalgum objetivo) usa mesmo o modo de várias vagas — pedido
-  // explícito da Cláudia, para um pedido normal (sem vagas) não ganhar uma
-  // coluna extra sempre em branco.
-  const usaVagaNestaFolha = MEIOS_COM_CANAL.has(grupoMeio) && formatosSelecionadosDoMeio(grupoMeio)
-    .some((f) => OBJETIVOS.some((objetivo) => vagasDoFormato(f, objetivo).length > 0));
-  const colunasChaves = usaVagaNestaFolha ? colunasChavesDoMeio : colunasChavesDoMeio.filter((chave) => chave !== "vaga");
+  const colunasChaves = COLUNAS_POR_MEIO_EXCEL[grupoMeio] || COLUNAS_POR_MEIO_EXCEL.Digital;
   folha.columns = [
     { width: 5 },
     ...colunasChaves.map((chave) => ({ width: COLUNAS_EXCEL_DISPONIVEIS[chave].largura })),
@@ -3770,7 +3699,6 @@ function guardarEstadoLocal() {
     const temas = {};
     const canaisTv = {};
     const temasGridTv = {};
-    const vagasTv = {};
     const numFacesOoh = {};
     const numCartazesOoh = {};
     // Troca a parte "id do formato" de uma chave composta (duração/canais/
@@ -3845,18 +3773,6 @@ function guardarEstadoLocal() {
           temasGridTv[objetivo][chave] = Object.fromEntries(grelha);
         }
       });
-      // Lista de vagas (ver vagasTvPorObjetivo) — sempre indexada
-      // pelo id REAL do formato (nunca composto), ao contrário dos 3 Maps
-      // acima.
-      vagasTv[objetivo] = {};
-      vagasTvPorObjetivo[objetivo].forEach((lista, id) => {
-        if (lista.length > 0 && selecoesPorObjetivo[objetivo].has(id)) {
-          const chave = idParaChave.get(id);
-          if (chave) {
-            vagasTv[objetivo][chave] = lista;
-          }
-        }
-      });
       numFacesOoh[objetivo] = {};
       numFacesOohPorObjetivo[objetivo].forEach((valor, id) => {
         if (selecoesPorObjetivo[objetivo].has(id)) {
@@ -3880,6 +3796,7 @@ function guardarEstadoLocal() {
       companhia: campoCompanhia.value,
       cliente: campoCliente.value,
       campanha: campoCampanha.value,
+      numeroVagasPedido,
       objetivoAtivo,
       selecoes,
       duracoes,
@@ -3887,7 +3804,6 @@ function guardarEstadoLocal() {
       temas,
       canaisTv,
       temasGridTv,
-      vagasTv,
       numFacesOoh,
       numCartazesOoh,
     }));
@@ -3987,24 +3903,6 @@ function restaurarEstadoLocal() {
       }
     });
 
-    // Lista de vagas (ver vagasTvPorObjetivo) — sem isto restaurado,
-    // os ids compostos das 2 secções acima ficavam em memória mas sem
-    // nenhum bloco de vaga para os mostrar (a 1ª renderização decide
-    // bloco único vs. vagas por vagasDoFormato, ver
-    // criarColunaCanaisTv).
-    const vagasGuardadas = (estadoGuardado.vagasTv && estadoGuardado.vagasTv[objetivo]) || {};
-    Object.entries(vagasGuardadas).forEach(([chave, lista]) => {
-      const id = chaveParaId.get(chave);
-      if (id !== undefined && Array.isArray(lista)) {
-        const listaValida = lista
-          .filter((vaga) => vaga && typeof vaga.id === "string" && typeof vaga.nome === "string")
-          .map((vaga) => ({ id: vaga.id, nome: vaga.nome }));
-        if (listaValida.length > 0) {
-          vagasTvPorObjetivo[objetivo].set(id, listaValida);
-        }
-      }
-    });
-
     const numFacesGuardados = (estadoGuardado.numFacesOoh && estadoGuardado.numFacesOoh[objetivo]) || {};
     Object.entries(numFacesGuardados).forEach(([chave, valor]) => {
       const id = chaveParaId.get(chave);
@@ -4042,6 +3940,13 @@ function restaurarEstadoLocal() {
   if (estadoGuardado.campanha) {
     campoCampanha.value = estadoGuardado.campanha;
   }
+  if (Number.isInteger(estadoGuardado.numeroVagasPedido) && estadoGuardado.numeroVagasPedido >= 1) {
+    numeroVagasPedido = Math.min(24, estadoGuardado.numeroVagasPedido);
+  }
+  // Vaga ativa fica sempre na 1ª ao abrir o construtor (tal como o
+  // Objetivo, ver comentário abaixo) — campoNumeroVagas.value e
+  // renderizarBotoesVaga() são tratados pelo chamador (ver inicializarApp),
+  // depois de restaurarEstadoLocal() devolver.
   // Objetivo ativo fica sempre em Awareness ao abrir o construtor, mesmo que
   // o pedido guardado tivesse outro objetivo selecionado no momento em que
   // foi deixado — as seleções de cada objetivo (acima) são sempre restauradas

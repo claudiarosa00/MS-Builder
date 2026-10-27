@@ -87,6 +87,13 @@
           <label for="campoCampanha" data-i18n="labelCampanha">Campanha</label>
           <input type="text" id="campoCampanha" data-i18n-placeholder="placeholderCampanha" placeholder="Nome da campanha">
         </div>
+        <div class="campo campo-numero-vagas">
+          <label for="campoNumeroVagas">
+            <span data-i18n="labelNumeroVagas">Nº de Vagas (TV/Rádio)</span>
+            <span class="aviso-objetivo-mini" tabindex="0" data-i18n-title="avisoNumeroVagas" data-i18n-aria-label="avisoNumeroVagas" title="Mais que 1 vaga pede para preencher o pedido de TV/Rádio uma vaga de cada vez — escolhe a vaga ativa no seletor que aparece por baixo.">ⓘ</span>
+          </label>
+          <input type="number" id="campoNumeroVagas" min="1" max="24" step="1" value="1" inputmode="numeric">
+        </div>
       </section>
 
       <p id="resumoCampanha" class="resumo-campanha" data-tab-visivel="construir"></p>
@@ -159,6 +166,24 @@
               <span data-i18n="objetivoConversion">Conversion</span> <span class="objetivo-contagem" data-contagem="conversion"></span>
             </button>
           </div>
+        </section>
+
+        <!--
+        ============================================
+        3.3.1b SELETOR DE VAGA (TV/Rádio) — só aparece quando o campo
+        "Nº de Vagas" no topo do pedido tem mais que 1 (ver
+        campoNumeroVagas/renderizarBotoesVaga em app.js). Em tudo igual ao
+        seletor de Objetivo ao lado: escolhe-se a vaga ativa e preenche-se
+        o pedido de TV/Rádio inteiro para essa vaga, antes de trocar para a
+        seguinte — pedido explícito da Cláudia, para não complicar com
+        vários blocos abertos ao mesmo tempo.
+        ============================================
+        -->
+        <section id="seletorVaga" class="seletor-vaga" hidden>
+          <label>
+            <span data-i18n="labelVagaAtiva">Vaga</span>
+          </label>
+          <div id="areaVagasBotoes" class="vagas-botoes"></div>
         </section>
 
         <aside id="resumoSelecao" class="resumo-selecao"></aside>
