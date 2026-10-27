@@ -89,8 +89,8 @@
         </div>
         <div class="campo campo-numero-vagas">
           <label for="campoNumeroVagas">
-            <span data-i18n="labelNumeroVagas">Nº de Vagas (TV/Rádio)</span>
-            <span class="aviso-objetivo-mini" tabindex="0" data-i18n-title="avisoNumeroVagas" data-i18n-aria-label="avisoNumeroVagas" title="Mais que 1 vaga pede para preencher o pedido de TV/Rádio uma vaga de cada vez — escolhe a vaga ativa no seletor que aparece por baixo.">ⓘ</span>
+            <span data-i18n="labelNumeroVagas">Nº de Vagas</span>
+            <span class="aviso-objetivo-mini" tabindex="0" data-i18n-title="avisoNumeroVagas" data-i18n-aria-label="avisoNumeroVagas" title="Mais que 1 vaga pede para preencher o pedido inteiro uma vaga de cada vez — escolhe a vaga ativa no seletor que aparece por baixo.">ⓘ</span>
           </label>
           <input type="number" id="campoNumeroVagas" min="1" max="24" step="1" value="1" inputmode="numeric">
         </div>
@@ -170,13 +170,13 @@
 
         <!--
         ============================================
-        3.3.1b SELETOR DE VAGA (TV/Rádio) — só aparece quando o campo
-        "Nº de Vagas" no topo do pedido tem mais que 1 (ver
+        3.3.1b SELETOR DE VAGA — geral, não só TV/Rádio — só aparece quando
+        o campo "Nº de Vagas" no topo do pedido tem mais que 1 (ver
         campoNumeroVagas/renderizarBotoesVaga em app.js). Em tudo igual ao
         seletor de Objetivo ao lado: escolhe-se a vaga ativa e preenche-se
-        o pedido de TV/Rádio inteiro para essa vaga, antes de trocar para a
-        seguinte — pedido explícito da Cláudia, para não complicar com
-        vários blocos abertos ao mesmo tempo.
+        o pedido inteiro (qualquer meio) para essa vaga, antes de trocar
+        para a seguinte — pedido explícito da Cláudia, para não complicar
+        com vários blocos abertos ao mesmo tempo.
         ============================================
         -->
         <section id="seletorVaga" class="seletor-vaga" hidden>

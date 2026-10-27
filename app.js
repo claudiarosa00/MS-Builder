@@ -475,30 +475,53 @@ function resolverFormatoDoId(idDataset) {
   }
   return idTexto === String(idReal) ? real : { ...real, id: idTexto };
 }
-// O "formato" efetivamente usado para ler/escrever Canal/Secundagem/Temas
-// no construtor — com 1 vaga só, é o formato tal e qual (comportamento de
-// sempre); com mais que 1, é o id composto da vaga ATIVA no momento (ver
-// vagaAtiva) — ver criarColunaCanaisTv/SecundagemTv/TemasTv.
+// O "formato" efetivamente usado para ler/escrever estado no construtor
+// (seleção, Canal/Secundagem/Temas de TV, nº de temas, entrega do Mupi,
+// Nº de Faces/Cartazes do OOH, ...) — a Vaga é geral, não só TV/Rádio (ver
+// campoNumeroVagas): com 1 vaga só, é o formato tal e qual (comportamento
+// de sempre); com mais que 1, é o id composto da vaga ATIVA no momento
+// (ver vagaAtiva). Usada sempre que já se tem o formato inteiro à mão; ver
+// idEfetivoDoReal para quando só se tem o id.
 function formatoDaVagaAtiva(formato) {
   return numeroVagasPedido > 1 ? { ...formato, id: chaveFormatoVaga(formato.id, vagaAtiva) } : formato;
 }
+// Equivalente a formatoDaVagaAtiva(formato).id, mas a partir de um id
+// "nu" (sem o resto dos campos do formato) — usada em idsDoGrupoFormato
+// (grupos de variantes técnicas), onde só há ids, nunca formatos inteiros.
+function idEfetivoDoReal(idReal) {
+  return numeroVagasPedido > 1 ? chaveFormatoVaga(idReal, vagaAtiva) : idReal;
+}
 // Verdadeiro quando este formato de TV/Rádio já tem pelo menos um canal/
-// estação escolhido nalguma vaga — substitui
+// estação escolhido NA VAGA ATIVA — substitui
 // "canaisDoFormato(formato, objetivo).size === 0" em todos os sítios que
 // decidem se o formato já pode ser marcado/exportado, porque com mais
 // que 1 vaga o formato.id "simples" nunca tem canais (ficam todos sob
-// ids compostos por vaga).
+// ids compostos por vaga) — e agora que a própria seleção também é por
+// vaga (ver idEfetivoDoReal), só interessa a vaga que se está a preencher
+// neste momento, não as outras.
 function formatoTemAlgumCanalEscolhido(formato, objetivo) {
-  if (numeroVagasPedido <= 1) {
-    return canaisDoFormato(formato, objetivo).size > 0;
-  }
-  for (let numeroVaga = 1; numeroVaga <= numeroVagasPedido; numeroVaga += 1) {
-    const idComposto = chaveFormatoVaga(formato.id, String(numeroVaga));
-    if ((canaisTvPorObjetivo[objetivo].get(idComposto) || new Set()).size > 0) {
-      return true;
+  return canaisDoFormato(formatoDaVagaAtiva(formato), objetivo).size > 0;
+}
+
+// Ids REAIS selecionados neste objetivo, numa vaga em concreto (vagaOuNula
+// é o número como string, ou null para "sem vaga"/bloco único) — com
+// várias vagas, selecoesPorObjetivo guarda um id composto por vaga (ver
+// idEfetivoDoReal), por isso um simples ".has(formato.id)" deixou de
+// chegar. Usada tanto para "o que está selecionado agora" na interface
+// (ver idsSelecionadosNaVagaAtiva) como, na exportação, para cada vaga à
+// vez — essa percorre TODAS as vagas (ver escreverFolhaMeio), não só a
+// ativa, porque o ficheiro final tem de sair com o pedido inteiro.
+function idsSelecionadosNaVaga(objetivo, vagaOuNula) {
+  const idsReais = [];
+  selecoesPorObjetivo[objetivo].forEach((idEfetivo) => {
+    if (idVagaDoId(idEfetivo) === vagaOuNula) {
+      idsReais.push(idFormatoRealDoId(idEfetivo));
     }
-  }
-  return false;
+  });
+  return idsReais;
+}
+function idsSelecionadosNaVagaAtiva(objetivo) {
+  return idsSelecionadosNaVaga(objetivo, numeroVagasPedido > 1 ? vagaAtiva : null);
 }
 
 // Todas as combinações canal×secundagem atualmente relevantes para este
@@ -657,11 +680,11 @@ const TRADUCOES = {
   labelEstacoesRadio: { pt: "Estações", en: "Stations", es: "Estaciones", fr: "Stations" },
   semEstacoesEscolhidas: { pt: "— escolhe pelo menos uma estação —", en: "— choose at least one station —", es: "— elige al menos una estación —", fr: "— choisis au moins une station —" },
   avisoEscolherEstacaoRadio: { pt: "Escolhe primeiro pelo menos uma estação para este spot de rádio.", en: "Choose at least one station for this radio spot first.", es: "Elige primero al menos una estación para este spot de radio.", fr: "Choisis d'abord au moins une station pour ce spot radio." },
-  labelNumeroVagas: { pt: "Nº de Vagas (TV/Rádio)", en: "No. of Flights (TV/Radio)", es: "Nº de Oleadas (TV/Radio)", fr: "Nb de vagues (TV/Radio)" },
-  avisoNumeroVagas: { pt: "Mais que 1 vaga pede para preencher o pedido de TV/Rádio uma vaga de cada vez — escolhe a vaga ativa no seletor que aparece por baixo.", en: "More than 1 flight means filling in the TV/Radio request one flight at a time — pick the active flight in the selector that appears below.", es: "Más de 1 oleada implica rellenar el pedido de TV/Radio una oleada cada vez — elige la oleada activa en el selector que aparece debajo.", fr: "Plus d'une vague demande de remplir la demande TV/Radio une vague à la fois — choisis la vague active dans le sélecteur qui apparaît en dessous." },
+  labelNumeroVagas: { pt: "Nº de Vagas", en: "No. of Flights", es: "Nº de Oleadas", fr: "Nb de vagues" },
+  avisoNumeroVagas: { pt: "Mais que 1 vaga pede para preencher o pedido inteiro uma vaga de cada vez — escolhe a vaga ativa no seletor que aparece por baixo.", en: "More than 1 flight means filling in the whole request one flight at a time — pick the active flight in the selector that appears below.", es: "Más de 1 oleada implica rellenar toda la solicitud una oleada cada vez — elige la oleada activa en el selector que aparece debajo.", fr: "Plus d'une vague demande de remplir toute la demande une vague à la fois — choisis la vague active dans le sélecteur qui apparaît en dessous." },
   labelVagaAtiva: { pt: "Vaga", en: "Flight", es: "Oleada", fr: "Vague" },
   tituloVagaExcel: { pt: "Vaga {n}", en: "Flight {n}", es: "Oleada {n}", fr: "Vague {n}" },
-  avisoDiminuirVagas: { pt: "Já há canais escolhidos nalgumas das vagas que vão deixar de existir. Diminuir o nº de vagas esconde essa informação (sem apagar o resto do pedido). Continuar?", en: "Some of the flights that would be removed already have channels chosen. Lowering the flight count hides that information (the rest of the request is unaffected). Continue?", es: "Ya hay canales elegidos en algunas de las oleadas que van a desaparecer. Reducir el nº de oleadas oculta esa información (sin borrar el resto de la solicitud). ¿Continuar?", fr: "Des chaînes sont déjà choisies dans certaines des vagues qui vont disparaître. Réduire le nombre de vagues masque ces informations (sans effacer le reste de la demande). Continuer ?" },
+  avisoDiminuirVagas: { pt: "Já há formatos selecionados nalgumas das vagas que vão deixar de existir. Diminuir o nº de vagas esconde essa informação (sem apagar o resto do pedido). Continuar?", en: "Some of the flights that would be removed already have formats selected. Lowering the flight count hides that information (the rest of the request is unaffected). Continue?", es: "Ya hay formatos seleccionados en algunas de las oleadas que van a desaparecer. Reducir el nº de oleadas oculta esa información (sin borrar el resto de la solicitud). ¿Continuar?", fr: "Des formats sont déjà sélectionnés dans certaines des vagues qui vont disparaître. Réduire le nombre de vagues masque ces informations (sans effacer le reste de la demande). Continuer ?" },
   rodapeSpecsTituloRadio: { pt: "Especificações técnicas (iguais em todas as estações)", en: "Technical specifications (same for every station)", es: "Especificaciones técnicas (iguales en todas las estaciones)", fr: "Spécifications techniques (identiques sur toutes les stations)" },
   avisoRadioSaltadosSelecionarTodos: { pt: "{n} spot(s) de rádio ficaram por selecionar — falta escolher pelo menos uma estação.", en: "{n} radio spot(s) were left unselected — at least one station is still missing.", es: "{n} spot(s) de radio quedaron sin seleccionar — falta elegir al menos una estación.", fr: "{n} spot(s) radio n'ont pas été sélectionnés — il manque au moins une station." },
   colCaderno: { pt: "Caderno", en: "Section", es: "Suplemento", fr: "Cahier" },
@@ -1429,7 +1452,7 @@ function criarSeletorDuracaoTv(formato, canal) {
 // grupo — o mesmo problema que a checkbox de formato já resolve com
 // aria-labelledby (ver auditoria de acessibilidade, ronda 2).
 function criarCelulaEntregaMupi(formato, idNomeFormato) {
-  const escolha = entregaEfetivaDoFormato(formato, objetivoAtivo);
+  const escolha = entregaEfetivaDoFormato(formatoDaVagaAtiva(formato), objetivoAtivo);
   return `
     <div class="grupo-entrega-mupi" data-id="${formato.id}" role="radiogroup" aria-labelledby="${idNomeFormato}">
       <label class="opcao-entrega-mupi">
@@ -1453,7 +1476,7 @@ function criarCelulaEntregaMupi(formato, idNomeFormato) {
 // TODAS as linhas de TV/Rádio/OOH soariam exatamente iguais a quem usa
 // leitor de ecrã. O valor tem aria-live para anunciar a mudança ao clicar.
 function criarCelulaTemas(formato, nomeFormatoTexto) {
-  const contagem = contagemTemasDoFormato(formato, objetivoAtivo);
+  const contagem = contagemTemasDoFormato(formatoDaVagaAtiva(formato), objetivoAtivo);
   return `
     <div class="grupo-temas" data-id="${formato.id}">
       <button type="button" class="botao-tema-menos" data-id="${formato.id}" aria-label="${formatar("temasDiminuir", { formato: nomeFormatoTexto })}" ${contagem <= 1 ? "disabled" : ""}>−</button>
@@ -1651,7 +1674,7 @@ function criarLinhaFormato(formato, opcoes) {
   // discreta (cursor "help" + opacidade reduzida) em vez de texto extra —
   // sem isto, a única forma de descobrir a regra era tentar marcar e ver
   // o toast (ver auditoria de acessibilidade, ronda 2).
-  const entregaPendente = formatoEhMupiPapel(formato) && !entregaEfetivaDoFormato(formato, objetivoAtivo);
+  const entregaPendente = formatoEhMupiPapel(formato) && !entregaEfetivaDoFormato(formatoDaVagaAtiva(formato), objetivoAtivo);
   // Tal como o Mupi de papel só pode ser marcado depois de escolhida a
   // entrega, um formato de TV só pode ser marcado depois de escolhido pelo
   // menos um canal — sem isso não há para onde dizer que o spot vai (ver o
@@ -1659,7 +1682,7 @@ function criarLinhaFormato(formato, opcoes) {
   const canalPendente = formatoTemCanal(formato) && !formatoTemAlgumCanalEscolhido(formato, objetivoAtivo);
   const pendente = entregaPendente || canalPendente;
   const colunaCheckbox = opcoes.comCheckbox
-    ? `<td class="coluna-checkbox"><input type="checkbox" class="checkbox-formato${pendente ? " checkbox-formato--pendente" : ""}" data-id="${formato.id}" aria-labelledby="${idNomeFormato}" ${selecoesPorObjetivo[objetivoAtivo].has(formato.id) ? "checked" : ""}></td>`
+    ? `<td class="coluna-checkbox"><input type="checkbox" class="checkbox-formato${pendente ? " checkbox-formato--pendente" : ""}" data-id="${formato.id}" aria-labelledby="${idNomeFormato}" ${selecoesPorObjetivo[objetivoAtivo].has(formatoDaVagaAtiva(formato).id) ? "checked" : ""}></td>`
     : "";
   const colunaGrupoDigital2020 = opcoes.comGrupoDigital2020
     ? `<td><span class="etiqueta-dg2020">${escapeHTML(formato.grupoDigital2020) || "—"}</span></td>`
@@ -1686,10 +1709,10 @@ function criarLinhaFormato(formato, opcoes) {
   // Entrega, que podiam misturar-se com formatos sem esse conceito.
   const colunaSecundagemTv = opcoes.comSecundagemTv ? `<td>${criarColunaSecundagemTv(formato)}</td>` : "";
   const colunaNumFacesOoh = opcoes.comNumOOH
-    ? `<td>${criarCelulaNumOOH(formato, valorNumFacesOoh(formato, objetivoAtivo), "input-num-faces-ooh")}</td>`
+    ? `<td>${criarCelulaNumOOH(formato, valorNumFacesOoh(formatoDaVagaAtiva(formato), objetivoAtivo), "input-num-faces-ooh")}</td>`
     : "";
   const colunaNumCartazesOoh = opcoes.comNumOOH
-    ? `<td>${criarCelulaNumOOH(formato, valorNumCartazesOoh(formato, objetivoAtivo), "input-num-cartazes-ooh")}</td>`
+    ? `<td>${criarCelulaNumOOH(formato, valorNumCartazesOoh(formatoDaVagaAtiva(formato), objetivoAtivo), "input-num-cartazes-ooh")}</td>`
     : "";
 
   if (opcoes.simplificado) {
@@ -2000,13 +2023,13 @@ listaFormatos.addEventListener("click", (evento) => {
 function mudarContagemTemas(botao) {
   const id = Number(botao.dataset.id);
   const formato = todosFormatos.find((f) => f.id === id);
-  const atual = contagemTemasDoFormato(formato, objetivoAtivo);
+  const atual = contagemTemasDoFormato(formatoDaVagaAtiva(formato), objetivoAtivo);
   const delta = botao.classList.contains("botao-tema-mais") ? 1 : -1;
   const novo = Math.max(1, atual + delta);
   if (novo === atual) {
     return;
   }
-  idsDoGrupoFormato(id).forEach((idGrupo) => temasPorObjetivo[objetivoAtivo].set(idGrupo, novo));
+  idsDoGrupoFormato(id).forEach((idGrupo) => temasPorObjetivo[objetivoAtivo].set(idEfetivoDoReal(idGrupo), novo));
   const grupo = botao.closest(".grupo-temas");
   grupo.querySelector(".valor-temas").textContent = novo;
   grupo.querySelector(".botao-tema-menos").disabled = novo <= 1;
@@ -2047,7 +2070,7 @@ listaFormatos.addEventListener("change", (evento) => {
       // entrega (AF ou morada) — sem isso, a linha não sabe o que exportar
       // nessas duas colunas. Reverte a marcação e avisa em vez de deixar
       // seguir em frente sem essa escolha.
-      if (formato && formatoEhMupiPapel(formato) && !entregaEfetivaDoFormato(formato, objetivoAtivo)) {
+      if (formato && formatoEhMupiPapel(formato) && !entregaEfetivaDoFormato(formatoDaVagaAtiva(formato), objetivoAtivo)) {
         alvo.checked = false;
         mostrarNotificacao(t("avisoEscolherEntregaMupi"));
         return;
@@ -2060,9 +2083,9 @@ listaFormatos.addEventListener("change", (evento) => {
         mostrarNotificacao(t(chaveAvisoEscolherCanal(grupoMeioDoFormato(formato))));
         return;
       }
-      idsDoGrupoFormato(id).forEach((idGrupo) => selecoesPorObjetivo[objetivoAtivo].add(idGrupo));
+      idsDoGrupoFormato(id).forEach((idGrupo) => selecoesPorObjetivo[objetivoAtivo].add(idEfetivoDoReal(idGrupo)));
     } else {
-      idsDoGrupoFormato(id).forEach((idGrupo) => selecoesPorObjetivo[objetivoAtivo].delete(idGrupo));
+      idsDoGrupoFormato(id).forEach((idGrupo) => selecoesPorObjetivo[objetivoAtivo].delete(idEfetivoDoReal(idGrupo)));
     }
     atualizarResumoSelecao();
     return;
@@ -2125,7 +2148,8 @@ function mudarCanalTv(checkbox) {
 // listener de "checkbox-formato").
 function mudarEntregaMupi(radio) {
   const id = Number(radio.dataset.id);
-  entregaMupiPorObjetivo[objetivoAtivo].set(id, radio.value);
+  const idEfetivo = idEfetivoDoReal(id);
+  entregaMupiPorObjetivo[objetivoAtivo].set(idEfetivo, radio.value);
   const checkbox = listaFormatos.querySelector(`.checkbox-formato[data-id="${id}"]`);
   // Assim que há uma entrega escolhida, a checkbox deixa de estar
   // "condicionada" — tira a pista visual, quer o formato fique marcado
@@ -2133,8 +2157,8 @@ function mudarEntregaMupi(radio) {
   if (checkbox) {
     checkbox.classList.remove("checkbox-formato--pendente");
   }
-  if (!selecoesPorObjetivo[objetivoAtivo].has(id)) {
-    selecoesPorObjetivo[objetivoAtivo].add(id);
+  if (!selecoesPorObjetivo[objetivoAtivo].has(idEfetivo)) {
+    selecoesPorObjetivo[objetivoAtivo].add(idEfetivo);
     if (checkbox) {
       checkbox.checked = true;
     }
@@ -2178,10 +2202,11 @@ function mudarNumOoh(input) {
   const mapa = input.classList.contains("input-num-faces-ooh") ? numFacesOohPorObjetivo : numCartazesOohPorObjetivo;
   const valor = input.value.trim();
   idsDoGrupoFormato(id).forEach((idGrupo) => {
+    const idGrupoEfetivo = idEfetivoDoReal(idGrupo);
     if (valor === "") {
-      mapa[objetivoAtivo].delete(idGrupo);
+      mapa[objetivoAtivo].delete(idGrupoEfetivo);
     } else {
-      mapa[objetivoAtivo].set(idGrupo, valor);
+      mapa[objetivoAtivo].set(idGrupoEfetivo, valor);
     }
   });
   atualizarResumoSelecao();
@@ -2261,15 +2286,15 @@ botoesObjetivo.forEach((botao) => {
   botao.addEventListener("click", () => {
     objetivoAtivo = botao.dataset.objetivo;
     atualizarBotoesObjetivo();
-    sincronizarCheckboxesComObjetivoAtivo();
+    sincronizarListaComEstadoAtivo();
     atualizarResumoSelecao();
   });
 });
 
-// Seletor de Vaga (TV/Rádio) — só visível com numeroVagasPedido > 1 (ver
-// campoNumeroVagas), em tudo igual ao seletor de Objetivo acima: mostra um
-// botão por vaga, marca a ativa, e troca o conteúdo das 3 colunas de TV/
-// Rádio (ver sincronizarComVagaAtiva) ao clicar noutra.
+// Seletor de Vaga — geral, não só TV/Rádio (ver campoNumeroVagas) — só
+// visível com numeroVagasPedido > 1, em tudo igual ao seletor de Objetivo
+// acima: mostra um botão por vaga, marca a ativa, e troca todo o estado
+// do construtor (ver sincronizarListaComEstadoAtivo) ao clicar noutra.
 function renderizarBotoesVaga() {
   if (numeroVagasPedido <= 1) {
     seletorVaga.hidden = true;
@@ -2289,20 +2314,6 @@ function renderizarBotoesVaga() {
     .join("");
 }
 
-// Reconstrói as 3 colunas de TV/Rádio de todos os formatos para refletirem
-// a vaga ativa — chamado ao trocar de vaga (ver areaVagasBotoes abaixo) e
-// ao mudar numeroVagasPedido (ver campoNumeroVagas), tal como
-// sincronizarCheckboxesComObjetivoAtivo já faz ao trocar de objetivo.
-function sincronizarComVagaAtiva() {
-  listaFormatos.querySelectorAll(".coluna-canais-tv-raiz").forEach((raiz) => {
-    const id = Number(raiz.dataset.id);
-    const formato = todosFormatos.find((f) => f.id === id);
-    if (formato) {
-      atualizarColunasTv(formato);
-    }
-  });
-}
-
 areaVagasBotoes.addEventListener("click", (evento) => {
   const botao = evento.target.closest(".vaga-botao");
   if (!botao) {
@@ -2310,26 +2321,41 @@ areaVagasBotoes.addEventListener("click", (evento) => {
   }
   vagaAtiva = botao.dataset.vaga;
   renderizarBotoesVaga();
-  sincronizarComVagaAtiva();
+  sincronizarListaComEstadoAtivo();
+  atualizarResumoSelecao();
 });
 
 // Verdadeiro se alguma vaga no intervalo [deVaga, ateVaga] (inclusive) já
-// tem algum canal escolhido nalgum formato/objetivo — usado só para decidir
-// se vale a pena pedir confirmação antes de diminuir o nº de vagas (ver
+// tem algum formato selecionado nalgum objetivo, ou (para TV/Rádio, que
+// pede o canal antes de confirmar a checkbox — ver mudarCanalTv) algum
+// canal escolhido ainda sem confirmar — usado só para decidir se vale a
+// pena pedir confirmação antes de diminuir o nº de vagas (ver
 // campoNumeroVagas), não para desenhar nada.
-function existemCanaisEmVagas(deVaga, ateVaga) {
-  return OBJETIVOS.some((objetivo) => todosFormatos.some((formato) => {
-    if (!formatoTemCanal(formato)) {
-      return false;
-    }
-    for (let numeroVaga = deVaga; numeroVaga <= ateVaga; numeroVaga += 1) {
-      const idComposto = chaveFormatoVaga(formato.id, String(numeroVaga));
-      if ((canaisTvPorObjetivo[objetivo].get(idComposto) || new Set()).size > 0) {
-        return true;
+function existemDadosEmVagas(deVaga, ateVaga) {
+  const vagasAlvo = [];
+  for (let numeroVaga = deVaga; numeroVaga <= ateVaga; numeroVaga += 1) {
+    vagasAlvo.push(String(numeroVaga));
+  }
+  return OBJETIVOS.some((objetivo) => {
+    let temSelecao = false;
+    selecoesPorObjetivo[objetivo].forEach((idEfetivo) => {
+      if (vagasAlvo.includes(idVagaDoId(idEfetivo))) {
+        temSelecao = true;
       }
+    });
+    if (temSelecao) {
+      return true;
     }
-    return false;
-  }));
+    return todosFormatos.some((formato) => {
+      if (!formatoTemCanal(formato)) {
+        return false;
+      }
+      return vagasAlvo.some((numeroVaga) => {
+        const idComposto = chaveFormatoVaga(formato.id, numeroVaga);
+        return (canaisTvPorObjetivo[objetivo].get(idComposto) || new Set()).size > 0;
+      });
+    });
+  });
 }
 
 // O nº de vagas só muda ao sair do campo (evento "change"), nunca a cada
@@ -2341,7 +2367,7 @@ campoNumeroVagas.addEventListener("change", async () => {
   if (novo === numeroVagasPedido) {
     return;
   }
-  if (novo < numeroVagasPedido && existemCanaisEmVagas(novo + 1, numeroVagasPedido) && !(await confirmarAcao(t("avisoDiminuirVagas")))) {
+  if (novo < numeroVagasPedido && existemDadosEmVagas(novo + 1, numeroVagasPedido) && !(await confirmarAcao(t("avisoDiminuirVagas")))) {
     campoNumeroVagas.value = numeroVagasPedido;
     return;
   }
@@ -2350,21 +2376,30 @@ campoNumeroVagas.addEventListener("change", async () => {
     vagaAtiva = String(numeroVagasPedido);
   }
   renderizarBotoesVaga();
-  sincronizarComVagaAtiva();
+  sincronizarListaComEstadoAtivo();
   atualizarResumoSelecao();
 });
 
-function sincronizarCheckboxesComObjetivoAtivo() {
-  const selecaoAtiva = selecoesPorObjetivo[objetivoAtivo];
+// Repõe na interface o estado certo para a combinação (Objetivo ativo ×
+// Vaga ativa) do momento — chamada ao trocar de qualquer um dos dois, nunca
+// só ao trocar de Objetivo: a Vaga é geral (ver campoNumeroVagas), não só
+// de TV/Rádio, por isso a seleção de formatos e todos os campos abaixo
+// (nº de temas, entrega do Mupi, Nº de Faces/Cartazes OOH, Canal/
+// Secundagem/Temas de TV) têm de ser recalculados nas duas trocas.
+function sincronizarListaComEstadoAtivo() {
   listaFormatos.querySelectorAll(".checkbox-formato").forEach((checkbox) => {
     const id = Number(checkbox.dataset.id);
-    checkbox.checked = selecaoAtiva.has(id);
-    // A escolha de entrega dos Mupis papel é por objetivo (tal como a
-    // duração) — a pista visual de "condicionada" tem de ser recalculada
-    // ao trocar de objetivo, não só na criação da linha.
     const formato = todosFormatos.find((f) => f.id === id);
-    const pendente = formato && (
-      (formatoEhMupiPapel(formato) && !entregaEfetivaDoFormato(formato, objetivoAtivo)) ||
+    if (!formato) {
+      return;
+    }
+    const formatoAtivo = formatoDaVagaAtiva(formato);
+    checkbox.checked = selecoesPorObjetivo[objetivoAtivo].has(formatoAtivo.id);
+    // A escolha de entrega dos Mupis papel é por objetivo/vaga (tal como a
+    // duração) — a pista visual de "condicionada" tem de ser recalculada
+    // ao trocar, não só na criação da linha.
+    const pendente = (
+      (formatoEhMupiPapel(formato) && !entregaEfetivaDoFormato(formatoAtivo, objetivoAtivo)) ||
       (formatoTemCanal(formato) && !formatoTemAlgumCanalEscolhido(formato, objetivoAtivo))
     );
     checkbox.classList.toggle("checkbox-formato--pendente", pendente);
@@ -2379,7 +2414,7 @@ function sincronizarCheckboxesComObjetivoAtivo() {
   listaFormatos.querySelectorAll(".grupo-entrega-mupi").forEach((grupo) => {
     const id = Number(grupo.dataset.id);
     const formato = todosFormatos.find((f) => f.id === id);
-    const escolha = entregaEfetivaDoFormato(formato, objetivoAtivo);
+    const escolha = formato ? entregaEfetivaDoFormato(formatoDaVagaAtiva(formato), objetivoAtivo) : null;
     grupo.querySelectorAll(".radio-entrega-mupi").forEach((radio) => {
       radio.checked = radio.value === escolha;
     });
@@ -2388,18 +2423,14 @@ function sincronizarCheckboxesComObjetivoAtivo() {
   listaFormatos.querySelectorAll(".grupo-temas").forEach((grupo) => {
     const id = Number(grupo.dataset.id);
     const formato = todosFormatos.find((f) => f.id === id);
-    const contagem = contagemTemasDoFormato(formato, objetivoAtivo);
+    const contagem = formato ? contagemTemasDoFormato(formatoDaVagaAtiva(formato), objetivoAtivo) : 1;
     grupo.querySelector(".valor-temas").textContent = contagem;
     grupo.querySelector(".botao-tema-menos").disabled = contagem <= 1;
   });
 
-  // Canais e grelha de temas de TV são por objetivo, tal como a duração —
-  // a grelha é sempre reconstruída do zero (não só os números), porque o
-  // próprio conjunto de canais/secundagens pode ser diferente de objetivo
-  // para objetivo.
-  // Reconstrói as 3 colunas (Canal/Secundagem/Temas) por inteiro — o
-  // conjunto de canais/secundagens pode ser diferente de objetivo para
-  // objetivo (tal como o resto do estado de TV/Rádio).
+  // Canais e grelha de temas de TV são por objetivo/vaga, tal como a
+  // duração — a grelha é sempre reconstruída do zero (não só os números),
+  // porque o próprio conjunto de canais/secundagens pode ser diferente.
   listaFormatos.querySelectorAll(".coluna-canais-tv-raiz").forEach((raiz) => {
     const id = Number(raiz.dataset.id);
     const formato = todosFormatos.find((f) => f.id === id);
@@ -2408,15 +2439,17 @@ function sincronizarCheckboxesComObjetivoAtivo() {
     }
   });
 
-  // Nº de Faces / Nº de cartazes a entregar (OOH) são por objetivo, tal
-  // como os restantes campos acima.
+  // Nº de Faces / Nº de cartazes a entregar (OOH) são por objetivo/vaga,
+  // tal como os restantes campos acima.
   listaFormatos.querySelectorAll(".input-num-faces-ooh").forEach((input) => {
     const id = Number(input.dataset.id);
-    input.value = numFacesOohPorObjetivo[objetivoAtivo].get(id) || "";
+    const formato = todosFormatos.find((f) => f.id === id);
+    input.value = (formato && valorNumFacesOoh(formatoDaVagaAtiva(formato), objetivoAtivo)) || "";
   });
   listaFormatos.querySelectorAll(".input-num-cartazes-ooh").forEach((input) => {
     const id = Number(input.dataset.id);
-    input.value = numCartazesOohPorObjetivo[objetivoAtivo].get(id) || "";
+    const formato = todosFormatos.find((f) => f.id === id);
+    input.value = (formato && valorNumCartazesOoh(formatoDaVagaAtiva(formato), objetivoAtivo)) || "";
   });
 }
 
@@ -2438,7 +2471,7 @@ botaoSelecionarTodos.addEventListener("click", () => {
     }
     const id = Number(checkbox.dataset.id);
     const formato = todosFormatos.find((f) => f.id === id);
-    if (formato && formatoEhMupiPapel(formato) && !entregaEfetivaDoFormato(formato, objetivoAtivo)) {
+    if (formato && formatoEhMupiPapel(formato) && !entregaEfetivaDoFormato(formatoDaVagaAtiva(formato), objetivoAtivo)) {
       mupisPorEscolher += 1;
       return;
     }
@@ -2448,7 +2481,7 @@ botaoSelecionarTodos.addEventListener("click", () => {
       return;
     }
     checkbox.checked = true;
-    idsDoGrupoFormato(id).forEach((idGrupo) => selecaoAtiva.add(idGrupo));
+    idsDoGrupoFormato(id).forEach((idGrupo) => selecaoAtiva.add(idEfetivoDoReal(idGrupo)));
   });
   if (mupisPorEscolher > 0) {
     mostrarNotificacao(formatar("avisoMupisSaltadosSelecionarTodos", { n: mupisPorEscolher }));
@@ -2529,14 +2562,23 @@ botaoLimparSelecao.addEventListener("click", async () => {
   atualizarResumoSelecao();
 });
 
+// Total em TODO o pedido (todas as vagas juntas) — usado só para decidir
+// se o botão de exportar/limpar seleção fica ativo (a exportação inclui
+// sempre o pedido inteiro, nunca só a vaga ativa — ver escreverFolhaMeio).
 function totalFormatosSelecionados() {
   return OBJETIVOS.reduce((total, objetivo) => total + selecoesPorObjetivo[objetivo].size, 0);
+}
+
+// Total só NA VAGA ATIVA — usado para tudo o que é "o que estou a ver/
+// preencher agora" (contagens junto ao Objetivo, resumo da seleção).
+function totalFormatosSelecionadosNaVagaAtiva() {
+  return OBJETIVOS.reduce((total, objetivo) => total + idsSelecionadosNaVagaAtiva(objetivo).length, 0);
 }
 
 function atualizarContagensObjetivo() {
   document.querySelectorAll(".objetivo-contagem").forEach((etiqueta) => {
     const objetivo = etiqueta.dataset.contagem;
-    const n = selecoesPorObjetivo[objetivo].size;
+    const n = idsSelecionadosNaVagaAtiva(objetivo).length;
     etiqueta.textContent = n > 0 ? `(${n})` : "";
   });
 }
@@ -2544,26 +2586,34 @@ function atualizarContagensObjetivo() {
 function atualizarResumoSelecao() {
   atualizarContagensObjetivo();
 
-  const total = totalFormatosSelecionados();
-
   // A Companhia é obrigatória porque é ela que decide qual o template
   // (cor + logótipo) a usar no Excel — sem ela escolhida, não há como
-  // saber qual gerar, por isso o botão de exportar fica bloqueado.
-  botaoExportar.disabled = total === 0 || campoCompanhia.value === "";
-  botaoLimparSelecao.disabled = total === 0;
+  // saber qual gerar, por isso o botão de exportar fica bloqueado. Os dois
+  // botões olham ao pedido INTEIRO (todas as vagas), não só à ativa — ver
+  // totalFormatosSelecionados.
+  const totalGeral = totalFormatosSelecionados();
+  botaoExportar.disabled = totalGeral === 0 || campoCompanhia.value === "";
+  botaoLimparSelecao.disabled = totalGeral === 0;
   guardarEstadoLocal();
 
+  // O resumo em si (título + lista) só mostra a VAGA ATIVA — tal como o
+  // Objetivo, trocar de vaga troca o que aparece aqui, para o resumo
+  // refletir sempre o que se está a preencher neste momento, não o pedido
+  // inteiro de uma vez.
+  const total = totalFormatosSelecionadosNaVagaAtiva();
   if (total === 0) {
     resumoSelecao.innerHTML = "";
     return;
   }
 
   const grupos = OBJETIVOS
-    .filter((objetivo) => selecoesPorObjetivo[objetivo].size > 0)
+    .filter((objetivo) => idsSelecionadosNaVagaAtiva(objetivo).length > 0)
     .map((objetivo) => {
-      const formatosDoObjetivo = todosFormatos.filter((f) => selecoesPorObjetivo[objetivo].has(f.id));
+      const idsAtivos = new Set(idsSelecionadosNaVagaAtiva(objetivo));
+      const formatosDoObjetivo = todosFormatos.filter((f) => idsAtivos.has(f.id));
       const itensObjetivo = formatosDoObjetivo
         .flatMap((f) => {
+          const formatoAtivo = formatoDaVagaAtiva(f);
           // Tal como nas tabelas, o Grupo Digital2020 só existe para meios
           // digitais — um formato offline (OOH, ...) não mostra a etiqueta.
           const etiqueta = grupoMeioDoFormato(f) === "Digital"
@@ -2577,33 +2627,22 @@ function atualizarResumoSelecao() {
           // Nº de temas (TV/Rádio/OOH) e escolha de entrega (Mupi papel) —
           // mostrados aqui para o resumo refletir sempre o que vai sair no
           // Excel (ver escreverSeccaoObjetivo/COLUNAS_EXCEL_DISPONIVEIS).
-          const numeroTemas = MEIOS_COM_TEMA.has(grupoMeioDoFormato(f)) ? contagemTemasDoFormato(f, objetivo) : 1;
+          const numeroTemas = MEIOS_COM_TEMA.has(grupoMeioDoFormato(f)) ? contagemTemasDoFormato(formatoAtivo, objetivo) : 1;
           const etiquetaTemas = numeroTemas > 1 ? ` — ${formatar("resumoNumeroTemas", { n: numeroTemas })}` : "";
-          const escolhaEntrega = formatoEhMupiPapel(f) ? entregaEfetivaDoFormato(f, objetivo) : null;
+          const escolhaEntrega = formatoEhMupiPapel(f) ? entregaEfetivaDoFormato(formatoAtivo, objetivo) : null;
           const etiquetaEntrega = escolhaEntrega ? ` — ${t(escolhaEntrega === "af" ? "colEntregaAF" : "colEntregaMorada")}` : "";
           // TV tem canal × secundagem, cada combinação com o seu próprio
           // número de temas — uma linha de resumo por combinação (mesma
           // lógica da exportação para Excel, ver escreverSeccaoObjetivo).
-          // Com mais que 1 vaga (ver numeroVagasPedido), cada vaga é
-          // percorrida à parte, com o seu rótulo à frente — senão o resumo
-          // ficava sempre vazio nesses formatos (o id "simples" nunca tem
-          // canais quando há vagas, ver formatoDaVagaAtiva).
+          // Mostra sempre só a vaga ativa (formatoAtivo), tal como o resto
+          // do resumo — ver comentário acima de "grupos".
           if (formatoTemCanal(f)) {
-            const numerosVaga = numeroVagasPedido > 1
-              ? Array.from({ length: numeroVagasPedido }, (_, indice) => String(indice + 1))
-              : [null];
-            const contextos = numerosVaga.map((numeroVaga) => ({
-              formatoEfetivo: numeroVaga === null ? f : { ...f, id: chaveFormatoVaga(f.id, numeroVaga) },
-              prefixoVaga: numeroVaga === null ? "" : `${formatar("tituloVagaExcel", { n: numeroVaga })} — `,
-            }));
-            return contextos.flatMap(({ formatoEfetivo, prefixoVaga }) => (
-              celulasTemaTvAtivas(formatoEfetivo, objetivo).map(({ canal, duracao }) => {
-                const contagem = contagemTemaTv(formatoEfetivo, objetivo, canal, duracao);
-                const etiquetaTemasTv = contagem > 1 ? ` — ${formatar("resumoNumeroTemas", { n: contagem })}` : "";
-                const rotuloDuracao = duracao ? ` — ${duracao}″` : "";
-                return `<li>${prefixoVaga}${nomeFormato} — ${canal}${rotuloDuracao}${etiquetaTemasTv}</li>`;
-              })
-            ));
+            return celulasTemaTvAtivas(formatoAtivo, objetivo).map(({ canal, duracao }) => {
+              const contagem = contagemTemaTv(formatoAtivo, objetivo, canal, duracao);
+              const etiquetaTemasTv = contagem > 1 ? ` — ${formatar("resumoNumeroTemas", { n: contagem })}` : "";
+              const rotuloDuracao = duracao ? ` — ${duracao}″` : "";
+              return `<li>${nomeFormato} — ${canal}${rotuloDuracao}${etiquetaTemasTv}</li>`;
+            });
           }
           // Os restantes meios nunca têm duração (só TV/Rádio têm — e já
           // voltaram acima, no ramo de formatoTemCanal).
@@ -3007,7 +3046,7 @@ function ajustarLargurasAoConteudo(folha, colunasChaves, largurasConteudo) {
 // próxima linha livre (já com uma linha em branco a separar da secção
 // seguinte). colunasChaves é a lista de colunas desta folha (ver
 // COLUNAS_POR_MEIO_EXCEL), sempre precedida pela coluna fixa "#".
-function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSeccao, config, objetivo, colunasChaves, grupoMeio, registarLarguraColuna) {
+function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosPorVaga, config, objetivo, colunasChaves, grupoMeio, registarLarguraColuna) {
   let linha = linhaInicio;
   const numColunas = colunasChaves.length + 1;
 
@@ -3051,46 +3090,41 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
   // se tiver AMBOS (duração e temas), é uma linha por cada combinação das
   // duas (ex.: 2 durações × 3 temas = 6 linhas).
   const gruposLinha = [];
-  formatosDaSeccao.forEach((formato) => {
-    // TV/Rádio são um caso à parte: cada canal/estação escolhido ganha o
-    // seu próprio grupo de linhas (com a sua própria secundagem e o seu
-    // próprio número de temas por secundagem — ver
-    // celulasTemaTvAtivas/contagemTemaTv), em vez de uma contagem de temas
-    // só, partilhada por todas as durações (como acontece em OOH).
-    if (MEIOS_COM_CANAL.has(grupoMeioDoFormato(formato))) {
-      // Com mais que 1 vaga (ver numeroVagasPedido), cada vaga gera o seu
-      // próprio conjunto de linhas, atrás de uma faixa "Vaga N" (ver
-      // escrita das linhas mais abaixo) — com 1 vaga só, um único
-      // "contexto" implícito, igual ao comportamento de sempre.
-      //
-      // Cada canal fica sempre na SUA PRÓPRIA linha — nunca se juntam vários
-      // canais numa só (mesmo com a mesma secundagem e nº de temas), porque
-      // o nº de temas igual não garante que os temas em si sejam os mesmos
-      // (pedido explícito da Cláudia: dois canais podem ter o mesmo nº de
-      // temas mas temas diferentes entre si).
-      const numerosVaga = numeroVagasPedido > 1
-        ? Array.from({ length: numeroVagasPedido }, (_, indice) => String(indice + 1))
-        : [null];
-      numerosVaga.forEach((numeroVaga) => {
-        const formatoEfetivo = numeroVaga === null ? formato : { ...formato, id: chaveFormatoVaga(formato.id, numeroVaga) };
+  formatosPorVaga.forEach(({ vaga, formatos }) => {
+    formatos.forEach((formato) => {
+      // Vaga geral (ver campoNumeroVagas): cada grupo de linhas lê/escreve
+      // sempre através do id efetivo desta vaga (vazio = sem vaga, bloco
+      // único) — isto faz as colunas que dependem de estado por vaga
+      // (Entrega do Mupi, Nº de Faces/Cartazes OOH, Canal/Secundagem/Temas
+      // de TV) saírem corretas sem COLUNAS_EXCEL_DISPONIVEIS precisar de
+      // saber nada sobre vagas.
+      const formatoEfetivo = vaga ? { ...formato, id: chaveFormatoVaga(formato.id, vaga) } : formato;
+      // TV/Rádio são um caso à parte: cada canal/estação escolhido ganha o
+      // seu próprio grupo de linhas (com a sua própria secundagem e o seu
+      // próprio número de temas por secundagem — ver
+      // celulasTemaTvAtivas/contagemTemaTv), em vez de uma contagem de
+      // temas só, partilhada por todas as durações (como acontece em OOH).
+      // Cada canal fica sempre na SUA PRÓPRIA linha — nunca se juntam
+      // vários canais numa só (mesmo com a mesma secundagem e nº de
+      // temas), porque o nº de temas igual não garante que os temas em si
+      // sejam os mesmos (pedido explícito da Cláudia: dois canais podem
+      // ter o mesmo nº de temas mas temas diferentes entre si).
+      if (MEIOS_COM_CANAL.has(grupoMeioDoFormato(formato))) {
         celulasTemaTvAtivas(formatoEfetivo, objetivo)
           .sort((a, b) => Number(b.duracao || 0) - Number(a.duracao || 0))
           .forEach(({ canal, duracao }) => {
             const contagemTemas = contagemTemaTv(formatoEfetivo, objetivo, canal, duracao || null);
             const temas = contagemTemas > 1 ? Array.from({ length: contagemTemas }, (_, indice) => indice + 1) : [null];
-            gruposLinha.push({ formato, duracao: duracao || null, temas, canal, vaga: numeroVaga || "" });
+            gruposLinha.push({ formato: formatoEfetivo, duracao: duracao || null, temas, canal, vaga });
           });
-      });
-      return;
-    }
-    // Os restantes meios nunca têm duração (só TV/Rádio têm — e esses já
-    // voltaram acima, no ramo de MEIOS_COM_CANAL), por isso é sempre uma
-    // única "duração" nula aqui.
-    const duracoes = [null];
-    const contagemTemas = MEIOS_COM_TEMA.has(grupoMeio) ? contagemTemasDoFormato(formato, objetivo) : 1;
-    const temas = contagemTemas > 1 ? Array.from({ length: contagemTemas }, (_, indice) => indice + 1) : [null];
-    duracoes.forEach((duracao) => {
-      gruposLinha.push({ formato, duracao, temas });
+        return;
+      }
+      // Os restantes meios nunca têm duração (só TV/Rádio têm — e esses já
+      // voltaram acima, no ramo de MEIOS_COM_CANAL), por isso é sempre uma
+      // única "duração" nula aqui.
+      const contagemTemas = MEIOS_COM_TEMA.has(grupoMeio) ? contagemTemasDoFormato(formatoEfetivo, objetivo) : 1;
+      const temas = contagemTemas > 1 ? Array.from({ length: contagemTemas }, (_, indice) => indice + 1) : [null];
+      gruposLinha.push({ formato: formatoEfetivo, duracao: null, temas, vaga });
     });
   });
 
@@ -3202,8 +3236,8 @@ botaoExportar.addEventListener("click", exportarSelecaoParaExcel);
 function formatosSelecionadosDoMeio(grupoMeio) {
   const formatosDoMeio = new Map();
   OBJETIVOS.forEach((objetivo) => {
-    selecoesPorObjetivo[objetivo].forEach((id) => {
-      const formato = todosFormatos.find((f) => f.id === id);
+    selecoesPorObjetivo[objetivo].forEach((idEfetivo) => {
+      const formato = todosFormatos.find((f) => f.id === idFormatoRealDoId(idEfetivo));
       if (formato && grupoMeioDoFormato(formato) === grupoMeio) {
         formatosDoMeio.set(formato.id, formato);
       }
@@ -3444,22 +3478,41 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
     // Canal exibido são comparados sempre em português — este último
     // porque é o mesmo texto que sai impresso nessa coluna, e queremos que
     // a ordem visual bata certo com o texto, seja qual for o idioma ativo.
-    const formatosDoObjetivo = todosFormatos
-      .filter((f) => selecoesPorObjetivo[objetivo].has(f.id) && grupoMeioDoFormato(f) === grupoMeio)
-      .sort((a, b) => {
-        const canalComparado = grupoMeio === "Digital"
-          ? canalExibicaoFormato(a).localeCompare(canalExibicaoFormato(b), "pt")
-          : 0;
-        return (
-          canalComparado ||
-          (a.veiculo || "").localeCompare(b.veiculo || "", "pt") ||
-          (a.formato || "").localeCompare(b.formato || "", "pt")
-        );
-      });
-    if (formatosDoObjetivo.length === 0) {
+    const comparadorFormatos = (a, b) => {
+      const canalComparado = grupoMeio === "Digital"
+        ? canalExibicaoFormato(a).localeCompare(canalExibicaoFormato(b), "pt")
+        : 0;
+      return (
+        canalComparado ||
+        (a.veiculo || "").localeCompare(b.veiculo || "", "pt") ||
+        (a.formato || "").localeCompare(b.formato || "", "pt")
+      );
+    };
+    // A Vaga é geral (ver campoNumeroVagas), não só de TV/Rádio: a própria
+    // seleção de formatos pode ser diferente de vaga para vaga (ver
+    // idsSelecionadosNaVaga), por isso a exportação percorre cada vaga à
+    // parte — cada uma com o seu próprio subconjunto de formatos, dentro
+    // da mesma secção do objetivo (ver "Vaga N" em escreverSeccaoObjetivo).
+    // Com 1 vaga só, há um único "contexto" implícito (vagaOuNula = null),
+    // igual ao comportamento de sempre.
+    const numerosVaga = numeroVagasPedido > 1
+      ? Array.from({ length: numeroVagasPedido }, (_, indice) => String(indice + 1))
+      : [null];
+    const formatosPorVaga = numerosVaga
+      .map((vagaOuNula) => {
+        const idsSelecionados = new Set(idsSelecionadosNaVaga(objetivo, vagaOuNula));
+        return {
+          vaga: vagaOuNula || "",
+          formatos: todosFormatos
+            .filter((f) => grupoMeioDoFormato(f) === grupoMeio && idsSelecionados.has(f.id))
+            .sort(comparadorFormatos),
+        };
+      })
+      .filter(({ formatos }) => formatos.length > 0);
+    if (formatosPorVaga.length === 0) {
       return;
     }
-    linhaAtual = escreverSeccaoObjetivo(folha, linhaAtual, t(CHAVE_TRADUCAO_OBJETIVO[objetivo]), formatosDoObjetivo, config, objetivo, colunasChaves, grupoMeio, registarLarguraColuna);
+    linhaAtual = escreverSeccaoObjetivo(folha, linhaAtual, t(CHAVE_TRADUCAO_OBJETIVO[objetivo]), formatosPorVaga, config, objetivo, colunasChaves, grupoMeio, registarLarguraColuna);
   });
 
   // Uma linha de intervalo extra antes da nota de especificações de TV/
@@ -3589,8 +3642,8 @@ async function exportarSelecaoParaExcel() {
   // com qualquer meio ainda não previsto a aparecer no fim.
   const gruposComSelecao = new Set();
   OBJETIVOS.forEach((objetivo) => {
-    selecoesPorObjetivo[objetivo].forEach((id) => {
-      const formato = todosFormatos.find((f) => f.id === id);
+    selecoesPorObjetivo[objetivo].forEach((idEfetivo) => {
+      const formato = todosFormatos.find((f) => f.id === idFormatoRealDoId(idEfetivo));
       if (formato) {
         gruposComSelecao.add(grupoMeioDoFormato(formato));
       }
@@ -3702,17 +3755,18 @@ function guardarEstadoLocal() {
     const numFacesOoh = {};
     const numCartazesOoh = {};
     // Troca a parte "id do formato" de uma chave composta (duração/canais/
-    // temasGrid — ver chaveFormatoVaga) pela chaveTraducao estável,
-    // preservando o "::camp::<idVaga>" quando existir — sem isto, os
-    // dados de uma vaga (ids compostos, nunca presentes em
-    // selecoesPorObjetivo) nunca passavam no filtro de "formato
-    // selecionado" a seguir, e perdiam-se ao atualizar a página.
+    // temasGrid/entrega/temas/nºFaces/nºCartazes — ver chaveFormatoVaga)
+    // pela chaveTraducao estável, preservando o "::camp::<idVaga>" quando
+    // existir. selecoesPorObjetivo já guarda o id EFETIVO (ver
+    // idEfetivoDoReal), por isso o filtro de "continua selecionado" compara
+    // o id composto inteiro, não só a parte real — comparar só a parte
+    // real marcaria como "selecionado" um valor de QUALQUER vaga assim que
+    // uma delas estivesse selecionada.
     function chavePersistidaComVaga(idOuComposto, objetivo) {
-      const idReal = idFormatoRealDoId(idOuComposto);
-      if (!selecoesPorObjetivo[objetivo].has(idReal)) {
+      if (!selecoesPorObjetivo[objetivo].has(idOuComposto)) {
         return null;
       }
-      const chave = idParaChave.get(idReal);
+      const chave = idParaChave.get(idFormatoRealDoId(idOuComposto));
       if (!chave) {
         return null;
       }
@@ -3720,12 +3774,23 @@ function guardarEstadoLocal() {
       return idVaga === null ? chave : chaveFormatoVaga(chave, idVaga);
     }
     OBJETIVOS.forEach((objetivo) => {
+      // selecoesPorObjetivo já guarda o id EFETIVO (composto quando há
+      // mais que 1 vaga — ver idEfetivoDoReal), por isso usa a mesma
+      // tradução de chave composta que os Maps abaixo, em vez de
+      // idParaChave.get(id) direto (que só reconhece ids simples).
       selecoes[objetivo] = [...selecoesPorObjetivo[objetivo]]
-        .map((id) => idParaChave.get(id))
+        .map((idEfetivo) => {
+          const chave = idParaChave.get(idFormatoRealDoId(idEfetivo));
+          if (!chave) {
+            return null;
+          }
+          const idVaga = idVagaDoId(idEfetivo);
+          return idVaga === null ? chave : chaveFormatoVaga(chave, idVaga);
+        })
         .filter(Boolean);
       // Só guarda durações/entregas/temas de formatos que continuam
-      // selecionados nesse objetivo — um valor "órfão" (de um formato
-      // entretanto desmarcado) não tem interesse em manter.
+      // selecionados nesse objetivo (nessa vaga) — um valor "órfão" (de um
+      // formato entretanto desmarcado) não tem interesse em manter.
       duracoes[objetivo] = {};
       duracoesPorObjetivo[objetivo].forEach((estado, chaveCanal) => {
         // A chave em memória é composta (id do formato + canal — ver
@@ -3743,20 +3808,16 @@ function guardarEstadoLocal() {
       });
       entregasMupi[objetivo] = {};
       entregaMupiPorObjetivo[objetivo].forEach((valor, id) => {
-        if (selecoesPorObjetivo[objetivo].has(id)) {
-          const chave = idParaChave.get(id);
-          if (chave) {
-            entregasMupi[objetivo][chave] = valor;
-          }
+        const chave = chavePersistidaComVaga(id, objetivo);
+        if (chave) {
+          entregasMupi[objetivo][chave] = valor;
         }
       });
       temas[objetivo] = {};
       temasPorObjetivo[objetivo].forEach((contagem, id) => {
-        if (selecoesPorObjetivo[objetivo].has(id)) {
-          const chave = idParaChave.get(id);
-          if (chave) {
-            temas[objetivo][chave] = contagem;
-          }
+        const chave = chavePersistidaComVaga(id, objetivo);
+        if (chave) {
+          temas[objetivo][chave] = contagem;
         }
       });
       canaisTv[objetivo] = {};
@@ -3775,20 +3836,16 @@ function guardarEstadoLocal() {
       });
       numFacesOoh[objetivo] = {};
       numFacesOohPorObjetivo[objetivo].forEach((valor, id) => {
-        if (selecoesPorObjetivo[objetivo].has(id)) {
-          const chave = idParaChave.get(id);
-          if (chave) {
-            numFacesOoh[objetivo][chave] = valor;
-          }
+        const chave = chavePersistidaComVaga(id, objetivo);
+        if (chave) {
+          numFacesOoh[objetivo][chave] = valor;
         }
       });
       numCartazesOoh[objetivo] = {};
       numCartazesOohPorObjetivo[objetivo].forEach((valor, id) => {
-        if (selecoesPorObjetivo[objetivo].has(id)) {
-          const chave = idParaChave.get(id);
-          if (chave) {
-            numCartazesOoh[objetivo][chave] = valor;
-          }
+        const chave = chavePersistidaComVaga(id, objetivo);
+        if (chave) {
+          numCartazesOoh[objetivo][chave] = valor;
         }
       });
     });
@@ -3837,10 +3894,11 @@ function restaurarEstadoLocal() {
   }
   OBJETIVOS.forEach((objetivo) => {
     const chaves = (estadoGuardado.selecoes && estadoGuardado.selecoes[objetivo]) || [];
-    chaves.forEach((chave) => {
-      const id = chaveParaId.get(chave);
+    chaves.forEach((chaveComposta) => {
+      const { chaveReal, idVaga } = idRealEIdVagaDaChave(chaveComposta);
+      const id = chaveParaId.get(chaveReal);
       if (id !== undefined) {
-        selecoesPorObjetivo[objetivo].add(id);
+        selecoesPorObjetivo[objetivo].add(idVaga === null ? id : chaveFormatoVaga(id, idVaga));
       }
     });
 
@@ -3860,18 +3918,20 @@ function restaurarEstadoLocal() {
     });
 
     const entregasGuardadas = (estadoGuardado.entregasMupi && estadoGuardado.entregasMupi[objetivo]) || {};
-    Object.entries(entregasGuardadas).forEach(([chave, valor]) => {
-      const id = chaveParaId.get(chave);
+    Object.entries(entregasGuardadas).forEach(([chaveComposta, valor]) => {
+      const { chaveReal, idVaga } = idRealEIdVagaDaChave(chaveComposta);
+      const id = chaveParaId.get(chaveReal);
       if (id !== undefined && (valor === "af" || valor === "morada")) {
-        entregaMupiPorObjetivo[objetivo].set(id, valor);
+        entregaMupiPorObjetivo[objetivo].set(idVaga === null ? id : chaveFormatoVaga(id, idVaga), valor);
       }
     });
 
     const temasGuardados = (estadoGuardado.temas && estadoGuardado.temas[objetivo]) || {};
-    Object.entries(temasGuardados).forEach(([chave, contagem]) => {
-      const id = chaveParaId.get(chave);
+    Object.entries(temasGuardados).forEach(([chaveComposta, contagem]) => {
+      const { chaveReal, idVaga } = idRealEIdVagaDaChave(chaveComposta);
+      const id = chaveParaId.get(chaveReal);
       if (id !== undefined && Number.isInteger(contagem) && contagem >= 1) {
-        temasPorObjetivo[objetivo].set(id, contagem);
+        temasPorObjetivo[objetivo].set(idVaga === null ? id : chaveFormatoVaga(id, idVaga), contagem);
       }
     });
 
@@ -3904,18 +3964,20 @@ function restaurarEstadoLocal() {
     });
 
     const numFacesGuardados = (estadoGuardado.numFacesOoh && estadoGuardado.numFacesOoh[objetivo]) || {};
-    Object.entries(numFacesGuardados).forEach(([chave, valor]) => {
-      const id = chaveParaId.get(chave);
+    Object.entries(numFacesGuardados).forEach(([chaveComposta, valor]) => {
+      const { chaveReal, idVaga } = idRealEIdVagaDaChave(chaveComposta);
+      const id = chaveParaId.get(chaveReal);
       if (id !== undefined && typeof valor === "string" && valor !== "") {
-        numFacesOohPorObjetivo[objetivo].set(id, valor);
+        numFacesOohPorObjetivo[objetivo].set(idVaga === null ? id : chaveFormatoVaga(id, idVaga), valor);
       }
     });
 
     const numCartazesGuardados = (estadoGuardado.numCartazesOoh && estadoGuardado.numCartazesOoh[objetivo]) || {};
-    Object.entries(numCartazesGuardados).forEach(([chave, valor]) => {
-      const id = chaveParaId.get(chave);
+    Object.entries(numCartazesGuardados).forEach(([chaveComposta, valor]) => {
+      const { chaveReal, idVaga } = idRealEIdVagaDaChave(chaveComposta);
+      const id = chaveParaId.get(chaveReal);
       if (id !== undefined && typeof valor === "string" && valor !== "") {
-        numCartazesOohPorObjetivo[objetivo].set(id, valor);
+        numCartazesOohPorObjetivo[objetivo].set(idVaga === null ? id : chaveFormatoVaga(id, idVaga), valor);
       }
     });
 
@@ -3923,11 +3985,16 @@ function restaurarEstadoLocal() {
     // SD/HD, Publicidade Cinema 2D/3D) passar a ser uma única linha no
     // construtor pode ter só uma das variantes selecionada — alinha com
     // o comportamento atual (ver GRUPOS_FORMATO_VARIANTES): se alguma
-    // delas estava selecionada, todas passam a estar.
+    // delas estava selecionada, todas passam a estar (na mesma vaga).
+    const vagasComSelecao = new Set();
+    selecoesPorObjetivo[objetivo].forEach((idEfetivo) => vagasComSelecao.add(idVagaDoId(idEfetivo)));
     GRUPOS_FORMATO_VARIANTES.forEach((grupo) => {
-      if (grupo.ids.some((id) => selecoesPorObjetivo[objetivo].has(id))) {
-        grupo.ids.forEach((id) => selecoesPorObjetivo[objetivo].add(id));
-      }
+      vagasComSelecao.forEach((idVaga) => {
+        const idsDaVaga = grupo.ids.map((id) => (idVaga === null ? id : chaveFormatoVaga(id, idVaga)));
+        if (idsDaVaga.some((id) => selecoesPorObjetivo[objetivo].has(id))) {
+          idsDaVaga.forEach((id) => selecoesPorObjetivo[objetivo].add(id));
+        }
+      });
     });
   });
 
