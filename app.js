@@ -3098,28 +3098,6 @@ function ajustarLargurasAoConteudo(folha, colunasChaves, largurasConteudo) {
 // próxima linha livre (já com uma linha em branco a separar da secção
 // seguinte). colunasChaves é a lista de colunas desta folha (ver
 // COLUNAS_POR_MEIO_EXCEL), sempre precedida pela coluna fixa "#".
-// Combina, dentro da mesma secundagem, os canais/estações que têm
-// exatamente o mesmo nº de temas numa só lista de linhas com o Canal
-// escrito em conjunto ("RTP, SIC, TVI") — pedido explícito da Cláudia,
-// para não repetir o mesmo plano uma vez por canal quando vários pedem
-// exatamente o mesmo. Canais com secundagem ou nº de temas diferentes
-// NUNCA se juntam — cada um mantém o seu próprio grupo de linhas (ver
-// celulasTemaTvAtivas/contagemTemaTv, sempre por canal).
-function agruparCanaisPorPlanoIgual(formato, objetivo) {
-  const porPlano = new Map();
-  celulasTemaTvAtivas(formato, objetivo).forEach(({ canal, duracao }) => {
-    const contagemTemas = contagemTemaTv(formato, objetivo, canal, duracao || null);
-    const chavePlano = `${duracao || ""}||${contagemTemas}`;
-    let entrada = porPlano.get(chavePlano);
-    if (!entrada) {
-      entrada = { duracao: duracao || null, contagemTemas, canais: [] };
-      porPlano.set(chavePlano, entrada);
-    }
-    entrada.canais.push(canal);
-  });
-  return [...porPlano.values()].sort((a, b) => Number(b.duracao || 0) - Number(a.duracao || 0));
-}
-
 function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSeccao, config, objetivo, colunasChaves, grupoMeio, registarLarguraColuna) {
   let linha = linhaInicio;
   const numColunas = colunasChaves.length + 1;
@@ -3175,15 +3153,24 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosDaSecc
       // gera o seu próprio conjunto de linhas, com o nome da vaga na
       // coluna própria (ver coluna "vaga") — sem nenhuma vaga, só
       // um "contexto" implícito, igual ao comportamento de sempre.
+      //
+      // Cada canal fica sempre na SUA PRÓPRIA linha — nunca se juntam vários
+      // canais numa só (mesmo com a mesma secundagem e nº de temas), porque
+      // o nº de temas igual não garante que os temas em si sejam os mesmos
+      // (pedido explícito da Cláudia: dois canais podem ter o mesmo nº de
+      // temas mas temas diferentes entre si).
       const vagas = vagasDoFormato(formato, objetivo);
       const contextos = vagas.length > 0
         ? vagas.map((vaga) => ({ nomeVaga: vaga.nome, formatoEfetivo: { ...formato, id: chaveFormatoVaga(formato.id, vaga.id) } }))
         : [{ nomeVaga: "", formatoEfetivo: formato }];
       contextos.forEach(({ nomeVaga, formatoEfetivo }) => {
-        agruparCanaisPorPlanoIgual(formatoEfetivo, objetivo).forEach(({ canais, duracao, contagemTemas }) => {
-          const temas = contagemTemas > 1 ? Array.from({ length: contagemTemas }, (_, indice) => indice + 1) : [null];
-          gruposLinha.push({ formato, duracao: duracao || null, temas, canal: canais.join(", "), vaga: nomeVaga });
-        });
+        celulasTemaTvAtivas(formatoEfetivo, objetivo)
+          .sort((a, b) => Number(b.duracao || 0) - Number(a.duracao || 0))
+          .forEach(({ canal, duracao }) => {
+            const contagemTemas = contagemTemaTv(formatoEfetivo, objetivo, canal, duracao || null);
+            const temas = contagemTemas > 1 ? Array.from({ length: contagemTemas }, (_, indice) => indice + 1) : [null];
+            gruposLinha.push({ formato, duracao: duracao || null, temas, canal, vaga: nomeVaga });
+          });
       });
       return;
     }
