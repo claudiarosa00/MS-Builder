@@ -1202,11 +1202,11 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   margin-right: 2px;
 }
 
-/* "Campanha" repetível (TV/Rádio) — pisco + blocos por campanha, ver
+/* "Vaga" repetível (TV/Rádio) — pisco + blocos por vaga, ver
    criarColunaCanaisTv/criarColunaSecundagemTv/criarColunaTemasTv em
    app.js. O pisco e os blocos vivem nas 3 colunas (Canal/Secundagem/
    Temas); só a coluna Canal tem o campo de nome editável + remover. */
-.opcao-mais-campanhas-tv {
+.opcao-mais-vagas-tv {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -1217,32 +1217,32 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   margin-bottom: 6px;
 }
 
-.opcao-mais-campanhas-tv input[type="checkbox"] {
+.opcao-mais-vagas-tv input[type="checkbox"] {
   cursor: pointer;
 }
 
-.coluna-canais-tv-raiz--campanhas .bloco-campanha-tv,
-.coluna-secundagem-tv-raiz--campanhas .bloco-campanha-tv,
-.coluna-temas-tv-raiz--campanhas .bloco-campanha-tv {
+.coluna-canais-tv-raiz--vagas .bloco-vaga-tv,
+.coluna-secundagem-tv-raiz--vagas .bloco-vaga-tv,
+.coluna-temas-tv-raiz--vagas .bloco-vaga-tv {
   padding: 8px 0;
   border-top: 1px solid var(--cor-borda);
 }
 
-.coluna-canais-tv-raiz--campanhas .bloco-campanha-tv:first-of-type,
-.coluna-secundagem-tv-raiz--campanhas .bloco-campanha-tv:first-of-type,
-.coluna-temas-tv-raiz--campanhas .bloco-campanha-tv:first-of-type {
+.coluna-canais-tv-raiz--vagas .bloco-vaga-tv:first-of-type,
+.coluna-secundagem-tv-raiz--vagas .bloco-vaga-tv:first-of-type,
+.coluna-temas-tv-raiz--vagas .bloco-vaga-tv:first-of-type {
   border-top: none;
   padding-top: 0;
 }
 
-.cabecalho-campanha-tv {
+.cabecalho-vaga-tv {
   display: flex;
   align-items: center;
   gap: 6px;
   margin-bottom: 6px;
 }
 
-.input-nome-campanha-tv {
+.input-nome-vaga-tv {
   flex: 1;
   min-width: 0;
   font-family: var(--fonte-base);
@@ -1255,7 +1255,7 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   color: var(--cor-texto);
 }
 
-.botao-remover-campanha-tv {
+.botao-remover-vaga-tv {
   flex-shrink: 0;
   width: 20px;
   height: 20px;
@@ -1268,12 +1268,12 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   font-size: 14px;
 }
 
-.botao-remover-campanha-tv:hover {
+.botao-remover-vaga-tv:hover {
   color: var(--cor-destaque);
   border-color: var(--cor-destaque);
 }
 
-.botao-adicionar-campanha-tv {
+.botao-adicionar-vaga-tv {
   margin-top: 4px;
   font-family: var(--fonte-base);
   font-size: 12.5px;
@@ -1285,7 +1285,7 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   cursor: pointer;
 }
 
-.rotulo-campanha-tv {
+.rotulo-vaga-tv {
   font-size: 12px;
   font-weight: 600;
   color: var(--cor-texto-suave);
