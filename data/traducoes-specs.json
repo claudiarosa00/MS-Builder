@@ -4366,7 +4366,7 @@
       "aspectRatio": "1:1 ou 1.91:1"
     }
   },
-  "DV360|DV360|Prog - Audio Ad": {
+  "Havas Programmatic Hub|DV360|Prog - Audio Ad": {
     "en": {
       "dimensao": "Maximum duration: 30''.",
       "tipoFicheiro": "MP3; accepted alternative: WAV 16-bit 44.1kHz. Audio normalized to -14 dB LUFS integrated; MP3 ≥192kbps; peaks below -1 dB TP to avoid extra distortion when transcoding.",
@@ -4383,7 +4383,7 @@
       "copies": "Nom de l'annonceur : max. 45 caractères."
     }
   },
-  "DV360|YouTube|Prog - YouTube Masthead": {
+  "Havas Programmatic Hub|YouTube|Prog - YouTube Masthead": {
     "en": {
       "dimensao": "Recommended 1920x1080 or higher; autoplay without sound for up to 30 seconds, then a clickable thumbnail",
       "aspectRatio": "16:9",
@@ -4403,7 +4403,7 @@
       "tipoFicheiro": "MP4, MOV (envoyer le lien de la vidéo téléchargée sur la chaîne YouTube)"
     }
   },
-  "DV360|YouTube|Prog - YouTube Select": {
+  "Havas Programmatic Hub|YouTube|Prog - YouTube Select": {
     "en": {
       "dimensao": "Recommended 1920x1080; skippable after 5s; no fixed maximum duration",
       "aspectRatio": "16:9 or 9:16",
@@ -4423,7 +4423,7 @@
       "tipoFicheiro": "MP4, MOV (envoyer le lien de la vidéo téléchargée sur la chaîne YouTube)"
     }
   },
-  "DV360|YouTube|Prog - YouTube VRC Ad Sequence": {
+  "Havas Programmatic Hub|YouTube|Prog - YouTube VRC Ad Sequence": {
     "en": {
       "dimensao": "Recommended 1920x1080; skippable after 5s; no fixed maximum duration",
       "aspectRatio": "16:9 or 9:16",
@@ -4443,7 +4443,7 @@
       "tipoFicheiro": "MP4, MOV (envoyer le lien de la vidéo téléchargée sur la chaîne YouTube)"
     }
   },
-  "DV360|YouTube|Prog - YouTube VRC Non-Skippable": {
+  "Havas Programmatic Hub|YouTube|Prog - YouTube VRC Non-Skippable": {
     "en": {
       "dimensao": "The team chooses the most suitable format(s) from among: BUMPER — recommended 1920x1080, min. 640x360; up to 6 seconds; non-skippable; NON-SKIPPABLE STANDARD — recommended 1920x1080; 7 to 15 seconds; non-skippable; NON-SKIPPABLE 30S — same technical specification as standard, but with 30 seconds duration.",
       "peso": "Hosted on YouTube (no file size limit from Google Ads)",
@@ -4463,7 +4463,7 @@
       "aspectRatio": "16:9 ou 9:16"
     }
   },
-  "DV360|YouTube|Prog - YouTube VVC": {
+  "Havas Programmatic Hub|YouTube|Prog - YouTube VVC": {
     "en": {
       "dimensao": "Recommended 1920x1080; skippable after 5s; no fixed maximum duration",
       "aspectRatio": "16:9 or 9:16",
@@ -4483,7 +4483,7 @@
       "tipoFicheiro": "MP4, MOV (envoyer le lien de la vidéo téléchargée sur la chaîne YouTube)"
     }
   },
-  "DV360|YouTube|Prog - YouTube VRC Efficient Reach": {
+  "Havas Programmatic Hub|YouTube|Prog - YouTube VRC Efficient Reach": {
     "en": {
       "dimensao": "The team chooses the most suitable format(s) from among — Horizontal: 1920x1080 (15s for in-stream skippable/in-feed; 6s for bumper); Vertical: 1080x1920, 6 to 60 seconds (Shorts); Square: 1080x1080, 6 to 60 seconds.",
       "peso": "Hosted on YouTube (no file size limit from Google Ads)",
@@ -4503,7 +4503,7 @@
       "aspectRatio": "16:9 ou 9:16 ou 1:1"
     }
   },
-  "DV360|YouTube|Prog - YouTube VRC Target Frequency": {
+  "Havas Programmatic Hub|YouTube|Prog - YouTube VRC Target Frequency": {
     "en": {
       "dimensao": "The team chooses the most suitable format(s) from among — Horizontal: 1920x1080 (15s for in-stream skippable/in-feed; 6s for bumper); also uses non-skippable in-stream, in-feed and Shorts (specs as per each individual format).",
       "peso": "Hosted on YouTube (no file size limit from Google Ads)",
@@ -5253,7 +5253,7 @@
       "observacoes": "Objectif : Reach. Ciblage disponible : âge (18+) et localisation (pays). Suivi tiers pris en charge (impressions et clics). Landing page : webview standard (HTTPS) ou pages internes TikTok (Branded Hashtag Challenge, Effect, TikTok Shop) — ne prend pas en charge la redirection automatique vers un app store ni un lien depuis TopView vers un LIVE. Musique : même politique que les publicités in-feed reservation standard (Commercial Music Library ou vos propres pistes autorisées). Les commentaires et le téléchargement de la vidéo peuvent être désactivés. Add-ons : seulement ceux disponibles sur les deux emplacements (TopView + Top Feed). Son : toujours activé. Filigrane : vous pouvez demander une vidéo téléchargeable sans filigrane."
     }
   },
-  "DV360|DV360|Prog - Standard Banners": {
+  "Havas Programmatic Hub|DV360|Prog - Standard Banners": {
     "en": {
       "tipoFicheiro": "ZIP with HTML5 and image/script folders, or JPEG/GIF; always include a backup image inside the creative's ZIP.",
       "observacoes": "There is no template for creatives served on Google — always insert Google's clicktag (GWD: inserted in the editor; other tools: place it in the code, see guidelines). Cannot include video (it would become Rich Media, with different specs). Animation: max. 30 seconds. White background: use a border to make the creative stand out. Validation: use the DCM asset validator (all checks must pass)."
@@ -5267,7 +5267,7 @@
       "observacoes": "Il n'y a pas de template pour les créations servies sur Google — toujours insérer le clicktag Google (GWD : inséré dans l'éditeur ; autres outils : à placer dans le code, voir les consignes). Ne peut pas contenir de vidéo (deviendrait Rich Media, avec des spécifications différentes). Animation : max. 30 secondes. Fond blanc : utiliser une bordure pour faire ressortir la création. Validation : utiliser le validateur d'assets DCM (tous les points doivent être OK)."
     }
   },
-  "DV360|DV360|Prog - Pre-Roll": {
+  "Havas Programmatic Hub|DV360|Prog - Pre-Roll": {
     "en": {
       "dimensao": "Recommended length: 15''. Maximum length: 30'' — videos longer than 30'' get a skip ad.",
       "peso": "10 MB",
@@ -5284,7 +5284,7 @@
       "tipoFicheiro": "Vidéo MP4"
     }
   },
-  "DV360|DV360|Prog - Connected TV": {
+  "Havas Programmatic Hub|DV360|Prog - Connected TV": {
     "en": {
       "dimensao": "Recommended length: 15''. Maximum length: 30'' — videos longer than 30'' get a skip ad.",
       "peso": "10 MB",
@@ -5301,7 +5301,7 @@
       "tipoFicheiro": "Vidéo MP4"
     }
   },
-  "DV360|DV360|Prog - Companion Banner (Audio)": {
+  "Havas Programmatic Hub|DV360|Prog - Companion Banner (Audio)": {
     "en": {
       "dimensao": "640x640px",
       "peso": "200 KB",
@@ -5318,7 +5318,7 @@
       "tipoFicheiro": "JPEG ou PNG"
     }
   },
-  "DV360|YouTube|Prog - Companion Banner (YouTube)": {
+  "Havas Programmatic Hub|YouTube|Prog - Companion Banner (YouTube)": {
     "en": {
       "dimensao": "300x60 (desktop only)",
       "peso": "< 150 KB",
@@ -5335,7 +5335,7 @@
       "tipoFicheiro": "JPG, GIF ou PNG"
     }
   },
-  "DV360|Uber|Prog - Uber Journey Ad": {
+  "Havas Programmatic Hub|Uber|Prog - Uber Journey Ad": {
     "en": {
       "dimensao": "DISPLAY — Request: 975x861, min 1/max 5 images (all with logo and different from each other); Waiting: 420x420 or 314x420, max 1 image; Trip: 1146x393, min 1/max 5 images (all with logo and different from each other). VIDEO (MP4, min height 486px, min width 864px) — Request: 3 to 6 sec; Waiting: 6 to 60 sec; Trip: 6 to 60 sec.",
       "aspectRatio": "1:1 or 3:4 or 16:9 (video)",
@@ -5358,7 +5358,7 @@
       "copies": "DISPLAY — Demande : titre max 25 caractères, corps max 52 caractères ; Attente : titre max 25 caractères, CTA max 15 caractères ; Trajet : titre max 25 caractères, corps max 52 caractères, CTA max 15 caractères. VIDEO — Demande : titre max 25 caractères, corps max 52 caractères ; Attente : titre max 25 caractères, CTA max 15 caractères ; Trajet : titre max 25 caractères, corps max 52 caractères, CTA max 15 caractères. URL — Display : paramétrée, non paramétrée ou Click Tag (disponible uniquement aux phases Attente et Trajet) ; Video : paramétrée, non paramétrée ou Click Tag (toutes les phases)."
     }
   },
-  "DV360|DV360|Prog - Rich Media": {
+  "Havas Programmatic Hub|DV360|Prog - Rich Media": {
     "en": {
       "dimensao": "Specs to be defined"
     },
@@ -5369,7 +5369,7 @@
       "dimensao": "Spécifications à définir"
     }
   },
-  "DV360|DV360|Prog - Outstream": {
+  "Havas Programmatic Hub|DV360|Prog - Outstream": {
     "en": {
       "dimensao": "Dimensions: min. 256px on both the longer and shorter side, except 300x250 and 320x180 (accepted exceptions). Placement: main body of the page only (not sidebar, header or footer).",
       "aspectRatio": "4:3 or 16:9 (horizontal); 3:4 or 9:16 (vertical) — outside these ratios the ad won't serve",
@@ -5389,7 +5389,7 @@
       "tipoFicheiro": "AVI, MOV, MP4, M4V, MPEG, MPG, WEBM ou WMV ; balises VAST uniquement (VPAID non pris en charge) ; audio : sonie recommandée -24 LKFS ±2 LKFS"
     }
   },
-  "DV360|DV360|Prog - Rewarded Video": {
+  "Havas Programmatic Hub|DV360|Prog - Rewarded Video": {
     "en": {
       "dimensao": "Applies to video ads only — the user receives a reward (e.g. in-app currency, power-up) after watching the ad.",
       "peso": "Up to 10 MB",
@@ -9737,7 +9737,7 @@
       "observacoes": "Il est nécessaire de fournir une phrase courte, d'environ 5 secondes, avec une construction proche d'un slogan de marque, destinée à être lue à l'antenne par les animateurs de la radio."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Conversacional": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Conversacional": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -9763,7 +9763,7 @@
       "observacoes": "Chat / conversation simulée. Images nécessaires: 0 (utilise l'avatar du logo). Remplaçable par un asset réel: Avatar du chat (cercle) → photo/icône de la marque 96x96 PNG. Emoji 👋 → icône propre. Specs de l'asset: Avatar optionnel (cercle, 96x96). Bulles de chat générées en CSS. Sans images de fond. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Audiências Game": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Audiências Game": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -9789,7 +9789,7 @@
       "observacoes": "Glisser-déposer des messages vers des audiences. Images nécessaires: 0–3 (icônes d'audience optionnelles). Remplaçable par un asset réel: Emojis des audiences (👥) → icônes de la marque 128x128 PNG transparent. Bacs → couleurs de la marque. Specs de l'asset: Icônes 1:1 PNG transparent 128x128 (optionnel ; sinon emoji). Bacs et cartes générés en CSS. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Scratch": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Scratch": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -9815,7 +9815,7 @@
       "observacoes": "Carte à gratter (scratch-to-reveal). Images nécessaires: 1 image prix/révélation (recommandé). Remplaçable par un asset réel: Couche révélée → image réelle du client 300x300. Emojis ✨🔎 → icônes propres. Specs de l'asset: Image de révélation 300x300 (JPG/PNG). La couche à gratter est en CSS/canvas. L'image en dessous est l'asset du client. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Slider Relevância": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Slider Relevância": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -9841,7 +9841,7 @@
       "observacoes": "Curseur comparatif (pertinent vs générique). Aucune image obligatoire n'est nécessaire. Remplaçable par un asset réel: Icônes/emojis des extrêmes → icônes 96x96 PNG (optionnel). Entièrement CSS. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Catch Sinais": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Catch Sinais": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -9867,7 +9867,7 @@
       "observacoes": "Attraper des objets qui tombent (jeu). Images nécessaires: 0–4 (icônes des objets, optionnel). Remplaçable par un asset réel: Objets qui tombent (emoji) → icônes 96x96 PNG transparent de la marque. Specs de l'asset: Icônes 96x96 PNG transparent (optionnel ; sinon emoji). Physique/positions en JS. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Puzzle Logo": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Puzzle Logo": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -9893,7 +9893,7 @@
       "observacoes": "Puzzle de pièces qui reconstitue le logo. Images nécessaires: 1 logo (obligatoire). Remplaçable par un asset réel: Utilise déjà une image réelle (logo). Fond des pièces → couleur/texture de la marque (optionnel). Specs de l'asset: Logo 240x240 PNG (fond uni ou transparent). L'image est découpée en pièces par CSS. Fournir le logo en haute résolution. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom)."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Ligações": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Ligações": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -9919,7 +9919,7 @@
       "observacoes": "Jeu de mémoire (paires). Images nécessaires: 0–6 (faces des cartes, optionnel). Remplaçable par un asset réel: Faces des cartes (emoji) → images/icônes 128x128 (produits, symboles de la marque). Specs de l'asset: Icônes/faces 128x128 (optionnel ; sinon emoji). Cartes générées en CSS. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Roda Havas": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Roda Havas": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -9945,7 +9945,7 @@
       "observacoes": "Roue de la fortune / stratégie. Aucune image obligatoire n'est nécessaire. Remplaçable par un asset réel: Emojis des segments → icônes 64x64 PNG. Couleurs des segments → palette de la marque. Segments et couleurs en CSS. Emoji par segment. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Hold Ligação": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Hold Ligação": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -9971,7 +9971,7 @@
       "observacoes": "Appui long pour charger. Aucune image obligatoire n'est nécessaire. Remplaçable par un asset réel: Icône centrale (emoji) → icône/logo 96x96 PNG (optionnel). Entièrement CSS/JS. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Swipe Briefing": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Swipe Briefing": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -9997,7 +9997,7 @@
       "observacoes": "Cartes à swiper (clair/vague). Aucune image obligatoire n'est nécessaire. Remplaçable par un asset réel: Illustrations des cartes → images 260x300 (optionnel ; sinon CSS). Cartes en CSS. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Calculadora Contactos": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Calculadora Contactos": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -10023,7 +10023,7 @@
       "observacoes": "Calculatrice interactive. Aucune image obligatoire n'est nécessaire. Remplaçable par un asset réel: Icônes des champs (emoji) → icônes 48x48 PNG (optionnel). Saisies et calcul en JS. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Tap Sinais": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Tap Sinais": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -10049,7 +10049,7 @@
       "observacoes": "Tap rapide sur des cibles. Images nécessaires: 0–4 (icônes cibles, optionnel). Remplaçable par un asset réel: Cibles (emoji) → icônes 96x96 PNG transparent de la marque. Specs de l'asset: Icônes 96x96 PNG (optionnel). Cibles en CSS/JS. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Procura na Estratégia": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Procura na Estratégia": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -10075,7 +10075,7 @@
       "observacoes": "Trouver des objets (recherche visuelle). Aucune image obligatoire n'est nécessaire. Remplaçable par un asset réel: Objets à trouver (emoji) → icônes/mini-images 64x64 PNG. Grille en CSS. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Método Havas": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Método Havas": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -10101,7 +10101,7 @@
       "observacoes": "Simon (séquence de mémoire). Aucune image obligatoire n'est nécessaire. Remplaçable par un asset réel: Pads (couleur) → couleurs de la marque. Icône par pad 64x64 PNG (optionnel). Pads et séquence en JS. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Palavra": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Palavra": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -10127,7 +10127,7 @@
       "observacoes": "Anagramme / ordonner les lettres. Aucune image obligatoire n'est nécessaire. Remplaçable par un asset réel: Icône/indice (emoji) → icône 96x96 PNG (optionnel). Lettres en CSS. Définir le mot-clé de la campagne. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Da Marca à Pessoa": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Da Marca à Pessoa": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -10153,7 +10153,7 @@
       "observacoes": "Parcours animé marque→personne. Images nécessaires: 0–1 (logo au début, optionnel). Remplaçable par un asset réel: Début du parcours → logo 128x128. Fin → photo/icône « personne » 128x128 (optionnel). Specs de l'asset: Logo 128x128 (optionnel). Trajet en CSS. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Slot Havas": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Slot Havas": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -10179,7 +10179,7 @@
       "observacoes": "Machine à sous (3 rouleaux). Images nécessaires: 0–3 (symboles des rouleaux, optionnel). Remplaçable par un asset réel: Symboles des rouleaux (emoji) → 3+ icônes 96x96 PNG transparent (produits/marque). Specs de l'asset: Symboles 96x96 PNG transparent (optionnel ; sinon emoji). Rouleaux et symboles en CSS/emoji. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Verdade/Mito": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Verdade/Mito": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -10205,7 +10205,7 @@
       "observacoes": "Quiz vrai/faux (5 affirmations). Aucune image obligatoire n'est nécessaire. Remplaçable par un asset réel: Icône des cartes (emoji) → icône 96x96 PNG (optionnel). Vert/rouge restent (fonctionnel). Le feu vert/rouge est fonctionnel (à conserver). Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Diferenças": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Diferenças": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -10231,7 +10231,7 @@
       "observacoes": "Trouver les différences. Images nécessaires: 2 images (A et B) — obligatoire si utilisé. Remplaçable par un asset réel: Utilise déjà 2 images réelles. Le client envoie la paire 300x300 (sinon version illustrée). Specs de l'asset: 2 images 300x300 presque identiques (JPG/PNG). Sans images du client, une version illustrée est utilisée. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom)."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Enche o Mapa": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Enche o Mapa": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -10257,7 +10257,7 @@
       "observacoes": "Remplir une barre/carte en tapant. Aucune image obligatoire n'est nécessaire. Remplaçable par un asset réel: Icône/libellé (emoji) → icône 96x96 PNG (optionnel). Barre en CSS. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Configurador": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Configurador": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -10283,7 +10283,7 @@
       "observacoes": "Sélecteur d'options (configurer une sélection). Images nécessaires: 0–6 (icônes des options, optionnel). Remplaçable par un asset réel: Icônes des options (emoji) → icônes 96x96 PNG transparent de la marque. Couleurs par option → palette de la marque. Specs de l'asset: Icônes 96x96 (optionnel ; sinon emoji). Couleurs par option configurables. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Countdown": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Countdown": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -10309,7 +10309,7 @@
       "observacoes": "Compte à rebours vers une date cible. Aucune image obligatoire n'est nécessaire. Remplaçable par un asset réel: Icône/fond (emoji/CSS) → image de fond 300x600 ou icône 96x96 (optionnel). Définir la date cible par campagne (JS). Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Estimativa": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Estimativa": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -10335,7 +10335,7 @@
       "observacoes": "Devine le nombre (curseur). Aucune image obligatoire n'est nécessaire. Remplaçable par un asset réel: Icône de l'énoncé (emoji) → icône 96x96 PNG (optionnel). Curseur en CSS/JS. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Ranking": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Ranking": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -10361,7 +10361,7 @@
       "observacoes": "Classer des priorités (glisser). Aucune image obligatoire n'est nécessaire. Remplaçable par un asset réel: Emojis des éléments (🎯👥…) → icônes 48x48 PNG de la marque (optionnel). Éléments déplaçables en JS. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Carrossel Produtos": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Carrossel Produtos": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
@@ -10387,7 +10387,7 @@
       "observacoes": "Carrousel de produits/cartes. Images nécessaires: 1 par diapositive (3–5 recommandé). Remplaçable par un asset réel: Utilise déjà des images réelles (1 par diapositive). Le client envoie 3–5 images 300x300. Specs de l'asset: Images de produit 300x300 (JPG/PNG), fond neutre. Nombre de diapositives configurable. Le poids additionne toutes les images. Éléments toujours nécessaires, quelle que soit la mécanique : logo en PNG transparent (haute résolution), URL de destination complète (pour le clickTag), textes finaux relus en PT-PT (portugais européen), couleurs de marque en HEX et, le cas échéant, la typographie de marque (.woff2 ou nom). L'envoi des autres assets (icônes/illustrations) est toujours facultatif — sans eux, le placeholder emoji/CSS est utilisé et le format fonctionne quand même."
     }
   },
-  "DV360|DV360|Prog - Displ.AI+ - Parallax": {
+  "Havas Programmatic Hub|DV360|Prog - Displ.AI+ - Parallax": {
     "en": {
       "dimensao": "300x600 px (half-page format, vertical)",
       "aspectRatio": "1:2",
