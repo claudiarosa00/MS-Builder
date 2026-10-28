@@ -2952,7 +2952,7 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
 // técnicas. Todos os meios têm coluna de Tema (ver MEIOS_COM_TEMA).
 const COLUNAS_POR_MEIO_EXCEL = {
   "Digital": ["canal", "plataforma", "formato", "tema", "dataInicioCampanha", "dataEntrega", "dimensao", "aspectRatio", "peso", "tipoFicheiro", "copies", "observacoes", "link"],
-  "OOH": ["plataforma", "formato", "temaCriativo", "dataInicioCampanha", "dataEntrega", "dimensao", "aspectRatio", "numFacesOoh", "numCartazesOoh", "tipoFicheiro", "entregaAF", "entregaMorada", "moradaEntregaMupi", "observacoes"],
+  "OOH": ["plataforma", "formato", "temaCriativo", "dataInicioCampanha", "dataEntrega", "dimensao", "aspectRatio", "peso", "numFacesOoh", "numCartazesOoh", "tipoFicheiro", "entregaAF", "entregaMorada", "moradaEntregaMupi", "observacoes"],
   // Sem "plataforma" (é sempre "TV", já não diz nada de novo agora que há
   // Canal) nem as colunas de specs técnicas (dimensao/aspectRatio/
   // tipoFicheiro/entregaTV/observacoes) — essas são iguais em todos os
