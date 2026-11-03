@@ -873,11 +873,13 @@ const CABECALHOS_BASE_EXCEL = {
   "Copies": "copies",
   "Observações": "observacoes",
   "Link": "link",
-  // Caminho para um PNG com o desenho técnico/medidas do formato (ex.:
-  // assets/especificacoes-ooh/girodmedias-mupi.png) — opcional, só usado
-  // em OOH, para gerar uma sheet extra por formato no Excel exportado
-  // (ver escreverFolhaImagemFormato). Formatos sem esta coluna preenchida
-  // não geram sheet nenhuma.
+  // Caminho(s) para PNG(s) com o desenho técnico/medidas do formato (ex.:
+  // assets/especificacoes-ooh/girodmedias-mupi.png) — opcional, um por
+  // linha se for mais que um (ex.: os "Full Branding" da OLX, que têm
+  // wireframe + exemplos reais), para gerar uma sheet extra por formato
+  // no Excel exportado, em qualquer meio (ver escreverFolhaImagemFormato
+  // /escreverFolhasImagensExtra). Formatos sem esta coluna preenchida não
+  // geram sheet nenhuma.
   "Imagem": "imagemFicheiro",
 };
 
@@ -3232,7 +3234,7 @@ botaoExportar.addEventListener("click", exportarSelecaoParaExcel);
 // Todos os formatos selecionados (nalgum objetivo) de um dado meio, sem
 // repetições — usado sempre que é preciso a lista de formatos realmente
 // pedidos, não a base toda (ver escreverRodapeEspecificacoes e
-// escreverFolhasImagensOOH).
+// escreverFolhasImagensExtra).
 function formatosSelecionadosDoMeio(grupoMeio) {
   const formatosDoMeio = new Map();
   OBJETIVOS.forEach((objetivo) => {
@@ -3559,7 +3561,13 @@ function obterDimensoesPNG(bufferImagem) {
 // depois de cortado (ex.: dois formatos de fornecedores diferentes cujo
 // nome só difere a partir do caracter 31).
 function nomeUnicoParaSheet(nomeDesejado, nomesUsados) {
-  const sanitizado = nomeDesejado.replace(/[\\/?*[\]:]/g, "-").slice(0, 31) || "Especificações";
+  // O trim() depois do corte é importante: sem ele, um nome que só é
+  // igual a outro a partir do caracter 31 (ex.: "Full Branding - Homepage"
+  // vs. "Full Branding - Homepage Exclusivo 1 dia") pode cortar mesmo em
+  // cima de um espaço, dando dois nomes "iguais à vista" mas distintos por
+  // esse espaço final — a comparação abaixo não via colisão nenhuma, e as
+  // duas sheets saíam com o mesmo texto visível.
+  const sanitizado = nomeDesejado.replace(/[\\/?*[\]:]/g, "-").slice(0, 31).trim() || "Especificações";
   let nome = sanitizado;
   let contador = 2;
   while (nomesUsados.has(nome.toLowerCase())) {
@@ -3571,15 +3579,19 @@ function nomeUnicoParaSheet(nomeDesejado, nomesUsados) {
   return nome;
 }
 
+// formato.imagemFicheiro pode trazer mais que um caminho, um por linha
+// (ver coluna "Imagem" da base) — ex.: os "Full Branding" da OLX, que
+// têm um wireframe + vários exemplos reais, em vez de um único desenho
+// técnico (caso mais comum, ex.: OOH). Cada imagem é desenhada a seguir
+// à anterior na mesma sheet.
 async function escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados) {
-  const respostaImagem = await fetch(formato.imagemFicheiro, { cache: "no-store" });
-  if (!respostaImagem.ok) {
-    // Referenciada na base mas o ficheiro não existe/não carrega — não
-    // bloqueia o resto da exportação, só esta sheet fica por fazer.
+  const caminhosImagem = (formato.imagemFicheiro || "")
+    .split("\n")
+    .map((caminho) => caminho.trim())
+    .filter(Boolean);
+  if (caminhosImagem.length === 0) {
     return;
   }
-  const bufferImagem = await respostaImagem.arrayBuffer();
-  const { largura: larguraNatural, altura: alturaNatural } = obterDimensoesPNG(bufferImagem);
 
   const nomeFormatoTexto = textoTraduzido(formato, "formato") ?? formato.formato ?? "";
   const folha = workbook.addWorksheet(nomeUnicoParaSheet(`${formato.fornecedor} — ${nomeFormatoTexto}`, nomesSheetUsados));
@@ -3590,22 +3602,33 @@ async function escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados) {
   celulaTitulo.value = `${formato.fornecedor} — ${nomeFormatoTexto}`;
   celulaTitulo.font = { name: "Arial Nova", size: 14, bold: true, color: { argb: "FF0F1724" } };
 
-  // A imagem nunca sai maior que isto (mas pode sair mais pequena, se já
+  // Nenhuma imagem sai maior que isto (mas pode sair mais pequena, se já
   // vier assim) — um desenho técnico em alta resolução não tem de ocupar
   // o ecrã todo para as medidas continuarem legíveis.
   const LADO_MAXIMO_IMAGEM = 700;
-  const escala = Math.min(LADO_MAXIMO_IMAGEM / larguraNatural, LADO_MAXIMO_IMAGEM / alturaNatural, 1);
-  const larguraFinal = Math.round(larguraNatural * escala);
-  const alturaFinal = Math.round(alturaNatural * escala);
-  const idImagem = workbook.addImage({ buffer: bufferImagem, extension: "png" });
-  const linhaImagem = 4;
-  folha.addImage(idImagem, { tl: { col: 1, row: linhaImagem - 1 }, ext: { width: larguraFinal, height: alturaFinal } });
+  let linhaAtual = 4;
+  for (const caminhoImagem of caminhosImagem) {
+    const respostaImagem = await fetch(caminhoImagem, { cache: "no-store" });
+    if (!respostaImagem.ok) {
+      // Referenciada na base mas o ficheiro não existe/não carrega — não
+      // bloqueia o resto da exportação, só esta imagem fica por fazer.
+      continue;
+    }
+    const bufferImagem = await respostaImagem.arrayBuffer();
+    const { largura: larguraNatural, altura: alturaNatural } = obterDimensoesPNG(bufferImagem);
+    const escala = Math.min(LADO_MAXIMO_IMAGEM / larguraNatural, LADO_MAXIMO_IMAGEM / alturaNatural, 1);
+    const larguraFinal = Math.round(larguraNatural * escala);
+    const alturaFinal = Math.round(alturaNatural * escala);
+    const idImagem = workbook.addImage({ buffer: bufferImagem, extension: "png" });
+    folha.addImage(idImagem, { tl: { col: 1, row: linhaAtual - 1 }, ext: { width: larguraFinal, height: alturaFinal } });
 
-  // Linha das medidas começa a seguir à imagem — a altura de linha por
-  // omissão do Excel ronda os 20px, por isso esta conta é só uma
-  // aproximação (overshoot é inofensivo, só deixa uma margem extra).
-  const linhaMedidas = linhaImagem + Math.ceil(alturaFinal / 20) + 2;
-  const celulaMedidas = folha.getCell(linhaMedidas, 2);
+    // Imagem seguinte começa a seguir a esta — a altura de linha por
+    // omissão do Excel ronda os 20px, por isso esta conta é só uma
+    // aproximação (overshoot é inofensivo, só deixa uma margem extra).
+    linhaAtual += Math.ceil(alturaFinal / 20) + 2;
+  }
+
+  const celulaMedidas = folha.getCell(linhaAtual, 2);
   celulaMedidas.value = {
     richText: [
       { font: { name: "Arial Nova", size: 10, bold: true }, text: `${t("colDimensao")}: ` },
@@ -3615,9 +3638,14 @@ async function escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados) {
   celulaMedidas.alignment = { wrapText: true, vertical: "top" };
 }
 
-async function escreverFolhasImagensOOH(workbook) {
+// Sheets extra com a(s) imagem(ns)/medidas de cada formato selecionado de
+// um dado meio que tenha pelo menos uma (coluna "Imagem" da base) — não é
+// exclusivo da OOH (caso mais comum, um desenho técnico por formato): a
+// OLX, por ex., usa isto no Digital para anexar wireframe + exemplos
+// reais dos formatos "Full Branding".
+async function escreverFolhasImagensExtra(workbook, grupoMeio) {
   const nomesSheetUsados = new Set(workbook.worksheets.map((folha) => folha.name.toLowerCase()));
-  const formatosComImagem = formatosSelecionadosDoMeio("OOH")
+  const formatosComImagem = formatosSelecionadosDoMeio(grupoMeio)
     .filter((formato) => formato.imagemFicheiro)
     .sort((a, b) => (textoTraduzido(a, "formato") ?? "").localeCompare(textoTraduzido(b, "formato") ?? "", "pt"));
   for (const formato of formatosComImagem) {
@@ -3658,13 +3686,10 @@ async function exportarSelecaoParaExcel() {
 
   for (const grupoMeio of gruposOrdenados) {
     await escreverFolhaMeio(workbook, config, companhia, cliente, campanha, grupoMeio);
-  }
-
-  // Sheets extra com a imagem/medidas de cada formato de OOH selecionado
-  // que tenha uma (ver escreverFolhasImagensOOH) — depois da folha normal
-  // de OOH, nunca antes.
-  if (gruposOrdenados.includes("OOH")) {
-    await escreverFolhasImagensOOH(workbook);
+    // Sheets extra com a(s) imagem(ns)/medidas de cada formato deste meio
+    // que tenha pelo menos uma (ver escreverFolhasImagensExtra) — sempre
+    // logo a seguir à folha normal do respetivo meio, nunca antes.
+    await escreverFolhasImagensExtra(workbook, grupoMeio);
   }
 
   // --- Gerar o ficheiro e fazer o download no browser ---
