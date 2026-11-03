@@ -323,9 +323,13 @@ function filtrarTextoPorPlacementsMeta(formato, objetivo, texto) {
   return texto
     .split("\n")
     .filter((linha) => {
-      const correspondencia = linha.match(/^\s*(Feed|Stories|Reels)\s*:/i);
+      // Duas formas de uma linha marcar o início de um placement: "Feed:
+      // ..." com o resto do conteúdo logo a seguir (Dimensão/Aspect Ratio,
+      // e o Copies do Vídeo/Imagem), ou "Feed" sozinho como cabeçalho de
+      // secção, com o conteúdo nas linhas seguintes (Copies do Carousel).
+      const correspondencia = linha.match(/^\s*(Feed|Stories|Reels)\s*:|^\s*(Feed|Stories|Reels)\s*$/i);
       if (correspondencia) {
-        placementAtual = correspondencia[1].toLowerCase();
+        placementAtual = (correspondencia[1] || correspondencia[2]).toLowerCase();
       }
       return placementAtual === null || selecionados.has(placementAtual);
     })
