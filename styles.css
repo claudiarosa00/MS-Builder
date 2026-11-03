@@ -1176,6 +1176,30 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   cursor: pointer;
 }
 
+/* Checkboxes dos placements do Meta (Feed/Stories/Reels) — mesmo estilo
+   dos canais de TV acima, mais que um pode estar marcado (por omissão,
+   todos). */
+.grupo-placements-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.opcao-placement-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  color: var(--cor-texto);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.opcao-placement-meta input[type="checkbox"] {
+  cursor: pointer;
+}
+
 /* Grelha da coluna Secundagem de TV: uma linha por canal escolhido, com
    o seu próprio seletor de duração (ver .grupo-duracao) — cada canal
    pode ter a sua própria grelha de durações (ex.: TVI a 30"+20", SIC só

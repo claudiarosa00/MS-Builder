@@ -270,6 +270,68 @@ function entregaEfetivaDoFormato(formato, objetivo) {
   return entregaMupiPorObjetivo[objetivo].get(formato.id) || null;
 }
 
+// Facebook e Instagram juntam-se num único suporte "Meta" — pedido
+// explícito da Cláudia, já que as specs (Vídeo/Imagem) são as mesmas em
+// ambos, servidas a partir do mesmo gestor de anúncios. O que varia é o
+// placement dentro do Meta (Feed/Stories/Reels), por isso cada formato
+// Meta ganha um seletor de placements em vez de formatos separados.
+function formatoEhMeta(formato) {
+  return formato.fornecedor === "Meta";
+}
+const PLACEMENTS_META = ["feed", "stories", "reels"];
+const CHAVE_TRADUCAO_PLACEMENT_META = {
+  feed: "placementFeed",
+  stories: "placementStories",
+  reels: "placementReels",
+};
+// Placements escolhidos para este formato, por objetivo — ao contrário
+// dos Canais de TV (Set vazio por omissão, um pré-requisito a cumprir),
+// aqui a omissão conta como "todos" (pedido explícito da Cláudia: "por
+// default vem tudo selecionado") — só guarda uma entrada real a partir da
+// primeira vez que o utilizador desmarca alguma coisa.
+const placementsMetaPorObjetivo = {
+  awareness: new Map(),
+  consideration: new Map(),
+  conversion: new Map(),
+};
+function placementsDoFormato(formato, objetivo) {
+  return placementsMetaPorObjetivo[objetivo].get(formato.id) || new Set(PLACEMENTS_META);
+}
+// Garante uma entrada real (criando-a com todos os placements se for a
+// primeira interação) — só chamar a partir de um evento do utilizador,
+// nunca da renderização (mesma ideia de garantirCanaisFormato).
+function garantirPlacementsFormato(idEfetivo, objetivo) {
+  const mapa = placementsMetaPorObjetivo[objetivo];
+  const estado = mapa.get(idEfetivo) || new Set(PLACEMENTS_META);
+  mapa.set(idEfetivo, estado);
+  return estado;
+}
+// Filtra um texto multi-linha com blocos "Feed: ...", "Stories: ...",
+// "Reels: ..." (ver base de formatos do Meta) para só mostrar os
+// placements ainda selecionados — linhas sem nenhum destes prefixos
+// (informação comum a todos os placements, ex. Peso) saem sempre tal
+// como estão. Só se aplica a formatos Meta; qualquer outro formato devolve
+// o texto inalterado. Usado só na exportação para Excel — a Biblioteca de
+// Formatos e o construtor mostram sempre o texto completo, com todos os
+// placements (pedido explícito da Cláudia).
+function filtrarTextoPorPlacementsMeta(formato, objetivo, texto) {
+  if (!formatoEhMeta(formato) || !texto) {
+    return texto;
+  }
+  const selecionados = placementsDoFormato(formato, objetivo);
+  let placementAtual = null;
+  return texto
+    .split("\n")
+    .filter((linha) => {
+      const correspondencia = linha.match(/^\s*(Feed|Stories|Reels)\s*:/i);
+      if (correspondencia) {
+        placementAtual = correspondencia[1].toLowerCase();
+      }
+      return placementAtual === null || selecionados.has(placementAtual);
+    })
+    .join("\n");
+}
+
 // Morada e horário de entrega dos cartazes já produzidos, por concessionário
 // — texto fornecido pela própria Cláudia, mostrado tal como está (nunca
 // traduzido, tal como um nome próprio ou um endereço). Só sai no Excel
@@ -580,6 +642,10 @@ const TRADUCOES = {
   colMoradaEntrega: { pt: "Morada de Entrega", en: "Delivery Address", es: "Dirección de Entrega", fr: "Adresse de Livraison" },
   avisoEscolherEntregaMupi: { pt: "Escolhe primeiro onde entregar este mupi de papel.", en: "Choose where to deliver this paper mupi first.", es: "Elige primero dónde entregar este mupi de papel.", fr: "Choisis d'abord où livrer ce mupi papier." },
   avisoMupisSaltadosSelecionarTodos: { pt: "{n} mupi(s) de papel ficaram por selecionar — falta escolher onde entregar.", en: "{n} paper mupi(s) were left unselected — delivery choice still missing.", es: "{n} mupi(s) de papel quedaron sin seleccionar — falta elegir dónde entregar.", fr: "{n} mupi(s) papier n'ont pas été sélectionnés — choix de livraison manquant." },
+  colPlacementsMeta: { pt: "Placements", en: "Placements", es: "Placements", fr: "Placements" },
+  placementFeed: { pt: "Feed", en: "Feed", es: "Feed", fr: "Feed" },
+  placementStories: { pt: "Stories", en: "Stories", es: "Stories", fr: "Stories" },
+  placementReels: { pt: "Reels", en: "Reels", es: "Reels", fr: "Reels" },
   colTemasBuilder: { pt: "Temas", en: "Themes", es: "Temas", fr: "Thèmes" },
   temasDiminuir: { pt: "Diminuir número de temas de {formato}", en: "Decrease number of themes for {formato}", es: "Disminuir número de temas de {formato}", fr: "Diminuer le nombre de thèmes de {formato}" },
   temasAumentar: { pt: "Aumentar número de temas de {formato}", en: "Increase number of themes for {formato}", es: "Aumentar número de temas de {formato}", fr: "Augmenter le nombre de thèmes de {formato}" },
@@ -1309,6 +1375,10 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes, idPreci
     comCopies: grupoMeioDoBloco === "Digital",
     comVeiculo: formatosDoPublisher.some((f) => f.veiculo && f.veiculo !== nomePublisher),
     comEntregaMupi: opcoes.simplificado && formatosDoPublisher.some(formatoEhMupiPapel),
+    // Placements do Meta (Feed/Stories/Reels) — só no construtor, tal como
+    // a Entrega do Mupi (é uma escolha do pedido em concreto, não uma
+    // característica fixa da base).
+    comPlacementsMeta: opcoes.simplificado && formatosDoPublisher.some(formatoEhMeta),
     comTemas: opcoes.simplificado && MEIOS_COM_TEMA.has(grupoMeioDoBloco),
     comEntregaTV: grupoMeioDoBloco === "TV",
     // Canais (TV) / Estações (Rádio) só existem no construtor (tal como
@@ -1357,6 +1427,7 @@ function criarCabecalhoTabela(opcoes) {
   const colunaGrupoDigital2020 = opcoes.comGrupoDigital2020 ? `<th scope="col">${t("colGrupoDigital2020")}</th>` : "";
   const colunaVeiculo = opcoes.comVeiculo ? `<th scope="col">${t("colVeiculo")}</th>` : "";
   const colunaEntregaMupi = opcoes.comEntregaMupi ? `<th scope="col">${t("colEntrega")}</th>` : "";
+  const colunaPlacementsMeta = opcoes.comPlacementsMeta ? `<th scope="col">${t("colPlacementsMeta")}</th>` : "";
   const colunaTemas = opcoes.comTemas ? `<th scope="col">${t("colTemasBuilder")}</th>` : "";
   const colunaCopies = opcoes.comCopies ? `<th scope="col">${t("colCopies")}</th>` : "";
   const colunaEntregaTV = opcoes.comEntregaTV ? `<th scope="col">${t("colEntrega")}</th>` : "";
@@ -1377,6 +1448,7 @@ function criarCabecalhoTabela(opcoes) {
         ${colunaVeiculo}
         ${colunaGrupoDigital2020}
         ${colunaEntregaMupi}
+        ${colunaPlacementsMeta}
         ${colunaCanaisTv}
         ${colunaSecundagemTv}
         ${colunaNumFacesOoh}
@@ -1467,6 +1539,25 @@ function criarCelulaEntregaMupi(formato, idNomeFormato) {
       </label>
     </div>
   `;
+}
+
+// Checkboxes dos placements do Meta (Feed/Stories/Reels) — mais que um
+// pode estar marcado (o mesmo critério de "escolher vários" dos Canais de
+// TV), mas ao contrário destes começam todos marcados (ver
+// placementsDoFormato). Só decide o que sai no Excel exportado (ver
+// filtrarTextoPorPlacementsMeta) — a checkbox do próprio formato nunca
+// fica "condicionada" por isto, ao contrário da Entrega do Mupi/Canal TV.
+function criarCelulaPlacementsMeta(formato, idNomeFormato) {
+  const selecionados = placementsDoFormato(formatoDaVagaAtiva(formato), objetivoAtivo);
+  const opcoes = PLACEMENTS_META
+    .map((placement) => `
+      <label class="opcao-placement-meta">
+        <input type="checkbox" class="checkbox-placement-meta" data-id="${formato.id}" value="${placement}" ${selecionados.has(placement) ? "checked" : ""}>
+        ${t(CHAVE_TRADUCAO_PLACEMENT_META[placement])}
+      </label>
+    `)
+    .join("");
+  return `<div class="grupo-placements-meta" data-id="${formato.id}" role="group" aria-labelledby="${idNomeFormato}">${opcoes}</div>`;
 }
 
 // Contador +/- do número de temas/criatividades (TV/Rádio/OOH) — ver
@@ -1696,6 +1787,13 @@ function criarLinhaFormato(formato, opcoes) {
   const colunaEntregaMupi = opcoes.comEntregaMupi
     ? `<td>${formatoEhMupiPapel(formato) ? criarCelulaEntregaMupi(formato, idNomeFormato) : "—"}</td>`
     : "";
+  // Os Placements ligam-se por publisher (comPlacementsMeta), mas cada
+  // linha decide por si própria se mostra o seletor — mesma ideia da
+  // Entrega do Mupi, caso o Meta algum dia misture formatos com e sem
+  // placements.
+  const colunaPlacementsMeta = opcoes.comPlacementsMeta
+    ? `<td>${formatoEhMeta(formato) ? criarCelulaPlacementsMeta(formato, idNomeFormato) : "—"}</td>`
+    : "";
   // Os Temas aplicam-se a qualquer formato do meio (não há exceção por
   // linha, ao contrário da Entrega) — em TV/Rádio usam a grelha por
   // canal×secundagem (ver criarGridTemasTv) em vez do contador simples
@@ -1724,6 +1822,7 @@ function criarLinhaFormato(formato, opcoes) {
       ${colunaVeiculo}
       ${colunaGrupoDigital2020}
       ${colunaEntregaMupi}
+      ${colunaPlacementsMeta}
       ${colunaCanaisTv}
       ${colunaSecundagemTv}
       ${colunaNumFacesOoh}
@@ -2113,7 +2212,27 @@ listaFormatos.addEventListener("change", (evento) => {
     return;
   }
 
+  if (alvo.classList.contains("checkbox-placement-meta")) {
+    mudarPlacementMeta(alvo);
+    return;
+  }
+
 });
+
+// Guarda a escolha de placements deste formato Meta — ao contrário do
+// Canal de TV, nunca condiciona a checkbox do formato (os placements têm
+// sempre um valor por omissão, "todos", nunca ficam "por escolher").
+function mudarPlacementMeta(checkbox) {
+  const id = Number(checkbox.dataset.id);
+  const idEfetivo = idEfetivoDoReal(id);
+  const placements = garantirPlacementsFormato(idEfetivo, objetivoAtivo);
+  if (checkbox.checked) {
+    placements.add(checkbox.value);
+  } else {
+    placements.delete(checkbox.value);
+  }
+  atualizarResumoSelecao();
+}
 
 // Guarda a escolha de canais deste formato de TV e, assim que há pelo
 // menos um, tira a pista visual de "condicionado" (tal como
@@ -2419,6 +2538,17 @@ function sincronizarListaComEstadoAtivo() {
     const escolha = formato ? entregaEfetivaDoFormato(formatoDaVagaAtiva(formato), objetivoAtivo) : null;
     grupo.querySelectorAll(".radio-entrega-mupi").forEach((radio) => {
       radio.checked = radio.value === escolha;
+    });
+  });
+
+  // Os placements do Meta são por objetivo/vaga, tal como a Entrega do
+  // Mupi acima.
+  listaFormatos.querySelectorAll(".grupo-placements-meta").forEach((grupo) => {
+    const id = Number(grupo.dataset.id);
+    const formato = todosFormatos.find((f) => f.id === id);
+    const selecionados = formato ? placementsDoFormato(formatoDaVagaAtiva(formato), objetivoAtivo) : new Set(PLACEMENTS_META);
+    grupo.querySelectorAll(".checkbox-placement-meta").forEach((checkbox) => {
+      checkbox.checked = selecionados.has(checkbox.value);
     });
   });
 
@@ -2897,12 +3027,14 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
   dimensao: {
     largura: 45,
     titulo: () => t("colDimensao"),
-    valor: (formato) => textoTraduzido(formato, "dimensao") || "",
+    // No Meta, só os placements escolhidos no construtor saem no Excel —
+    // ver filtrarTextoPorPlacementsMeta (sem efeito nos restantes formatos).
+    valor: (formato, objetivo) => filtrarTextoPorPlacementsMeta(formato, objetivo, textoTraduzido(formato, "dimensao") || ""),
   },
   aspectRatio: {
     largura: 14,
     titulo: () => t("colAspectRatio"),
-    valor: (formato) => textoTraduzido(formato, "aspectRatio") || "",
+    valor: (formato, objetivo) => filtrarTextoPorPlacementsMeta(formato, objetivo, textoTraduzido(formato, "aspectRatio") || ""),
   },
   peso: {
     largura: 16,
@@ -2917,7 +3049,7 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
   copies: {
     largura: 40,
     titulo: () => t("colCopies"),
-    valor: (formato) => textoTraduzido(formato, "copies") || "",
+    valor: (formato, objetivo) => filtrarTextoPorPlacementsMeta(formato, objetivo, textoTraduzido(formato, "copies") || ""),
   },
   observacoes: {
     largura: 40,
@@ -3774,6 +3906,7 @@ function guardarEstadoLocal() {
     const selecoes = {};
     const duracoes = {};
     const entregasMupi = {};
+    const placementsMeta = {};
     const temas = {};
     const canaisTv = {};
     const temasGridTv = {};
@@ -3838,6 +3971,17 @@ function guardarEstadoLocal() {
           entregasMupi[objetivo][chave] = valor;
         }
       });
+      // Só guarda entradas que tenham mesmo sido mexidas pelo utilizador
+      // (ver garantirPlacementsFormato) — sem entrada nenhuma conta como
+      // "todos os placements", por isso não há necessidade de persistir
+      // esse caso, tal como as restantes escolhas desta secção.
+      placementsMeta[objetivo] = {};
+      placementsMetaPorObjetivo[objetivo].forEach((placements, id) => {
+        const chave = chavePersistidaComVaga(id, objetivo);
+        if (chave) {
+          placementsMeta[objetivo][chave] = [...placements];
+        }
+      });
       temas[objetivo] = {};
       temasPorObjetivo[objetivo].forEach((contagem, id) => {
         const chave = chavePersistidaComVaga(id, objetivo);
@@ -3883,6 +4027,7 @@ function guardarEstadoLocal() {
       selecoes,
       duracoes,
       entregasMupi,
+      placementsMeta,
       temas,
       canaisTv,
       temasGridTv,
@@ -3948,6 +4093,16 @@ function restaurarEstadoLocal() {
       const id = chaveParaId.get(chaveReal);
       if (id !== undefined && (valor === "af" || valor === "morada")) {
         entregaMupiPorObjetivo[objetivo].set(idVaga === null ? id : chaveFormatoVaga(id, idVaga), valor);
+      }
+    });
+
+    const placementsGuardados = (estadoGuardado.placementsMeta && estadoGuardado.placementsMeta[objetivo]) || {};
+    Object.entries(placementsGuardados).forEach(([chaveComposta, placements]) => {
+      const { chaveReal, idVaga } = idRealEIdVagaDaChave(chaveComposta);
+      const id = chaveParaId.get(chaveReal);
+      if (id !== undefined && Array.isArray(placements)) {
+        const idDestino = idVaga === null ? id : chaveFormatoVaga(id, idVaga);
+        placementsMetaPorObjetivo[objetivo].set(idDestino, new Set(placements.filter((p) => PLACEMENTS_META.includes(p))));
       }
     });
 
