@@ -150,41 +150,44 @@
         as specs técnicas são iguais.
         ============================================
         -->
-        <section class="seletor-objetivo">
-          <label>
-            <span data-i18n="labelObjetivo">Objetivo</span>
-            <span class="aviso-objetivo-mini" tabindex="0" data-i18n-title="avisoObjetivo" data-i18n-aria-label="avisoObjetivo" title="Cada objetivo tem a sua própria seleção — o mesmo formato pode ser pedido em mais do que um.">ⓘ</span>
-          </label>
-          <div class="objetivos-botoes">
-            <button type="button" class="objetivo-botao ativo" data-objetivo="awareness" aria-current="true">
-              <span data-i18n="objetivoAwareness">Awareness</span> <span class="objetivo-contagem" data-contagem="awareness"></span>
-            </button>
-            <button type="button" class="objetivo-botao" data-objetivo="consideration">
-              <span data-i18n="objetivoConsideration">Consideration</span> <span class="objetivo-contagem" data-contagem="consideration"></span>
-            </button>
-            <button type="button" class="objetivo-botao" data-objetivo="conversion">
-              <span data-i18n="objetivoConversion">Conversion</span> <span class="objetivo-contagem" data-contagem="conversion"></span>
-            </button>
-          </div>
-        </section>
+        <div class="linha-seletores">
+          <!--
+          ============================================
+          3.3.1b SELETOR DE VAGA — geral, não só TV/Rádio — só aparece quando
+          o campo "Nº de Vagas" no topo do pedido tem mais que 1 (ver
+          campoNumeroVagas/renderizarBotoesVaga em app.js). Em tudo igual ao
+          seletor de Objetivo ao lado: escolhe-se a vaga ativa e preenche-se
+          o pedido inteiro (qualquer meio) para essa vaga, antes de trocar
+          para a seguinte — pedido explícito da Cláudia, para não complicar
+          com vários blocos abertos ao mesmo tempo. Vem primeiro na linha
+          porque se escolhe a vaga antes do objetivo.
+          ============================================
+          -->
+          <section id="seletorVaga" class="seletor-vaga" hidden>
+            <label>
+              <span data-i18n="labelVagaAtiva">Vaga</span>
+            </label>
+            <div id="areaVagasBotoes" class="vagas-botoes"></div>
+          </section>
 
-        <!--
-        ============================================
-        3.3.1b SELETOR DE VAGA — geral, não só TV/Rádio — só aparece quando
-        o campo "Nº de Vagas" no topo do pedido tem mais que 1 (ver
-        campoNumeroVagas/renderizarBotoesVaga em app.js). Em tudo igual ao
-        seletor de Objetivo ao lado: escolhe-se a vaga ativa e preenche-se
-        o pedido inteiro (qualquer meio) para essa vaga, antes de trocar
-        para a seguinte — pedido explícito da Cláudia, para não complicar
-        com vários blocos abertos ao mesmo tempo.
-        ============================================
-        -->
-        <section id="seletorVaga" class="seletor-vaga" hidden>
-          <label>
-            <span data-i18n="labelVagaAtiva">Vaga</span>
-          </label>
-          <div id="areaVagasBotoes" class="vagas-botoes"></div>
-        </section>
+          <section class="seletor-objetivo">
+            <label>
+              <span data-i18n="labelObjetivo">Objetivo</span>
+              <span class="aviso-objetivo-mini" tabindex="0" data-i18n-title="avisoObjetivo" data-i18n-aria-label="avisoObjetivo" title="Cada objetivo tem a sua própria seleção — o mesmo formato pode ser pedido em mais do que um.">ⓘ</span>
+            </label>
+            <div class="objetivos-botoes">
+              <button type="button" class="objetivo-botao ativo" data-objetivo="awareness" aria-current="true">
+                <span data-i18n="objetivoAwareness">Awareness</span> <span class="objetivo-contagem" data-contagem="awareness"></span>
+              </button>
+              <button type="button" class="objetivo-botao" data-objetivo="consideration">
+                <span data-i18n="objetivoConsideration">Consideration</span> <span class="objetivo-contagem" data-contagem="consideration"></span>
+              </button>
+              <button type="button" class="objetivo-botao" data-objetivo="conversion">
+                <span data-i18n="objetivoConversion">Conversion</span> <span class="objetivo-contagem" data-contagem="conversion"></span>
+              </button>
+            </div>
+          </section>
+        </div>
 
         <aside id="resumoSelecao" class="resumo-selecao"></aside>
         <div id="areaExportar" class="area-exportar">

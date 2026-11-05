@@ -646,11 +646,21 @@ Mais destacado que os filtros de categoria, porque não é um filtro —
 muda qual seleção de formatos está a ser editada.
 ============================================
 */
+/* Linha que junta o seletor de Vaga e o de Objetivo lado a lado (Vaga
+   primeiro, à esquerda). O gap generoso entre as duas secções evita que
+   pareçam um único grupo de botões — pedido explícito da Cláudia. */
+.linha-seletores {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 16px 32px;
+}
+
 .seletor-objetivo {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 16px 32px;
   flex-wrap: wrap;
 }
 
@@ -722,7 +732,6 @@ muda qual seleção de formatos está a ser editada.
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 0 32px 16px 32px;
   flex-wrap: wrap;
 }
 
@@ -752,9 +761,9 @@ muda qual seleção de formatos está a ser editada.
   border: 1px solid var(--cor-borda);
   color: var(--cor-texto);
   font-family: var(--fonte-base);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
-  padding: 6px 14px;
+  padding: 8px 18px;
   border-radius: 6px;
   cursor: pointer;
 }
@@ -1413,13 +1422,17 @@ não tira nenhuma funcionalidade real, só espaço que não há.
   .dados-campanha,
   .resumo-campanha,
   .barra-filtros,
-  .seletor-objetivo,
+  .linha-seletores,
   .area-exportar,
   .area-estado,
   .lista-formatos,
   .sem-resultados {
     padding-left: 16px;
     padding-right: 16px;
+  }
+
+  .linha-seletores {
+    gap: 16px 40px;
   }
 
   .resumo-selecao h2,
