@@ -843,6 +843,31 @@ página depois de selecionar formatos mais abaixo na lista.
   gap: 16px;
 }
 
+/* Opção "Vagas em sheets separadas" — só visível com mais que 1 vaga (ver
+   renderizarBotoesVaga em app.js). Mesmo reforço [hidden] que o resto da
+   app: a classe teria display:flex sem isto, que sobrepõe-se ao atributo
+   nativo hidden do browser. */
+.opcao-vagas-sheets {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--fonte-base);
+  font-size: 13px;
+  color: var(--cor-texto-suave);
+  cursor: pointer;
+}
+
+.opcao-vagas-sheets[hidden] {
+  display: none;
+}
+
+.opcao-vagas-sheets input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--cor-destaque);
+}
+
 #botaoExportar {
   background-color: var(--cor-destaque);
   color: #ffffff;

@@ -14,6 +14,8 @@ const campoCampanha = document.getElementById("campoCampanha");
 const campoNumeroVagas = document.getElementById("campoNumeroVagas");
 const seletorVaga = document.getElementById("seletorVaga");
 const areaVagasBotoes = document.getElementById("areaVagasBotoes");
+const opcaoVagasSheetsSeparadas = document.getElementById("opcaoVagasSheetsSeparadas");
+const campoVagasSheetsSeparadas = document.getElementById("campoVagasSheetsSeparadas");
 const resumoCampanha = document.getElementById("resumoCampanha");
 const resumoSelecao = document.getElementById("resumoSelecao");
 const botaoExportar = document.getElementById("botaoExportar");
@@ -509,6 +511,13 @@ function definirContagemTemaTv(formato, objetivo, canal, duracao, novaContagem) 
 // composto, consoante a vaga ativa no momento).
 let numeroVagasPedido = 1;
 let vagaAtiva = "1";
+// Só afeta a exportação para Excel (ver exportarSelecaoParaExcel) — nunca
+// a construção do pedido em si, que continua sempre a preencher-se uma
+// vaga de cada vez através do seletor acima. Pedido explícito da
+// Cláudia: com muitos formatos por vaga, tudo numa sheet só (com faixas
+// "Vaga N") fica difícil de ler — liga-se esta opção e cada meio passa a
+// ganhar uma sheet por vaga (ex.: "Digital_Vaga1", "Digital_Vaga2").
+let vagasEmSheetsSeparadas = false;
 const SEPARADOR_ID_VAGA = "::camp::";
 function chaveFormatoVaga(idFormatoReal, idVaga) {
   return `${idFormatoReal}${SEPARADOR_ID_VAGA}${idVaga}`;
@@ -754,6 +763,8 @@ const TRADUCOES = {
   avisoNumeroVagas: { pt: "Mais que 1 vaga pede para preencher o pedido inteiro uma vaga de cada vez — escolhe a vaga ativa no seletor que aparece por baixo.", en: "More than 1 flight means filling in the whole request one flight at a time — pick the active flight in the selector that appears below.", es: "Más de 1 oleada implica rellenar toda la solicitud una oleada cada vez — elige la oleada activa en el selector que aparece debajo.", fr: "Plus d'une vague demande de remplir toute la demande une vague à la fois — choisis la vague active dans le sélecteur qui apparaît en dessous." },
   labelVagaAtiva: { pt: "Vaga", en: "Flight", es: "Oleada", fr: "Vague" },
   tituloVagaExcel: { pt: "Vaga {n}", en: "Flight {n}", es: "Oleada {n}", fr: "Vague {n}" },
+  labelVagasSheetsSeparadas: { pt: "Vagas em sheets separadas", en: "Flights in separate sheets", es: "Oleadas en hojas separadas", fr: "Vagues dans des feuilles séparées" },
+  avisoVagasSheetsSeparadas: { pt: "Quando ligado, cada vaga sai numa sheet própria por meio (ex.: Digital_Vaga1, Digital_Vaga2), em vez de todas juntas na mesma sheet com faixas \"Vaga N\".", en: "When on, each flight gets its own sheet per media (e.g. Digital_Flight1, Digital_Flight2), instead of all together on the same sheet with \"Flight N\" banners.", es: "Cuando está activado, cada oleada sale en su propia hoja por medio (ej.: Digital_Oleada1, Digital_Oleada2), en vez de todas juntas en la misma hoja con franjas \"Oleada N\".", fr: "Lorsque c'est activé, chaque vague a sa propre feuille par média (ex. : Digital_Vague1, Digital_Vague2), au lieu d'être toutes ensemble sur la même feuille avec des bandeaux \"Vague N\"." },
   avisoDiminuirVagas: { pt: "Já há formatos selecionados nalgumas das vagas que vão deixar de existir. Diminuir o nº de vagas esconde essa informação (sem apagar o resto do pedido). Continuar?", en: "Some of the flights that would be removed already have formats selected. Lowering the flight count hides that information (the rest of the request is unaffected). Continue?", es: "Ya hay formatos seleccionados en algunas de las oleadas que van a desaparecer. Reducir el nº de oleadas oculta esa información (sin borrar el resto de la solicitud). ¿Continuar?", fr: "Des formats sont déjà sélectionnés dans certaines des vagues qui vont disparaître. Réduire le nombre de vagues masque ces informations (sans effacer le reste de la demande). Continuer ?" },
   rodapeSpecsTituloRadio: { pt: "Especificações técnicas (iguais em todas as estações)", en: "Technical specifications (same for every station)", es: "Especificaciones técnicas (iguales en todas las estaciones)", fr: "Spécifications techniques (identiques sur toutes les stations)" },
   avisoRadioSaltadosSelecionarTodos: { pt: "{n} spot(s) de rádio ficaram por selecionar — falta escolher pelo menos uma estação.", en: "{n} radio spot(s) were left unselected — at least one station is still missing.", es: "{n} spot(s) de radio quedaron sin seleccionar — falta elegir al menos una estación.", fr: "{n} spot(s) radio n'ont pas été sélectionnés — il manque au moins une station." },
@@ -2424,9 +2435,12 @@ function renderizarBotoesVaga() {
   if (numeroVagasPedido <= 1) {
     seletorVaga.hidden = true;
     areaVagasBotoes.innerHTML = "";
+    opcaoVagasSheetsSeparadas.hidden = true;
     return;
   }
   seletorVaga.hidden = false;
+  opcaoVagasSheetsSeparadas.hidden = false;
+  campoVagasSheetsSeparadas.checked = vagasEmSheetsSeparadas;
   areaVagasBotoes.innerHTML = Array.from({ length: numeroVagasPedido }, (_, indice) => String(indice + 1))
     .map((numeroVaga) => {
       const ativo = numeroVaga === vagaAtiva;
@@ -2448,6 +2462,11 @@ areaVagasBotoes.addEventListener("click", (evento) => {
   renderizarBotoesVaga();
   sincronizarListaComEstadoAtivo();
   atualizarResumoSelecao();
+});
+
+campoVagasSheetsSeparadas.addEventListener("change", () => {
+  vagasEmSheetsSeparadas = campoVagasSheetsSeparadas.checked;
+  guardarEstadoLocal();
 });
 
 // Verdadeiro se alguma vaga no intervalo [deVaga, ateVaga] (inclusive) já
@@ -3184,7 +3203,7 @@ function ajustarLargurasAoConteudo(folha, colunasChaves, largurasConteudo) {
 // próxima linha livre (já com uma linha em branco a separar da secção
 // seguinte). colunasChaves é a lista de colunas desta folha (ver
 // COLUNAS_POR_MEIO_EXCEL), sempre precedida pela coluna fixa "#".
-function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosPorVaga, config, objetivo, colunasChaves, grupoMeio, registarLarguraColuna) {
+function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosPorVaga, config, objetivo, colunasChaves, grupoMeio, registarLarguraColuna, suprimirFaixaVaga = false) {
   let linha = linhaInicio;
   const numColunas = colunasChaves.length + 1;
 
@@ -3312,7 +3331,12 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosPorVag
       if (vagaAberta !== undefined && linhaAtual - 1 >= linhaInicioVaga) {
         mesclarColunasComValorRepetido(folha, numColunas, linhaInicioVaga, linhaAtual - 1, COLUNAS_CENTRADAS, colunasChaves);
       }
-      if (grupo.vaga) {
+      // Com as vagas já separadas em sheets próprias (ver
+      // vagasEmSheetsSeparadas/escreverFolhaMeio), grupo.vaga continua
+      // preenchido (precisa de o estar, para o id composto abaixo ler o
+      // estado certo desta vaga) mas a faixa em si já não faz sentido —
+      // a própria sheet/tab já diz de que vaga se trata.
+      if (grupo.vaga && !suprimirFaixaVaga) {
         folha.mergeCells(linhaAtual, 1, linhaAtual, numColunas);
         const celulaVaga = folha.getCell(linhaAtual, 1);
         celulaVaga.value = formatar("tituloVagaExcel", { n: grupo.vaga });
@@ -3523,9 +3547,17 @@ function escreverNotaEntregaMateriais(folha, linha, numColunas, cliente, grupoMe
   return linhaAtual;
 }
 
-async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha, grupoMeio) {
+// vagaFiltro: só define (ex.: "1", "2") quando vagasEmSheetsSeparadas está
+// ligado — esta folha passa a ser só dessa vaga, com nome próprio (ex.:
+// "Digital_Vaga1" em vez de "Digital") e sem a faixa "Vaga N" lá dentro
+// (ver escreverSeccaoObjetivo), já que o nome da sheet já diz isso. null
+// (omisso) é o comportamento de sempre: uma única folha por meio, com
+// todas as vagas (se houver mais que uma) separadas por faixa.
+async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha, grupoMeio, vagaFiltro = null) {
   const nomeMeio = t(CHAVE_TRADUCAO_MEIO[grupoMeio]) || grupoMeio;
-  const folha = workbook.addWorksheet(nomeMeio);
+  const nomeMeioExibido = vagaFiltro ? `${nomeMeio} — ${formatar("tituloVagaExcel", { n: vagaFiltro })}` : nomeMeio;
+  const nomeFolha = vagaFiltro ? `${nomeMeio}_${t("labelVagaAtiva")}${vagaFiltro}` : nomeMeio;
+  const folha = workbook.addWorksheet(nomeFolha);
 
   // Sem gridlines — só a tabela em si vai ter linhas (mais abaixo),
   // para o Excel ficar limpo e não parecer uma grelha genérica. Colunas
@@ -3574,7 +3606,7 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
   folha.getCell("F5").style = estiloValor;
   folha.getCell("E6").value = t("excelLabelMeio");
   folha.getCell("E6").style = estiloRotulo;
-  folha.getCell("F6").value = nomeMeio;
+  folha.getCell("F6").value = nomeMeioExibido;
   folha.getCell("F6").style = estiloValor;
 
   // --- Acompanha o texto mais comprido escrito em cada coluna (cabeçalho
@@ -3598,7 +3630,7 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
   registarLarguraColuna(6, companhia);
   registarLarguraColuna(6, cliente);
   registarLarguraColuna(6, campanha);
-  registarLarguraColuna(6, nomeMeio);
+  registarLarguraColuna(6, nomeMeioExibido);
 
   // --- Uma secção por objetivo (Awareness / Consideration / Conversion),
   // cada uma com o seu próprio cabeçalho de tabela — o mesmo formato pode
@@ -3631,11 +3663,13 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
     // idsSelecionadosNaVaga), por isso a exportação percorre cada vaga à
     // parte — cada uma com o seu próprio subconjunto de formatos, dentro
     // da mesma secção do objetivo (ver "Vaga N" em escreverSeccaoObjetivo).
-    // Com 1 vaga só, há um único "contexto" implícito (vagaOuNula = null),
-    // igual ao comportamento de sempre.
-    const numerosVaga = numeroVagasPedido > 1
-      ? Array.from({ length: numeroVagasPedido }, (_, indice) => String(indice + 1))
-      : [null];
+    // Com 1 vaga só, ou com vagaFiltro definido (esta folha já é de uma
+    // única vaga, ver vagasEmSheetsSeparadas), há um único "contexto".
+    const numerosVaga = vagaFiltro
+      ? [vagaFiltro]
+      : (numeroVagasPedido > 1
+          ? Array.from({ length: numeroVagasPedido }, (_, indice) => String(indice + 1))
+          : [null]);
     const formatosPorVaga = numerosVaga
       .map((vagaOuNula) => {
         const idsSelecionados = new Set(idsSelecionadosNaVaga(objetivo, vagaOuNula));
@@ -3650,7 +3684,7 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
     if (formatosPorVaga.length === 0) {
       return;
     }
-    linhaAtual = escreverSeccaoObjetivo(folha, linhaAtual, t(CHAVE_TRADUCAO_OBJETIVO[objetivo]), formatosPorVaga, config, objetivo, colunasChaves, grupoMeio, registarLarguraColuna);
+    linhaAtual = escreverSeccaoObjetivo(folha, linhaAtual, t(CHAVE_TRADUCAO_OBJETIVO[objetivo]), formatosPorVaga, config, objetivo, colunasChaves, grupoMeio, registarLarguraColuna, !!vagaFiltro);
   });
 
   // Uma linha de intervalo extra antes da nota de especificações de TV/
@@ -3821,10 +3855,29 @@ async function exportarSelecaoParaExcel() {
   });
 
   for (const grupoMeio of gruposOrdenados) {
-    await escreverFolhaMeio(workbook, config, companhia, cliente, campanha, grupoMeio);
+    // Com "Vagas em sheets separadas" ligado, este meio ganha uma folha
+    // por vaga em vez de uma só com faixas "Vaga N" lá dentro (ver
+    // escreverFolhaMeio) — só para as vagas que realmente têm algum
+    // formato deste meio selecionado (nalgum objetivo), tal como
+    // gruposOrdenados só lista meios com alguma seleção.
+    if (vagasEmSheetsSeparadas && numeroVagasPedido > 1) {
+      const numerosVaga = Array.from({ length: numeroVagasPedido }, (_, indice) => String(indice + 1))
+        .filter((numeroVaga) => OBJETIVOS.some((objetivo) => idsSelecionadosNaVaga(objetivo, numeroVaga)
+          .some((idReal) => {
+            const formato = todosFormatos.find((f) => f.id === idReal);
+            return formato && grupoMeioDoFormato(formato) === grupoMeio;
+          })));
+      for (const numeroVaga of numerosVaga) {
+        await escreverFolhaMeio(workbook, config, companhia, cliente, campanha, grupoMeio, numeroVaga);
+      }
+    } else {
+      await escreverFolhaMeio(workbook, config, companhia, cliente, campanha, grupoMeio);
+    }
     // Sheets extra com a(s) imagem(ns)/medidas de cada formato deste meio
     // que tenha pelo menos uma (ver escreverFolhasImagensExtra) — sempre
-    // logo a seguir à folha normal do respetivo meio, nunca antes.
+    // logo a seguir à(s) folha(s) normal(is) do respetivo meio, nunca
+    // antes, e só uma vez por meio (não por vaga — a imagem é do
+    // formato, não da vaga).
     await escreverFolhasImagensExtra(workbook, grupoMeio);
   }
 
@@ -4027,6 +4080,7 @@ function guardarEstadoLocal() {
       cliente: campoCliente.value,
       campanha: campoCampanha.value,
       numeroVagasPedido,
+      vagasEmSheetsSeparadas,
       objetivoAtivo,
       selecoes,
       duracoes,
@@ -4193,6 +4247,9 @@ function restaurarEstadoLocal() {
   }
   if (Number.isInteger(estadoGuardado.numeroVagasPedido) && estadoGuardado.numeroVagasPedido >= 1) {
     numeroVagasPedido = Math.min(24, estadoGuardado.numeroVagasPedido);
+  }
+  if (typeof estadoGuardado.vagasEmSheetsSeparadas === "boolean") {
+    vagasEmSheetsSeparadas = estadoGuardado.vagasEmSheetsSeparadas;
   }
   // Vaga ativa fica sempre na 1ª ao abrir o construtor (tal como o
   // Objetivo, ver comentário abaixo) — campoNumeroVagas.value e

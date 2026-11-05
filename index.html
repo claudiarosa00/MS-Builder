@@ -191,6 +191,23 @@
           <button id="botaoExportar" type="button" disabled data-i18n="botaoExportar">Exportar para Excel</button>
           <button id="botaoSelecionarTodos" type="button" class="botao-limpar" data-i18n="botaoSelecionarTodos">Selecionar todos</button>
           <button id="botaoLimparSelecao" type="button" class="botao-limpar botao-limpar--perigo" disabled data-i18n="botaoLimparSelecao">Limpar seleção</button>
+          <!--
+          ============================================
+          3.3.2 OPÇÃO "VAGAS EM SHEETS SEPARADAS" — geral, não só Digital —
+          só aparece quando o campo "Nº de Vagas" tem mais que 1 (ver
+          renderizarBotoesVaga em app.js, mesma condição do seletor de
+          Vaga). Por omissão desligada (todas as vagas na mesma sheet, com
+          faixas "Vaga N" — comportamento de sempre); ligada, cada meio
+          ganha uma sheet por vaga (ex.: "Digital_Vaga1", "Digital_Vaga2")
+          — pedido explícito da Cláudia, para pedidos com muitos formatos
+          por vaga não ficarem difíceis de ler numa sheet só.
+          ============================================
+          -->
+          <label id="opcaoVagasSheetsSeparadas" class="opcao-vagas-sheets" hidden>
+            <input type="checkbox" id="campoVagasSheetsSeparadas">
+            <span data-i18n="labelVagasSheetsSeparadas">Vagas em sheets separadas</span>
+            <span class="aviso-objetivo-mini" tabindex="0" data-i18n-title="avisoVagasSheetsSeparadas" data-i18n-aria-label="avisoVagasSheetsSeparadas" title="Quando ligado, cada vaga sai numa sheet própria por meio (ex.: Digital_Vaga1, Digital_Vaga2), em vez de todas juntas na mesma sheet com faixas &quot;Vaga N&quot;.">ⓘ</span>
+          </label>
         </div>
       </div>
 
