@@ -5174,17 +5174,6 @@
       "copies": "DISPLAY — Demande : titre max 25 caractères, corps max 52 caractères ; Attente : titre max 25 caractères, CTA max 15 caractères ; Trajet : titre max 25 caractères, corps max 52 caractères, CTA max 15 caractères. VIDEO — Demande : titre max 25 caractères, corps max 52 caractères ; Attente : titre max 25 caractères, CTA max 15 caractères ; Trajet : titre max 25 caractères, corps max 52 caractères, CTA max 15 caractères. URL — Display : paramétrée, non paramétrée ou Click Tag (disponible uniquement aux phases Attente et Trajet) ; Video : paramétrée, non paramétrée ou Click Tag (toutes les phases)."
     }
   },
-  "Havas Programmatic Hub|DV360|Prog - Rich Media": {
-    "en": {
-      "dimensao": "Specs to be defined"
-    },
-    "es": {
-      "dimensao": "Especificaciones por definir"
-    },
-    "fr": {
-      "dimensao": "Spécifications à définir"
-    }
-  },
   "Havas Programmatic Hub|DV360|Prog - Outstream": {
     "en": {
       "dimensao": "Dimensions: min. 256px on both the longer and shorter side, except 300x250 and 320x180 (accepted exceptions). Placement: main body of the page only (not sidebar, header or footer).",
