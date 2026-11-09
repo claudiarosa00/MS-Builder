@@ -272,20 +272,45 @@ function entregaEfetivaDoFormato(formato, objetivo) {
   return entregaMupiPorObjetivo[objetivo].get(formato.id) || null;
 }
 
-// Facebook e Instagram juntam-se num único suporte "Meta" — pedido
-// explícito da Cláudia, já que as specs (Vídeo/Imagem) são as mesmas em
-// ambos, servidas a partir do mesmo gestor de anúncios. O que varia é o
-// placement dentro do Meta (Feed/Stories/Reels), por isso cada formato
-// Meta ganha um seletor de placements em vez de formatos separados.
+// Facebook e Instagram voltaram a ficar separados (eram um único suporte
+// "Meta" — revertido a pedido da Cláudia), mas mantêm o seletor de
+// placements (Feed/Stories/Reels, e Explorar só no Single Image do
+// Instagram) que esse suporte único introduziu: ambos continuam a ser
+// servidos a partir do mesmo gestor de anúncios, com specs que variam por
+// placement dentro de cada formato, não só entre plataformas.
+const FORNECEDORES_META = new Set(["Facebook", "Instagram"]);
 function formatoEhMeta(formato) {
-  return formato.fornecedor === "Meta";
+  return FORNECEDORES_META.has(formato.fornecedor);
 }
-const PLACEMENTS_META = ["feed", "stories", "reels"];
+const PLACEMENTS_META = ["feed", "stories", "reels", "explorar"];
 const CHAVE_TRADUCAO_PLACEMENT_META = {
   feed: "placementFeed",
   stories: "placementStories",
   reels: "placementReels",
+  explorar: "placementExplorar",
 };
+// Nem todos os placements fazem sentido para todos os formatos (ex.:
+// "Explorar" só existe no Single Image do Instagram) — em vez de manter
+// uma lista fixa por formato (frágil a specs que mudam), deteta-se quais
+// realmente aparecem no próprio texto (Dimensão/Aspect Ratio/Copies),
+// reaproveitando o mesmo critério de "linha começa por Feed/Stories/…"
+// que filtrarTextoPorPlacementsMeta usa para filtrar.
+function placementsDisponiveisDoFormato(formato) {
+  const disponiveis = new Set();
+  for (const campo of ["dimensao", "aspectRatio", "copies"]) {
+    const texto = textoTraduzido(formato, campo);
+    if (!texto) {
+      continue;
+    }
+    for (const linha of texto.split("\n")) {
+      const correspondencia = linha.match(/^\s*(Feed|Stories|Reels|Explorar)\s*:|^\s*(Feed|Stories|Reels|Explorar)\s*$/i);
+      if (correspondencia) {
+        disponiveis.add((correspondencia[1] || correspondencia[2]).toLowerCase());
+      }
+    }
+  }
+  return PLACEMENTS_META.filter((placement) => disponiveis.has(placement));
+}
 // Placements escolhidos para este formato, por objetivo — ao contrário
 // dos Canais de TV (Set vazio por omissão, um pré-requisito a cumprir),
 // aqui a omissão conta como "todos" (pedido explícito da Cláudia: "por
@@ -329,7 +354,7 @@ function filtrarTextoPorPlacementsMeta(formato, objetivo, texto) {
       // ..." com o resto do conteúdo logo a seguir (Dimensão/Aspect Ratio,
       // e o Copies do Vídeo/Imagem), ou "Feed" sozinho como cabeçalho de
       // secção, com o conteúdo nas linhas seguintes (Copies do Carousel).
-      const correspondencia = linha.match(/^\s*(Feed|Stories|Reels)\s*:|^\s*(Feed|Stories|Reels)\s*$/i);
+      const correspondencia = linha.match(/^\s*(Feed|Stories|Reels|Explorar)\s*:|^\s*(Feed|Stories|Reels|Explorar)\s*$/i);
       if (correspondencia) {
         placementAtual = (correspondencia[1] || correspondencia[2]).toLowerCase();
       }
@@ -659,6 +684,7 @@ const TRADUCOES = {
   placementFeed: { pt: "Feed", en: "Feed", es: "Feed", fr: "Feed" },
   placementStories: { pt: "Stories", en: "Stories", es: "Stories", fr: "Stories" },
   placementReels: { pt: "Reels", en: "Reels", es: "Reels", fr: "Reels" },
+  placementExplorar: { pt: "Explorar", en: "Explore", es: "Explorar", fr: "Explorer" },
   colTemasBuilder: { pt: "Temas", en: "Themes", es: "Temas", fr: "Thèmes" },
   temasDiminuir: { pt: "Diminuir número de temas de {formato}", en: "Decrease number of themes for {formato}", es: "Disminuir número de temas de {formato}", fr: "Diminuer le nombre de thèmes de {formato}" },
   temasAumentar: { pt: "Aumentar número de temas de {formato}", en: "Increase number of themes for {formato}", es: "Aumentar número de temas de {formato}", fr: "Augmenter le nombre de thèmes de {formato}" },
@@ -1563,7 +1589,7 @@ function criarCelulaEntregaMupi(formato, idNomeFormato) {
 // fica "condicionada" por isto, ao contrário da Entrega do Mupi/Canal TV.
 function criarCelulaPlacementsMeta(formato, idNomeFormato) {
   const selecionados = placementsDoFormato(formatoDaVagaAtiva(formato), objetivoAtivo);
-  const opcoes = PLACEMENTS_META
+  const opcoes = placementsDisponiveisDoFormato(formato)
     .map((placement) => `
       <label class="opcao-placement-meta">
         <input type="checkbox" class="checkbox-placement-meta" data-id="${formato.id}" value="${placement}" ${selecionados.has(placement) ? "checked" : ""}>
