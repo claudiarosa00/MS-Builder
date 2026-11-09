@@ -10220,186 +10220,210 @@
   },
   "Facebook|Facebook|Single Image": {
     "en": {
-      "dimensao": "Feed: 1440x1800 (min. 600px width, min. 750px height); \nStories: 1440x2560 (min. 500px width); \nReels: 1440x2560 (min. 600x600px).",
-      "aspectRatio": "Feed: 4:5; \nStories: 9:16; \nReels: 9:16",
+      "dimensao": "Feed: 1440x1800\nStories: 1440x2560\nReels: 1440x2560",
+      "aspectRatio": "Feed: 4:5 \nStories: 9:16\nReels: 9:16",
       "peso": "30 MB",
-      "tipoFicheiro": "JPG, PNG",
-      "copies": "Feed: primary text 50-150 characters, headline 27 characters; \nStories: primary text 125 characters, headline 40 characters; \nReels: primary text 40 characters, headline 55 characters."
+      "tipoFicheiro": "JPG or PNG",
+      "copies": "Feed: primary text 50-150 characters, headline 27 characters\nStories: primary text 125 characters, headline 40 characters \nReels: primary text 40 characters, headline 55 characters",
+      "observacoes": "See safe zone details in the link in the next column"
     },
     "es": {
-      "dimensao": "Feed: 1440x1800 (mín. 600px ancho, mín. 750px alto); \nStories: 1440x2560 (mín. 500px ancho); \nReels: 1440x2560 (mín. 600x600px).",
-      "aspectRatio": "Feed: 4:5; \nStories: 9:16; \nReels: 9:16",
+      "dimensao": "Feed: 1440x1800\nStories: 1440x2560\nReels: 1440x2560",
+      "aspectRatio": "Feed: 4:5 \nStories: 9:16\nReels: 9:16",
       "peso": "30 MB",
-      "tipoFicheiro": "JPG, PNG",
-      "copies": "Feed: texto principal 50-150 caracteres, título 27 caracteres; \nStories: texto principal 125 caracteres, título 40 caracteres; \nReels: texto principal 40 caracteres, título 55 caracteres."
+      "tipoFicheiro": "JPG o PNG",
+      "copies": "Feed: texto principal 50-150 caracteres, título 27 caracteres\nStories: texto principal 125 caracteres, título 40 caracteres \nReels: texto principal 40 caracteres, título 55 caracteres",
+      "observacoes": "Ver detalles de las zonas seguras en el enlace de la columna siguiente"
     },
     "fr": {
-      "dimensao": "Feed : 1440x1800 (min. 600px largeur, min. 750px hauteur) ; Stories : 1440x2560 (min. 500px largeur) ; Reels : 1440x2560 (min. 600x600px).",
-      "aspectRatio": "Feed : 4:5 ; Stories : 9:16 ; Reels : 9:16",
+      "dimensao": "Feed : 1440x1800\nStories : 1440x2560\nReels : 1440x2560",
+      "aspectRatio": "Feed : 4:5 \nStories : 9:16\nReels : 9:16",
       "peso": "30 MB",
-      "tipoFicheiro": "JPG, PNG",
-      "copies": "Feed : texte principal 50-150 caractères, titre 27 caractères ; Stories : texte principal 125 caractères, titre 40 caractères ; Reels : texte principal 40 caractères, titre 55 caractères."
+      "tipoFicheiro": "JPG ou PNG",
+      "copies": "Feed : texte principal 50-150 caractères, titre 27 caractères\nStories : texte principal 125 caractères, titre 40 caractères \nReels : texte principal 40 caractères, titre 55 caractères",
+      "observacoes": "Voir le détail des zones de sécurité dans le lien de la colonne suivante"
     }
   },
   "Facebook|Facebook|Single Video": {
     "en": {
-      "dimensao": "Feed: 1440x1800 (min. 120x120px), 1s to 241min; \nStories: 1440x2560 (min. 250px width), 1s to 3min; \nReels: 1440x2560 recommended, no maximum duration.",
-      "aspectRatio": "Feed: 4:5; \nStories: 9:16; \nReels: 9:16",
-      "peso": "4 GB",
-      "tipoFicheiro": "MP4, MOV or GIF. H.264 compression, square pixels, fixed frame rate, AAC stereo audio ≥128 Kbps.",
-      "copies": "Feed: primary text 50-150 characters, headline 27 characters; \nStories: primary text 125 characters, headline 40 characters; \nReels: primary text 40 characters, headline 55 characters (no automatic captions)."
+      "dimensao": "Feed: 1440x1800\nStories: 1440x2560\nReels: 1440x2560",
+      "aspectRatio": "Feed: 4:5 \nStories: 9:16\nReels: 9:16",
+      "peso": "Size: 4 GB\n\nDuration\nFeed: 1s to 241min; \nStories: 1s to 3min; \nReels: no maximum duration.",
+      "tipoFicheiro": "MP4, MOV or GIF (Reels: MP4 or MOV only)",
+      "copies": "Feed: primary text 50-150 characters, headline 27 characters\nStories: primary text 125 characters, headline 40 characters\nReels: primary text 40 characters, headline 55 characters (no automatic captions)",
+      "observacoes": "See safe zone details in the link in the next column"
     },
     "es": {
-      "dimensao": "Feed: 1440x1800 (mín. 120x120px), 1s a 241min; \nStories: 1440x2560 (mín. 250px ancho), 1s a 3min; \nReels: 1440x2560 recomendado, sin duración máxima.",
-      "aspectRatio": "Feed: 4:5; \nStories: 9:16; \nReels: 9:16",
-      "peso": "4 GB",
-      "tipoFicheiro": "MP4, MOV o GIF. Compresión H.264, píxeles cuadrados, tasa de fotogramas fija, audio AAC estéreo ≥128 Kbps.",
-      "copies": "Feed: texto principal 50-150 caracteres, título 27 caracteres; \nStories: texto principal 125 caracteres, título 40 caracteres; \nReels: texto principal 40 caracteres, título 55 caracteres (sin subtítulos automáticos)."
+      "dimensao": "Feed: 1440x1800\nStories: 1440x2560\nReels: 1440x2560",
+      "aspectRatio": "Feed: 4:5 \nStories: 9:16\nReels: 9:16",
+      "peso": "Peso: 4 GB\n\nDuración\nFeed: 1s a 241min; \nStories: 1s a 3min; \nReels: sin duración máxima.",
+      "tipoFicheiro": "MP4, MOV o GIF (Reels: solo MP4 o MOV)",
+      "copies": "Feed: texto principal 50-150 caracteres, título 27 caracteres\nStories: texto principal 125 caracteres, título 40 caracteres\nReels: texto principal 40 caracteres, título 55 caracteres (sin subtítulos automáticos)",
+      "observacoes": "Ver detalles de las zonas seguras en el enlace de la columna siguiente"
     },
     "fr": {
-      "dimensao": "Feed : 1440x1800 (min. 120x120px), 1s à 241min ; Stories : 1440x2560 (min. 250px largeur), 1s à 3min ; Reels : 1440x2560 recommandé, sans durée maximale.",
-      "aspectRatio": "Feed : 4:5 ; Stories : 9:16 ; Reels : 9:16",
-      "peso": "4 GB",
-      "tipoFicheiro": "MP4, MOV ou GIF. Compression H.264, pixels carrés, fréquence d'images fixe, audio AAC stéréo ≥128 Kbps.",
-      "copies": "Feed : texte principal 50-150 caractères, titre 27 caractères ; Stories : texte principal 125 caractères, titre 40 caractères ; Reels : texte principal 40 caractères, titre 55 caractères (sans sous-titres automatiques)."
+      "dimensao": "Feed : 1440x1800\nStories : 1440x2560\nReels : 1440x2560",
+      "aspectRatio": "Feed : 4:5 \nStories : 9:16\nReels : 9:16",
+      "peso": "Poids : 4 GB\n\nDurée\nFeed : 1s à 241min ; \nStories : 1s à 3min ; \nReels : pas de durée maximale.",
+      "tipoFicheiro": "MP4, MOV ou GIF (Reels : MP4 ou MOV uniquement)",
+      "copies": "Feed : texte principal 50-150 caractères, titre 27 caractères\nStories : texte principal 125 caractères, titre 40 caractères\nReels : texte principal 40 caractères, titre 55 caractères (sans sous-titres automatiques)",
+      "observacoes": "Voir le détail des zones de sécurité dans le lien de la colonne suivante"
     }
   },
   "Facebook|Facebook|Carousel": {
     "en": {
-      "dimensao": "Feed: 1080x1080 min. (image or video), 2 to 10 cards; \nStories: 1080x1920 min. (image only, no video support), 3 to 10 cards, min. width 500px; \nReels: 1080x1920 min. (image only), 2 to 10 cards, min. width 500px, min. height 262px.",
-      "aspectRatio": "Feed: 1:1; \nStories: 1:1 (recommended); \nReels: 9:16",
+      "dimensao": "Feed: 1080x1080 min. (image or video), 2 to 10 cards\nStories: 1080x1920 min. (image only, no video support)\nReels: 1080x1920 min. (image only), 2 to 10 cards",
+      "aspectRatio": "Feed: 4:5 (for image) or 1:1 (for video)\nStories: 9:16\nReels: 9:16",
       "peso": "Image: 30 MB per card",
-      "tipoFicheiro": "Image: JPG or PNG; \nVideo: MP4, MOV or GIF (Feed only).",
-      "copies": "Feed: primary text 80 characters, headline 20 characters, description 18 characters, URL required; \nStories: primary text 125 characters, headline 40 characters, URL required; \nReels: primary text 40 characters."
+      "tipoFicheiro": "Image: JPG or PNG\nVideo: MP4, MOV or GIF",
+      "copies": "Feed: primary text 80 characters, headline 20 characters, description 18 characters\nStories: primary text 125 characters, headline 40 characters\nReels: primary text 40 characters",
+      "observacoes": "See safe zone details in the link in the next column"
     },
     "es": {
-      "dimensao": "Feed: 1080x1080 mín. (imagen o video), 2 a 10 tarjetas; \nStories: 1080x1920 mín. (solo imagen, sin soporte de video), 3 a 10 tarjetas, ancho mín. 500px; \nReels: 1080x1920 mín. (solo imagen), 2 a 10 tarjetas, ancho mín. 500px, alto mín. 262px.",
-      "aspectRatio": "Feed: 1:1; \nStories: 1:1 (recomendado); \nReels: 9:16",
+      "dimensao": "Feed: 1080x1080 mín. (imagen o vídeo), 2 a 10 tarjetas\nStories: 1080x1920 mín. (solo imagen, sin soporte de vídeo)\nReels: 1080x1920 mín. (solo imagen), 2 a 10 tarjetas",
+      "aspectRatio": "Feed: 4:5 (para imagen) o 1:1 (para vídeo)\nStories: 9:16\nReels: 9:16",
       "peso": "Imagen: 30 MB por tarjeta",
-      "tipoFicheiro": "Imagen: JPG o PNG; \nVídeo: MP4, MOV o GIF (solo en Feed).",
-      "copies": "Feed: texto principal 80 caracteres, título 20 caracteres, descripción 18 caracteres, URL obligatoria; \nStories: texto principal 125 caracteres, título 40 caracteres, URL obligatoria; \nReels: texto principal 40 caracteres."
+      "tipoFicheiro": "Imagen: JPG o PNG\nVídeo: MP4, MOV o GIF",
+      "copies": "Feed: texto principal 80 caracteres, título 20 caracteres, descripción 18 caracteres\nStories: texto principal 125 caracteres, título 40 caracteres\nReels: texto principal 40 caracteres",
+      "observacoes": "Ver detalles de las zonas seguras en el enlace de la columna siguiente"
     },
     "fr": {
-      "dimensao": "Feed : 1080x1080 min. (image ou vidéo), 2 à 10 cartes ; Stories : 1080x1920 min. (image uniquement, sans prise en charge vidéo), 3 à 10 cartes, largeur min. 500px ; Reels : 1080x1920 min. (image uniquement), 2 à 10 cartes, largeur min. 500px, hauteur min. 262px.",
-      "aspectRatio": "Feed : 1:1 ; Stories : 1:1 (recommandé) ; Reels : 9:16",
+      "dimensao": "Feed : 1080x1080 min. (image ou vidéo), 2 à 10 cartes\nStories : 1080x1920 min. (image uniquement, vidéo non prise en charge)\nReels : 1080x1920 min. (image uniquement), 2 à 10 cartes",
+      "aspectRatio": "Feed : 4:5 (pour l'image) ou 1:1 (pour la vidéo)\nStories : 9:16\nReels : 9:16",
       "peso": "Image : 30 MB par carte",
-      "tipoFicheiro": "Image : JPG ou PNG ; \nVidéo : MP4, MOV ou GIF (Feed uniquement).",
-      "copies": "Feed : texte principal 80 caractères, titre 20 caractères, description 18 caractères, URL obligatoire ; Stories : texte principal 125 caractères, titre 40 caractères, URL obligatoire ; Reels : texte principal 40 caractères."
+      "tipoFicheiro": "Image : JPG ou PNG\nVidéo : MP4, MOV ou GIF",
+      "copies": "Feed : texte principal 80 caractères, titre 20 caractères, description 18 caractères\nStories : texte principal 125 caractères, titre 40 caractères\nReels : texte principal 40 caractères",
+      "observacoes": "Voir le détail des zones de sécurité dans le lien de la colonne suivante"
     }
   },
   "Facebook|Facebook|Collection": {
     "en": {
-      "dimensao": "Feed: 1080x1080 min. (cover: image or video) + 3 product images, Instant Experience required; \nReels: 1080x1080 min., requires Advantage+ Catalog as content source, Instant Experience required.",
+      "dimensao": "Feed: 1080x1080 min. (cover: image or video) + 3 product images\nReels: 1080x1080 min.",
       "aspectRatio": "Feed: 1.91:1 to 1:1; \nReels: 9:16 to 1:1",
-      "peso": "Image: 30 MB; Video: 4 GB",
-      "tipoFicheiro": "Image: JPG or PNG; \nVideo: MP4, MOV or GIF.",
-      "copies": "Feed: primary text 125 characters, headline 40 characters, URL required; \nReels: primary text 72 characters, headline 10 characters, URL required."
+      "peso": "Image: 30 MB\nVideo: 4 GB",
+      "tipoFicheiro": "Image: JPG or PNG\nVideo: MP4, MOV or GIF",
+      "copies": "Feed: primary text 125 characters, headline 40 characters\nReels: primary text 72 characters, headline 10 characters",
+      "observacoes": "See safe zone details in the link in the next column"
     },
     "es": {
-      "dimensao": "Feed: 1080x1080 mín. (portada: imagen o video) + 3 imágenes de producto, Experiencia Instantánea obligatoria; \nReels: 1080x1080 mín., requiere Catálogo Advantage+ como fuente de contenido, Experiencia Instantánea obligatoria.",
+      "dimensao": "Feed: 1080x1080 mín. (portada: imagen o vídeo) + 3 imágenes de producto\nReels: 1080x1080 mín.",
       "aspectRatio": "Feed: 1.91:1 hasta 1:1; \nReels: 9:16 hasta 1:1",
-      "peso": "Imagen: 30 MB; Video: 4 GB",
-      "tipoFicheiro": "Imagen: JPG o PNG; \nVídeo: MP4, MOV o GIF.",
-      "copies": "Feed: texto principal 125 caracteres, título 40 caracteres, URL obligatoria; \nReels: texto principal 72 caracteres, título 10 caracteres, URL obligatoria."
+      "peso": "Imagen: 30 MB\nVídeo: 4 GB",
+      "tipoFicheiro": "Imagen: JPG o PNG\nVídeo: MP4, MOV o GIF",
+      "copies": "Feed: texto principal 125 caracteres, título 40 caracteres\nReels: texto principal 72 caracteres, título 10 caracteres",
+      "observacoes": "Ver detalles de las zonas seguras en el enlace de la columna siguiente"
     },
     "fr": {
-      "dimensao": "Feed : 1080x1080 min. (couverture : image ou vidéo) + 3 images de produit, Expérience Instantanée obligatoire ; Reels : 1080x1080 min., nécessite le Catalogue Advantage+ comme source de contenu, Expérience Instantanée obligatoire.",
-      "aspectRatio": "Feed : 1.91:1 à 1:1 ; Reels : 9:16 à 1:1",
-      "peso": "Image : 30 MB ; Vidéo : 4 GB",
-      "tipoFicheiro": "Image : JPG ou PNG ; \nVidéo : MP4, MOV ou GIF.",
-      "copies": "Feed : texte principal 125 caractères, titre 40 caractères, URL obligatoire ; Reels : texte principal 72 caractères, titre 10 caractères, URL obligatoire."
+      "dimensao": "Feed : 1080x1080 min. (couverture : image ou vidéo) + 3 images de produit\nReels : 1080x1080 min.",
+      "aspectRatio": "Feed : 1.91:1 à 1:1 ; \nReels : 9:16 à 1:1",
+      "peso": "Image : 30 MB\nVidéo : 4 GB",
+      "tipoFicheiro": "Image : JPG ou PNG\nVidéo : MP4, MOV ou GIF",
+      "copies": "Feed : texte principal 125 caractères, titre 40 caractères\nReels : texte principal 72 caractères, titre 10 caractères",
+      "observacoes": "Voir le détail des zones de sécurité dans le lien de la colonne suivante"
     }
   },
   "Instagram|Instagram|Single Image": {
     "en": {
-      "dimensao": "Feed: 1440x1800 (min. 500px width; ratio min. 400x500, max. 191x100); \nStories: 1440x2560 (min. 500px width); \nReels: 1440x2560 (min. 500px width); Explore: 1440x1800 (min. 500px width; ratio min. 400x500, max. 191x100).",
-      "aspectRatio": "Feed: 4:5; \nStories: 9:16; \nReels: 9:16; Explore: 4:5",
+      "dimensao": "Feed: 1440x1800\nStories: 1440x2560\nReels: 1440x2560",
+      "aspectRatio": "Feed: 4:5 \nStories: 9:16\nReels: 9:16",
       "peso": "30 MB",
       "tipoFicheiro": "JPG, PNG",
-      "copies": "Feed: primary text 125 characters, headline 40 characters, max. 30 hashtags; \nStories: primary text 125 characters; \nReels: primary text 44 characters; Explore: primary text 125 characters, headline 40 characters, max. 30 hashtags."
+      "copies": "Feed: primary text 125 characters, headline 40 characters, max. 30 hashtags\nStories: primary text 125 characters\nReels: primary text 44 characters",
+      "observacoes": "See safe zone details in the link in the next column"
     },
     "es": {
-      "dimensao": "Feed: 1440x1800 (mín. 500px ancho; proporción mín. 400x500, máx. 191x100); \nStories: 1440x2560 (mín. 500px ancho); \nReels: 1440x2560 (mín. 500px ancho); \nExplorar: 1440x1800 (mín. 500px ancho; proporción mín. 400x500, máx. 191x100).",
-      "aspectRatio": "Feed: 4:5; \nStories: 9:16; \nReels: 9:16; \nExplorar: 4:5",
+      "dimensao": "Feed: 1440x1800\nStories: 1440x2560\nReels: 1440x2560",
+      "aspectRatio": "Feed: 4:5 \nStories: 9:16\nReels: 9:16",
       "peso": "30 MB",
       "tipoFicheiro": "JPG, PNG",
-      "copies": "Feed: texto principal 125 caracteres, título 40 caracteres, máx. 30 hashtags; \nStories: texto principal 125 caracteres; \nReels: texto principal 44 caracteres; \nExplorar: texto principal 125 caracteres, título 40 caracteres, máx. 30 hashtags."
+      "copies": "Feed: texto principal 125 caracteres, título 40 caracteres, máx. 30 hashtags\nStories: texto principal 125 caracteres\nReels: texto principal 44 caracteres",
+      "observacoes": "Ver detalles de las zonas seguras en el enlace de la columna siguiente"
     },
     "fr": {
-      "dimensao": "Feed : 1440x1800 (min. 500px largeur ; proportion min. 400x500, max. 191x100) ; Stories : 1440x2560 (min. 500px largeur) ; Reels : 1440x2560 (min. 500px largeur) ; Explorer : 1440x1800 (min. 500px largeur ; proportion min. 400x500, max. 191x100).",
-      "aspectRatio": "Feed : 4:5 ; Stories : 9:16 ; Reels : 9:16 ; Explorer : 4:5",
+      "dimensao": "Feed : 1440x1800\nStories : 1440x2560\nReels : 1440x2560",
+      "aspectRatio": "Feed : 4:5 \nStories : 9:16\nReels : 9:16",
       "peso": "30 MB",
       "tipoFicheiro": "JPG, PNG",
-      "copies": "Feed : texte principal 125 caractères, titre 40 caractères, max. 30 hashtags ; Stories : texte principal 125 caractères ; Reels : texte principal 44 caractères ; Explorer : texte principal 125 caractères, titre 40 caractères, max. 30 hashtags."
+      "copies": "Feed : texte principal 125 caractères, titre 40 caractères, max. 30 hashtags\nStories : texte principal 125 caractères\nReels : texte principal 44 caractères",
+      "observacoes": "Voir le détail des zones de sécurité dans le lien de la colonne suivante"
     }
   },
   "Instagram|Instagram|Single Video": {
     "en": {
-      "dimensao": "Feed: 1080x1920 (min. 250px width), 1s to 60min; \nStories: 1440x2560 (min. 250px width), 1s to 60min; \nReels: 1440x2560, 0 to 15min, min. 250px width (<30s) or 500px (≥30s).",
-      "aspectRatio": "Feed: 9:16; \nStories: 9:16; \nReels: 9:16",
-      "peso": "4 GB",
-      "tipoFicheiro": "MP4, MOV or GIF (Reels: MP4 or MOV only). H.264 compression, square pixels, fixed frame rate, AAC stereo audio ≥128 Kbps.",
-      "copies": "Feed: primary text 125 characters, max. 30 hashtags; \nStories: primary text 125 characters; \nReels: primary text 44 characters."
+      "dimensao": "Feed: 1440x1800 \nStories: 1440x2560 \nReels: 1440x2560",
+      "aspectRatio": "Feed: 4:5\nStories: 9:16\nReels: 9:16",
+      "peso": "Size: 4 GB\nDuration\nFeed: 1s to 60min\nStories: 1s to 60min\nReels: 0 to 15min",
+      "tipoFicheiro": "MP4, MOV or GIF (Reels: MP4 or MOV only)",
+      "copies": "Feed: primary text 125 characters, max. 30 hashtags \nStories: primary text 125 characters\nReels: primary text 44 characters",
+      "observacoes": "See safe zone details in the link in the next column"
     },
     "es": {
-      "dimensao": "Feed: 1080x1920 (mín. 250px ancho), 1s a 60min; \nStories: 1440x2560 (mín. 250px ancho), 1s a 60min; \nReels: 1440x2560, 0 a 15min, mín. 250px ancho (<30s) o 500px (≥30s).",
-      "aspectRatio": "Feed: 9:16; \nStories: 9:16; \nReels: 9:16",
-      "peso": "4 GB",
-      "tipoFicheiro": "MP4, MOV o GIF (Reels: solo MP4 o MOV). Compresión H.264, píxeles cuadrados, tasa de fotogramas fija, audio AAC estéreo ≥128 Kbps.",
-      "copies": "Feed: texto principal 125 caracteres, máx. 30 hashtags; \nStories: texto principal 125 caracteres; \nReels: texto principal 44 caracteres."
+      "dimensao": "Feed: 1440x1800 \nStories: 1440x2560 \nReels: 1440x2560",
+      "aspectRatio": "Feed: 4:5\nStories: 9:16\nReels: 9:16",
+      "peso": "Peso: 4 GB\nDuración\nFeed: 1s a 60min\nStories: 1s a 60min\nReels: 0 a 15min",
+      "tipoFicheiro": "MP4, MOV o GIF (Reels: solo MP4 o MOV)",
+      "copies": "Feed: texto principal 125 caracteres, máx. 30 hashtags \nStories: texto principal 125 caracteres\nReels: texto principal 44 caracteres",
+      "observacoes": "Ver detalles de las zonas seguras en el enlace de la columna siguiente"
     },
     "fr": {
-      "dimensao": "Feed : 1080x1920 (min. 250px largeur), 1s à 60min ; Stories : 1440x2560 (min. 250px largeur), 1s à 60min ; Reels : 1440x2560, 0 à 15min, min. 250px largeur (<30s) ou 500px (≥30s).",
-      "aspectRatio": "Feed : 9:16 ; Stories : 9:16 ; Reels : 9:16",
-      "peso": "4 GB",
-      "tipoFicheiro": "MP4, MOV ou GIF (Reels : uniquement MP4 ou MOV). Compression H.264, pixels carrés, fréquence d'images fixe, audio AAC stéréo ≥128 Kbps.",
-      "copies": "Feed : texte principal 125 caractères, max. 30 hashtags ; Stories : texte principal 125 caractères ; Reels : texte principal 44 caractères."
+      "dimensao": "Feed : 1440x1800 \nStories : 1440x2560 \nReels : 1440x2560",
+      "aspectRatio": "Feed : 4:5\nStories : 9:16\nReels : 9:16",
+      "peso": "Poids : 4 GB\nDurée\nFeed : 1s à 60min\nStories : 1s à 60min\nReels : 0 à 15min",
+      "tipoFicheiro": "MP4, MOV ou GIF (Reels : MP4 ou MOV uniquement)",
+      "copies": "Feed : texte principal 125 caractères, max. 30 hashtags \nStories : texte principal 125 caractères\nReels : texte principal 44 caractères",
+      "observacoes": "Voir le détail des zones de sécurité dans le lien de la colonne suivante"
     }
   },
   "Instagram|Instagram|Carousel": {
     "en": {
       "dimensao": "Feed: 1080x1080 min., 2 to 10 cards; \nStories: 1080x1920 min. (image or video), 2 to 10 cards; \nReels: 1080x1080 min. (image only), 2 to 10 cards.",
-      "aspectRatio": "Feed: 4:5 (image only) or 1:1 (with video); \nStories: 9:16; \nReels: 9:16",
+      "aspectRatio": "Feed: 4:5 (for image) or 1:1 (for video)\nStories: 9:16\nReels: 9:16",
       "peso": "Image: 30 MB per card",
-      "tipoFicheiro": "Image: JPG or PNG; \nVideo: MP4, MOV or GIF (Feed and Stories).",
-      "copies": "Feed: primary text 125 characters, max. 30 hashtags, URL required; \nStories: primary text 125 characters, headline 40 characters, URL required."
+      "tipoFicheiro": "Image: JPG or PNG\nVideo: MP4, MOV or GIF",
+      "copies": "Feed: primary text 125 characters, max. 30 hashtags\nStories: primary text 125 characters, headline 40 characters",
+      "observacoes": "See safe zone details in the link in the next column"
     },
     "es": {
-      "dimensao": "Feed: 1080x1080 mín., 2 a 10 tarjetas; \nStories: 1080x1920 mín. (imagen o video), 2 a 10 tarjetas; \nReels: 1080x1080 mín. (solo imagen), 2 a 10 tarjetas.",
-      "aspectRatio": "Feed: 4:5 (solo imagen) o 1:1 (con video); \nStories: 9:16; \nReels: 9:16",
+      "dimensao": "Feed: 1080x1080 mín., 2 a 10 tarjetas; \nStories: 1080x1920 mín. (imagen o vídeo), 2 a 10 tarjetas; \nReels: 1080x1080 mín. (solo imagen), 2 a 10 tarjetas.",
+      "aspectRatio": "Feed: 4:5 (para imagen) o 1:1 (para vídeo)\nStories: 9:16\nReels: 9:16",
       "peso": "Imagen: 30 MB por tarjeta",
-      "tipoFicheiro": "Imagen: JPG o PNG; \nVídeo: MP4, MOV o GIF (Feed y Stories).",
-      "copies": "Feed: texto principal 125 caracteres, máx. 30 hashtags, URL obligatoria; \nStories: texto principal 125 caracteres, título 40 caracteres, URL obligatoria."
+      "tipoFicheiro": "Imagen: JPG o PNG\nVídeo: MP4, MOV o GIF",
+      "copies": "Feed: texto principal 125 caracteres, máx. 30 hashtags\nStories: texto principal 125 caracteres, título 40 caracteres",
+      "observacoes": "Ver detalles de las zonas seguras en el enlace de la columna siguiente"
     },
     "fr": {
-      "dimensao": "Feed : 1080x1080 min., 2 à 10 cartes ; Stories : 1080x1920 min. (image ou vidéo), 2 à 10 cartes ; Reels : 1080x1080 min. (image uniquement), 2 à 10 cartes.",
-      "aspectRatio": "Feed : 4:5 (image uniquement) ou 1:1 (avec vidéo) ; Stories : 9:16 ; Reels : 9:16",
+      "dimensao": "Feed : 1080x1080 min., 2 à 10 cartes ; \nStories : 1080x1920 min. (image ou vidéo), 2 à 10 cartes ; \nReels : 1080x1080 min. (image uniquement), 2 à 10 cartes.",
+      "aspectRatio": "Feed : 4:5 (pour l'image) ou 1:1 (pour la vidéo)\nStories : 9:16\nReels : 9:16",
       "peso": "Image : 30 MB par carte",
-      "tipoFicheiro": "Image : JPG ou PNG ; \nVidéo : MP4, MOV ou GIF (Feed et Stories).",
-      "copies": "Feed : texte principal 125 caractères, max. 30 hashtags, URL obligatoire ; Stories : texte principal 125 caractères, titre 40 caractères, URL obligatoire."
+      "tipoFicheiro": "Image : JPG ou PNG\nVidéo : MP4, MOV ou GIF",
+      "copies": "Feed : texte principal 125 caractères, max. 30 hashtags\nStories : texte principal 125 caractères, titre 40 caractères",
+      "observacoes": "Voir le détail des zones de sécurité dans le lien de la colonne suivante"
     }
   },
   "Instagram|Instagram|Collection": {
     "en": {
-      "dimensao": "Feed: 1080x1080 min. (min. 500x500), cover (image or video) + 3 product images, Instant Experience required; \nStories: 1080x1080 min. (min. 500x500), cover + 2 product images, Instant Experience required; \nReels: min. 500x888, cover + up to 3 product images (product image), Instant Experience required.",
+      "dimensao": "Feed: 1080x1080, cover (image or video) + 3 product images\nStories: 1080x1080, cover + 2 product images\nReels: min. 500x888, cover + up to 3 product images (product image)",
       "aspectRatio": "Feed: 1.91:1 to 1:1; \nStories: 1.91:1 to 1:1; \nReels: 9:16 (product image: 1:1)",
-      "peso": "Image: 30 MB; Video: 4 GB",
-      "tipoFicheiro": "Image: JPG or PNG; \nVideo: MP4 or MOV.",
-      "copies": "Feed: primary text 125 characters, headline 40 characters, URL required; \nStories: primary text 125 characters, URL required."
+      "peso": "Image: 30 MB\nVideo: 4 GB",
+      "tipoFicheiro": "Image: JPG or PNG\nVideo: MP4, MOV or GIF",
+      "copies": "Feed: primary text 125 characters, headline 40 characters\nStories: primary text 125 characters",
+      "observacoes": "See safe zone details in the link in the next column"
     },
     "es": {
-      "dimensao": "Feed: 1080x1080 mín. (mín. 500x500), portada (imagen o vídeo) + 3 imágenes de producto, Experiencia Instantánea obligatoria; \nStories: 1080x1080 mín. (mín. 500x500), portada + 2 imágenes de producto, Experiencia Instantánea obligatoria; \nReels: mín. 500x888, portada + hasta 3 imágenes de producto (imagen de producto), Experiencia Instantánea obligatoria.",
+      "dimensao": "Feed: 1080x1080, portada (imagen o vídeo) + 3 imágenes de producto\nStories: 1080x1080, portada + 2 imágenes de producto\nReels: mín. 500x888, portada + hasta 3 imágenes de producto (imagen de producto)",
       "aspectRatio": "Feed: 1.91:1 hasta 1:1; \nStories: 1.91:1 hasta 1:1; \nReels: 9:16 (imagen de producto: 1:1)",
-      "peso": "Imagen: 30 MB; Video: 4 GB",
-      "tipoFicheiro": "Imagen: JPG o PNG; \nVídeo: MP4 o MOV.",
-      "copies": "Feed: texto principal 125 caracteres, título 40 caracteres, URL obligatoria; \nStories: texto principal 125 caracteres, URL obligatoria."
+      "peso": "Imagen: 30 MB\nVídeo: 4 GB",
+      "tipoFicheiro": "Imagen: JPG o PNG\nVídeo: MP4, MOV o GIF",
+      "copies": "Feed: texto principal 125 caracteres, título 40 caracteres\nStories: texto principal 125 caracteres",
+      "observacoes": "Ver detalles de las zonas seguras en el enlace de la columna siguiente"
     },
     "fr": {
-      "dimensao": "Feed : 1080x1080 min. (min. 500x500), couverture (image ou vidéo) + 3 images de produit, Expérience Instantanée obligatoire ; Stories : 1080x1080 min. (min. 500x500), couverture + 2 images de produit, Expérience Instantanée obligatoire ; Reels : min. 500x888, couverture + jusqu'à 3 images de produit (image de produit), Expérience Instantanée obligatoire.",
-      "aspectRatio": "Feed : 1.91:1 à 1:1 ; Stories : 1.91:1 à 1:1 ; Reels : 9:16 (image de produit : 1:1)",
-      "peso": "Image : 30 MB ; Vidéo : 4 GB",
-      "tipoFicheiro": "Image : JPG ou PNG ; \nVidéo : MP4 ou MOV.",
-      "copies": "Feed : texte principal 125 caractères, titre 40 caractères, URL obligatoire ; Stories : texte principal 125 caractères, URL obligatoire."
+      "dimensao": "Feed : 1080x1080, couverture (image ou vidéo) + 3 images de produit\nStories : 1080x1080, couverture + 2 images de produit\nReels : min. 500x888, couverture + jusqu'à 3 images de produit (image de produit)",
+      "aspectRatio": "Feed : 1.91:1 à 1:1 ; \nStories : 1.91:1 à 1:1 ; \nReels : 9:16 (image de produit : 1:1)",
+      "peso": "Image : 30 MB\nVidéo : 4 GB",
+      "tipoFicheiro": "Image : JPG ou PNG\nVidéo : MP4, MOV ou GIF",
+      "copies": "Feed : texte principal 125 caractères, titre 40 caractères\nStories : texte principal 125 caractères",
+      "observacoes": "Voir le détail des zones de sécurité dans le lien de la colonne suivante"
     }
   }
 }
