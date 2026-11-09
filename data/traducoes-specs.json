@@ -3848,28 +3848,28 @@
   },
   "TikTok|TikTok|In-Feed (Standard Feed)": {
     "en": {
-      "dimensao": "Vertical (recommended): 9:16, ≥540x960px. Horizontal: 16:9, ≥960x540px. Square: 1:1, ≥640x640px. Length: up to 10min. Profile photo (optional): 98x98px, square (default photo used if left blank). Account name (App Ads): automatically pulled from the App Store/Google Play; used as the in-app browser landing page heading. Download Card (App Ads only): auto-generated, shown right after the CTA or background color.",
-      "aspectRatio": "9:16 (recommended), 16:9 or 1:1",
-      "peso": "≤500 MB; bitrate ≥516 kbps. Profile photo: <50 KB.",
-      "tipoFicheiro": "MP4, MOV, MPEG, 3GP, AVI. Profile photo: JPG, JPEG, PNG.",
-      "copies": "Caption: displayed in white, uniform font (not customizable); doesn't support clickable links, the '@' symbol, or hashtags. Account name: 1 line, max. 10 characters (CN/JP/KR) or 20 characters (other languages).",
-      "observacoes": "Safe zones vary by orientation (vertical/horizontal/square), language (LTR/RTL) and anchor use — reference files available on TikTok Ads Help."
+      "dimensao": "Vertical (recommended): 9:16, ≥540x960px",
+      "aspectRatio": "9:16",
+      "peso": "Size: ≤500 MB; bitrate ≥516 kbps\nDuration: 5-60s (recommended 9-15s)",
+      "tipoFicheiro": "MP4 or MOV",
+      "copies": "up to 100 characters, max. 4 visible lines, no '{ }', no emojis",
+      "observacoes": "Pay attention to safe zones. See the link in the next column."
     },
     "es": {
-      "dimensao": "Vertical (recomendado): 9:16, ≥540x960px. Horizontal: 16:9, ≥960x540px. Square: 1:1, ≥640x640px. Duración: hasta 10min. Foto de perfil (opcional): 98x98px, cuadrada (se usa una foto predeterminada si se deja en blanco). Nombre de la cuenta (App Ads): se extrae automáticamente de la App Store/Google Play; se usa como título de la landing page en el navegador in-app. Download Card (solo App Ads): generada automáticamente, aparece justo después del CTA o del color de fondo.",
-      "aspectRatio": "9:16 (recomendado), 16:9 o 1:1",
-      "peso": "≤500 MB; bitrate ≥516 kbps. Foto de perfil: <50 KB.",
-      "tipoFicheiro": "MP4, MOV, MPEG, 3GP, AVI. Foto de perfil: JPG, JPEG, PNG.",
-      "copies": "Título: se muestra en blanco, fuente uniforme (no personalizable); no admite enlaces clicables, el símbolo '@' ni hashtags. Nombre de la cuenta: 1 línea, máx. 10 caracteres (CN/JP/KR) o 20 caracteres (otros idiomas).",
-      "observacoes": "Las zonas seguras varían según la orientación (vertical/horizontal/cuadrada), el idioma (LTR/RTL) y el uso de anchors — hay archivos de referencia disponibles en TikTok Ads Help."
+      "dimensao": "Vertical (recomendado): 9:16, ≥540x960px",
+      "aspectRatio": "9:16",
+      "peso": "Peso: ≤500 MB; bitrate ≥516 kbps\nDuración: 5-60s (recomendado 9-15s)",
+      "tipoFicheiro": "MP4 o MOV",
+      "copies": "hasta 100 caracteres, máx. 4 líneas visibles, sin '{ }', sin emojis",
+      "observacoes": "Prestar atención a las zonas seguras. Ver el enlace de la columna siguiente."
     },
     "fr": {
-      "dimensao": "Vertical (recommandé) : 9:16, ≥540x960px. Horizontal : 16:9, ≥960x540px. Carré : 1:1, ≥640x640px. Durée : jusqu'à 10min. Photo de profil (facultatif) : 98x98px, carrée (une photo par défaut est utilisée si laissée vide). Nom du compte (App Ads) : extrait automatiquement de l'App Store/Google Play ; utilisé comme titre de la landing page dans le navigateur intégré. Download Card (App Ads uniquement) : générée automatiquement, apparaît juste après le CTA ou la couleur de fond.",
-      "aspectRatio": "9:16 (recommandé), 16:9 ou 1:1",
-      "peso": "≤500 Mo ; bitrate ≥516 kbps. Photo de profil : <50 Ko.",
-      "tipoFicheiro": "MP4, MOV, MPEG, 3GP, AVI. Photo de profil : JPG, JPEG, PNG.",
-      "copies": "Légende : affichée en blanc, police uniforme (non personnalisable) ; ne prend pas en charge les liens cliquables, le symbole « @ » ni les hashtags. Nom du compte : 1 ligne, max. 10 caractères (CN/JP/KR) ou 20 caractères (autres langues).",
-      "observacoes": "Les zones de sécurité varient selon l'orientation (verticale/horizontale/carrée), la langue (LTR/RTL) et l'utilisation d'ancres — fichiers de référence disponibles sur TikTok Ads Help."
+      "dimensao": "Vertical (recommandé) : 9:16, ≥540x960px",
+      "aspectRatio": "9:16",
+      "peso": "Poids : ≤500 Mo ; bitrate ≥516 kbps\nDurée : 5-60s (recommandé 9-15s)",
+      "tipoFicheiro": "MP4 ou MOV",
+      "copies": "jusqu'à 100 caractères, max. 4 lignes visibles, sans « { } », sans emojis",
+      "observacoes": "Attention aux zones de sécurité. Voir le lien dans la colonne suivante."
     }
   },
   "TikTok|TikTok|Pulse": {
@@ -3911,45 +3911,54 @@
   },
   "TikTok|TikTok|Top Feed": {
     "en": {
-      "dimensao": "Follows In-Feed creative",
-      "peso": "Per In-Feed",
-      "tipoFicheiro": "MP4, MOV / Spark Ads",
-      "aspectRatio": "9:16"
+      "dimensao": "Vertical (recommended): 9:16, ≥540x960px",
+      "aspectRatio": "9:16",
+      "peso": "Size: ≤500 MB; bitrate ≥516 kbps\nDuration: 5-60s (recommended 9-15s)",
+      "tipoFicheiro": "MP4 or MOV",
+      "copies": "up to 100 characters, max. 4 visible lines, no '{ }', no emojis",
+      "observacoes": "Pay attention to safe zones. See the link in the next column."
     },
     "es": {
-      "dimensao": "Sigue el creativo de In-Feed",
-      "peso": "Según In-Feed",
-      "tipoFicheiro": "MP4, MOV / Spark Ads",
-      "aspectRatio": "9:16"
+      "dimensao": "Vertical (recomendado): 9:16, ≥540x960px",
+      "aspectRatio": "9:16",
+      "peso": "Peso: ≤500 MB; bitrate ≥516 kbps\nDuración: 5-60s (recomendado 9-15s)",
+      "tipoFicheiro": "MP4 o MOV",
+      "copies": "hasta 100 caracteres, máx. 4 líneas visibles, sin '{ }', sin emojis",
+      "observacoes": "Prestar atención a las zonas seguras. Ver el enlace de la columna siguiente."
     },
     "fr": {
-      "dimensao": "Suit le créatif In-Feed",
-      "peso": "Selon In-Feed",
-      "tipoFicheiro": "MP4, MOV / Spark Ads",
-      "aspectRatio": "9:16"
+      "dimensao": "Vertical (recommandé) : 9:16, ≥540x960px",
+      "aspectRatio": "9:16",
+      "peso": "Poids : ≤500 Mo ; bitrate ≥516 kbps\nDurée : 5-60s (recommandé 9-15s)",
+      "tipoFicheiro": "MP4 ou MOV",
+      "copies": "jusqu'à 100 caractères, max. 4 lignes visibles, sans « { } », sans emojis",
+      "observacoes": "Attention aux zones de sécurité. Voir le lien dans la colonne suivante."
     }
   },
   "TikTok|TikTok|TopView": {
     "en": {
-      "dimensao": "Spark Ads Pull: no minimum/maximum duration (uses the organic video as published). Non-Spark Ads and Spark Ads Push: vertical, ≥540x960px; duration 5-60s (recommended 9-15s).",
-      "peso": "Non-Spark Ads and Spark Ads Push: ≤500 MB, bitrate ≥2,500kbps. Spark Ads Pull: no own limit (uses the already published video).",
-      "tipoFicheiro": "Spark Ads Pull: .mp4 or .mov (typically). Non-Spark Ads and Spark Ads Push: .mp4, .mov, .mpeg, .3gp.",
-      "copies": "Profile photo: square, 98x98px, <50 KB, .jpg/.jpeg/.png (key element centered within a 66x66px area); on Spark Ads it uses the video account's profile photo. Account name: 1 line, max. 10 characters (CN/JP/KR) or 20 characters (other languages), no emojis or '{ }'. Ad caption: Spark Ads Pull up to 100 characters (pulled from the organic video, can be blank); Non-Spark/Spark Push up to 100 characters, max. 4 lines visible (recommended ≤50 characters CN/JP/KR or ≤100 characters other languages to avoid being covered by 'See more'), no '{ }', emojis only supported from version 11.",
-      "observacoes": "Max. 20 ads per ad group."
+      "dimensao": "Vertical, ≥540x960px.",
+      "aspectRatio": "9:16",
+      "peso": "Size: ≤500 MB, bitrate ≥2,500kbps\nDuration: 5-60s (recommended 9-15s)",
+      "tipoFicheiro": "MP4 or MOV",
+      "copies": "up to 100 characters, max. 4 visible lines, no '{ }', no emojis",
+      "observacoes": "Pay attention to safe zones. See the link in the next column."
     },
     "es": {
-      "dimensao": "Spark Ads Pull: sin duración mínima/máxima (usa el vídeo orgánico tal como se publicó). Non-Spark Ads y Spark Ads Push: vertical, ≥540x960px; duración 5-60s (recomendado 9-15s).",
-      "peso": "Non-Spark Ads y Spark Ads Push: ≤500 MB, bitrate ≥2.500kbps. Spark Ads Pull: sin límite propio (usa el vídeo ya publicado).",
-      "tipoFicheiro": "Spark Ads Pull: .mp4 o .mov (normalmente). Non-Spark Ads y Spark Ads Push: .mp4, .mov, .mpeg, .3gp.",
-      "copies": "Foto de perfil: cuadrada, 98x98px, <50 KB, .jpg/.jpeg/.png (elemento clave centrado en un área de 66x66px); en Spark Ads usa la foto de perfil de la cuenta del vídeo. Nombre de la cuenta: 1 línea, máx. 10 caracteres (CN/JP/KR) o 20 caracteres (otros idiomas), sin emojis ni '{ }'. Título del anuncio: Spark Ads Pull hasta 100 caracteres (extraído del vídeo orgánico, puede estar en blanco); Non-Spark/Spark Push hasta 100 caracteres, máx. 4 líneas visibles (recomendado ≤50 caracteres CN/JP/KR o ≤100 caracteres otros idiomas para evitar ser cubierto por 'Ver más'), sin '{ }', emojis solo compatibles a partir de la versión 11.",
-      "observacoes": "Máx. 20 anuncios por grupo de anuncios."
+      "dimensao": "Vertical, ≥540x960px.",
+      "aspectRatio": "9:16",
+      "peso": "Peso: ≤500 MB, bitrate ≥2.500kbps\nDuración: 5-60s (recomendado 9-15s)",
+      "tipoFicheiro": "MP4 o MOV",
+      "copies": "hasta 100 caracteres, máx. 4 líneas visibles, sin '{ }', sin emojis",
+      "observacoes": "Prestar atención a las zonas seguras. Ver el enlace de la columna siguiente."
     },
     "fr": {
-      "dimensao": "Spark Ads Pull : sans durée minimale/maximale (utilise la vidéo organique telle que publiée). Non-Spark Ads et Spark Ads Push : vertical, ≥540x960px ; durée 5-60s (recommandé 9-15s).",
-      "peso": "Non-Spark Ads et Spark Ads Push : ≤500 Mo, bitrate ≥2 500kbps. Spark Ads Pull : pas de limite propre (utilise la vidéo déjà publiée).",
-      "tipoFicheiro": "Spark Ads Pull : .mp4 ou .mov (généralement). Non-Spark Ads et Spark Ads Push : .mp4, .mov, .mpeg, .3gp.",
-      "copies": "Photo de profil : carrée, 98x98px, <50 Ko, .jpg/.jpeg/.png (élément clé centré dans une zone de 66x66px) ; sur Spark Ads, la photo de profil du compte de la vidéo est utilisée. Nom du compte : 1 ligne, max. 10 caractères (CN/JP/KR) ou 20 caractères (autres langues), sans emojis ni « { } ». Légende de l'annonce : Spark Ads Pull jusqu'à 100 caractères (extraite de la vidéo organique, peut être vide) ; Non-Spark/Spark Push jusqu'à 100 caractères, max. 4 lignes visibles (recommandé ≤50 caractères CN/JP/KR ou ≤100 caractères autres langues pour éviter d'être masqué par « Voir plus »), sans « { } », emojis pris en charge uniquement à partir de la version 11.",
-      "observacoes": "Max. 20 publicités par groupe de publicités."
+      "dimensao": "Vertical, ≥540x960px.",
+      "aspectRatio": "9:16",
+      "peso": "Poids : ≤500 Mo, bitrate ≥2 500kbps\nDurée : 5-60s (recommandé 9-15s)",
+      "tipoFicheiro": "MP4 ou MOV",
+      "copies": "jusqu'à 100 caractères, max. 4 lignes visibles, sans « { } », sans emojis",
+      "observacoes": "Attention aux zones de sécurité. Voir le lien dans la colonne suivante."
     }
   },
   "X|X|Carousel Ad": {
