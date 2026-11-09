@@ -412,7 +412,7 @@ function valorNumCartazesOoh(formato, objetivo) {
 // dois exigiria o mesmo formato "saber" se está a usar uma contagem simples
 // ou uma grelha, o que tornava tudo mais frágil. OOH continua a usar a
 // contagem simples (ver MEIOS_COM_TEMA/contagemTemasDoFormato).
-const CANAIS_TV = ["RTP", "SIC", "TVI", "STAR", "NOS", "Media Livre"];
+const CANAIS_TV = ["RTP", "SIC", "TVI", "STAR", "NOS", "Media Livre", "Canal 11"];
 // Lista de estações de rádio indicada pela Cláudia, por ordem alfabética
 // — ajustar esta lista chega para mudar as opções em toda a app.
 const ESTACOES_RADIO = ["Batida FM", "Best Rock FM", "Cidade FM", "CMR", "M80", "Mega Hits", "Rádio Comercial", "Rádio Observador", "Renascença", "RFM", "Smooth FM", "Star FM", "TSF"];
