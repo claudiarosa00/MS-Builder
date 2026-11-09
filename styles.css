@@ -1014,6 +1014,14 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   vertical-align: top;
 }
 
+/* Várias specs (ex.: Meta, separadas por Feed/Stories/Reels) já vêm da
+   base com quebras de linha ("\n") a separar cada placement — sem isto,
+   o white-space "normal" por omissão do browser colapsava-as todas numa
+   única linha corrida, difícil de ler. */
+.tabela-formatos td {
+  white-space: pre-line;
+}
+
 .tabela-formatos th {
   color: var(--cor-texto-suave);
   font-weight: normal;
