@@ -1017,8 +1017,14 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
 /* Várias specs (ex.: Meta, separadas por Feed/Stories/Reels) já vêm da
    base com quebras de linha ("\n") a separar cada placement — sem isto,
    o white-space "normal" por omissão do browser colapsava-as todas numa
-   única linha corrida, difícil de ler. */
-.tabela-formatos td {
+   única linha corrida, difícil de ler. Restrito às colunas de texto de
+   specs (.coluna-spec-texto/.coluna-observacoes), nunca a toda a .tabela-
+   formatos td: aplicado em geral, isto apanhava também células com
+   elementos interativos (ex. o contador +/- de Temas no construtor),
+   onde o espaço em branco entre as tags no template (indentação) passava
+   a aparecer como quebras de linha a mais, inchando a altura da linha. */
+.tabela-formatos td.coluna-spec-texto,
+.tabela-formatos td.coluna-observacoes {
   white-space: pre-line;
 }
 

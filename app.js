@@ -1881,7 +1881,7 @@ function criarLinhaFormato(formato, opcoes) {
     : "";
   // O Copies só existe para meios digitais (ver comCopies em
   // criarBlocoPublisher) — um publisher offline não desenha esta coluna.
-  const colunaCopies = opcoes.comCopies ? `<td>${escapeHTML(textoTraduzido(formato, "copies")) || "—"}</td>` : "";
+  const colunaCopies = opcoes.comCopies ? `<td class="coluna-spec-texto">${escapeHTML(textoTraduzido(formato, "copies")) || "—"}</td>` : "";
   // A Entrega de TV é sempre "GoFastWay" — não vem da base, é um valor
   // fixo (ver entregaTV em COLUNAS_EXCEL_DISPONIVEIS, a mesma ideia usada
   // aqui na Biblioteca de Formatos), com o link do Portal GoFastWay
@@ -1894,10 +1894,10 @@ function criarLinhaFormato(formato, opcoes) {
     <td id="${idNomeFormato}">${nomeFormatoTexto}</td>
     ${colunaVeiculo}
     ${colunaGrupoDigital2020}
-    <td>${escapeHTML(textoTraduzido(formato, "dimensao")) || t("naoEspecificado")}</td>
-    <td>${escapeHTML(textoTraduzido(formato, "aspectRatio")) || "—"}</td>
-    <td>${escapeHTML(textoTraduzido(formato, "peso")) || t("naoEspecificado")}</td>
-    <td>${escapeHTML(textoTraduzido(formato, "tipoFicheiro")) || t("naoEspecificado")}</td>
+    <td class="coluna-spec-texto">${escapeHTML(textoTraduzido(formato, "dimensao")) || t("naoEspecificado")}</td>
+    <td class="coluna-spec-texto">${escapeHTML(textoTraduzido(formato, "aspectRatio")) || "—"}</td>
+    <td class="coluna-spec-texto">${escapeHTML(textoTraduzido(formato, "peso")) || t("naoEspecificado")}</td>
+    <td class="coluna-spec-texto">${escapeHTML(textoTraduzido(formato, "tipoFicheiro")) || t("naoEspecificado")}</td>
     ${colunaCopies}
     ${colunaEntregaTV}
     <td class="coluna-observacoes">${escapeHTML(textoTraduzido(formato, "observacoes")) || "—"}</td>
