@@ -100,40 +100,46 @@
 
       <!--
       ============================================
-      3.2/3.3 BARRA FIXA — filtros + Vaga/Objetivo + resumo + exportar.
-      Fica sticky no topo do ecrã ao fazer scroll, para nunca obrigar a
-      voltar ao topo da página para trocar de meio/canal (barra de
-      filtros) ou de Objetivo/Vaga — ambos são escolhas que se fazem
-      muitas vezes enquanto se percorre a lista de formatos. A barra de
-      filtros é partilhada pelas duas tabs (por isso não leva
-      data-tab-visivel, ao contrário do resto aqui dentro): filtra sempre
-      a tab que estiver aberta no momento (ver aplicarFiltros em app.js).
+      3.2 BARRA DE FILTROS
+      Partilhada pelas duas tabs: filtra sempre a que
+      estiver aberta no momento (pesquisa por nome +
+      filtro por categoria). A pesquisa fica à direita dos
+      botões de categoria, que são o filtro mais usado.
       ============================================
       -->
-      <div class="barra-fixa">
-        <div class="barra-filtros">
-          <div class="filtros-categoria">
-            <div class="filtros-grupo">
-              <button type="button" class="filtro-categoria ativo" data-categoria="todas" data-i18n="filtroTodas">Todas</button>
-              <span class="filtros-separador" data-i18n="labelOnline">Online</span>
-              <button type="button" class="filtro-categoria" data-categoria="Social Media" data-i18n="filtroSocialMedia">Social Media</button>
-              <button type="button" class="filtro-categoria" data-categoria="Compra Direta" data-i18n="filtroCompraDireta">Compra Direta</button>
-              <button type="button" class="filtro-categoria" data-categoria="Google ou Search" data-i18n="filtroGoogleSearch">Google</button>
-              <button type="button" class="filtro-categoria" data-categoria="Programático" data-i18n="filtroProgramatico">Programático</button>
-            </div>
-            <div class="filtros-grupo">
-              <span class="filtros-separador" data-i18n="labelOffline">Offline</span>
-              <button type="button" class="filtro-categoria" data-categoria="OOH" data-i18n="meioOOH">OOH</button>
-              <button type="button" class="filtro-categoria" data-categoria="Imprensa" data-i18n="meioImprensa">Imprensa</button>
-              <button type="button" class="filtro-categoria" data-categoria="TV" data-i18n="meioTV">TV</button>
-              <button type="button" class="filtro-categoria" data-categoria="Rádio" data-i18n="meioRadio">Rádio</button>
-              <button type="button" class="filtro-categoria" data-categoria="Cinema" data-i18n="meioCinema">Cinema</button>
-            </div>
+      <div class="barra-filtros">
+        <div class="filtros-categoria">
+          <div class="filtros-grupo">
+            <button type="button" class="filtro-categoria ativo" data-categoria="todas" data-i18n="filtroTodas">Todas</button>
+            <span class="filtros-separador" data-i18n="labelOnline">Online</span>
+            <button type="button" class="filtro-categoria" data-categoria="Social Media" data-i18n="filtroSocialMedia">Social Media</button>
+            <button type="button" class="filtro-categoria" data-categoria="Compra Direta" data-i18n="filtroCompraDireta">Compra Direta</button>
+            <button type="button" class="filtro-categoria" data-categoria="Google ou Search" data-i18n="filtroGoogleSearch">Google</button>
+            <button type="button" class="filtro-categoria" data-categoria="Programático" data-i18n="filtroProgramatico">Programático</button>
           </div>
-          <input type="text" id="campoPesquisa" data-i18n-placeholder="placeholderPesquisa" placeholder="Pesquisar formato ou publisher..." data-i18n-aria-label="placeholderPesquisa" aria-label="Pesquisar formato ou publisher...">
-          <button type="button" id="botaoLimparFiltros" class="botao-limpar" data-i18n="botaoLimparFiltros">Limpar filtros</button>
+          <div class="filtros-grupo">
+            <span class="filtros-separador" data-i18n="labelOffline">Offline</span>
+            <button type="button" class="filtro-categoria" data-categoria="OOH" data-i18n="meioOOH">OOH</button>
+            <button type="button" class="filtro-categoria" data-categoria="Imprensa" data-i18n="meioImprensa">Imprensa</button>
+            <button type="button" class="filtro-categoria" data-categoria="TV" data-i18n="meioTV">TV</button>
+            <button type="button" class="filtro-categoria" data-categoria="Rádio" data-i18n="meioRadio">Rádio</button>
+            <button type="button" class="filtro-categoria" data-categoria="Cinema" data-i18n="meioCinema">Cinema</button>
+          </div>
         </div>
+        <input type="text" id="campoPesquisa" data-i18n-placeholder="placeholderPesquisa" placeholder="Pesquisar formato ou publisher..." data-i18n-aria-label="placeholderPesquisa" aria-label="Pesquisar formato ou publisher...">
+        <button type="button" id="botaoLimparFiltros" class="botao-limpar" data-i18n="botaoLimparFiltros">Limpar filtros</button>
+      </div>
 
+      <!--
+      ============================================
+      3.3 BARRA FIXA (Objetivo + resumo da seleção + exportar) — só
+      Construir Pedido. Fica sticky no topo do ecrã ao fazer scroll, para
+      trocar de Objetivo (Awareness/Consideration/Conversion) nunca
+      obrigar a voltar ao topo da página — é algo que se faz muitas vezes
+      enquanto se percorre a lista de formatos.
+      ============================================
+      -->
+      <div class="barra-fixa" data-tab-visivel="construir">
         <!--
         ============================================
         3.3.1 SELETOR DE OBJETIVO (Awareness / Consideration / Conversion)
@@ -141,13 +147,10 @@
         formato pode ser pedido em mais que um objetivo (ex.: Single
         Image para Awareness E para Conversion), porque a agência trata
         essas criatividades/copies como pedidos distintos mesmo quando
-        as specs técnicas são iguais. Só existe na tab "Construir Pedido"
-        — por isso esta secção, o resumo e o exportar levam
-        data-tab-visivel="construir" cada um (a barra de filtros acima
-        não, ver nota mais acima).
+        as specs técnicas são iguais.
         ============================================
         -->
-        <div class="linha-seletores" data-tab-visivel="construir">
+        <div class="linha-seletores">
           <!--
           ============================================
           3.3.1b SELETOR DE VAGA — geral, não só TV/Rádio — só aparece quando
@@ -186,8 +189,8 @@
           </section>
         </div>
 
-        <aside id="resumoSelecao" class="resumo-selecao" data-tab-visivel="construir"></aside>
-        <div id="areaExportar" class="area-exportar" data-tab-visivel="construir">
+        <aside id="resumoSelecao" class="resumo-selecao"></aside>
+        <div id="areaExportar" class="area-exportar">
           <button id="botaoExportar" type="button" disabled data-i18n="botaoExportar">Exportar para Excel</button>
           <!--
           ============================================
