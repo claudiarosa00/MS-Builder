@@ -3847,14 +3847,18 @@ async function escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados) {
   folha.views = [{ showGridLines: false }];
   // Na OLX as Observações saem ao lado da imagem, não por baixo (pedido
   // explícito da Cláudia) — por isso, havendo imagem, a folha ganha mais
-  // duas colunas: C é só corredor (para nenhuma imagem, até 700px de
-  // largura, ficar por baixo do texto) e D leva o texto. Sem imagem (ex.:
-  // os formatos OLX só com Observações) não há nada ao lado de quê, por
-  // isso fica só A/B, como os outros meios.
+  // duas colunas: C é só corredor e D leva o texto. B+C têm de somar bem
+  // mais do que os 700px máximos de uma imagem (ver LADO_MAXIMO_IMAGEM
+  // abaixo) — conversão aproximada do Excel é píxeis = largura*7+5, por
+  // isso 90+4 (≈668px) não chegava e a imagem sobrepunha-se ao início do
+  // texto em D (bug reportado pela Cláudia: primeiras letras de cada
+  // linha escondidas atrás da imagem). Com 100+6 (≈752px) sobra folga.
+  // Sem imagem (ex.: os formatos OLX só com Observações) não há nada ao
+  // lado de quê, por isso fica só A/B, como os outros meios.
   const LARGURA_COLUNA_OBSERVACOES_OLX = 55;
   const observacoesAoLadoDaImagem = ehOLX && caminhosImagem.length > 0;
   folha.columns = observacoesAoLadoDaImagem
-    ? [{ width: 5 }, { width: 90 }, { width: 4 }, { width: LARGURA_COLUNA_OBSERVACOES_OLX }]
+    ? [{ width: 5 }, { width: 100 }, { width: 6 }, { width: LARGURA_COLUNA_OBSERVACOES_OLX }]
     : [{ width: 5 }, { width: 90 }];
 
   const celulaTitulo = folha.getCell(2, 2);
