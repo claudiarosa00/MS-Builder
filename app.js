@@ -747,6 +747,7 @@ const TRADUCOES = {
   colTipoFicheiro: { pt: "Tipo de ficheiro", en: "File Type", es: "Tipo de archivo", fr: "Type de fichier" },
   colCopies: { pt: "Copies", en: "Copy", es: "Copies", fr: "Copies" },
   colObservacoes: { pt: "Observações", en: "Notes", es: "Observaciones", fr: "Remarques" },
+  tituloExemploImagem: { pt: "Exemplo", en: "Example", es: "Ejemplo", fr: "Exemple" },
   colTema: { pt: "Tema", en: "Theme", es: "Tema", fr: "Thème" },
   colFonte: { pt: "Fonte", en: "Source", es: "Fuente", fr: "Source" },
   colCanal: { pt: "Canal", en: "Channel", es: "Canal", fr: "Canal" },
@@ -3826,6 +3827,36 @@ function nomeUnicoParaSheet(nomeDesejado, nomesUsados) {
 // têm um wireframe + vários exemplos reais, em vez de um único desenho
 // técnico (caso mais comum, ex.: OOH). Cada imagem é desenhada a seguir
 // à anterior na mesma sheet.
+// Nenhuma imagem sai maior que isto (mas pode sair mais pequena, se já
+// vier assim) — um desenho técnico em alta resolução não tem de ocupar o
+// ecrã todo para as medidas continuarem legíveis. Devolve a linha livre a
+// seguir à última imagem desenhada (a chamadora decide o que lá pôr).
+const LADO_MAXIMO_IMAGEM = 700;
+async function desenharImagensEmpilhadas(workbook, folha, caminhosImagem, coluna, linhaInicio) {
+  let linha = linhaInicio;
+  for (const caminhoImagem of caminhosImagem) {
+    const respostaImagem = await fetch(caminhoImagem, { cache: "no-store" });
+    if (!respostaImagem.ok) {
+      // Referenciada na base mas o ficheiro não existe/não carrega — não
+      // bloqueia o resto da exportação, só esta imagem fica por fazer.
+      continue;
+    }
+    const bufferImagem = await respostaImagem.arrayBuffer();
+    const { largura: larguraNatural, altura: alturaNatural } = obterDimensoesPNG(bufferImagem);
+    const escala = Math.min(LADO_MAXIMO_IMAGEM / larguraNatural, LADO_MAXIMO_IMAGEM / alturaNatural, 1);
+    const larguraFinal = Math.round(larguraNatural * escala);
+    const alturaFinal = Math.round(alturaNatural * escala);
+    const idImagem = workbook.addImage({ buffer: bufferImagem, extension: "png" });
+    folha.addImage(idImagem, { tl: { col: coluna, row: linha - 1 }, ext: { width: larguraFinal, height: alturaFinal } });
+
+    // Imagem seguinte começa a seguir a esta — a altura de linha por
+    // omissão do Excel ronda os 20px, por isso esta conta é só uma
+    // aproximação (overshoot é inofensivo, só deixa uma margem extra).
+    linha += Math.ceil(alturaFinal / 20) + 2;
+  }
+  return linha;
+}
+
 async function escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados) {
   const caminhosImagem = (formato.imagemFicheiro || "")
     .split("\n")
@@ -3842,54 +3873,47 @@ async function escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados) {
     return;
   }
 
+  // Na OLX só a primeira imagem (mockup/wireframe) fica na coluna B —
+  // as restantes (exemplos reais de campanhas) saem numa coluna à parte,
+  // mais à direita, sob o título "Exemplo" (pedido explícito da
+  // Cláudia: antes ficavam todas empilhadas em B, uma a seguir à outra).
+  // Nos restantes meios continua tudo empilhado em B, como sempre.
+  const imagemPrincipal = ehOLX ? caminhosImagem.slice(0, 1) : caminhosImagem;
+  const imagensExemplo = ehOLX ? caminhosImagem.slice(1) : [];
+
   const nomeFormatoTexto = textoTraduzido(formato, "formato") ?? formato.formato ?? "";
   const folha = workbook.addWorksheet(nomeUnicoParaSheet(`${formato.fornecedor} — ${nomeFormatoTexto}`, nomesSheetUsados));
   folha.views = [{ showGridLines: false }];
   // Na OLX as Observações saem ao lado da imagem, não por baixo (pedido
   // explícito da Cláudia) — por isso, havendo imagem, a folha ganha mais
-  // duas colunas: C é só corredor e D leva o texto. B+C têm de somar bem
-  // mais do que os 700px máximos de uma imagem (ver LADO_MAXIMO_IMAGEM
-  // abaixo) — conversão aproximada do Excel é píxeis = largura*7+5, por
-  // isso 90+4 (≈668px) não chegava e a imagem sobrepunha-se ao início do
-  // texto em D (bug reportado pela Cláudia: primeiras letras de cada
-  // linha escondidas atrás da imagem). Com 100+6 (≈752px) sobra folga.
-  // Sem imagem (ex.: os formatos OLX só com Observações) não há nada ao
-  // lado de quê, por isso fica só A/B, como os outros meios.
+  // colunas: C e E são só corredor, D leva o texto e F os exemplos (se
+  // houver). B+C têm de somar bem mais do que os 700px máximos de uma
+  // imagem (LADO_MAXIMO_IMAGEM) — conversão aproximada do Excel é píxeis
+  // = largura*7+5, por isso 90+4 (≈668px) não chegava e a imagem
+  // sobrepunha-se ao início do texto em D (bug reportado pela Cláudia:
+  // primeiras letras de cada linha escondidas atrás da imagem). Com
+  // 100+6 (≈752px) sobra folga; F usa a mesma largura de B pela mesma
+  // razão. Sem imagem (ex.: os formatos OLX só com Observações) não há
+  // nada ao lado de quê, por isso fica só A/B, como os outros meios.
   const LARGURA_COLUNA_OBSERVACOES_OLX = 55;
+  const LARGURA_COLUNA_EXEMPLO_OLX = 100;
   const observacoesAoLadoDaImagem = ehOLX && caminhosImagem.length > 0;
   folha.columns = observacoesAoLadoDaImagem
-    ? [{ width: 5 }, { width: 100 }, { width: 6 }, { width: LARGURA_COLUNA_OBSERVACOES_OLX }]
+    ? [{ width: 5 }, { width: 100 }, { width: 6 }, { width: LARGURA_COLUNA_OBSERVACOES_OLX }, { width: 6 }, { width: LARGURA_COLUNA_EXEMPLO_OLX }]
     : [{ width: 5 }, { width: 90 }];
 
   const celulaTitulo = folha.getCell(2, 2);
   celulaTitulo.value = `${formato.fornecedor} — ${nomeFormatoTexto}`;
   celulaTitulo.font = { name: "Arial Nova", size: 14, bold: true, color: { argb: "FF0F1724" } };
 
-  // Nenhuma imagem sai maior que isto (mas pode sair mais pequena, se já
-  // vier assim) — um desenho técnico em alta resolução não tem de ocupar
-  // o ecrã todo para as medidas continuarem legíveis.
-  const LADO_MAXIMO_IMAGEM = 700;
-  let linhaAtual = 4;
-  const linhaInicioImagens = linhaAtual;
-  for (const caminhoImagem of caminhosImagem) {
-    const respostaImagem = await fetch(caminhoImagem, { cache: "no-store" });
-    if (!respostaImagem.ok) {
-      // Referenciada na base mas o ficheiro não existe/não carrega — não
-      // bloqueia o resto da exportação, só esta imagem fica por fazer.
-      continue;
-    }
-    const bufferImagem = await respostaImagem.arrayBuffer();
-    const { largura: larguraNatural, altura: alturaNatural } = obterDimensoesPNG(bufferImagem);
-    const escala = Math.min(LADO_MAXIMO_IMAGEM / larguraNatural, LADO_MAXIMO_IMAGEM / alturaNatural, 1);
-    const larguraFinal = Math.round(larguraNatural * escala);
-    const alturaFinal = Math.round(alturaNatural * escala);
-    const idImagem = workbook.addImage({ buffer: bufferImagem, extension: "png" });
-    folha.addImage(idImagem, { tl: { col: 1, row: linhaAtual - 1 }, ext: { width: larguraFinal, height: alturaFinal } });
+  const linhaInicioImagens = 4;
+  let linhaAtual = await desenharImagensEmpilhadas(workbook, folha, imagemPrincipal, 1, linhaInicioImagens);
 
-    // Imagem seguinte começa a seguir a esta — a altura de linha por
-    // omissão do Excel ronda os 20px, por isso esta conta é só uma
-    // aproximação (overshoot é inofensivo, só deixa uma margem extra).
-    linhaAtual += Math.ceil(alturaFinal / 20) + 2;
+  if (imagensExemplo.length > 0) {
+    const celulaExemplo = folha.getCell(2, 6);
+    celulaExemplo.value = t("tituloExemploImagem");
+    celulaExemplo.font = { name: "Arial Nova", size: 14, bold: true, color: { argb: "FF0F1724" } };
+    await desenharImagensEmpilhadas(workbook, folha, imagensExemplo, 5, linhaInicioImagens);
   }
 
   const larguraColunaTexto = 90;
