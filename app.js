@@ -3222,6 +3222,38 @@ function ajustarLargurasAoConteudo(folha, colunasChaves, largurasConteudo) {
   }
 }
 
+// Soma a largura (já ajustada, ver ajustarLargurasAoConteudo) das colunas
+// 1..numColunas — usado para estimar quantas linhas visuais um texto vai
+// ocupar numa célula fundida ao longo dessas colunas (ver
+// alturaParaTextoFundido). 8.43 é a largura por omissão do Excel, para o
+// caso (impossível aqui, mas seguro) de uma coluna ainda sem largura
+// definida.
+function larguraTotalColunas(folha, numColunas) {
+  let total = 0;
+  for (let coluna = 1; coluna <= numColunas; coluna += 1) {
+    total += folha.getColumn(coluna).width || 8.43;
+  }
+  return total;
+}
+
+// Altura (em pontos) necessária para uma célula fundida ao longo de
+// larguraColunasExcel colunas mostrar um texto inteiro com wrapText, sem
+// cortar nada — o Excel não recalcula sozinho a altura de células
+// fundidas com quebra de linha, por isso temos de a definir nós (bug
+// reportado pela Cláudia: texto das Observações a sair cortado nas
+// folhas de TV/Rádio). 15pt por linha visual, o mesmo valor já usado
+// para a nota de entrega de materiais (ver escreverNotaEntregaMateriais).
+function alturaParaTextoFundido(texto, larguraColunasExcel) {
+  if (!texto) {
+    return 15;
+  }
+  const caracteresPorLinha = Math.max(10, Math.round(larguraColunasExcel * 0.95));
+  const linhasVisuais = String(texto)
+    .split("\n")
+    .reduce((total, linha) => total + Math.max(1, Math.ceil(linha.length / caracteresPorLinha)), 0);
+  return Math.max(15, linhasVisuais * 15);
+}
+
 // Escreve uma secção completa (título do objetivo + cabeçalho da tabela +
 // uma linha por formato — ou uma linha por duração escolhida, no caso de
 // TV/Rádio, ver mais abaixo) a partir da linha indicada, e devolve a
@@ -3466,6 +3498,7 @@ function escreverRodapeEspecificacoes(folha, linhaInicio, numColunas, grupoMeio)
   // texto toda a largura da tabela para respirar.
   const estiloRotulo = { name: "Arial Nova", size: 10, bold: true, color: { argb: "FF5B6678" } };
   const estiloValor = { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } };
+  const larguraColunasExcel = larguraTotalColunas(folha, numColunas);
 
   formatosDoMeio
     .slice()
@@ -3473,9 +3506,11 @@ function escreverRodapeEspecificacoes(folha, linhaInicio, numColunas, grupoMeio)
     .forEach((formato) => {
       folha.mergeCells(linha, 1, linha, numColunas);
       const celulaNome = folha.getCell(linha, 1);
-      celulaNome.value = textoTraduzido(formato, "formato") ?? "";
+      const nomeFormato = textoTraduzido(formato, "formato") ?? "";
+      celulaNome.value = nomeFormato;
       celulaNome.font = { name: "Arial Nova", size: 11, bold: true, color: { argb: "FF0F1724" } };
       celulaNome.alignment = { vertical: "top", horizontal: "left", wrapText: true };
+      folha.getRow(linha).height = alturaParaTextoFundido(nomeFormato, larguraColunasExcel);
       linha += 1;
 
       const campos = [
@@ -3492,6 +3527,7 @@ function escreverRodapeEspecificacoes(folha, linhaInicio, numColunas, grupoMeio)
         const celula = folha.getCell(linha, 1);
         celula.value = { richText: [{ font: estiloRotulo, text: `${rotulo}: ` }, { font: estiloValor, text: valor }] };
         celula.alignment = { vertical: "top", horizontal: "left", wrapText: true };
+        folha.getRow(linha).height = alturaParaTextoFundido(`${rotulo}: ${valor}`, larguraColunasExcel);
         linha += 1;
       });
 
@@ -3501,9 +3537,11 @@ function escreverRodapeEspecificacoes(folha, linhaInicio, numColunas, grupoMeio)
       if (grupoMeio === "TV") {
         folha.mergeCells(linha, 1, linha, numColunas);
         const celulaEntrega = folha.getCell(linha, 1);
-        celulaEntrega.value = { text: `${t("colEntrega")}: GoFastWay — ${TEXTO_LINK_GOFASTWAY}`, hyperlink: LINK_GOFASTWAY };
+        const textoEntrega = `${t("colEntrega")}: GoFastWay — ${TEXTO_LINK_GOFASTWAY}`;
+        celulaEntrega.value = { text: textoEntrega, hyperlink: LINK_GOFASTWAY };
         celulaEntrega.font = { name: "Arial Nova", size: 10, color: { argb: "FF1155CC" }, underline: true };
         celulaEntrega.alignment = { vertical: "top", horizontal: "left", wrapText: true };
+        folha.getRow(linha).height = alturaParaTextoFundido(textoEntrega, larguraColunasExcel);
         linha += 1;
       }
 
@@ -3548,12 +3586,13 @@ function chaveNotaEntregaMateriais(grupoMeio) {
 
 function escreverNotaEntregaMateriais(folha, linha, numColunas, cliente, grupoMeio) {
   let linhaAtual = linha;
+  const textoNota = t(chaveNotaEntregaMateriais(grupoMeio));
   folha.mergeCells(linhaAtual, 1, linhaAtual, numColunas);
   const celulaNota = folha.getCell(linhaAtual, 1);
-  celulaNota.value = t(chaveNotaEntregaMateriais(grupoMeio));
+  celulaNota.value = textoNota;
   celulaNota.font = { name: "Arial Nova", size: 9, italic: true, color: { argb: "FF5B6678" } };
   celulaNota.alignment = { vertical: "top", horizontal: "left", wrapText: true };
-  folha.getRow(linhaAtual).height = 30;
+  folha.getRow(linhaAtual).height = alturaParaTextoFundido(textoNota, larguraTotalColunas(folha, numColunas));
   linhaAtual += 1;
 
   const emails = contactosDoCliente(cliente);
@@ -3712,6 +3751,13 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
     linhaAtual = escreverSeccaoObjetivo(folha, linhaAtual, t(CHAVE_TRADUCAO_OBJETIVO[objetivo]), formatosPorVaga, config, objetivo, colunasChaves, grupoMeio, registarLarguraColuna, !!vagaFiltro);
   });
 
+  // Larguras finais das colunas, já com o conteúdo de todas as secções
+  // acima registado — tem de correr ANTES do rodapé de especificações e
+  // da nota de entrega, porque ambos precisam da largura já definida
+  // para calcular quantas linhas visuais o texto de cada célula fundida
+  // vai ocupar (ver alturaParaTextoFundido/larguraTotalColunas).
+  ajustarLargurasAoConteudo(folha, colunasChaves, largurasConteudo);
+
   // Uma linha de intervalo extra antes da nota de especificações de TV/
   // Rádio — pedido explícito da Cláudia (a linha em branco que já havia
   // entre a tabela e o rodapé, ver escreverSeccaoObjetivo, não bastava).
@@ -3725,8 +3771,6 @@ async function escreverFolhaMeio(workbook, config, companhia, cliente, campanha,
   // Cláudia.
   linhaAtual += 1;
   escreverNotaEntregaMateriais(folha, linhaAtual, numColunasFolha, cliente, grupoMeio);
-
-  ajustarLargurasAoConteudo(folha, colunasChaves, largurasConteudo);
 }
 
 /*
