@@ -3102,7 +3102,10 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
   observacoes: {
     largura: 40,
     titulo: () => t("colObservacoes"),
-    valor: (formato) => textoTraduzido(formato, "observacoes") || "",
+    // Pedido explícito da Cláudia: na OLX as notas não saem na coluna de
+    // Observações da folha principal — só na sheet extra do formato (ver
+    // escreverFolhaImagemFormato), ao lado da imagem.
+    valor: (formato) => (formato.fornecedor === "OLX" ? "" : textoTraduzido(formato, "observacoes") || ""),
   },
   link: {
     largura: 40,
@@ -3828,14 +3831,31 @@ async function escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados) {
     .split("\n")
     .map((caminho) => caminho.trim())
     .filter(Boolean);
-  if (caminhosImagem.length === 0) {
+  const textoObservacoes = textoTraduzido(formato, "observacoes");
+  const ehOLX = formato.fornecedor === "OLX";
+  // Um formato OLX sem imagem mas com Observações ainda assim ganha esta
+  // sheet extra, só para mostrar a nota (que deixou de sair na coluna de
+  // Observações da folha principal — ver COLUNAS_FORMATO_EXCEL acima);
+  // para os restantes meios o comportamento não muda: sem imagem, sem
+  // sheet.
+  if (caminhosImagem.length === 0 && !(ehOLX && textoObservacoes)) {
     return;
   }
 
   const nomeFormatoTexto = textoTraduzido(formato, "formato") ?? formato.formato ?? "";
   const folha = workbook.addWorksheet(nomeUnicoParaSheet(`${formato.fornecedor} — ${nomeFormatoTexto}`, nomesSheetUsados));
   folha.views = [{ showGridLines: false }];
-  folha.columns = [{ width: 5 }, { width: 90 }];
+  // Na OLX as Observações saem ao lado da imagem, não por baixo (pedido
+  // explícito da Cláudia) — por isso, havendo imagem, a folha ganha mais
+  // duas colunas: C é só corredor (para nenhuma imagem, até 700px de
+  // largura, ficar por baixo do texto) e D leva o texto. Sem imagem (ex.:
+  // os formatos OLX só com Observações) não há nada ao lado de quê, por
+  // isso fica só A/B, como os outros meios.
+  const LARGURA_COLUNA_OBSERVACOES_OLX = 55;
+  const observacoesAoLadoDaImagem = ehOLX && caminhosImagem.length > 0;
+  folha.columns = observacoesAoLadoDaImagem
+    ? [{ width: 5 }, { width: 90 }, { width: 4 }, { width: LARGURA_COLUNA_OBSERVACOES_OLX }]
+    : [{ width: 5 }, { width: 90 }];
 
   const celulaTitulo = folha.getCell(2, 2);
   celulaTitulo.value = `${formato.fornecedor} — ${nomeFormatoTexto}`;
@@ -3846,6 +3866,7 @@ async function escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados) {
   // o ecrã todo para as medidas continuarem legíveis.
   const LADO_MAXIMO_IMAGEM = 700;
   let linhaAtual = 4;
+  const linhaInicioImagens = linhaAtual;
   for (const caminhoImagem of caminhosImagem) {
     const respostaImagem = await fetch(caminhoImagem, { cache: "no-store" });
     if (!respostaImagem.ok) {
@@ -3880,23 +3901,50 @@ async function escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados) {
   folha.getRow(linhaAtual).height = alturaParaTextoFundido(`${t("colDimensao")}: ${textoDimensao}`, larguraColunaTexto);
   linhaAtual += 1;
 
-  // Notas adicionais (Observações) por baixo da imagem/medidas — pedido
-  // explícito da Cláudia para o OLX (Takeover/Ad Train/Billboards), mas
-  // vale para qualquer formato com Observações: o texto já continha a
-  // instrução ">>>> Ver sheet extra para mais info e exemplos", por isso
-  // esta sheet é o sítio certo para as mostrar por extenso.
-  const textoObservacoes = textoTraduzido(formato, "observacoes");
+  // Notas adicionais (Observações): na OLX saem numa coluna à parte, ao
+  // lado da imagem (pedido explícito da Cláudia — a coluna de
+  // Observações da folha principal fica vazia para estes formatos, ver
+  // COLUNAS_FORMATO_EXCEL); nos restantes meios continuam por baixo da
+  // imagem/medidas, como já acontecia (o texto já continha a instrução
+  // ">>>> Ver sheet extra para mais info e exemplos").
   if (textoObservacoes) {
-    linhaAtual += 1;
-    const celulaObs = folha.getCell(linhaAtual, 2);
-    celulaObs.value = {
-      richText: [
-        { font: { name: "Arial Nova", size: 10, bold: true }, text: `${t("colObservacoes")}: ` },
-        { font: { name: "Arial Nova", size: 10 }, text: textoObservacoes },
-      ],
-    };
-    celulaObs.alignment = { wrapText: true, vertical: "top" };
-    folha.getRow(linhaAtual).height = alturaParaTextoFundido(`${t("colObservacoes")}: ${textoObservacoes}`, larguraColunaTexto);
+    if (observacoesAoLadoDaImagem) {
+      // A célula funde-se por todas as linhas que a(s) imagem(ns) ocupam
+      // (linhaInicioImagens até à linha em branco mesmo antes da
+      // Dimensão) em vez de ficar só na primeira: encolher tudo para uma
+      // única linha obrigava a esticá-la à altura do texto todo, o que
+      // empurrava as imagens seguintes (caso dos "Full Branding" com
+      // várias) para muito mais abaixo do que deviam. Só se o texto não
+      // couber no espaço que as imagens já ocupam é que a última linha
+      // fundida cresce para compensar — nunca a primeira.
+      const linhaFimImagens = linhaAtual - 2;
+      folha.mergeCells(linhaInicioImagens, 4, linhaFimImagens, 4);
+      const celulaObs = folha.getCell(linhaInicioImagens, 4);
+      celulaObs.value = {
+        richText: [
+          { font: { name: "Arial Nova", size: 10, bold: true }, text: `${t("colObservacoes")}: ` },
+          { font: { name: "Arial Nova", size: 10 }, text: textoObservacoes },
+        ],
+      };
+      celulaObs.alignment = { wrapText: true, vertical: "top" };
+      const ALTURA_LINHA_OMISSAO = 15;
+      const alturaDisponivel = (linhaFimImagens - linhaInicioImagens + 1) * ALTURA_LINHA_OMISSAO;
+      const alturaNecessaria = alturaParaTextoFundido(`${t("colObservacoes")}: ${textoObservacoes}`, LARGURA_COLUNA_OBSERVACOES_OLX);
+      if (alturaNecessaria > alturaDisponivel) {
+        folha.getRow(linhaFimImagens).height = ALTURA_LINHA_OMISSAO + (alturaNecessaria - alturaDisponivel);
+      }
+    } else {
+      linhaAtual += 1;
+      const celulaObs = folha.getCell(linhaAtual, 2);
+      celulaObs.value = {
+        richText: [
+          { font: { name: "Arial Nova", size: 10, bold: true }, text: `${t("colObservacoes")}: ` },
+          { font: { name: "Arial Nova", size: 10 }, text: textoObservacoes },
+        ],
+      };
+      celulaObs.alignment = { wrapText: true, vertical: "top" };
+      folha.getRow(linhaAtual).height = alturaParaTextoFundido(`${t("colObservacoes")}: ${textoObservacoes}`, larguraColunaTexto);
+    }
   }
 }
 
@@ -3904,11 +3952,13 @@ async function escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados) {
 // um dado meio que tenha pelo menos uma (coluna "Imagem" da base) — não é
 // exclusivo da OOH (caso mais comum, um desenho técnico por formato): a
 // OLX, por ex., usa isto no Digital para anexar wireframe + exemplos
-// reais dos formatos "Full Branding".
+// reais dos formatos "Full Branding". Um formato OLX sem imagem mas com
+// Observações também entra aqui (ver escreverFolhaImagemFormato): é a
+// sua única sheet extra, só com a nota ao lado de onde a imagem estaria.
 async function escreverFolhasImagensExtra(workbook, grupoMeio) {
   const nomesSheetUsados = new Set(workbook.worksheets.map((folha) => folha.name.toLowerCase()));
   const formatosComImagem = formatosSelecionadosDoMeio(grupoMeio)
-    .filter((formato) => formato.imagemFicheiro)
+    .filter((formato) => formato.imagemFicheiro || (formato.fornecedor === "OLX" && textoTraduzido(formato, "observacoes")))
     .sort((a, b) => (textoTraduzido(a, "formato") ?? "").localeCompare(textoTraduzido(b, "formato") ?? "", "pt"));
   for (const formato of formatosComImagem) {
     await escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados);
