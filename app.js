@@ -3867,14 +3867,37 @@ async function escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados) {
     linhaAtual += Math.ceil(alturaFinal / 20) + 2;
   }
 
+  const larguraColunaTexto = 90;
+  const textoDimensao = textoTraduzido(formato, "dimensao") || "";
   const celulaMedidas = folha.getCell(linhaAtual, 2);
   celulaMedidas.value = {
     richText: [
       { font: { name: "Arial Nova", size: 10, bold: true }, text: `${t("colDimensao")}: ` },
-      { font: { name: "Arial Nova", size: 10 }, text: textoTraduzido(formato, "dimensao") || "" },
+      { font: { name: "Arial Nova", size: 10 }, text: textoDimensao },
     ],
   };
   celulaMedidas.alignment = { wrapText: true, vertical: "top" };
+  folha.getRow(linhaAtual).height = alturaParaTextoFundido(`${t("colDimensao")}: ${textoDimensao}`, larguraColunaTexto);
+  linhaAtual += 1;
+
+  // Notas adicionais (Observações) por baixo da imagem/medidas — pedido
+  // explícito da Cláudia para o OLX (Takeover/Ad Train/Billboards), mas
+  // vale para qualquer formato com Observações: o texto já continha a
+  // instrução ">>>> Ver sheet extra para mais info e exemplos", por isso
+  // esta sheet é o sítio certo para as mostrar por extenso.
+  const textoObservacoes = textoTraduzido(formato, "observacoes");
+  if (textoObservacoes) {
+    linhaAtual += 1;
+    const celulaObs = folha.getCell(linhaAtual, 2);
+    celulaObs.value = {
+      richText: [
+        { font: { name: "Arial Nova", size: 10, bold: true }, text: `${t("colObservacoes")}: ` },
+        { font: { name: "Arial Nova", size: 10 }, text: textoObservacoes },
+      ],
+    };
+    celulaObs.alignment = { wrapText: true, vertical: "top" };
+    folha.getRow(linhaAtual).height = alturaParaTextoFundido(`${t("colObservacoes")}: ${textoObservacoes}`, larguraColunaTexto);
+  }
 }
 
 // Sheets extra com a(s) imagem(ns)/medidas de cada formato selecionado de
