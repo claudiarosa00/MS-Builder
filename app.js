@@ -1129,9 +1129,19 @@ function agruparPorPublisher(formatos) {
   const grupos = {};
   for (const formato of formatos) {
     const categoria = categoriaDoFormato(formato);
-    const chave = `${formato.fornecedor}\u0000${categoria}`;
+    // A Sapo tem vários veículos de origens bem distintas (HBO Max,
+    // Teads, Outbrain, ADDS+, SkyShowtime, Spotify, ...) — ao contrário
+    // de outros publishers com vários veículos (ex.: "Correio da
+    // Manhã", onde são só variantes do mesmo jornal), a Cláudia quer
+    // cada um destes como bloco separado na área principal, não como
+    // linhas dentro de um bloco "Sapo" só. ehRedeSapo marca esses blocos
+    // para o índice lateral os agrupar num dropdown comum "Sapo" (ver
+    // mostrarFormatosAgrupados/atualizarIndicePublishers).
+    const ehRedeSapo = formato.fornecedor === "Sapo";
+    const nome = ehRedeSapo ? (formato.veiculo || "Sapo") : formato.fornecedor;
+    const chave = `${nome}\u0000${categoria}`;
     if (!grupos[chave]) {
-      grupos[chave] = { nome: formato.fornecedor, categoria, formatos: [] };
+      grupos[chave] = { nome, categoria, formatos: [], ehRedeSapo };
     }
     grupos[chave].formatos.push(formato);
   }
@@ -1290,12 +1300,22 @@ function mostrarFormatosAgrupados(contentor, formatos, opcoes) {
   // ORDEM_CATEGORIAS (Social Media, Compra Direta, Google ou Search,
   // Programático, e depois os meios offline — OOH, TV, Rádio, Cinema,
   // Imprensa); dentro de cada categoria, os publishers ficam por ordem
-  // alfabética.
+  // alfabética — exceto os veículos da Sapo (ver agruparPorPublisher),
+  // que ficam sempre juntos, no sítio alfabético que "Sapo" ocuparia
+  // sozinho, e só entre si é que seguem a ordem alfabética normal
+  // (pedido explícito da Cláudia, para não ficarem espalhados pelo
+  // meio de outros publishers de Compra Direta).
+  const chaveOrdenacaoNomePublisher = (grupo) => (grupo.ehRedeSapo ? "Sapo" : grupo.nome);
   const chavesGrupos = Object.keys(grupos).sort((a, b) => {
     const posicaoA = ORDEM_CATEGORIAS.indexOf(grupos[a].categoria);
     const posicaoB = ORDEM_CATEGORIAS.indexOf(grupos[b].categoria);
     if (posicaoA !== posicaoB) {
       return posicaoA - posicaoB;
+    }
+    const clusterA = chaveOrdenacaoNomePublisher(grupos[a]);
+    const clusterB = chaveOrdenacaoNomePublisher(grupos[b]);
+    if (clusterA !== clusterB) {
+      return clusterA.localeCompare(clusterB, "pt");
     }
     return grupos[a].nome.localeCompare(grupos[b].nome, "pt");
   });
@@ -1310,7 +1330,7 @@ function mostrarFormatosAgrupados(contentor, formatos, opcoes) {
   let categoriaAnterior = null;
   let grupoOnlineOfflineAnterior = null;
   for (const chave of chavesGrupos) {
-    const { nome: nomePublisher, categoria } = grupos[chave];
+    const { nome: nomePublisher, categoria, ehRedeSapo } = grupos[chave];
     // Dentro do publisher, as linhas ficam por ordem alfabética — primeiro
     // pelo Veículo (relevante nos publishers com vários, ex.: "Correio da
     // Manhã" ou "TVI"/"CNN Portugal"; nos restantes, onde Veículo = Fornecedor
@@ -1336,7 +1356,9 @@ function mostrarFormatosAgrupados(contentor, formatos, opcoes) {
       categoriaAnterior = categoria;
     }
     const idPrecisaDeSufixo = contagemPorNome[nomePublisher] > 1;
-    contentor.appendChild(criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes, idPrecisaDeSufixo));
+    contentor.appendChild(
+      criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes, idPrecisaDeSufixo, ehRedeSapo)
+    );
   }
 }
 
@@ -1356,7 +1378,7 @@ function criarCabecalhoCategoria(categoria) {
   return cabecalho;
 }
 
-function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes, idPrecisaDeSufixo) {
+function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes, idPrecisaDeSufixo, ehRedeSapo) {
   const bloco = document.createElement("section");
   bloco.className = "grupo-publisher";
   const categoria = categoriaDoPublisher(nomePublisher, formatosDoPublisher);
@@ -1368,15 +1390,14 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes, idPreci
   bloco.id = `${opcoes.prefixoId}-pub-${paraIdHtml(nomePublisher)}${sufixoId}`;
   bloco.dataset.publisher = nomePublisher;
   bloco.dataset.categoria = categoria;
-  // Pedido explícito da Cláudia: no índice lateral, "Sapo" ganha um
-  // dropdown com os veículos lá dentro (HBO Max, Teads, Outbrain, ...)
-  // em vez de aparecer só como um link direto — ver
-  // criarSubgrupoIndiceVeiculos/atualizarIndicePublishers. Guarda-se já
-  // aqui, em vez de o índice ir escavar a tabela.
-  if (nomePublisher === "Sapo") {
-    const veiculosDistintos = [...new Set(formatosDoPublisher.map((f) => f.veiculo || nomePublisher))]
-      .sort((a, b) => a.localeCompare(b, "pt"));
-    bloco.dataset.subVeiculos = JSON.stringify(veiculosDistintos);
+  // Pedido explícito da Cláudia: os veículos da rede Sapo (HBO Max, Teads,
+  // Outbrain, ADDS+, Spotify, SkyShowtime, Sapo) aparecem na área principal
+  // como blocos separados (ver agruparPorPublisher), mas no índice lateral
+  // ficam juntos num único dropdown "Sapo" — ver
+  // criarSubgrupoIndiceSapo/atualizarIndicePublishers, que reconhece estes
+  // blocos por esta flag.
+  if (ehRedeSapo) {
+    bloco.dataset.redeSapo = "true";
   }
 
   const titulo = document.createElement("h4");
@@ -2036,15 +2057,22 @@ function atualizarIndicePublishers() {
     const listaLinks = document.createElement("div");
     listaLinks.className = `indice-categoria-links${expandida ? "" : " recolhida"}`;
 
-    blocosDaCategoria.forEach((bloco) => {
-      // "Sapo" tem os seus próprios veículos (HBO Max, Teads, Outbrain,
-      // ...) marcados em bloco.dataset.subVeiculos (ver
-      // criarBlocoPublisher) — em vez de um link direto, ganha o mesmo
-      // dropdown ▸ das categorias, com esses veículos lá dentro (pedido
-      // explícito da Cláudia).
-      if (bloco.dataset.subVeiculos) {
-        listaLinks.appendChild(criarSubgrupoIndiceVeiculos(bloco));
-        return;
+    // Os blocos da rede Sapo (bloco.dataset.redeSapo, ver
+    // criarBlocoPublisher/agruparPorPublisher) estão todos juntos — ficam
+    // ordenados em cluster em mostrarFormatosAgrupados — por isso basta
+    // consumir a sequência de blocos consecutivos marcados e passá-los
+    // todos para um único dropdown "Sapo" em vez de um link por bloco.
+    let indice = 0;
+    while (indice < blocosDaCategoria.length) {
+      const bloco = blocosDaCategoria[indice];
+      if (bloco.dataset.redeSapo === "true") {
+        const blocosGrupo = [];
+        while (indice < blocosDaCategoria.length && blocosDaCategoria[indice].dataset.redeSapo === "true") {
+          blocosGrupo.push(blocosDaCategoria[indice]);
+          indice += 1;
+        }
+        listaLinks.appendChild(criarSubgrupoIndiceSapo(blocosGrupo));
+        continue;
       }
       const link = document.createElement("a");
       link.href = `#${bloco.id}`;
@@ -2054,7 +2082,8 @@ function atualizarIndicePublishers() {
         bloco.scrollIntoView({ behavior: "smooth", block: "start" });
       });
       listaLinks.appendChild(link);
-    });
+      indice += 1;
+    }
     indicePublishers.appendChild(listaLinks);
   }
 }
@@ -2062,14 +2091,12 @@ function atualizarIndicePublishers() {
 // "Sapo" no índice lateral funciona como uma mini-categoria: o mesmo ▸
 // das categorias (Compra Direta, ...), só que a abrir/fechar não outros
 // publishers, mas os veículos lá dentro (HBO Max, Teads, Outbrain, ...)
-// — pedido explícito da Cláudia. Como na área principal todos os
-// veículos continuam no MESMO bloco "Sapo" (distinguidos pela coluna
-// Veículo, ver criarBlocoPublisher/comVeiculo), clicar em qualquer um
-// deles leva sempre para esse mesmo bloco — não há um sítio diferente
-// para cada veículo, só a tabela lá dentro é que os distingue.
-function criarSubgrupoIndiceVeiculos(bloco) {
-  const veiculos = JSON.parse(bloco.dataset.subVeiculos);
-  const expandida = subgruposIndiceExpandidos.has(bloco.id);
+// — pedido explícito da Cláudia. Na área principal cada veículo é agora
+// o seu próprio bloco separado (ver agruparPorPublisher), por isso aqui
+// recebemos a lista desses blocos e criamos um link real por cada um,
+// cada um a apontar para o seu próprio bloco.
+function criarSubgrupoIndiceSapo(blocosGrupo) {
+  const expandida = subgruposIndiceExpandidos.has("Sapo");
 
   const contentor = document.createElement("div");
   contentor.className = "indice-subgrupo";
@@ -2078,12 +2105,12 @@ function criarSubgrupoIndiceVeiculos(bloco) {
   titulo.type = "button";
   titulo.className = `indice-categoria indice-subgrupo-titulo${expandida ? " expandida" : ""}`;
   titulo.setAttribute("aria-expanded", String(expandida));
-  titulo.innerHTML = `<span class="indice-categoria-seta" aria-hidden="true">▸</span><span>${escapeHTML(bloco.dataset.publisher)}</span>`;
+  titulo.innerHTML = `<span class="indice-categoria-seta" aria-hidden="true">▸</span><span>Sapo</span>`;
   titulo.addEventListener("click", () => {
-    if (subgruposIndiceExpandidos.has(bloco.id)) {
-      subgruposIndiceExpandidos.delete(bloco.id);
+    if (subgruposIndiceExpandidos.has("Sapo")) {
+      subgruposIndiceExpandidos.delete("Sapo");
     } else {
-      subgruposIndiceExpandidos.add(bloco.id);
+      subgruposIndiceExpandidos.add("Sapo");
     }
     atualizarIndicePublishers();
   });
@@ -2091,10 +2118,10 @@ function criarSubgrupoIndiceVeiculos(bloco) {
 
   const listaVeiculos = document.createElement("div");
   listaVeiculos.className = `indice-categoria-links indice-subgrupo-links${expandida ? "" : " recolhida"}`;
-  veiculos.forEach((veiculo) => {
+  blocosGrupo.forEach((bloco) => {
     const link = document.createElement("a");
     link.href = `#${bloco.id}`;
-    link.textContent = veiculo;
+    link.textContent = bloco.dataset.publisher;
     link.addEventListener("click", (evento) => {
       evento.preventDefault();
       bloco.scrollIntoView({ behavior: "smooth", block: "start" });
