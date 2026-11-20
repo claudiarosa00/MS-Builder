@@ -10434,5 +10434,650 @@
       "copies": "Feed : texte principal 125 caractères, titre 40 caractères\nStories : texte principal 125 caractères",
       "observacoes": "Voir le détail des zones de sécurité dans le lien de la colonne suivante"
     }
+  },
+  "Vidoomy|Vidoomy|PrintOut CTV": {
+    "en": {
+      "dimensao": "CTV Original\nVideo: 1920×1080 px (width × height)\n\nCTV Enhanced\nVideo: minimum 1920×1080 px\nImages (Cube/Static Enhanced): minimum 1080×1080 px or 1280×720 px\n\nCTV 3D Video\nVideo: minimum 1920×1080 px",
+      "aspectRatio": "16:9 (recommended)",
+      "peso": "Video duration: 5 to 30 seconds (15 seconds recommended)\nWeight and resolution: unlimited",
+      "tipoFicheiro": "Video: MP4, FLV, MOV, WEBM or similar\nImages (CTV Enhanced): JPG, PNG or PSD",
+      "observacoes": "Format with 3 variants: CTV Original (video only), CTV Enhanced (video + 3 to 5 images, or Cube/Static Enhanced with a minimum of 4 editable files) and CTV 3D Video (video + 3D product model in .obj/.3ds/.fbx/.stl/.gltf/.usd). Always requires CTA, brand logo, QR code and 1 landing page. Additional editable materials recommended: images, brand guidelines and fonts."
+    },
+    "es": {
+      "dimensao": "CTV Original\nVídeo: 1920×1080 px (ancho × alto)\n\nCTV Enhanced\nVídeo: mínimo 1920×1080 px\nImágenes (Cube/Static Enhanced): mínimo 1080×1080 px o 1280×720 px\n\nCTV 3D Video\nVídeo: mínimo 1920×1080 px",
+      "aspectRatio": "16:9 (recomendado)",
+      "peso": "Duración del vídeo: 5 a 30 segundos (15 segundos recomendado)\nPeso y resolución: sin límite",
+      "tipoFicheiro": "Vídeo: MP4, FLV, MOV, WEBM o similar\nImágenes (CTV Enhanced): JPG, PNG o PSD",
+      "observacoes": "Formato con 3 variantes: CTV Original (solo vídeo), CTV Enhanced (vídeo + 3 a 5 imágenes, o Cube/Static Enhanced con un mínimo de 4 archivos editables) y CTV 3D Video (vídeo + modelo 3D del producto en .obj/.3ds/.fbx/.stl/.gltf/.usd). Siempre requiere CTA, logotipo de la marca, código QR y 1 página de destino. Materiales editables adicionales recomendados: imágenes, manual de marca y fuentes."
+    },
+    "fr": {
+      "dimensao": "CTV Original\nVidéo : 1920×1080 px (largeur × hauteur)\n\nCTV Enhanced\nVidéo : minimum 1920×1080 px\nImages (Cube/Static Enhanced) : minimum 1080×1080 px ou 1280×720 px\n\nCTV 3D Video\nVidéo : minimum 1920×1080 px",
+      "aspectRatio": "16:9 (recommandé)",
+      "peso": "Durée de la vidéo : 5 à 30 secondes (15 secondes recommandées)\nPoids et résolution : illimités",
+      "tipoFicheiro": "Vidéo : MP4, FLV, MOV, WEBM ou similaire\nImages (CTV Enhanced) : JPG, PNG ou PSD",
+      "observacoes": "Format avec 3 variantes : CTV Original (vidéo uniquement), CTV Enhanced (vidéo + 3 à 5 images, ou Cube/Static Enhanced avec un minimum de 4 fichiers modifiables) et CTV 3D Video (vidéo + modèle 3D du produit au format .obj/.3ds/.fbx/.stl/.gltf/.usd). Nécessite toujours un CTA, le logo de la marque, un code QR et 1 page de destination. Matériaux modifiables supplémentaires recommandés : images, charte graphique et polices."
+    }
+  },
+  "Vidoomy|Vidoomy|Rubik Enhanced": {
+    "en": {
+      "dimensao": "Images: minimum 1080×1080 px or 1280×720 px (all faces with the same dimensions and ratio)",
+      "tipoFicheiro": "Editable images/PSD, or JPG/PNG (if not editable)",
+      "observacoes": "Rotating cube format with 6 to 8 images (recommended: 8), one per face. Requires brand logo, typography and call to action (one shared CTA, or one per face). It is recommended to keep the logo and CTA visible on every face, and to place key messages in the centre (edges can distort during rotation)."
+    },
+    "es": {
+      "dimensao": "Imágenes: mínimo 1080×1080 px o 1280×720 px (todas las caras con las mismas dimensiones y proporción)",
+      "tipoFicheiro": "Imágenes/PSD editable, o JPG/PNG (si no es editable)",
+      "observacoes": "Formato de cubo rotativo con 6 a 8 imágenes (recomendado: 8), una por cara. Requiere logotipo de la marca, tipografía y llamada a la acción (una CTA compartida, o una por cara). Se recomienda mantener el logotipo y la CTA visibles en cada cara, y colocar los mensajes principales en el centro (los extremos pueden distorsionarse durante la rotación)."
+    },
+    "fr": {
+      "dimensao": "Images : minimum 1080×1080 px ou 1280×720 px (toutes les faces avec les mêmes dimensions et proportions)",
+      "tipoFicheiro": "Images/PSD modifiable, ou JPG/PNG (si non modifiable)",
+      "observacoes": "Format de cube rotatif avec 6 à 8 images (recommandé : 8), une par face. Nécessite le logo de la marque, la typographie et un appel à l'action (un seul CTA partagé, ou un par face). Il est recommandé de garder le logo et le CTA visibles sur chaque face, et de placer les messages principaux au centre (les bords peuvent se déformer pendant la rotation)."
+    }
+  },
+  "Vidoomy|Vidoomy|HandOff": {
+    "en": {
+      "dimensao": "Images: minimum 1080×1080 px or 1280×720 px",
+      "tipoFicheiro": "Editable images/PSD, or high-quality JPG/PNG (if not editable)",
+      "observacoes": "Requires brand logo, typography, copy, CTA and an image of at most 1 featured product or kit. Additional editable materials recommended: images, brand guidelines and fonts."
+    },
+    "es": {
+      "dimensao": "Imágenes: mínimo 1080×1080 px o 1280×720 px",
+      "tipoFicheiro": "Imágenes/PSD editable, o JPG/PNG de alta calidad (si no es editable)",
+      "observacoes": "Requiere logotipo de la marca, tipografía, copy, CTA e imagen de, como máximo, 1 producto o kit destacado. Materiales editables adicionales recomendados: imágenes, manual de marca y tipografías."
+    },
+    "fr": {
+      "dimensao": "Images : minimum 1080×1080 px ou 1280×720 px",
+      "tipoFicheiro": "Images/PSD modifiable, ou JPG/PNG haute qualité (si non modifiable)",
+      "observacoes": "Nécessite le logo de la marque, la typographie, le texte publicitaire, le CTA et une image d'au plus 1 produit ou kit mis en avant. Matériaux modifiables supplémentaires recommandés : images, charte graphique et polices."
+    }
+  },
+  "Vidoomy|Vidoomy|Carrusel Enhanced": {
+    "en": {
+      "dimensao": "Images: maximum 1080×1080 px or 1280×720 px",
+      "tipoFicheiro": "Key image editable in Illustrator/Photoshop, or JPG/PNG (if not editable)",
+      "observacoes": "Carousel with a minimum of 3 and a maximum of 7 images. Requires brand logo, typography, CTA and 1 landing page. Additional editable materials recommended: images, brand guidelines and fonts."
+    },
+    "es": {
+      "dimensao": "Imágenes: máximo 1080×1080 px o 1280×720 px",
+      "tipoFicheiro": "Imagen clave editable en Illustrator/Photoshop, o JPG/PNG (si no es editable)",
+      "observacoes": "Carrusel con un mínimo de 3 y un máximo de 7 imágenes. Requiere logotipo de la marca, tipografía, CTA y 1 página de destino. Materiales editables adicionales recomendados: imágenes, manual de marca y fuentes."
+    },
+    "fr": {
+      "dimensao": "Images : maximum 1080×1080 px ou 1280×720 px",
+      "tipoFicheiro": "Image clé modifiable sous Illustrator/Photoshop, ou JPG/PNG (si non modifiable)",
+      "observacoes": "Carrousel avec un minimum de 3 et un maximum de 7 images. Nécessite le logo de la marque, la typographie, le CTA et 1 page de destination. Matériaux modifiables supplémentaires recommandés : images, charte graphique et polices."
+    }
+  },
+  "Vidoomy|Vidoomy|Carrusel Interactivo": {
+    "en": {
+      "dimensao": "Images/PSD: minimum 1080×1080 px or 1280×720 px\nHorizontal video: 1920×1080 px",
+      "tipoFicheiro": "Key image in Illustrator/Photoshop, or high-quality JPG/PNG (if not editable)",
+      "observacoes": "Interactive carousel with a minimum of 3 and a maximum of 7 images. Requires brand logo, typography and landing page(s)."
+    },
+    "es": {
+      "dimensao": "Imágenes/PSD: mínimo 1080×1080 px o 1280×720 px\nVídeo horizontal: 1920×1080 px",
+      "tipoFicheiro": "Imagen clave en Illustrator/Photoshop, o JPG/PNG de alta calidad (si no es editable)",
+      "observacoes": "Carrusel interactivo con un mínimo de 3 y un máximo de 7 imágenes. Requiere logotipo de la marca, tipografía y página(s) de destino."
+    },
+    "fr": {
+      "dimensao": "Images/PSD : minimum 1080×1080 px ou 1280×720 px\nVidéo horizontale : 1920×1080 px",
+      "tipoFicheiro": "Image clé sous Illustrator/Photoshop, ou JPG/PNG haute qualité (si non modifiable)",
+      "observacoes": "Carrousel interactif avec un minimum de 3 et un maximum de 7 images. Nécessite le logo de la marque, la typographie et une ou plusieurs pages de destination."
+    }
+  },
+  "Vidoomy|Vidoomy|Click to Play": {
+    "en": {
+      "dimensao": "Video: 1920×1080 px (width and height)\nImages/PSD: minimum 1080×1080 px or 1280×720 px",
+      "aspectRatio": "16:9 (recommended)",
+      "peso": "Video duration: 5 to 30 seconds (15 seconds recommended)\nWeight and resolution: unlimited",
+      "tipoFicheiro": "Video: MP4, FLV, MOV, WEBM or similar\nKey visual elements in Illustrator/Photoshop, or high-quality JPG/PNG (if not editable)",
+      "observacoes": "Requires typography, call to action (CTA), brand logo and 1 landing page."
+    },
+    "es": {
+      "dimensao": "Vídeo: 1920×1080 px (ancho y alto)\nImágenes/PSD: mínimo 1080×1080 px o 1280×720 px",
+      "aspectRatio": "16:9 (recomendado)",
+      "peso": "Duración del vídeo: 5 a 30 segundos (15 segundos recomendado)\nPeso y resolución: sin límite",
+      "tipoFicheiro": "Vídeo: MP4, FLV, MOV, WEBM o similar\nElementos visuales clave en Illustrator/Photoshop, o JPG/PNG de alta calidad (si no son editables)",
+      "observacoes": "Requiere tipografía, llamada a la acción (CTA), logotipo de la marca y 1 página de destino."
+    },
+    "fr": {
+      "dimensao": "Vidéo : 1920×1080 px (largeur et hauteur)\nImages/PSD : minimum 1080×1080 px ou 1280×720 px",
+      "aspectRatio": "16:9 (recommandé)",
+      "peso": "Durée de la vidéo : 5 à 30 secondes (15 secondes recommandées)\nPoids et résolution : illimités",
+      "tipoFicheiro": "Vidéo : MP4, FLV, MOV, WEBM ou similaire\nÉléments visuels clés sous Illustrator/Photoshop, ou JPG/PNG haute qualité (si non modifiables)",
+      "observacoes": "Nécessite la typographie, un appel à l'action (CTA), le logo de la marque et 1 page de destination."
+    }
+  },
+  "Vidoomy|Vidoomy|Brand Motion": {
+    "en": {
+      "dimensao": "Video: 1920×1080 px (width and height)",
+      "aspectRatio": "16:9 (recommended)",
+      "peso": "Video duration: 15 to 30 seconds (20 seconds recommended)",
+      "tipoFicheiro": "Video: MP4, FLV, MOV, WEBM or similar",
+      "observacoes": "Requires materials for the dynamic information cards (product specifications/prices, product/service variants, or gallery images), call to action (CTA) and brand logo. Additional editable materials recommended: images, brand guidelines and fonts."
+    },
+    "es": {
+      "dimensao": "Vídeo: 1920×1080 px (ancho y alto)",
+      "aspectRatio": "16:9 (recomendado)",
+      "peso": "Duración del vídeo: 15 a 30 segundos (20 segundos recomendado)",
+      "tipoFicheiro": "Vídeo: MP4, FLV, MOV, WEBM o similar",
+      "observacoes": "Requiere materiales para las tarjetas dinámicas de información (especificaciones/precios del producto, variedades del producto/servicio, o imágenes para la galería), llamada a la acción (CTA) y logotipo de la marca. Materiales editables adicionales recomendados: imágenes, manual de marca y fuentes."
+    },
+    "fr": {
+      "dimensao": "Vidéo : 1920×1080 px (largeur et hauteur)",
+      "aspectRatio": "16:9 (recommandé)",
+      "peso": "Durée de la vidéo : 15 à 30 secondes (20 secondes recommandées)",
+      "tipoFicheiro": "Vidéo : MP4, FLV, MOV, WEBM ou similaire",
+      "observacoes": "Nécessite des éléments pour les cartes d'information dynamiques (spécifications/prix du produit, variantes du produit/service, ou images pour la galerie), un appel à l'action (CTA) et le logo de la marque. Matériaux modifiables supplémentaires recommandés : images, charte graphique et polices."
+    }
+  },
+  "Vidoomy|Vidoomy|Carrusel Doble": {
+    "en": {
+      "dimensao": "Images/PSD: minimum 1080×1080 px or 1280×720 px\nVideo: 1920×1080 px (width and height)",
+      "aspectRatio": "16:9 (recommended, for the video)",
+      "peso": "Video duration: 5 to 30 seconds (15 seconds recommended)\nWeight and resolution: unlimited",
+      "tipoFicheiro": "Key image editable in Illustrator/Photoshop, or JPG/PNG (if not editable)\nVideo: MP4, FLV, MOV, WEBM or similar",
+      "observacoes": "Double carousel with a minimum of 4 images. Requires brand logo, typography, CTA and 1 landing page. Additional editable materials recommended: images, brand guidelines and fonts."
+    },
+    "es": {
+      "dimensao": "Imágenes/PSD: mínimo 1080×1080 px o 1280×720 px\nVídeo: 1920×1080 px (ancho y alto)",
+      "aspectRatio": "16:9 (recomendado, para el vídeo)",
+      "peso": "Duración del vídeo: 5 a 30 segundos (15 segundos recomendado)\nPeso y resolución: sin límite",
+      "tipoFicheiro": "Imagen clave editable en Illustrator/Photoshop, o JPG/PNG (si no es editable)\nVídeo: MP4, FLV, MOV, WEBM o similar",
+      "observacoes": "Carrusel doble con un mínimo de 4 imágenes. Requiere logotipo de la marca, tipografía, CTA y 1 página de destino. Materiales editables adicionales recomendados: imágenes, manual de marca y fuentes."
+    },
+    "fr": {
+      "dimensao": "Images/PSD : minimum 1080×1080 px ou 1280×720 px\nVidéo : 1920×1080 px (largeur et hauteur)",
+      "aspectRatio": "16:9 (recommandé, pour la vidéo)",
+      "peso": "Durée de la vidéo : 5 à 30 secondes (15 secondes recommandées)\nPoids et résolution : illimités",
+      "tipoFicheiro": "Image clé modifiable sous Illustrator/Photoshop, ou JPG/PNG (si non modifiable)\nVidéo : MP4, FLV, MOV, WEBM ou similaire",
+      "observacoes": "Carrousel double avec un minimum de 4 images. Nécessite le logo de la marque, la typographie, le CTA et 1 page de destination. Matériaux modifiables supplémentaires recommandés : images, charte graphique et polices."
+    }
+  },
+  "Vidoomy|Vidoomy|Discover Interactive": {
+    "en": {
+      "dimensao": "Images/PSD: minimum 1080×1080 px or 1280×720 px",
+      "tipoFicheiro": "Images editable in Illustrator/Photoshop, or JPG/PNG (if not editable)",
+      "observacoes": "Requires 2 images (one with the product and one without it), brand logo and typography."
+    },
+    "es": {
+      "dimensao": "Imágenes/PSD: mínimo 1080×1080 px o 1280×720 px",
+      "tipoFicheiro": "Imágenes editables en Illustrator/Photoshop, o JPG/PNG (si no son editables)",
+      "observacoes": "Requiere 2 imágenes (una con el producto y otra sin él), logotipo de la marca y tipografía."
+    },
+    "fr": {
+      "dimensao": "Images/PSD : minimum 1080×1080 px ou 1280×720 px",
+      "tipoFicheiro": "Images modifiables sous Illustrator/Photoshop, ou JPG/PNG (si non modifiables)",
+      "observacoes": "Nécessite 2 images (une avec le produit et une sans), le logo de la marque et la typographie."
+    }
+  },
+  "Vidoomy|Vidoomy|Countdown": {
+    "en": {
+      "dimensao": "Images/PSD: minimum 1080×1080 px or 1280×720 px\nVideo (alternative to image): 1920×1080 px (width and height)",
+      "aspectRatio": "16:9 (recommended, for the video)",
+      "peso": "Video duration: 5 to 30 seconds (15 seconds recommended)\nWeight and resolution: unlimited",
+      "tipoFicheiro": "Key image in Illustrator/Photoshop, or high-quality JPG/PNG (if not editable)\nVideo (alternative to image): free format",
+      "observacoes": "Requires brand logo, typography and the countdown's deadline date."
+    },
+    "es": {
+      "dimensao": "Imágenes/PSD: mínimo 1080×1080 px o 1280×720 px\nVídeo (alternativa a la imagen): 1920×1080 px (ancho y alto)",
+      "aspectRatio": "16:9 (recomendado, para el vídeo)",
+      "peso": "Duración del vídeo: 5 a 30 segundos (15 segundos recomendado)\nPeso y resolución: ilimitados",
+      "tipoFicheiro": "Imagen clave en Illustrator/Photoshop, o JPG/PNG de alta calidad (si no es editable)\nVídeo (alternativa a la imagen): formato libre",
+      "observacoes": "Requiere logotipo de la marca, tipografía y fecha límite de la cuenta regresiva."
+    },
+    "fr": {
+      "dimensao": "Images/PSD : minimum 1080×1080 px ou 1280×720 px\nVidéo (alternative à l'image) : 1920×1080 px (largeur et hauteur)",
+      "aspectRatio": "16:9 (recommandé, pour la vidéo)",
+      "peso": "Durée de la vidéo : 5 à 30 secondes (15 secondes recommandées)\nPoids et résolution : illimités",
+      "tipoFicheiro": "Image clé sous Illustrator/Photoshop, ou JPG/PNG haute qualité (si non modifiable)\nVidéo (alternative à l'image) : format libre",
+      "observacoes": "Nécessite le logo de la marque, la typographie et la date limite du compte à rebours."
+    }
+  },
+  "Vidoomy|Vidoomy|Cubo Enhanced": {
+    "en": {
+      "dimensao": "Images/PSD: minimum 1080×1080 px or 1280×720 px",
+      "tipoFicheiro": "Images/PSD",
+      "observacoes": "Cube with 4 images. Requires CTA and brand logo. Additional editable materials recommended: images, brand guidelines and fonts."
+    },
+    "es": {
+      "dimensao": "Imágenes/PSD: mínimo 1080×1080 px o 1280×720 px",
+      "tipoFicheiro": "Imágenes/PSD",
+      "observacoes": "Cubo con 4 imágenes. Requiere CTA y logotipo de la marca. Materiales editables adicionales recomendados: imágenes, manual de marca y fuentes."
+    },
+    "fr": {
+      "dimensao": "Images/PSD : minimum 1080×1080 px ou 1280×720 px",
+      "tipoFicheiro": "Images/PSD",
+      "observacoes": "Cube avec 4 images. Nécessite un CTA et le logo de la marque. Matériaux modifiables supplémentaires recommandés : images, charte graphique et polices."
+    }
+  },
+  "Vidoomy|Vidoomy|Discover Enhanced": {
+    "en": {
+      "dimensao": "Image option: minimum 1080×1080 px or 1280×720 px\nVideo option: 1920×1080 px (width and height)",
+      "aspectRatio": "16:9 (recommended, for the video option)",
+      "peso": "Video option — duration: 5 to 30 seconds (15 seconds recommended); weight and resolution unlimited",
+      "tipoFicheiro": "Image option: editable in Illustrator/Photoshop, or JPG/PNG (if not editable)\nVideo option: MP4, FLV, MOV, WEBM or similar",
+      "observacoes": "Two creative options: Images (2 images, one with product and one without) or Video. Requires brand logo, CTA, copy and typography."
+    },
+    "es": {
+      "dimensao": "Opción Imágenes: mínimo 1080×1080 px o 1280×720 px\nOpción Vídeo: 1920×1080 px (ancho y alto)",
+      "aspectRatio": "16:9 (recomendado, en la opción vídeo)",
+      "peso": "Opción Vídeo — duración: 5 a 30 segundos (15 segundos recomendado); peso y resolución ilimitados",
+      "tipoFicheiro": "Opción Imágenes: editables en Illustrator/Photoshop, o JPG/PNG (si no son editables)\nOpción Vídeo: MP4, FLV, MOV, WEBM o similar",
+      "observacoes": "Dos opciones de creatividad: Imágenes (2 imágenes, una con producto y otra sin él) o Vídeo. Requiere logotipo de la marca, CTA, copy y tipografía."
+    },
+    "fr": {
+      "dimensao": "Option Images : minimum 1080×1080 px ou 1280×720 px\nOption Vidéo : 1920×1080 px (largeur et hauteur)",
+      "aspectRatio": "16:9 (recommandé, pour l'option vidéo)",
+      "peso": "Option Vidéo — durée : 5 à 30 secondes (15 secondes recommandées) ; poids et résolution illimités",
+      "tipoFicheiro": "Option Images : modifiables sous Illustrator/Photoshop, ou JPG/PNG (si non modifiables)\nOption Vidéo : MP4, FLV, MOV, WEBM ou similaire",
+      "observacoes": "Deux options créatives : Images (2 images, une avec le produit et une sans) ou Vidéo. Nécessite le logo de la marque, le CTA, le texte publicitaire et la typographie."
+    }
+  },
+  "Vidoomy|Vidoomy|Display VTA - Revealer": {
+    "en": {
+      "dimensao": "Background: 300×1070 px\nFrame 1: 300×600 px",
+      "tipoFicheiro": "Background: JPG\nFrame 1: transparent PNG",
+      "observacoes": "Requires 2 files from the client: a background image with vertical scroll, and a frame image (frame 1) with information and CTA."
+    },
+    "es": {
+      "dimensao": "Fondo: 300×1070 px\nMarco1: 300×600 px",
+      "tipoFicheiro": "Fondo: JPG\nMarco1: PNG transparente",
+      "observacoes": "Requiere 2 archivos del cliente: imagen de fondo con desplazamiento vertical, e imagen de marco (marco1) con información y CTA."
+    },
+    "fr": {
+      "dimensao": "Fond : 300×1070 px\nCadre 1 : 300×600 px",
+      "tipoFicheiro": "Fond : JPG\nCadre 1 : PNG transparent",
+      "observacoes": "Nécessite 2 fichiers du client : une image de fond à défilement vertical, et une image de cadre (cadre 1) avec information et CTA."
+    }
+  },
+  "Vidoomy|Vidoomy|Display IAB - Standard": {
+    "en": {
+      "dimensao": "Main: 728×90, 300×250, 300×600 px\nDesktop (additional): 300×250, 250×250, 250×336, 336×280, 320×100, 140×133, 200×200, 180×150, 125×125 px\nMobile (additional): 250×250, 320×100, 320×50, 240×133, 200×200, 180×150, 125×125 px",
+      "tipoFicheiro": "JPG, PNG or GIF"
+    },
+    "es": {
+      "dimensao": "Principales: 728×90, 300×250, 300×600 px\nDesktop (adicionales): 300×250, 250×250, 250×336, 336×280, 320×100, 140×133, 200×200, 180×150, 125×125 px\nMobile (adicionales): 250×250, 320×100, 320×50, 240×133, 200×200, 180×150, 125×125 px",
+      "tipoFicheiro": "JPG, PNG o GIF"
+    },
+    "fr": {
+      "dimensao": "Principaux : 728×90, 300×250, 300×600 px\nDesktop (additionnels) : 300×250, 250×250, 250×336, 336×280, 320×100, 140×133, 200×200, 180×150, 125×125 px\nMobile (additionnels) : 250×250, 320×100, 320×50, 240×133, 200×200, 180×150, 125×125 px",
+      "tipoFicheiro": "JPG, PNG ou GIF"
+    }
+  },
+  "Vidoomy|Vidoomy|Display VTA - Close Up": {
+    "en": {
+      "dimensao": "Image 1 (frame 1): 300×600 px\nImage 2 (frame 2): 300×300 px",
+      "aspectRatio": "Image 1: 1:2 (recommended)\nImage 2: 1:1 (recommended)",
+      "peso": "Weight and resolution: unlimited",
+      "tipoFicheiro": "PNG with transparency",
+      "observacoes": "Requires 2 vertical images with information and CTA (files must be named frame 1 and frame 2). An outbound link for the creative and the geolocation(s) for the map must be provided. Additional editable materials recommended: images, brand guidelines and fonts."
+    },
+    "es": {
+      "dimensao": "Imagen 1 (marco1): 300×600 px\nImagen 2 (marco2): 300×300 px",
+      "aspectRatio": "Imagen 1: 1:2 (recomendado)\nImagen 2: 1:1 (recomendado)",
+      "peso": "Peso y resolución: ilimitado",
+      "tipoFicheiro": "PNG con transparencia",
+      "observacoes": "Requiere 2 imágenes verticales con información y CTA (los archivos deben llamarse marco1 y marco2). Se debe facilitar un link out para la creatividad y la(s) geolocalización(es) para el mapa. Materiales editables adicionales recomendados: imágenes, manual de marca y tipografías."
+    },
+    "fr": {
+      "dimensao": "Image 1 (cadre 1) : 300×600 px\nImage 2 (cadre 2) : 300×300 px",
+      "aspectRatio": "Image 1 : 1:2 (recommandé)\nImage 2 : 1:1 (recommandé)",
+      "peso": "Poids et résolution : illimités",
+      "tipoFicheiro": "PNG avec transparence",
+      "observacoes": "Nécessite 2 images verticales avec information et CTA (les fichiers doivent s'appeler cadre 1 et cadre 2). Un lien sortant pour la création et la ou les géolocalisations pour la carte doivent être fournis. Matériaux modifiables supplémentaires recommandés : images, charte graphique et typographies."
+    }
+  },
+  "Vidoomy|Vidoomy|Display VTA - Pivot": {
+    "en": {
+      "dimensao": "Creative base and images: minimum 596×1016 px (4 front images + 4 back images)",
+      "tipoFicheiro": "SVG, embedded image",
+      "observacoes": "Requires 12 files from the client: 4 front images, 4 back images, CTA (just the copy text, no SVG needed) and brand logo (preferably vectorised; otherwise PNG or JPG at the largest size available)."
+    },
+    "es": {
+      "dimensao": "Base e imágenes del creativo: mínimo 596×1016 px (4 imágenes de frente + 4 de dorso)",
+      "tipoFicheiro": "SVG, imagen incrustada",
+      "observacoes": "Requiere 12 archivos del cliente: 4 imágenes de frente, 4 de dorso, CTA (solo el copy o texto, no es necesario SVG) y logotipo de la marca (preferiblemente vectorizado; si no, PNG o JPG en el mayor tamaño disponible)."
+    },
+    "fr": {
+      "dimensao": "Base et images du créatif : minimum 596×1016 px (4 images recto + 4 images verso)",
+      "tipoFicheiro": "SVG, image intégrée",
+      "observacoes": "Nécessite 12 fichiers du client : 4 images recto, 4 images verso, un CTA (uniquement le texte, sans SVG) et le logo de la marque (de préférence vectorisé ; sinon, PNG ou JPG à la plus grande taille disponible)."
+    }
+  },
+  "Vidoomy|Vidoomy|Flow Book": {
+    "en": {
+      "dimensao": "Images/PSD: minimum 1080×1080 px or 1280×720 px",
+      "tipoFicheiro": "Key Visual editable in Illustrator/Photoshop, or JPG/PNG (if not editable)",
+      "observacoes": "\"Book\"-style format with 3 to 5 pages (recommended), each with images and text. Requires brand logo, CTA and typography. It is recommended not to use too much text on the pages."
+    },
+    "es": {
+      "dimensao": "Imágenes/PSD: mínimo 1080×1080 px o 1280×720 px",
+      "tipoFicheiro": "Key Visual editable en Illustrator/Photoshop, o JPG/PNG (si no es editable)",
+      "observacoes": "Formato tipo \"libro\" con 3 a 5 páginas (recomendado), cada una con imágenes y texto. Requiere logotipo de la marca, CTA y tipografía. Se recomienda no usar demasiado texto en las páginas."
+    },
+    "fr": {
+      "dimensao": "Images/PSD : minimum 1080×1080 px ou 1280×720 px",
+      "tipoFicheiro": "Key Visual modifiable sous Illustrator/Photoshop, ou JPG/PNG (si non modifiable)",
+      "observacoes": "Format type \"livre\" avec 3 à 5 pages (recommandé), chacune avec images et texte. Nécessite le logo de la marque, le CTA et la typographie. Il est recommandé de ne pas utiliser trop de texte sur les pages."
+    }
+  },
+  "Vidoomy|Vidoomy|Display VTX - All-In": {
+    "en": {
+      "dimensao": "Video: 1920×1080 px (width and height)\nImages: 300×600 px (minimum 3, for rotation)",
+      "aspectRatio": "16:9 (recommended, for the video)",
+      "peso": "Video duration: 5 to 30 seconds (15 seconds recommended)\nWeight and resolution: unlimited",
+      "tipoFicheiro": "Horizontal video\nImages: transparent PNG",
+      "observacoes": "Requires CTA and brand logo. For tags: only one impression tag on the first product (to avoid duplicating impressions) and one clicktag per product."
+    },
+    "es": {
+      "dimensao": "Vídeo: 1920×1080 px (ancho y alto)\nImágenes: 300×600 px (mínimo 3, para rotación)",
+      "aspectRatio": "16:9 (recomendado, para el vídeo)",
+      "peso": "Duración del vídeo: 5 a 30 segundos (15 segundos recomendado)\nPeso y resolución: sin límite",
+      "tipoFicheiro": "Vídeo horizontal\nImágenes: PNG transparente",
+      "observacoes": "Requiere CTA y logotipo de la marca. En caso de tags: solo un impression tag en el primer producto (para no duplicar impresiones) y un clicktag por producto."
+    },
+    "fr": {
+      "dimensao": "Vidéo : 1920×1080 px (largeur et hauteur)\nImages : 300×600 px (minimum 3, pour la rotation)",
+      "aspectRatio": "16:9 (recommandé, pour la vidéo)",
+      "peso": "Durée de la vidéo : 5 à 30 secondes (15 secondes recommandées)\nPoids et résolution : illimités",
+      "tipoFicheiro": "Vidéo horizontale\nImages : PNG transparent",
+      "observacoes": "Nécessite un CTA et le logo de la marque. Pour les tags : un seul impression tag sur le premier produit (pour ne pas dupliquer les impressions) et un clicktag par produit."
+    }
+  },
+  "Vidoomy|Vidoomy|Edge 3D": {
+    "en": {
+      "dimensao": "Video: 1920×1080 px (width and height)",
+      "aspectRatio": "16:9 (recommended)",
+      "peso": "Video duration: 5 to 30 seconds (15 seconds recommended)\nWeight and resolution: unlimited",
+      "tipoFicheiro": "Video: MP4, FLV, MOV, WEBM or similar",
+      "observacoes": "Requires CTA, brand logo, a minimum of 4 images, typography and landing page. Additional editable materials recommended: images, brand guidelines, fonts and 3D product model in .obj/.3ds/.fbx/.stl/.gltf/.usd format."
+    },
+    "es": {
+      "dimensao": "Vídeo: 1920×1080 px (ancho y alto)",
+      "aspectRatio": "16:9 (recomendado)",
+      "peso": "Duración del vídeo: 5 a 30 segundos (15 segundos recomendado)\nPeso y resolución: sin límite",
+      "tipoFicheiro": "Vídeo: MP4, FLV, MOV, WEBM o similar",
+      "observacoes": "Requiere CTA, logotipo de la marca, un mínimo de 4 imágenes, tipografía y página de destino. Materiales editables adicionales recomendados: imágenes, manual de marca, tipografías y modelo 3D del producto en formato .obj/.3ds/.fbx/.stl/.gltf/.usd."
+    },
+    "fr": {
+      "dimensao": "Vidéo : 1920×1080 px (largeur et hauteur)",
+      "aspectRatio": "16:9 (recommandé)",
+      "peso": "Durée de la vidéo : 5 à 30 secondes (15 secondes recommandées)\nPoids et résolution : illimités",
+      "tipoFicheiro": "Vidéo : MP4, FLV, MOV, WEBM ou similaire",
+      "observacoes": "Nécessite un CTA, le logo de la marque, un minimum de 4 images, la typographie et une page de destination. Matériaux modifiables supplémentaires recommandés : images, charte graphique, polices et modèle 3D du produit au format .obj/.3ds/.fbx/.stl/.gltf/.usd."
+    }
+  },
+  "Vidoomy|Vidoomy|Flip Card": {
+    "en": {
+      "dimensao": "Images/PSD: minimum 1080×1080 px or 1280×720 px",
+      "tipoFicheiro": "Images/PSD",
+      "observacoes": "4 images. Requires CTA and brand logo. Additional editable materials recommended: images, brand guidelines and fonts."
+    },
+    "es": {
+      "dimensao": "Imágenes/PSD: mínimo 1080×1080 px o 1280×720 px",
+      "tipoFicheiro": "Imágenes/PSD",
+      "observacoes": "4 imágenes. Requiere CTA y logotipo de la marca. Materiales editables adicionales recomendados: imágenes, manual de marca y fuentes."
+    },
+    "fr": {
+      "dimensao": "Images/PSD : minimum 1080×1080 px ou 1280×720 px",
+      "tipoFicheiro": "Images/PSD",
+      "observacoes": "4 images. Nécessite un CTA et le logo de la marque. Matériaux modifiables supplémentaires recommandés : images, charte graphique et polices."
+    }
+  },
+  "Vidoomy|Vidoomy|Spin Gallery": {
+    "en": {
+      "dimensao": "Images/PSD: minimum 1080×1080 px or 1280×720 px",
+      "tipoFicheiro": "Key Visual in Illustrator/Photoshop, or images in JPG/PNG",
+      "observacoes": "Minimum 4 and maximum 6 images. Requires brand logo and CTA."
+    },
+    "es": {
+      "dimensao": "Imágenes/PSD: mínimo 1080×1080 px o 1280×720 px",
+      "tipoFicheiro": "Key Visual en Illustrator/Photoshop, o imágenes en JPG/PNG",
+      "observacoes": "Mínimo 4 y máximo 6 imágenes. Requiere logotipo de la marca y CTA."
+    },
+    "fr": {
+      "dimensao": "Images/PSD : minimum 1080×1080 px ou 1280×720 px",
+      "tipoFicheiro": "Key Visual sous Illustrator/Photoshop, ou images en JPG/PNG",
+      "observacoes": "Minimum 4 et maximum 6 images. Nécessite le logo de la marque et un CTA."
+    }
+  },
+  "Vidoomy|Vidoomy|Halo Enhanced": {
+    "en": {
+      "dimensao": "Images/PSD: maximum 1080×1080 px or 1280×720 px",
+      "aspectRatio": "16:9 (recommended, for video)",
+      "tipoFicheiro": "Key Visual editable in Adobe Illustrator/Photoshop, or JPG/PNG (if not editable)",
+      "observacoes": "Minimum 3 and maximum 7 images, plus 1 final reference page. Requires brand logo, CTA and typography. Additional editable materials recommended: video, images, brand guidelines and fonts."
+    },
+    "es": {
+      "dimensao": "Imágenes/PSD: máximo 1080×1080 px o 1280×720 px",
+      "aspectRatio": "16:9 (recomendado, para vídeo)",
+      "tipoFicheiro": "Key Visual editable en Adobe Illustrator/Photoshop, o JPG/PNG (si no es editable)",
+      "observacoes": "Mínimo 3 y máximo 7 imágenes, más 1 página final de referencia. Requiere logotipo de la marca, CTA y tipografía. Materiales editables adicionales recomendados: vídeo, imágenes, manual de marca y fuentes."
+    },
+    "fr": {
+      "dimensao": "Images/PSD : maximum 1080×1080 px ou 1280×720 px",
+      "aspectRatio": "16:9 (recommandé, pour la vidéo)",
+      "tipoFicheiro": "Key Visual modifiable sous Adobe Illustrator/Photoshop, ou JPG/PNG (si non modifiable)",
+      "observacoes": "Minimum 3 et maximum 7 images, plus 1 page finale de référence. Nécessite le logo de la marque, le CTA et la typographie. Matériaux modifiables supplémentaires recommandés : vidéo, images, charte graphique et polices."
+    }
+  },
+  "Vidoomy|Vidoomy|Interactive PrintOut": {
+    "en": {
+      "dimensao": "Images/PSD: minimum 1080×1080 px or 1280×720 px\nVideo (alternative to image): 1920×1080 px (width × height)",
+      "aspectRatio": "16:9 (recommended, for the video)",
+      "peso": "Video duration: 5 to 30 seconds (15 seconds recommended)\nWeight and resolution: unlimited",
+      "observacoes": "3 to 5 images in Illustrator/Photoshop, or high-quality JPG/PNG (if not editable). Requires brand logo, typography and the countdown's deadline date."
+    },
+    "es": {
+      "dimensao": "Imágenes/PSD: mínimo 1080×1080 px o 1280×720 px\nVídeo (alternativa a la imagen): 1920×1080 px (ancho × alto)",
+      "aspectRatio": "16:9 (recomendado, para el vídeo)",
+      "peso": "Duración del vídeo: 5 a 30 segundos (15 segundos recomendado)\nPeso y resolución: ilimitados",
+      "observacoes": "3 a 5 imágenes en Illustrator/Photoshop, o JPG/PNG de alta calidad (si no son editables). Requiere logotipo de la marca, tipografía y fecha límite de la cuenta regresiva."
+    },
+    "fr": {
+      "dimensao": "Images/PSD : minimum 1080×1080 px ou 1280×720 px\nVidéo (alternative à l'image) : 1920×1080 px (largeur × hauteur)",
+      "aspectRatio": "16:9 (recommandé, pour la vidéo)",
+      "peso": "Durée de la vidéo : 5 à 30 secondes (15 secondes recommandées)\nPoids et résolution : illimités",
+      "observacoes": "3 à 5 images sous Illustrator/Photoshop, ou JPG/PNG haute qualité (si non modifiables). Nécessite le logo de la marque, la typographie et la date limite du compte à rebours."
+    }
+  },
+  "Vidoomy|Vidoomy|Original Video": {
+    "en": {
+      "dimensao": "1920×1080 px (width and height)",
+      "aspectRatio": "16:9 (recommended)",
+      "peso": "Duration: 5 to 30 seconds (15 seconds recommended)\nWeight and resolution: unlimited",
+      "tipoFicheiro": "MP4, FLV, MOV, WEBM or similar"
+    },
+    "es": {
+      "dimensao": "1920×1080 px (ancho y alto)",
+      "aspectRatio": "16:9 (recomendado)",
+      "peso": "Duración: 5 a 30 segundos (15 segundos recomendado)\nPeso y resolución: ilimitados",
+      "tipoFicheiro": "MP4, FLV, MOV, WEBM o similar"
+    },
+    "fr": {
+      "dimensao": "1920×1080 px (largeur et hauteur)",
+      "aspectRatio": "16:9 (recommandé)",
+      "peso": "Durée : 5 à 30 secondes (15 secondes recommandées)\nPoids et résolution : illimités",
+      "tipoFicheiro": "MP4, FLV, MOV, WEBM ou similaire"
+    }
+  },
+  "Vidoomy|Vidoomy|Social Enhanced": {
+    "en": {
+      "dimensao": "Option 2 (carousel images): 1080×1350 px\nOption 3 (video): 1920×1080 px (recommended)",
+      "aspectRatio": "Option 3 (video): 16:9 (recommended)",
+      "peso": "Option 3 (video) — duration: 5 to 30 seconds (15 seconds recommended)",
+      "copies": "Option 1 (post link): 15 to 20 characters recommended, 30-character limit",
+      "observacoes": "3 creative options: Option 1 — link to an existing Instagram/Facebook post; Option 2 — carousel images, post title and body, plus landing page (if the client has no post); Option 3 — video and images, post title and body, plus landing page (if the client has no post)."
+    },
+    "es": {
+      "dimensao": "Opción 2 (imágenes de carrusel): 1080×1350 px\nOpción 3 (vídeo): 1920×1080 px (recomendado)",
+      "aspectRatio": "Opción 3 (vídeo): 16:9 (recomendado)",
+      "peso": "Opción 3 (vídeo) — duración: 5 a 30 segundos (15 segundos recomendado)",
+      "copies": "Opción 1 (enlace de la publicación): recomendado 15 a 20 caracteres, límite de 30 caracteres",
+      "observacoes": "3 opciones de creatividad: Opción 1 — enlace de la publicación existente en Instagram/Facebook; Opción 2 — imágenes de carrusel, título y cuerpo de la publicación, más página de destino (si el cliente no tiene publicación); Opción 3 — vídeo e imágenes, título y cuerpo de la publicación, más página de destino (si el cliente no tiene publicación)."
+    },
+    "fr": {
+      "dimensao": "Option 2 (images du carrousel) : 1080×1350 px\nOption 3 (vidéo) : 1920×1080 px (recommandé)",
+      "aspectRatio": "Option 3 (vidéo) : 16:9 (recommandé)",
+      "peso": "Option 3 (vidéo) — durée : 5 à 30 secondes (15 secondes recommandées)",
+      "copies": "Option 1 (lien de la publication) : 15 à 20 caractères recommandés, limite de 30 caractères",
+      "observacoes": "3 options créatives : Option 1 — lien vers une publication existante sur Instagram/Facebook ; Option 2 — images du carrousel, titre et corps de la publication, plus page de destination (si le client n'a pas de publication) ; Option 3 — vidéo et images, titre et corps de la publication, plus page de destination (si le client n'a pas de publication)."
+    }
+  },
+  "Vidoomy|Vidoomy|Video Interactivo": {
+    "en": {
+      "dimensao": "Images/PSD: minimum 1080×1080 px or 1280×720 px\nVideo: 1920×1080 px (horizontal format)",
+      "tipoFicheiro": "Key visual elements in Illustrator/Photoshop, or high-quality JPG/PNG (if not editable)",
+      "observacoes": "Requires typography, CTA, brand logo and one or more landing pages. It is recommended to emphasise the CTA."
+    },
+    "es": {
+      "dimensao": "Imágenes/PSD: mínimo 1080×1080 px o 1280×720 px\nVídeo: 1920×1080 px (formato horizontal)",
+      "tipoFicheiro": "Elementos visuales clave en Illustrator/Photoshop, o JPG/PNG de alta calidad (si no son editables)",
+      "observacoes": "Requiere tipografía, CTA, logotipo de la marca y una o más páginas de destino. Se recomienda dar destaque a la CTA."
+    },
+    "fr": {
+      "dimensao": "Images/PSD : minimum 1080×1080 px ou 1280×720 px\nVidéo : 1920×1080 px (format horizontal)",
+      "tipoFicheiro": "Éléments visuels clés sous Illustrator/Photoshop, ou JPG/PNG haute qualité (si non modifiables)",
+      "observacoes": "Nécessite la typographie, le CTA, le logo de la marque et une ou plusieurs pages de destination. Il est recommandé de mettre le CTA en valeur."
+    }
+  },
+  "Vidoomy|Vidoomy|Static Enhanced": {
+    "en": {
+      "dimensao": "Images/PSD: minimum 1080×1080 px or 1280×720 px",
+      "tipoFicheiro": "Key Visual editable in Illustrator/Photoshop, or JPG/PNG (if not editable)",
+      "observacoes": "Requires brand logo, CTA and typography."
+    },
+    "es": {
+      "dimensao": "Imágenes/PSD: mínimo 1080×1080 px o 1280×720 px",
+      "tipoFicheiro": "Key Visual editable en Illustrator/Photoshop, o JPG/PNG (si no es editable)",
+      "observacoes": "Requiere logotipo de la marca, CTA y tipografía."
+    },
+    "fr": {
+      "dimensao": "Images/PSD : minimum 1080×1080 px ou 1280×720 px",
+      "tipoFicheiro": "Key Visual modifiable sous Illustrator/Photoshop, ou JPG/PNG (si non modifiable)",
+      "observacoes": "Nécessite le logo de la marque, le CTA et la typographie."
+    }
+  },
+  "Vidoomy|Vidoomy|Swipe Enhanced": {
+    "en": {
+      "dimensao": "Type 1 (2 images): minimum 1080×1080 px or 1280×720 px\nType 2 (video + image): video 1920×1080 px (width and height)",
+      "aspectRatio": "Type 2 (video): 16:9 (recommended)",
+      "peso": "Type 2 (video) — duration: 5 to 30 seconds (15 seconds recommended)",
+      "tipoFicheiro": "Type 1: key visual element editable in Illustrator/Photoshop, or JPG/PNG (if not editable)\nType 2: video in MP4, FLV, MOV, WEBM or similar, plus image",
+      "observacoes": "2 creative types: Type 1 — 2 images; Type 2 — 1 video + 1 image. Both types require typography, CTA and brand logo."
+    },
+    "es": {
+      "dimensao": "Tipo 1 (2 imágenes): mínimo 1080×1080 px o 1280×720 px\nTipo 2 (vídeo + imagen): vídeo 1920×1080 px (ancho y alto)",
+      "aspectRatio": "Tipo 2 (vídeo): 16:9 (recomendado)",
+      "peso": "Tipo 2 (vídeo) — duración: 5 a 30 segundos (15 segundos recomendado)",
+      "tipoFicheiro": "Tipo 1: elemento visual clave editable en Illustrator/Photoshop, o JPG/PNG (si no es editable)\nTipo 2: vídeo en MP4, FLV, MOV, WEBM o similar, más imagen",
+      "observacoes": "2 tipos de creatividad: Tipo 1 — 2 imágenes; Tipo 2 — 1 vídeo + 1 imagen. Ambos tipos requieren tipografía, CTA y logotipo de la marca."
+    },
+    "fr": {
+      "dimensao": "Type 1 (2 images) : minimum 1080×1080 px ou 1280×720 px\nType 2 (vidéo + image) : vidéo 1920×1080 px (largeur et hauteur)",
+      "aspectRatio": "Type 2 (vidéo) : 16:9 (recommandé)",
+      "peso": "Type 2 (vidéo) — durée : 5 à 30 secondes (15 secondes recommandées)",
+      "tipoFicheiro": "Type 1 : élément visuel clé modifiable sous Illustrator/Photoshop, ou JPG/PNG (si non modifiable)\nType 2 : vidéo en MP4, FLV, MOV, WEBM ou similaire, plus une image",
+      "observacoes": "2 types de création : Type 1 — 2 images ; Type 2 — 1 vidéo + 1 image. Les deux types nécessitent la typographie, le CTA et le logo de la marque."
+    }
+  },
+  "Vidoomy|Vidoomy|Video 3D": {
+    "en": {
+      "dimensao": "1920×1080 px (width and height)",
+      "aspectRatio": "16:9 (recommended)",
+      "peso": "Duration: 5 to 30 seconds (15 seconds recommended)\nWeight and resolution: unlimited",
+      "tipoFicheiro": "MP4, FLV, MOV, WEBM or similar",
+      "observacoes": "Requires CTA and brand logo. Additional editable materials recommended: images, brand guidelines and fonts, including the 3D product model in .obj/.3ds/.fbx/.stl/.gltf/.usd format."
+    },
+    "es": {
+      "dimensao": "1920×1080 px (ancho y alto)",
+      "aspectRatio": "16:9 (recomendado)",
+      "peso": "Duración: 5 a 30 segundos (15 segundos recomendado)\nPeso y resolución: ilimitados",
+      "tipoFicheiro": "MP4, FLV, MOV, WEBM o similar",
+      "observacoes": "Requiere CTA y logotipo de la marca. Materiales editables adicionales recomendados: imágenes, manual de marca y fuentes, incluyendo el modelo 3D del producto en formato .obj/.3ds/.fbx/.stl/.gltf/.usd."
+    },
+    "fr": {
+      "dimensao": "1920×1080 px (largeur et hauteur)",
+      "aspectRatio": "16:9 (recommandé)",
+      "peso": "Durée : 5 à 30 secondes (15 secondes recommandées)\nPoids et résolution : illimités",
+      "tipoFicheiro": "MP4, FLV, MOV, WEBM ou similaire",
+      "observacoes": "Nécessite un CTA et le logo de la marque. Matériaux modifiables supplémentaires recommandés : images, charte graphique et polices, y compris le modèle 3D du produit au format .obj/.3ds/.fbx/.stl/.gltf/.usd."
+    }
+  },
+  "Vidoomy|Vidoomy|Video Enhanced": {
+    "en": {
+      "dimensao": "1920×1080 px (width and height)",
+      "aspectRatio": "16:9 (recommended)",
+      "peso": "Duration: 5 to 30 seconds (15 seconds recommended)\nWeight and resolution: unlimited",
+      "tipoFicheiro": "MP4, FLV, MOV, WEBM or similar",
+      "observacoes": "Requires CTA and brand logo. Additional editable materials recommended: images, brand guidelines and fonts."
+    },
+    "es": {
+      "dimensao": "1920×1080 px (ancho y alto)",
+      "aspectRatio": "16:9 (recomendado)",
+      "peso": "Duración: 5 a 30 segundos (15 segundos recomendado)\nPeso y resolución: ilimitados",
+      "tipoFicheiro": "MP4, FLV, MOV, WEBM o similar",
+      "observacoes": "Requiere CTA y logotipo de la marca. Materiales editables adicionales recomendados: imágenes, manual de marca y fuentes."
+    },
+    "fr": {
+      "dimensao": "1920×1080 px (largeur et hauteur)",
+      "aspectRatio": "16:9 (recommandé)",
+      "peso": "Durée : 5 à 30 secondes (15 secondes recommandées)\nPoids et résolution : illimités",
+      "tipoFicheiro": "MP4, FLV, MOV, WEBM ou similaire",
+      "observacoes": "Nécessite un CTA et le logo de la marque. Matériaux modifiables supplémentaires recommandés : images, charte graphique et polices."
+    }
+  },
+  "Vidoomy|Vidoomy|Display VTA - Giroo": {
+    "en": {
+      "dimensao": "5 images (image1 to image5), with the respective colour changes",
+      "tipoFicheiro": "Embedded SVG, with text converted to outlines",
+      "observacoes": "Format with automatic colour change — the client must send 5 image files (image1 to image5), each with its own colour selection. Requires CTA copy, typography and brand logo."
+    },
+    "es": {
+      "dimensao": "5 imágenes (imagen1 a imagen5), con los respectivos cambios de color",
+      "tipoFicheiro": "SVG incrustado, con textos convertidos a contorno",
+      "observacoes": "Formato con cambio automático de color — el cliente debe enviar 5 archivos de imagen (imagen1 a imagen5), cada uno con su respectiva selección de color. Requiere el texto de la CTA, tipografía y logotipo de la marca."
+    },
+    "fr": {
+      "dimensao": "5 images (image1 à image5), avec les changements de couleur respectifs",
+      "tipoFicheiro": "SVG intégré, avec les textes convertis en contours",
+      "observacoes": "Format avec changement automatique de couleur — le client doit envoyer 5 fichiers image (image1 à image5), chacun avec sa sélection de couleur. Nécessite le texte du CTA, la typographie et le logo de la marque."
+    }
+  },
+  "Vidoomy|Vidoomy|Display VTA - Dual 3D": {
+    "en": {
+      "dimensao": "Minimum 300×600 px (preferably high resolution)\nVideo: 1080×1920 px (vertical orientation)",
+      "tipoFicheiro": "Video: MP4 (vertical)\nImages: PNG, JPEG, PSD or AI (vertical orientation)\nLogo: vector AI/EPS, or high-quality PNG",
+      "observacoes": "Format with 2 to 6 sides (works like an enhanced format, but vertical, not a VTA). Indicate the content of each side (e.g. side 1 logo, side 2 product, side 3 CTA). Requires typography (.ttf/.otf files or the brand's official font) and the brand's official website URL."
+    },
+    "es": {
+      "dimensao": "Mínimo 300×600 px (preferiblemente en alta resolución)\nVídeo: 1080×1920 px (orientación vertical)",
+      "tipoFicheiro": "Vídeo: MP4 (vertical)\nImágenes: PNG, JPEG, PSD o AI (orientación vertical)\nLogo: AI/EPS vectorial, o PNG de alta calidad",
+      "observacoes": "Formato de 2 a 6 lados (funciona como un formato enhanced, pero vertical, no un VTA). Indicar el contenido de cada lado (p. ej., lado 1 logotipo, lado 2 producto, lado 3 CTA). Requiere tipografía (archivos .ttf/.otf o indicación de la fuente oficial de la marca) y la URL oficial del sitio web de la marca."
+    },
+    "fr": {
+      "dimensao": "Minimum 300×600 px (de préférence en haute résolution)\nVidéo : 1080×1920 px (orientation verticale)",
+      "tipoFicheiro": "Vidéo : MP4 (vertical)\nImages : PNG, JPEG, PSD ou AI (orientation verticale)\nLogo : AI/EPS vectoriel, ou PNG haute qualité",
+      "observacoes": "Format de 2 à 6 côtés (fonctionne comme un format enhanced, mais vertical, pas un VTA). Indiquer le contenu de chaque côté (ex. : côté 1 logo, côté 2 produit, côté 3 CTA). Nécessite la typographie (fichiers .ttf/.otf ou indication de la police officielle de la marque) et l'URL officielle du site web de la marque."
+    }
+  },
+  "Vidoomy|Vidoomy|Display VTA - Gaming": {
+    "en": {
+      "dimensao": "Creative base: 300×600 px, with a clear space of at least 178 px at the top (for the game's header, timer and score)",
+      "tipoFicheiro": "PSD or SVG\nImages/PSD (visual elements): high-quality JPG or PNG, if not editable",
+      "observacoes": "Game format with 3 screens (home page ×2, final page). Requires an embedded SVG image called \"fondo\", typography, start and end CTA (an opening text that encourages interaction is recommended) and a vectorised brand logo. In the Illustrator file, leave off the artboard any text not converted to outlines, and keep the game elements to be worked on separately."
+    },
+    "es": {
+      "dimensao": "Base creativa: 300×600 px, con un espacio libre de al menos 178 px en la parte superior (para el encabezado del juego, el cronómetro y el puntaje)",
+      "tipoFicheiro": "PSD o SVG\nImágenes/PSD (elementos visuales): JPG o PNG de alta calidad, si no son editables",
+      "observacoes": "Formato de juego con 3 pantallas (página de inicio ×2, página final). Requiere una imagen incrustada en SVG llamada \"fondo\", tipografía, CTA inicial y final (se recomienda un texto inicial que fomente la interacción) y logotipo de la marca vectorizado. En el archivo de Illustrator, dejar fuera de la mesa de trabajo cualquier texto no convertido en contornos, y los elementos del juego a trabajar aparte."
+    },
+    "fr": {
+      "dimensao": "Base créative : 300×600 px, avec un espace libre d'au moins 178 px en haut (pour l'en-tête du jeu, le chronomètre et le score)",
+      "tipoFicheiro": "PSD ou SVG\nImages/PSD (éléments visuels) : JPG ou PNG haute qualité, si non modifiables",
+      "observacoes": "Format de jeu avec 3 écrans (page d'accueil ×2, page finale). Nécessite une image SVG intégrée appelée \"fondo\", la typographie, un CTA de début et de fin (un texte d'ouverture encourageant l'interaction est recommandé) et le logo de la marque vectorisé. Dans le fichier Illustrator, laisser hors du plan de travail tout texte non converti en contours, et les éléments du jeu à travailler séparément."
+    }
   }
 }
