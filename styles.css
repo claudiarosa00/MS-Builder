@@ -978,6 +978,23 @@ de checkbox e/ou coluna de link, controlado pelo app.js.
   color: var(--cor-texto-suave);
 }
 
+/* Sub-agrupamento visual dentro de uma categoria (hoje só "SAPO", a juntar
+   os subpublishers Sapo/Teads/HBO Max/SkyShowtime/Outbrain/Spotify em
+   Compra Direta) — mais discreto que .cabecalho-categoria, só para
+   marcar a fronteira do grupo. */
+.cabecalho-subgrupo-publisher {
+  margin: 4px 0 0 0;
+  padding: 4px 10px;
+  width: fit-content;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--cor-destaque-escuro);
+  background: var(--cor-destaque-suave);
+  border-radius: 999px;
+}
+
 .grupo-publisher h4 {
   margin: 0 0 12px 0;
   font-size: 17px;
