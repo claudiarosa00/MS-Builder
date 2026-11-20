@@ -1368,6 +1368,16 @@ function criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes, idPreci
   bloco.id = `${opcoes.prefixoId}-pub-${paraIdHtml(nomePublisher)}${sufixoId}`;
   bloco.dataset.publisher = nomePublisher;
   bloco.dataset.categoria = categoria;
+  // Pedido explícito da Cláudia: no índice lateral, "Sapo" ganha um
+  // dropdown com os veículos lá dentro (HBO Max, Teads, Outbrain, ...)
+  // em vez de aparecer só como um link direto — ver
+  // criarSubgrupoIndiceVeiculos/atualizarIndicePublishers. Guarda-se já
+  // aqui, em vez de o índice ir escavar a tabela.
+  if (nomePublisher === "Sapo") {
+    const veiculosDistintos = [...new Set(formatosDoPublisher.map((f) => f.veiculo || nomePublisher))]
+      .sort((a, b) => a.localeCompare(b, "pt"));
+    bloco.dataset.subVeiculos = JSON.stringify(veiculosDistintos);
+  }
 
   const titulo = document.createElement("h4");
   titulo.textContent = nomePublisher;
@@ -1933,6 +1943,12 @@ filtro, de idioma, de tab).
 */
 const categoriasIndiceExpandidas = new Set();
 
+// Tal como categoriasIndiceExpandidas, mas para o dropdown de veículos
+// dentro de "Sapo" no índice lateral (ver criarSubgrupoIndiceVeiculos) —
+// guarda o id do bloco, não o nome, para não colidir com nenhuma
+// categoria.
+const subgruposIndiceExpandidos = new Set();
+
 // TV, Rádio e Cinema não têm o botão recolhível ▸ — nenhum formato destes
 // meios fica associado a um canal, estação ou exibidor em concreto (ver
 // README), por isso há sempre um único publisher lá dentro ("TV"/"Rádio"/
@@ -2021,6 +2037,15 @@ function atualizarIndicePublishers() {
     listaLinks.className = `indice-categoria-links${expandida ? "" : " recolhida"}`;
 
     blocosDaCategoria.forEach((bloco) => {
+      // "Sapo" tem os seus próprios veículos (HBO Max, Teads, Outbrain,
+      // ...) marcados em bloco.dataset.subVeiculos (ver
+      // criarBlocoPublisher) — em vez de um link direto, ganha o mesmo
+      // dropdown ▸ das categorias, com esses veículos lá dentro (pedido
+      // explícito da Cláudia).
+      if (bloco.dataset.subVeiculos) {
+        listaLinks.appendChild(criarSubgrupoIndiceVeiculos(bloco));
+        return;
+      }
       const link = document.createElement("a");
       link.href = `#${bloco.id}`;
       link.textContent = bloco.dataset.publisher;
@@ -2032,6 +2057,53 @@ function atualizarIndicePublishers() {
     });
     indicePublishers.appendChild(listaLinks);
   }
+}
+
+// "Sapo" no índice lateral funciona como uma mini-categoria: o mesmo ▸
+// das categorias (Compra Direta, ...), só que a abrir/fechar não outros
+// publishers, mas os veículos lá dentro (HBO Max, Teads, Outbrain, ...)
+// — pedido explícito da Cláudia. Como na área principal todos os
+// veículos continuam no MESMO bloco "Sapo" (distinguidos pela coluna
+// Veículo, ver criarBlocoPublisher/comVeiculo), clicar em qualquer um
+// deles leva sempre para esse mesmo bloco — não há um sítio diferente
+// para cada veículo, só a tabela lá dentro é que os distingue.
+function criarSubgrupoIndiceVeiculos(bloco) {
+  const veiculos = JSON.parse(bloco.dataset.subVeiculos);
+  const expandida = subgruposIndiceExpandidos.has(bloco.id);
+
+  const contentor = document.createElement("div");
+  contentor.className = "indice-subgrupo";
+
+  const titulo = document.createElement("button");
+  titulo.type = "button";
+  titulo.className = `indice-categoria indice-subgrupo-titulo${expandida ? " expandida" : ""}`;
+  titulo.setAttribute("aria-expanded", String(expandida));
+  titulo.innerHTML = `<span class="indice-categoria-seta" aria-hidden="true">▸</span><span>${escapeHTML(bloco.dataset.publisher)}</span>`;
+  titulo.addEventListener("click", () => {
+    if (subgruposIndiceExpandidos.has(bloco.id)) {
+      subgruposIndiceExpandidos.delete(bloco.id);
+    } else {
+      subgruposIndiceExpandidos.add(bloco.id);
+    }
+    atualizarIndicePublishers();
+  });
+  contentor.appendChild(titulo);
+
+  const listaVeiculos = document.createElement("div");
+  listaVeiculos.className = `indice-categoria-links indice-subgrupo-links${expandida ? "" : " recolhida"}`;
+  veiculos.forEach((veiculo) => {
+    const link = document.createElement("a");
+    link.href = `#${bloco.id}`;
+    link.textContent = veiculo;
+    link.addEventListener("click", (evento) => {
+      evento.preventDefault();
+      bloco.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    listaVeiculos.appendChild(link);
+  });
+  contentor.appendChild(listaVeiculos);
+
+  return contentor;
 }
 
 /*

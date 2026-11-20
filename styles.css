@@ -319,6 +319,18 @@ a marca fica presente sem o cabeçalho gritar em vermelho.
   color: var(--cor-destaque-escuro);
 }
 
+/* "Sapo" no índice funciona como uma mini-categoria (mesmo ▸, mesmo
+   dropdown) para os seus veículos (HBO Max, Teads, Outbrain, ...) — ver
+   criarSubgrupoIndiceVeiculos em app.js. Só a indentação muda, para
+   ficar visualmente um nível abaixo da categoria (Compra Direta). */
+.indice-subgrupo-titulo {
+  padding-left: 20px;
+}
+
+.indice-subgrupo-links {
+  padding-left: 14px;
+}
+
 .conteudo-principal {
   flex: 1;
   min-width: 0;
