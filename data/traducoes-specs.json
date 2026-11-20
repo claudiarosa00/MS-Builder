@@ -4648,19 +4648,19 @@
     "en": {
       "dimensao": "Logo: 1200x1200 (min. 128x128)",
       "aspectRatio": "1:1",
-      "peso": "not specified",
+      "peso": "-",
       "tipoFicheiro": "JPG, PNG"
     },
     "es": {
       "dimensao": "Logo: 1200x1200 (mín. 128x128)",
       "aspectRatio": "1:1",
-      "peso": "no especificado",
+      "peso": "-",
       "tipoFicheiro": "JPG, PNG"
     },
     "fr": {
       "dimensao": "Logo : 1200x1200 (min. 128x128)",
       "aspectRatio": "1:1",
-      "peso": "non spécifié",
+      "peso": "-",
       "tipoFicheiro": "JPG, PNG"
     }
   },
@@ -4668,21 +4668,21 @@
     "en": {
       "dimensao": "Square: 1200x1200 (min. 300x300), required; Horizontal: 1200x628 (min. 600x314), optional",
       "aspectRatio": "1:1 or 1.91:1",
-      "peso": "not specified",
+      "peso": "-",
       "tipoFicheiro": "JPG, PNG",
       "formato": "Ad Assets (Images)"
     },
     "es": {
       "dimensao": "Cuadrado: 1200x1200 (mín. 300x300), obligatorio; Horizontal: 1200x628 (mín. 600x314), opcional",
       "aspectRatio": "1:1 o 1.91:1",
-      "peso": "no especificado",
+      "peso": "-",
       "tipoFicheiro": "JPG, PNG",
       "formato": "Ad Assets (Imágenes)"
     },
     "fr": {
       "dimensao": "Carré : 1200x1200 (min. 300x300), obligatoire ; Horizontal : 1200x628 (min. 600x314), facultatif",
       "aspectRatio": "1:1 ou 1.91:1",
-      "peso": "non spécifié",
+      "peso": "-",
       "tipoFicheiro": "JPG, PNG",
       "formato": "Ad Assets (Images)"
     }
