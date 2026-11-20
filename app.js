@@ -765,7 +765,6 @@ const TRADUCOES = {
   canalProgramatico: { pt: "Programático", en: "Programmatic", es: "Programática", fr: "Programmatique" },
   colDataInicioCampanha: { pt: "Data de Início da Campanha", en: "Campaign Start Date", es: "Fecha de Inicio de la Campaña", fr: "Date de Début de la Campagne" },
   colDataEntrega: { pt: "Data de entrega", en: "Delivery Date", es: "Fecha de entrega", fr: "Date de livraison" },
-  naoEspecificado: { pt: "não especificado", en: "not specified", es: "no especificado", fr: "non spécifié" },
   verSpecsLink: { pt: "Ver specs ↗", en: "View specs ↗", es: "Ver especificaciones ↗", fr: "Voir les spécifications ↗" },
   verSpecsLinkComNome: { pt: "Ver specs de {formato} ↗", en: "View specs for {formato} ↗", es: "Ver especificaciones de {formato} ↗", fr: "Voir les spécifications de {formato} ↗" },
   resumoSelecaoTitulo: { pt: "Formatos selecionados ({n})", en: "Selected formats ({n})", es: "Formatos seleccionados ({n})", fr: "Formats sélectionnés ({n})" },
@@ -1202,27 +1201,53 @@ function dividirLinhaEmRotuloEValor(linha) {
 // texto original quando não há nenhum rótulo a assinalar (para não gastar
 // uma célula richText à toa), ou um valor { richText } com o rótulo de
 // cada linha a negrito, caso contrário.
+//
+// Alguns formatos (ex.: Prog - Uber Journey Ad, Prog - YouTube VRC ...)
+// organizam a informação em secções — uma linha "cabeçalho" sem dois
+// pontos (ex.: "DISPLAY", "Duração") seguida de sub-rótulos (ex.:
+// "Pedido:", "Horizontal:") — separadas entre si por uma linha em
+// branco. Nesses casos o cabeçalho entra no MESMO negrito do primeiro
+// sub-rótulo que o segue (ex.: "DISPLAY\nPedido:" tudo a negrito), para
+// ficar visualmente agarrado à secção que introduz.
 function valorExcelComRotulosEmNegrito(texto) {
   if (!texto) {
     return texto ?? "";
   }
-  const linhas = texto.split("\n");
-  if (!linhas.some((linha) => dividirLinhaEmRotuloEValor(linha))) {
+  if (!texto.split("\n").some((linha) => dividirLinhaEmRotuloEValor(linha))) {
     return texto;
   }
   const estiloRotulo = { name: "Arial Nova", size: 10, bold: true, color: { argb: "FF0F1724" } };
   const estiloValor = { name: "Arial Nova", size: 10, color: { argb: "FF0F1724" } };
   const richText = [];
-  linhas.forEach((linha, indice) => {
-    const partes = dividirLinhaEmRotuloEValor(linha);
-    if (partes) {
-      richText.push({ font: estiloRotulo, text: `${partes.rotulo}:` });
-      richText.push({ font: estiloValor, text: ` ${partes.resto}` });
-    } else {
-      richText.push({ font: estiloValor, text: linha });
+  const segmentos = texto.split("\n\n");
+  segmentos.forEach((segmento, indiceSegmento) => {
+    if (indiceSegmento > 0) {
+      richText.push({ font: estiloValor, text: "\n\n" });
     }
-    if (indice < linhas.length - 1) {
-      richText.push({ font: estiloValor, text: "\n" });
+    const linhas = segmento.split("\n");
+    let indiceLinha = 0;
+    // Linha 0 sem rótulo próprio (um cabeçalho de secção) seguida de uma
+    // linha que É um rótulo — junta as duas no mesmo bloco a negrito.
+    if (linhas.length > 1 && !dividirLinhaEmRotuloEValor(linhas[0])) {
+      const partesSeguinte = dividirLinhaEmRotuloEValor(linhas[1]);
+      if (partesSeguinte) {
+        richText.push({ font: estiloRotulo, text: `${linhas[0]}\n${partesSeguinte.rotulo}:` });
+        richText.push({ font: estiloValor, text: ` ${partesSeguinte.resto}` });
+        indiceLinha = 2;
+      }
+    }
+    for (; indiceLinha < linhas.length; indiceLinha += 1) {
+      if (indiceLinha > 0) {
+        richText.push({ font: estiloValor, text: "\n" });
+      }
+      const linha = linhas[indiceLinha];
+      const partes = dividirLinhaEmRotuloEValor(linha);
+      if (partes) {
+        richText.push({ font: estiloRotulo, text: `${partes.rotulo}:` });
+        richText.push({ font: estiloValor, text: ` ${partes.resto}` });
+      } else {
+        richText.push({ font: estiloValor, text: linha });
+      }
     }
   });
   return { richText };
@@ -1239,7 +1264,12 @@ function hrefSeguro(url) {
     return null;
   }
   try {
-    const analisado = new URL(String(url), window.location.href);
+    // Sem base (window.location.href) — só aceita um URL absoluto. Com
+    // base, "new URL" resolve qualquer texto como caminho relativo (ex.:
+    // o placeholder "-" de uma coluna sem link viraria um href válido
+    // mas sem sentido, tipo ".../-"), o que acendia o link "Ver specs"
+    // para formatos sem link nenhum.
+    const analisado = new URL(String(url));
     if (analisado.protocol !== "http:" && analisado.protocol !== "https:") {
       return null;
     }
@@ -1247,6 +1277,15 @@ function hrefSeguro(url) {
   } catch {
     return null;
   }
+}
+
+// Pedido explícito da Cláudia: qualquer coluna de specs sem informação
+// fica com o placeholder "-" em vez de em branco — Link incluído. Usada
+// onde quer que o código precise de saber se HÁ mesmo um link (para o
+// exportar como hyperlink real, ou estilizá-lo como tal), em vez de só
+// verificar se formato.link está preenchido.
+function linkRealDoFormato(formato) {
+  return !!formato.link && formato.link !== "-";
 }
 
 // A que categoria do índice pertence um publisher, a partir dos seus
@@ -1973,7 +2012,7 @@ function criarLinhaFormato(formato, opcoes) {
     : "";
   // O Copies só existe para meios digitais (ver comCopies em
   // criarBlocoPublisher) — um publisher offline não desenha esta coluna.
-  const colunaCopies = opcoes.comCopies ? `<td class="coluna-spec-texto">${escapeHTML(textoTraduzido(formato, "copies")) || "—"}</td>` : "";
+  const colunaCopies = opcoes.comCopies ? `<td class="coluna-spec-texto">${escapeHTML(textoTraduzido(formato, "copies")) || "-"}</td>` : "";
   // A Entrega de TV é sempre "GoFastWay" — não vem da base, é um valor
   // fixo (ver entregaTV em COLUNAS_EXCEL_DISPONIVEIS, a mesma ideia usada
   // aqui na Biblioteca de Formatos), com o link do Portal GoFastWay
@@ -1986,13 +2025,13 @@ function criarLinhaFormato(formato, opcoes) {
     <td id="${idNomeFormato}">${nomeFormatoTexto}</td>
     ${colunaVeiculo}
     ${colunaGrupoDigital2020}
-    <td class="coluna-spec-texto">${escapeHTML(textoTraduzido(formato, "dimensao")) || t("naoEspecificado")}</td>
-    <td class="coluna-spec-texto">${escapeHTML(textoTraduzido(formato, "aspectRatio")) || "—"}</td>
-    <td class="coluna-spec-texto">${escapeHTML(textoTraduzido(formato, "peso")) || t("naoEspecificado")}</td>
-    <td class="coluna-spec-texto">${escapeHTML(textoTraduzido(formato, "tipoFicheiro")) || t("naoEspecificado")}</td>
+    <td class="coluna-spec-texto">${escapeHTML(textoTraduzido(formato, "dimensao")) || "-"}</td>
+    <td class="coluna-spec-texto">${escapeHTML(textoTraduzido(formato, "aspectRatio")) || "-"}</td>
+    <td class="coluna-spec-texto">${escapeHTML(textoTraduzido(formato, "peso")) || "-"}</td>
+    <td class="coluna-spec-texto">${escapeHTML(textoTraduzido(formato, "tipoFicheiro")) || "-"}</td>
     ${colunaCopies}
     ${colunaEntregaTV}
-    <td class="coluna-observacoes">${escapeHTML(textoTraduzido(formato, "observacoes")) || "—"}</td>
+    <td class="coluna-observacoes">${escapeHTML(textoTraduzido(formato, "observacoes")) || "-"}</td>
     ${colunaLink}
   `;
   return linha;
@@ -3268,27 +3307,27 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
     // valorExcelComRotulosEmNegrito: pedido explícito da Cláudia — só no
     // Excel exportado (não na Biblioteca de Formatos/HTML), e só em
     // Dimensão/Peso/Tipo de Ficheiro — ver essa função.
-    valor: (formato, objetivo) => valorExcelComRotulosEmNegrito(filtrarTextoPorPlacementsMeta(formato, objetivo, textoTraduzido(formato, "dimensao") || "")),
+    valor: (formato, objetivo) => valorExcelComRotulosEmNegrito(filtrarTextoPorPlacementsMeta(formato, objetivo, textoTraduzido(formato, "dimensao") || "-")),
   },
   aspectRatio: {
     largura: 14,
     titulo: () => t("colAspectRatio"),
-    valor: (formato, objetivo) => filtrarTextoPorPlacementsMeta(formato, objetivo, textoTraduzido(formato, "aspectRatio") || ""),
+    valor: (formato, objetivo) => filtrarTextoPorPlacementsMeta(formato, objetivo, textoTraduzido(formato, "aspectRatio") || "-"),
   },
   peso: {
     largura: 16,
     titulo: () => t("colPeso"),
-    valor: (formato) => valorExcelComRotulosEmNegrito(textoTraduzido(formato, "peso") || ""),
+    valor: (formato) => valorExcelComRotulosEmNegrito(textoTraduzido(formato, "peso") || "-"),
   },
   tipoFicheiro: {
     largura: 22,
     titulo: () => t("colTipoFicheiro"),
-    valor: (formato) => valorExcelComRotulosEmNegrito(textoTraduzido(formato, "tipoFicheiro") || ""),
+    valor: (formato) => valorExcelComRotulosEmNegrito(textoTraduzido(formato, "tipoFicheiro") || "-"),
   },
   copies: {
     largura: 40,
     titulo: () => t("colCopies"),
-    valor: (formato, objetivo) => filtrarTextoPorPlacementsMeta(formato, objetivo, textoTraduzido(formato, "copies") || ""),
+    valor: (formato, objetivo) => filtrarTextoPorPlacementsMeta(formato, objetivo, textoTraduzido(formato, "copies") || "-"),
   },
   observacoes: {
     largura: 40,
@@ -3299,12 +3338,14 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
     // formato tem "Notas Técnicas" preenchido: aí o texto técnico extenso
     // é que fica reservado à sheet extra, e a nota curta de "Observações"
     // (ex.: a remeter para essa sheet) aparece normalmente aqui.
-    valor: (formato) => (formato.fornecedor === "OLX" && !formato.notasTecnicas ? "" : textoTraduzido(formato, "observacoes") || ""),
+    valor: (formato) => (formato.fornecedor === "OLX" && !formato.notasTecnicas ? "" : textoTraduzido(formato, "observacoes") || "-"),
   },
   link: {
     largura: 40,
     titulo: () => t("colLink"),
-    valor: (formato) => (formato.link ? { text: formato.link, hyperlink: formato.link } : ""),
+    // "-" é o placeholder para "sem link" (ver linkRealDoFormato) — nunca
+    // um URL de verdade, por isso não pode virar um hyperlink.
+    valor: (formato) => (linkRealDoFormato(formato) ? { text: formato.link, hyperlink: formato.link } : "-"),
   },
   // Tal como a Data de Entrega, não vem da base nem é escolhida no
   // construtor — fica sempre em branco, para o utilizador preencher à mão
@@ -3651,7 +3692,7 @@ function escreverSeccaoObjetivo(folha, linhaInicio, tituloSeccao, formatosPorVag
       });
       // O texto do link fica na cor de destaque, sublinhado, para
       // parecer clicável mesmo antes de o utilizador lhe tocar.
-      if (indiceColunaLink !== -1 && grupo.formato.link) {
+      if (indiceColunaLink !== -1 && linkRealDoFormato(grupo.formato)) {
         linhaFormato.getCell(indiceColunaLink + 2).font = { name: "Arial Nova", size: 10, color: { argb: "FF1155CC" }, underline: true };
       }
       linhaAtual += 1;
@@ -3739,7 +3780,10 @@ function escreverRodapeEspecificacoes(folha, linhaInicio, numColunas, grupoMeio)
         [t("colObservacoes"), textoTraduzido(formato, "observacoes")],
       ];
       campos.forEach(([rotulo, valor]) => {
-        if (!valor) {
+        // "-" é o placeholder de "sem informação" (ver
+        // COLUNAS_EXCEL_DISPONIVEIS) — não uma nota real, por isso continua
+        // a não ganhar linha neste rodapé (só sai quando há mesmo conteúdo).
+        if (!valor || valor === "-") {
           return;
         }
         folha.mergeCells(linha, 1, linha, numColunas);
@@ -4075,6 +4119,16 @@ async function desenharImagensEmpilhadas(workbook, folha, caminhosImagem, coluna
   return linha;
 }
 
+// "-" é o placeholder de "sem informação" (ver COLUNAS_EXCEL_DISPONIVEIS.
+// observacoes) — nunca uma nota real. Usado em sítios que decidem SE
+// mostram/geram algo com base em haver ou não observações de verdade (ver
+// escreverFolhaImagemFormato/escreverFolhasImagensExtra); sem isto, "-"
+// (sempre truthy) fazia esses sítios pensarem que havia sempre nota.
+function observacoesReaisDoFormato(formato) {
+  const texto = textoTraduzido(formato, "observacoes");
+  return texto && texto !== "-" ? texto : "";
+}
+
 async function escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados) {
   const caminhosImagem = (formato.imagemFicheiro || "")
     .split("\n")
@@ -4085,7 +4139,7 @@ async function escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados) {
   // Observações (essa já aparece na folha principal — ver
   // COLUNAS_FORMATO_EXCEL.observacoes). Sem Notas Técnicas, continua a
   // mostrar Observações, como sempre.
-  const textoObservacoes = textoTraduzido(formato, "notasTecnicas") || textoTraduzido(formato, "observacoes");
+  const textoObservacoes = textoTraduzido(formato, "notasTecnicas") || observacoesReaisDoFormato(formato);
   const ehOLX = formato.fornecedor === "OLX";
   // Um formato OLX sem imagem mas com Observações ainda assim ganha esta
   // sheet extra, só para mostrar a nota (que deixou de sair na coluna de
@@ -4230,7 +4284,7 @@ async function escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados) {
 async function escreverFolhasImagensExtra(workbook, grupoMeio) {
   const nomesSheetUsados = new Set(workbook.worksheets.map((folha) => folha.name.toLowerCase()));
   const formatosComImagem = formatosSelecionadosDoMeio(grupoMeio)
-    .filter((formato) => formato.imagemFicheiro || (formato.fornecedor === "OLX" && (textoTraduzido(formato, "observacoes") || formato.notasTecnicas)))
+    .filter((formato) => formato.imagemFicheiro || (formato.fornecedor === "OLX" && (observacoesReaisDoFormato(formato) || formato.notasTecnicas)))
     .sort((a, b) => (textoTraduzido(a, "formato") ?? "").localeCompare(textoTraduzido(b, "formato") ?? "", "pt"));
   for (const formato of formatosComImagem) {
     await escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados);
