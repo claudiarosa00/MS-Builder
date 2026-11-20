@@ -3843,7 +3843,7 @@ function nomeUnicoParaSheet(nomeDesejado, nomesUsados) {
 // ecrã todo para as medidas continuarem legíveis. Devolve a linha livre a
 // seguir à última imagem desenhada (a chamadora decide o que lá pôr).
 const LADO_MAXIMO_IMAGEM = 700;
-async function desenharImagensEmpilhadas(workbook, folha, caminhosImagem, coluna, linhaInicio) {
+async function desenharImagensEmpilhadas(workbook, folha, caminhosImagem, coluna, linhaInicio, espacoEntreImagens = 2) {
   let linha = linhaInicio;
   for (const caminhoImagem of caminhosImagem) {
     const respostaImagem = await fetch(caminhoImagem, { cache: "no-store" });
@@ -3863,7 +3863,10 @@ async function desenharImagensEmpilhadas(workbook, folha, caminhosImagem, coluna
     // Imagem seguinte começa a seguir a esta — a altura de linha por
     // omissão do Excel ronda os 20px, por isso esta conta é só uma
     // aproximação (overshoot é inofensivo, só deixa uma margem extra).
-    linha += Math.ceil(alturaFinal / 20) + 2;
+    // espacoEntreImagens=0 (ver coluna "Exemplo" da OLX) cola as imagens
+    // umas às outras, sem nenhuma margem entre elas — pedido explícito
+    // da Cláudia.
+    linha += Math.ceil(alturaFinal / 20) + espacoEntreImagens;
   }
   return linha;
 }
@@ -3898,7 +3901,19 @@ async function escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados) {
   const imagensExemplo = ehOLX ? caminhosImagem.slice(1) : [];
 
   const nomeFormatoTexto = textoTraduzido(formato, "formato") ?? formato.formato ?? "";
-  const folha = workbook.addWorksheet(nomeUnicoParaSheet(`${formato.fornecedor} — ${nomeFormatoTexto}`, nomesSheetUsados));
+  // Na OLX, "Fornecedor Formato" (espaço, não travessão) — pedido
+  // explícito da Cláudia, com os nomes exatos que quer ver nos separadores
+  // das sheets. Alguns nomes inteiros não cabem no limite de 31 carateres
+  // do Excel, e cortar automaticamente aos 31 carateres ficava a meio de
+  // uma palavra — por isso este alias, com a abreviatura já escolhida por
+  // ela, em vez do corte automático de nomeUnicoParaSheet.
+  const ALIAS_SHEET_OLX = {
+    "Full Branding - Homepage Exclusivo 1 dia": "Full Branding - HP Exclusiv",
+  };
+  const nomeDesejadoSheet = ehOLX
+    ? `${formato.fornecedor} ${ALIAS_SHEET_OLX[formato.formato] ?? nomeFormatoTexto}`
+    : `${formato.fornecedor} — ${nomeFormatoTexto}`;
+  const folha = workbook.addWorksheet(nomeUnicoParaSheet(nomeDesejadoSheet, nomesSheetUsados));
   folha.views = [{ showGridLines: false }];
   // Na OLX as Observações saem ao lado da imagem, não por baixo (pedido
   // explícito da Cláudia) — por isso, havendo imagem, a folha ganha mais
@@ -3929,21 +3944,27 @@ async function escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados) {
     const celulaExemplo = folha.getCell(2, 6);
     celulaExemplo.value = t("tituloExemploImagem");
     celulaExemplo.font = { name: "Arial Nova", size: 14, bold: true, color: { argb: "FF0F1724" } };
-    await desenharImagensEmpilhadas(workbook, folha, imagensExemplo, 5, linhaInicioImagens);
+    await desenharImagensEmpilhadas(workbook, folha, imagensExemplo, 5, linhaInicioImagens, 0);
   }
 
   const larguraColunaTexto = 90;
-  const textoDimensao = textoTraduzido(formato, "dimensao") || "";
-  const celulaMedidas = folha.getCell(linhaAtual, 2);
-  celulaMedidas.value = {
-    richText: [
-      { font: { name: "Arial Nova", size: 10, bold: true }, text: `${t("colDimensao")}: ` },
-      { font: { name: "Arial Nova", size: 10 }, text: textoDimensao },
-    ],
-  };
-  celulaMedidas.alignment = { wrapText: true, vertical: "top" };
-  folha.getRow(linhaAtual).height = alturaParaTextoFundido(`${t("colDimensao")}: ${textoDimensao}`, larguraColunaTexto);
-  linhaAtual += 1;
+  // Na OLX a sheet extra não repete a Dimensão no fundo (pedido explícito
+  // da Cláudia: já está coberta pela imagem/Notas Técnicas, e repeti-la
+  // ficava redundante). Nos restantes meios mantém-se, como sempre, logo
+  // a seguir à imagem.
+  if (!ehOLX) {
+    const textoDimensao = textoTraduzido(formato, "dimensao") || "";
+    const celulaMedidas = folha.getCell(linhaAtual, 2);
+    celulaMedidas.value = {
+      richText: [
+        { font: { name: "Arial Nova", size: 10, bold: true }, text: `${t("colDimensao")}: ` },
+        { font: { name: "Arial Nova", size: 10 }, text: textoDimensao },
+      ],
+    };
+    celulaMedidas.alignment = { wrapText: true, vertical: "top" };
+    folha.getRow(linhaAtual).height = alturaParaTextoFundido(`${t("colDimensao")}: ${textoDimensao}`, larguraColunaTexto);
+    linhaAtual += 1;
+  }
 
   // Notas adicionais (Observações): na OLX saem numa coluna à parte, ao
   // lado da imagem (pedido explícito da Cláudia — a coluna de
@@ -3954,14 +3975,17 @@ async function escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados) {
   if (textoObservacoes) {
     if (observacoesAoLadoDaImagem) {
       // A célula funde-se por todas as linhas que a(s) imagem(ns) ocupam
-      // (linhaInicioImagens até à linha em branco mesmo antes da
-      // Dimensão) em vez de ficar só na primeira: encolher tudo para uma
-      // única linha obrigava a esticá-la à altura do texto todo, o que
-      // empurrava as imagens seguintes (caso dos "Full Branding" com
-      // várias) para muito mais abaixo do que deviam. Só se o texto não
-      // couber no espaço que as imagens já ocupam é que a última linha
-      // fundida cresce para compensar — nunca a primeira.
-      const linhaFimImagens = linhaAtual - 2;
+      // (linhaInicioImagens até à última linha livre a seguir a elas) em
+      // vez de ficar só na primeira: encolher tudo para uma única linha
+      // obrigava a esticá-la à altura do texto todo, o que empurrava as
+      // imagens seguintes (caso dos "Full Branding" com várias) para
+      // muito mais abaixo do que deviam. Só se o texto não couber no
+      // espaço que as imagens já ocupam é que a última linha fundida
+      // cresce para compensar — nunca a primeira. Este ramo só corre
+      // quando ehOLX (ver observacoesAoLadoDaImagem), e a OLX já não
+      // escreve a linha de Dimensão (ver acima) — por isso linhaAtual
+      // ainda aponta para a primeira linha livre a seguir às imagens.
+      const linhaFimImagens = linhaAtual - 1;
       folha.mergeCells(linhaInicioImagens, 4, linhaFimImagens, 4);
       const celulaObs = folha.getCell(linhaInicioImagens, 4);
       celulaObs.value = {
