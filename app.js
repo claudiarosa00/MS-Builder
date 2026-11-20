@@ -1176,14 +1176,14 @@ function escapeHTML(texto) {
   }[c]));
 }
 
-// Em Dimensão, Aspect Ratio, Peso, Tipo de Ficheiro, Copies e Observações,
-// a grande maioria dos formatos já segue a convenção "Rótulo: valor" por
-// linha (ex.: "Logo: mín. 100x100px...", "Título: máx. 45 carateres") —
-// pedido explícito da Cláudia para o rótulo aparecer a negrito, tanto no
-// construtor (HTML) como no Excel exportado, para ser mais fácil encontrar
-// cada especificação a olho. Só reconhece como rótulo o que vem antes dos
-// primeiros dois pontos quando é curto (uma frase a meio de um parágrafo
-// que por acaso tem dois pontos lá no meio não conta) e não é um URL.
+// Em Dimensão, Peso e Tipo de Ficheiro, a grande maioria dos formatos já
+// segue a convenção "Rótulo: valor" por linha (ex.: "Logo: mín.
+// 100x100px...", "Vídeo: até 30 MB") — pedido explícito da Cláudia para o
+// rótulo aparecer a negrito, mas só no Excel exportado (nunca na
+// Biblioteca de Formatos do construtor). Só reconhece como rótulo o que
+// vem antes dos primeiros dois pontos quando é curto (uma frase a meio de
+// um parágrafo que por acaso tem dois pontos lá no meio não conta) e não é
+// um URL.
 const REGEX_ROTULO_LINHA = /^([^:\n]{1,60}):\s(.*)$/;
 
 function dividirLinhaEmRotuloEValor(linha) {
@@ -1198,27 +1198,10 @@ function dividirLinhaEmRotuloEValor(linha) {
   return { rotulo, resto };
 }
 
-// Versão HTML (construtor): o rótulo de cada linha fica a negrito.
-function formatarTextoComRotulosHTML(texto) {
-  if (!texto) {
-    return "";
-  }
-  return texto
-    .split("\n")
-    .map((linha) => {
-      const partes = dividirLinhaEmRotuloEValor(linha);
-      if (!partes) {
-        return escapeHTML(linha);
-      }
-      return `<strong>${escapeHTML(partes.rotulo)}:</strong> ${escapeHTML(partes.resto)}`;
-    })
-    .join("\n");
-}
-
-// Versão Excel (ver COLUNAS_EXCEL_DISPONIVEIS): devolve o texto original
-// quando não há nenhum rótulo a assinalar (para não gastar uma célula
-// richText à toa), ou um valor { richText } com o rótulo de cada linha a
-// negrito, caso contrário.
+// Ver COLUNAS_EXCEL_DISPONIVEIS (dimensao/peso/tipoFicheiro): devolve o
+// texto original quando não há nenhum rótulo a assinalar (para não gastar
+// uma célula richText à toa), ou um valor { richText } com o rótulo de
+// cada linha a negrito, caso contrário.
 function valorExcelComRotulosEmNegrito(texto) {
   if (!texto) {
     return texto ?? "";
@@ -1990,7 +1973,7 @@ function criarLinhaFormato(formato, opcoes) {
     : "";
   // O Copies só existe para meios digitais (ver comCopies em
   // criarBlocoPublisher) — um publisher offline não desenha esta coluna.
-  const colunaCopies = opcoes.comCopies ? `<td class="coluna-spec-texto">${formatarTextoComRotulosHTML(textoTraduzido(formato, "copies")) || "—"}</td>` : "";
+  const colunaCopies = opcoes.comCopies ? `<td class="coluna-spec-texto">${escapeHTML(textoTraduzido(formato, "copies")) || "—"}</td>` : "";
   // A Entrega de TV é sempre "GoFastWay" — não vem da base, é um valor
   // fixo (ver entregaTV em COLUNAS_EXCEL_DISPONIVEIS, a mesma ideia usada
   // aqui na Biblioteca de Formatos), com o link do Portal GoFastWay
@@ -2003,13 +1986,13 @@ function criarLinhaFormato(formato, opcoes) {
     <td id="${idNomeFormato}">${nomeFormatoTexto}</td>
     ${colunaVeiculo}
     ${colunaGrupoDigital2020}
-    <td class="coluna-spec-texto">${formatarTextoComRotulosHTML(textoTraduzido(formato, "dimensao")) || t("naoEspecificado")}</td>
-    <td class="coluna-spec-texto">${formatarTextoComRotulosHTML(textoTraduzido(formato, "aspectRatio")) || "—"}</td>
-    <td class="coluna-spec-texto">${formatarTextoComRotulosHTML(textoTraduzido(formato, "peso")) || t("naoEspecificado")}</td>
-    <td class="coluna-spec-texto">${formatarTextoComRotulosHTML(textoTraduzido(formato, "tipoFicheiro")) || t("naoEspecificado")}</td>
+    <td class="coluna-spec-texto">${escapeHTML(textoTraduzido(formato, "dimensao")) || t("naoEspecificado")}</td>
+    <td class="coluna-spec-texto">${escapeHTML(textoTraduzido(formato, "aspectRatio")) || "—"}</td>
+    <td class="coluna-spec-texto">${escapeHTML(textoTraduzido(formato, "peso")) || t("naoEspecificado")}</td>
+    <td class="coluna-spec-texto">${escapeHTML(textoTraduzido(formato, "tipoFicheiro")) || t("naoEspecificado")}</td>
     ${colunaCopies}
     ${colunaEntregaTV}
-    <td class="coluna-observacoes">${formatarTextoComRotulosHTML(textoTraduzido(formato, "observacoes")) || "—"}</td>
+    <td class="coluna-observacoes">${escapeHTML(textoTraduzido(formato, "observacoes")) || "—"}</td>
     ${colunaLink}
   `;
   return linha;
@@ -3282,14 +3265,15 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
     titulo: () => t("colDimensao"),
     // No Meta, só os placements escolhidos no construtor saem no Excel —
     // ver filtrarTextoPorPlacementsMeta (sem efeito nos restantes formatos).
-    // valorExcelComRotulosEmNegrito: mesma convenção "Rótulo: valor" a
-    // negrito do construtor (HTML) — ver essa função.
+    // valorExcelComRotulosEmNegrito: pedido explícito da Cláudia — só no
+    // Excel exportado (não na Biblioteca de Formatos/HTML), e só em
+    // Dimensão/Peso/Tipo de Ficheiro — ver essa função.
     valor: (formato, objetivo) => valorExcelComRotulosEmNegrito(filtrarTextoPorPlacementsMeta(formato, objetivo, textoTraduzido(formato, "dimensao") || "")),
   },
   aspectRatio: {
     largura: 14,
     titulo: () => t("colAspectRatio"),
-    valor: (formato, objetivo) => valorExcelComRotulosEmNegrito(filtrarTextoPorPlacementsMeta(formato, objetivo, textoTraduzido(formato, "aspectRatio") || "")),
+    valor: (formato, objetivo) => filtrarTextoPorPlacementsMeta(formato, objetivo, textoTraduzido(formato, "aspectRatio") || ""),
   },
   peso: {
     largura: 16,
@@ -3304,7 +3288,7 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
   copies: {
     largura: 40,
     titulo: () => t("colCopies"),
-    valor: (formato, objetivo) => valorExcelComRotulosEmNegrito(filtrarTextoPorPlacementsMeta(formato, objetivo, textoTraduzido(formato, "copies") || "")),
+    valor: (formato, objetivo) => filtrarTextoPorPlacementsMeta(formato, objetivo, textoTraduzido(formato, "copies") || ""),
   },
   observacoes: {
     largura: 40,
@@ -3315,7 +3299,7 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
     // formato tem "Notas Técnicas" preenchido: aí o texto técnico extenso
     // é que fica reservado à sheet extra, e a nota curta de "Observações"
     // (ex.: a remeter para essa sheet) aparece normalmente aqui.
-    valor: (formato) => valorExcelComRotulosEmNegrito(formato.fornecedor === "OLX" && !formato.notasTecnicas ? "" : textoTraduzido(formato, "observacoes") || ""),
+    valor: (formato) => (formato.fornecedor === "OLX" && !formato.notasTecnicas ? "" : textoTraduzido(formato, "observacoes") || ""),
   },
   link: {
     largura: 40,
@@ -3377,12 +3361,12 @@ const COLUNAS_POR_MEIO_EXCEL = {
 // branco para o utilizador preencher à mão, ou Data de Início/Entrega) —
 // só values genuinamente iguais e preenchidos.
 // Duas células têm o "mesmo" valor, para efeitos de mesclagem, quando são
-// o mesmo texto — ou, no caso de Dimensão/Aspect Ratio/Peso/Tipo de
-// Ficheiro/Copies/Observações (ver valorExcelComRotulosEmNegrito), o mesmo
-// conteúdo { richText }: cada chamada a essa função cria um objeto novo,
-// por isso "===" nunca bastava (duas linhas com o mesmo texto geravam
-// sempre objetos diferentes, e paravam de se fundir apesar de serem
-// visualmente idênticas) — aqui compara-se o conteúdo, não a referência.
+// o mesmo texto — ou, no caso de Dimensão/Peso/Tipo de Ficheiro (ver
+// valorExcelComRotulosEmNegrito), o mesmo conteúdo { richText }: cada
+// chamada a essa função cria um objeto novo, por isso "===" nunca bastava
+// (duas linhas com o mesmo texto geravam sempre objetos diferentes, e
+// paravam de se fundir apesar de serem visualmente idênticas) — aqui
+// compara-se o conteúdo, não a referência.
 function valoresIguaisParaMesclagem(a, b) {
   if (a === b) {
     return true;
@@ -3422,9 +3406,9 @@ function mesclarColunasComValorRepetido(folha, numColunas, linhaInicio, linhaFim
 // real (ver registarLarguraColuna/ajustarLargurasAoConteudo). Um valor
 // pode ser texto simples, um objeto {text, hyperlink} (ex.: a coluna Link
 // ou a Entrega de TV) ou um objeto { richText } (ver
-// valorExcelComRotulosEmNegrito, em Dimensão/Aspect Ratio/Peso/Tipo de
-// Ficheiro/Copies/Observações) — em qualquer um destes casos, olha para o
-// texto lá dentro, não para o objeto todo.
+// valorExcelComRotulosEmNegrito, em Dimensão/Peso/Tipo de Ficheiro) — em
+// qualquer um destes casos, olha para o texto lá dentro, não para o
+// objeto todo.
 function comprimentoValorCelula(valor) {
   let bruto = valor;
   if (valor && typeof valor === "object") {
