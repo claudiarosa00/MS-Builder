@@ -1129,14 +1129,9 @@ function agruparPorPublisher(formatos) {
   const grupos = {};
   for (const formato of formatos) {
     const categoria = categoriaDoFormato(formato);
-    // ehRedeSapo distingue os subpublishers da rede Sapo (ver
-    // subpublisherRedeSapo) dos restantes, para mostrarFormatosAgrupados
-    // saber quando inserir o cabeçalho "SAPO" comum.
-    const subpublisher = subpublisherRedeSapo(formato);
-    const nome = subpublisher ?? formato.fornecedor;
-    const chave = `${nome}\u0000${categoria}`;
+    const chave = `${formato.fornecedor}\u0000${categoria}`;
     if (!grupos[chave]) {
-      grupos[chave] = { nome, categoria, formatos: [], ehRedeSapo: subpublisher !== null };
+      grupos[chave] = { nome: formato.fornecedor, categoria, formatos: [] };
     }
     grupos[chave].formatos.push(formato);
   }
@@ -1249,41 +1244,6 @@ function categoriaDoPublisher(nomePublisher, formatosDoPublisher) {
   return categoriaDoFormato(formatosDoPublisher[0]);
 }
 
-// Alguns publishers de Compra Direta "vivem" dentro da rede de inventário
-// da Sapo — as suas criatividades são sempre trafegadas por ali (ver nota
-// "Todas as criatividades devem ser enviadas para o SAPO..." nas
-// Observações destes formatos). Pedido explícito da Cláudia: em vez de
-// aparecerem espalhados pela lista alfabética normal de Compra Direta,
-// ficam visualmente agrupados debaixo de um cabeçalho "SAPO" comum (ver
-// mostrarFormatosAgrupados), com cada subpublisher por ordem alfabética
-// lá dentro: HBO Max, Outbrain, Sapo, SkyShowtime, Spotify, Teads.
-// Teads tem duas origens na base — os formatos "(Teads)" da própria Sapo
-// (ex.: "Carousel (Teads)") e os formatos CTV com Fornecedor "Teads" — mas
-// juntam-se no mesmo subpublisher "Teads" (idem para Outbrain, sufixo da
-// Sapo). Os restantes fornecedores da Sapo sem sufixo reconhecido (ex.:
-// "(Ad Click)", "(CPC Surf)") continuam no subpublisher "Sapo".
-const SUFIXOS_SUBPUBLISHER_SAPO = [
-  [" (Teads)", "Teads"],
-  [" (Outbrain)", "Outbrain"],
-];
-const FORNECEDORES_REDE_SAPO = new Set(["Sapo", "Teads", "HBO Max", "SkyShowtime", "Spotify"]);
-
-function subpublisherRedeSapo(formato) {
-  if (!FORNECEDORES_REDE_SAPO.has(formato.fornecedor)) {
-    return null;
-  }
-  if (formato.fornecedor === "Sapo") {
-    const nomeFormato = formato.formato || "";
-    for (const [sufixo, subpublisher] of SUFIXOS_SUBPUBLISHER_SAPO) {
-      if (nomeFormato.endsWith(sufixo)) {
-        return subpublisher;
-      }
-    }
-    return "Sapo";
-  }
-  return formato.fornecedor;
-}
-
 // No construtor (opcoes.simplificado), substitui cada grupo de variantes
 // técnicas (ver GRUPOS_FORMATO_VARIANTES — hoje Spot TV SD/HD e
 // Publicidade Cinema 2D/3D) pela sua linha representante, com o nome
@@ -1330,21 +1290,12 @@ function mostrarFormatosAgrupados(contentor, formatos, opcoes) {
   // ORDEM_CATEGORIAS (Social Media, Compra Direta, Google ou Search,
   // Programático, e depois os meios offline — OOH, TV, Rádio, Cinema,
   // Imprensa); dentro de cada categoria, os publishers ficam por ordem
-  // alfabética — exceto os da rede Sapo (ver subpublisherRedeSapo), que
-  // ficam sempre juntos, no sítio alfabético que "Sapo" ocuparia sozinho,
-  // e só entre si é que seguem a ordem alfabética normal (pedido
-  // explícito da Cláudia).
-  const chaveOrdenacaoNomePublisher = (grupo) => (grupo.ehRedeSapo ? "Sapo" : grupo.nome);
+  // alfabética.
   const chavesGrupos = Object.keys(grupos).sort((a, b) => {
     const posicaoA = ORDEM_CATEGORIAS.indexOf(grupos[a].categoria);
     const posicaoB = ORDEM_CATEGORIAS.indexOf(grupos[b].categoria);
     if (posicaoA !== posicaoB) {
       return posicaoA - posicaoB;
-    }
-    const clusterA = chaveOrdenacaoNomePublisher(grupos[a]);
-    const clusterB = chaveOrdenacaoNomePublisher(grupos[b]);
-    if (clusterA !== clusterB) {
-      return clusterA.localeCompare(clusterB, "pt");
     }
     return grupos[a].nome.localeCompare(grupos[b].nome, "pt");
   });
@@ -1358,9 +1309,8 @@ function mostrarFormatosAgrupados(contentor, formatos, opcoes) {
   // outra categoria online.
   let categoriaAnterior = null;
   let grupoOnlineOfflineAnterior = null;
-  let dentroRedeSapo = false;
   for (const chave of chavesGrupos) {
-    const { nome: nomePublisher, categoria, ehRedeSapo } = grupos[chave];
+    const { nome: nomePublisher, categoria } = grupos[chave];
     // Dentro do publisher, as linhas ficam por ordem alfabética — primeiro
     // pelo Veículo (relevante nos publishers com vários, ex.: "Correio da
     // Manhã" ou "TVI"/"CNN Portugal"; nos restantes, onde Veículo = Fornecedor
@@ -1384,16 +1334,6 @@ function mostrarFormatosAgrupados(contentor, formatos, opcoes) {
       }
       contentor.appendChild(criarCabecalhoCategoria(categoria));
       categoriaAnterior = categoria;
-      dentroRedeSapo = false;
-    }
-    // Cabeçalho "SAPO" só uma vez, logo antes do primeiro subpublisher
-    // deste grupo (ver ordenação acima, que os mantém todos juntos) —
-    // dentroRedeSapo evita repeti-lo a cada um dos seis.
-    if (ehRedeSapo && !dentroRedeSapo) {
-      contentor.appendChild(criarCabecalhoSubgrupoPublisher("SAPO"));
-      dentroRedeSapo = true;
-    } else if (!ehRedeSapo) {
-      dentroRedeSapo = false;
     }
     const idPrecisaDeSufixo = contagemPorNome[nomePublisher] > 1;
     contentor.appendChild(criarBlocoPublisher(nomePublisher, formatosDoPublisher, opcoes, idPrecisaDeSufixo));
@@ -1413,17 +1353,6 @@ function criarCabecalhoCategoria(categoria) {
   cabecalho.className = "cabecalho-categoria";
   cabecalho.textContent = t(CHAVE_TRADUCAO_CATEGORIA[categoria]);
   cabecalho.dataset.categoria = categoria;
-  return cabecalho;
-}
-
-// Sub-agrupamento visual dentro de uma categoria (hoje só "SAPO", a juntar
-// os subpublishers Sapo/Teads/HBO Max/SkyShowtime/Outbrain/Spotify em
-// Compra Direta — ver subpublisherRedeSapo) — nome de marca, por isso sem
-// tradução (como "OLX" ou qualquer outro fornecedor).
-function criarCabecalhoSubgrupoPublisher(nome) {
-  const cabecalho = document.createElement("h4");
-  cabecalho.className = "cabecalho-subgrupo-publisher";
-  cabecalho.textContent = nome;
   return cabecalho;
 }
 
