@@ -979,6 +979,14 @@ const CABECALHOS_BASE_EXCEL = {
   "Tipo de Ficheiro": "tipoFicheiro",
   "Copies": "copies",
   "Observações": "observacoes",
+  // Só para formatos com Observações "desdobradas": a nota curta (ex.: a
+  // da OLX a remeter para a sheet extra) fica em "Observações" e aparece
+  // na folha principal; o texto técnico extenso fica aqui e só aparece na
+  // sheet extra do formato (ver escreverFolhaImagemFormato) — pedido
+  // explícito da Cláudia para não sobrecarregar a folha principal com o
+  // texto todo. Formatos sem esta coluna preenchida continuam a mostrar
+  // "Observações" nos dois sítios, como sempre.
+  "Notas Técnicas": "notasTecnicas",
   "Link": "link",
   // Caminho(s) para PNG(s) com o desenho técnico/medidas do formato (ex.:
   // assets/especificacoes-ooh/girodmedias-mupi.png) — opcional, um por
@@ -3105,8 +3113,11 @@ const COLUNAS_EXCEL_DISPONIVEIS = {
     titulo: () => t("colObservacoes"),
     // Pedido explícito da Cláudia: na OLX as notas não saem na coluna de
     // Observações da folha principal — só na sheet extra do formato (ver
-    // escreverFolhaImagemFormato), ao lado da imagem.
-    valor: (formato) => (formato.fornecedor === "OLX" ? "" : textoTraduzido(formato, "observacoes") || ""),
+    // escreverFolhaImagemFormato), ao lado da imagem — EXCETO quando o
+    // formato tem "Notas Técnicas" preenchido: aí o texto técnico extenso
+    // é que fica reservado à sheet extra, e a nota curta de "Observações"
+    // (ex.: a remeter para essa sheet) aparece normalmente aqui.
+    valor: (formato) => (formato.fornecedor === "OLX" && !formato.notasTecnicas ? "" : textoTraduzido(formato, "observacoes") || ""),
   },
   link: {
     largura: 40,
@@ -3862,7 +3873,12 @@ async function escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados) {
     .split("\n")
     .map((caminho) => caminho.trim())
     .filter(Boolean);
-  const textoObservacoes = textoTraduzido(formato, "observacoes");
+  // Formatos com "Notas Técnicas" preenchido (ver CABECALHOS_BASE_EXCEL):
+  // é esse texto técnico extenso que sai aqui, não a nota curta das
+  // Observações (essa já aparece na folha principal — ver
+  // COLUNAS_FORMATO_EXCEL.observacoes). Sem Notas Técnicas, continua a
+  // mostrar Observações, como sempre.
+  const textoObservacoes = textoTraduzido(formato, "notasTecnicas") || textoTraduzido(formato, "observacoes");
   const ehOLX = formato.fornecedor === "OLX";
   // Um formato OLX sem imagem mas com Observações ainda assim ganha esta
   // sheet extra, só para mostrar a nota (que deixou de sair na coluna de
@@ -3986,7 +4002,7 @@ async function escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados) {
 async function escreverFolhasImagensExtra(workbook, grupoMeio) {
   const nomesSheetUsados = new Set(workbook.worksheets.map((folha) => folha.name.toLowerCase()));
   const formatosComImagem = formatosSelecionadosDoMeio(grupoMeio)
-    .filter((formato) => formato.imagemFicheiro || (formato.fornecedor === "OLX" && textoTraduzido(formato, "observacoes")))
+    .filter((formato) => formato.imagemFicheiro || (formato.fornecedor === "OLX" && (textoTraduzido(formato, "observacoes") || formato.notasTecnicas)))
     .sort((a, b) => (textoTraduzido(a, "formato") ?? "").localeCompare(textoTraduzido(b, "formato") ?? "", "pt"));
   for (const formato of formatosComImagem) {
     await escreverFolhaImagemFormato(workbook, formato, nomesSheetUsados);
